@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Oeuvreart
+ *
+ * @ORM\Table(name="oeuvreart", indexes={@ORM\Index(name="fk_categorie_id", columns={"id_categorie"}), @ORM\Index(name="fk_id_artiste", columns={"id_artiste"})})
+ * @ORM\Entity
+ */
+class Oeuvreart
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idOeuvreArt", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idoeuvreart;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
+     */
+    private $titre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=0, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prixVente", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $prixvente;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=255, nullable=false)
+     */
+    private $status;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAjout", type="date", nullable=false)
+     */
+    private $dateajout;
+
+    /**
+     * @var \Categorie
+     *
+     * @ORM\ManyToOne(targetEntity="Categorie")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="idCategorie")
+     * })
+     */
+    private $idCategorie;
+
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_artiste", referencedColumnName="id")
+     * })
+     */
+    private $idArtiste;
+
+
+}
