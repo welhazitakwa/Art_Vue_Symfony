@@ -27,6 +27,29 @@ class Categorie
      * @ORM\Column(name="nomCategorie", type="string", length=255, nullable=false)
      */
     private $nomcategorie;
+    public function getIdcategorie(): ?int
+    {
+        return $this->idcategorie;
+    }
+
+    public function setIdcategorie(int $idcategorie): self
+    {
+        $this->idcategorie = $idcategorie;
+
+        return $this;
+    }
+
+    public function getNomcategorie(): ?string
+    {
+        return $this->nomcategorie;
+    }
+
+    public function setNomcategorie(string $nomcategorie): self
+    {
+        $this->nomcategorie = $nomcategorie;
+
+        return $this;
+    }
 
 
 }

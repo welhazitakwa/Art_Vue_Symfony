@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idcategorie</th>
+                <td>{{ categorie.idcategorie }}</td>
+            </tr>
+            <tr>
+                <th>Nomcategorie</th>
+                <td>{{ categorie.nomcategorie }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+   <button onclick="window.location='{{ path('app_categorie_index') }}'" class="btn btn-secondary">Back to list</button>
+   <button onclick="window.location='{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Edit</button>
+   <form method="post" action="{{ path('app_categorie_delete', {'idcategorie': categorie.idcategorie}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.idcategorie) }}">
+    <button class="btn">Delete</button>
+   </form>
+
+{% endblock %}

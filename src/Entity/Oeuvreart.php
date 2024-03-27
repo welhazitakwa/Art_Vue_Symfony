@@ -83,5 +83,99 @@ class Oeuvreart
      */
     private $idArtiste;
 
+    public function getIdoeuvreart(): ?int
+    {
+        return $this->idoeuvreart;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getPrixvente(): ?float
+    {
+        return $this->prixvente;
+    }
+
+    public function setPrixvente(float $prixvente): self
+    {
+        $this->prixvente = $prixvente;
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getDateajout(): ?\DateTimeInterface
+    {
+        return $this->dateajout;
+    }
+
+    public function setDateajout(\DateTimeInterface $dateajout): self
+    {
+        $this->dateajout = $dateajout;
+        return $this;
+    }
+
+    public function getIdCategorie(): ?Categorie
+    {
+        return $this->idCategorie;
+    }
+
+    public function setIdCategorie(?Categorie $idCategorie): self
+    {
+        $this->idCategorie = $idCategorie;
+        return $this;
+    }
+
+    public function getIdArtiste(): ?Utilisateur
+    {
+        return $this->idArtiste;
+    }
+
+    public function setIdArtiste(?Utilisateur $idArtiste): self
+    {
+        $this->idArtiste = $idArtiste;
+        return $this;
+    }
+    
+
 
 }

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Oeuvreart index{% endblock %}
+
+{% block body %}
+    <h1>Oeuvreart index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Idoeuvreart</th>
+                <th>Image</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prixvente</th>
+                <th>Status</th>
+                <th>Dateajout</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for oeuvreart in oeuvrearts %}
+            <tr>
+                <td>{{ oeuvreart.idoeuvreart }}</td>
+                <td>{{ oeuvreart.image }}</td>
+                <td>{{ oeuvreart.titre }}</td>
+                <td>{{ oeuvreart.description }}</td>
+                <td>{{ oeuvreart.prixvente }}</td>
+                <td>{{ oeuvreart.status }}</td>
+                <td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">show</a>
+                    <a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_oeuvreart_new') }}">Create new</a>
+{% endblock %}
