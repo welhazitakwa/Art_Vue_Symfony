@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/oeuvreart')]
 class OeuvreartController extends AbstractController
 {
-   /* #[Route('/', name: 'app_oeuvreart_index', methods: ['GET'])]
+    #[Route('/', name: 'app_oeuvreart_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $oeuvrearts = $entityManager
@@ -82,5 +82,5 @@ class OeuvreartController extends AbstractController
         }
 
         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-    }  */
+    }  
 }
