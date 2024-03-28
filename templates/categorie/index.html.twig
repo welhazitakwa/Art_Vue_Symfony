@@ -2,40 +2,91 @@
 
 {% block title %}Categorie index{% endblock %}
 
+
+
 {% block body %}
-    <h1>Categorie index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Idcategorie</th>
-                <th>Nomcategorie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td>{{ categorie.idcategorie }}</td>
-                <td>{{ categorie.nomcategorie }}</td>
-                <td>
-                    <button onclick="window.location='{{ path('app_categorie_show', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Show</button>
-                    <button onclick="window.location='{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Edit</button>
-                    <form method="post" action="{{ path('app_categorie_delete', {'idcategorie': categorie.idcategorie}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.idcategorie) }}">
-                        <button class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
+		<div class="sub-title">
+			<h4>Catégorie:</h4>
+			<span>Gérer les catégories des œuvres d'art acceptées</span>
+		</div>
+		<ul class="bread-crumb">
+			<li>
+				<a href="#" title="">Home</a>
+			</li>
+			<li>Galerie</li>
+			<li>Catégorie</li>
+		</ul>
+	</div>
+<div class="card" style="max-width: 400px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 8px; margin-bottom: 20px;margin-left: 20px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <div class="card-body" style="padding: 20px;">
+        <h5 class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;">Nombre des catégories :</h5>
+        <p class="card-text" style="font-size: 18px; color: #666;">
+            <img src="/TemplateAdmin/images/categorie.png" alt="Modifier" style="width: 24px; height: 24px; margin-right: 10px; vertical-align: middle;">
+            <span>{{ categoriesCount }}</span> catégories.
+        </p>
+    </div>
+</div>
 
-    <a href="{{ path('app_categorie_new') }}">Create new</a>
-    <h1>Nombre de catégories</h1>
-    <p>Il y a {{ categoriesCount }} catégories.</p>
+
+
+	<!--<div>
+        <div >
+            <h5 class="card-title">Nombre de catégories</h5>
+            <p class="card-text">
+                <img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 24px; height: 24px;">
+                <span>{{ categoriesCount }}</span> catégories.
+            </p>
+        </div>
+    </div>-->
+
+
+	<div class="widget">
+		<div class="widget-title no-margin">
+			<h4>Catégorie</h4>
+			<span>Les catégories des oeuvre d'art accepté</span>
+			<ul class="widget-controls">
+				<li title="Ajouter nouveau catégorie" class="refresh-content">
+					<a href="{{ path('app_categorie_new') }}"><img src="/TemplateAdmin/images/plus.png" style="width: 25px; height: 25px;" alt="Ajouter Catégorie">
+						Ajouter Catégorie</a>
+				</li>
+			</ul>
+		</div>
+
+		<table class="prj-tbl bordered table-responsive">
+			<thead>
+				<tr>
+					<th>Id du catégorie</th>
+					<th>Nom du catégorie</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for categorie in categories %}
+					<tr>
+						<td>{{ categorie.idcategorie }}</td>
+						<td>{{ categorie.nomcategorie }}</td>
+						<td>
+							<ul>
+								<li>
+									<a href="{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}" class="edit-btn">
+										<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 24px; height: 24px;">
+									</a>
+								</li>
+								<li>
+									{{ include('categorie/_delete_form.html.twig') }}
+								</li>
+							</ul>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 {% endblock %}
