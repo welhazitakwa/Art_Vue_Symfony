@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,25 +36,80 @@ class Commentaire
      */
     private $dateCommentaire;
 
-    /**
-     * @var \Oeuvreart
+
+
+
+ /**
+     * @var \Oeuvreart | null
      *
      * @ORM\ManyToOne(targetEntity="Oeuvreart")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="oeuvre_id", referencedColumnName="idOeuvreArt")
      * })
      */
+
     private $oeuvre;
 
     /**
-     * @var \Utilisateur
+     * @var \Utilisateur | null
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client_id", referencedColumnName="id")
-     * })
+     * @ORM\JoinColumns({@ORM\JoinColumn(name="client_id", referencedColumnName="id")})
      */
     private $client;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): static
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getDateCommentaire(): ?\DateTimeInterface
+    {
+        return $this->dateCommentaire;
+    }
+
+    public function setDateCommentaire(?\DateTimeInterface $dateCommentaire): static
+    {
+        $this->dateCommentaire = $dateCommentaire;
+
+        return $this;
+    }
+
+    public function getOeuvre(): ?Oeuvreart
+    {
+        return $this->oeuvre;
+    }
+
+    public function setOeuvre(?Oeuvreart $oeuvre): static
+    {
+        $this->oeuvre = $oeuvre;
+
+        return $this;
+    }
+
+    public function getClient(): ?Utilisateur
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Utilisateur $client): static
+    {
+        $this->client = $client;
+
+        return $this;
+    }
 
 
 }
