@@ -19,13 +19,13 @@
                 <td>{{ categorie.idcategorie }}</td>
                 <td>{{ categorie.nomcategorie }}</td>
                 <td>
-    <button onclick="window.location='{{ path('app_categorie_show', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Show</button>
-    <button onclick="window.location='{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Edit</button>
-    <form method="post" action="{{ path('app_categorie_delete', {'idcategorie': categorie.idcategorie}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');">
-        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.idcategorie) }}">
-        <button class="btn btn-danger">Delete</button>
-    </form>
-</td>
+                    <button onclick="window.location='{{ path('app_categorie_show', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Show</button>
+                    <button onclick="window.location='{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}'" class="btn btn-primary">Edit</button>
+                    <form method="post" action="{{ path('app_categorie_delete', {'idcategorie': categorie.idcategorie}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.idcategorie) }}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         {% else %}
             <tr>

@@ -2,7 +2,7 @@
 
 {% block title %}Oeuvreart index{% endblock %}
 
-{% block body %}
+{% block panelBody %}
     <h1>Oeuvreart index</h1>
 
     <table class="table">
@@ -15,7 +15,9 @@
                 <th>Prixvente</th>
                 <th>Status</th>
                 <th>Dateajout</th>
-                <th>actions</th>
+                <th>Catégorie</th>
+                <th>Artiste</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +30,8 @@
                 <td>{{ oeuvreart.prixvente }}</td>
                 <td>{{ oeuvreart.status }}</td>
                 <td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
+                <td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
+                <td>{{ oeuvreart.idArtiste.nom }}</td>
                 <td>
                     <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">show</a>
                     <a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">edit</a>
@@ -35,7 +39,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="10">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

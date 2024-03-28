@@ -64,7 +64,7 @@ class Oeuvreart
     private $dateajout;
 
     /**
-     * @var \Categorie
+     * @var \Categorie|null
      *
      * @ORM\ManyToOne(targetEntity="Categorie")
      * @ORM\JoinColumns({
@@ -74,7 +74,7 @@ class Oeuvreart
     private $idCategorie;
 
     /**
-     * @var \Utilisateur
+     * @var \Utilisateur|null
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
@@ -175,7 +175,4 @@ class Oeuvreart
         $this->idArtiste = $idArtiste;
         return $this;
     }
-    
-
-
 }
