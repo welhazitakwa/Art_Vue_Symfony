@@ -34,20 +34,20 @@
         <div class="admin-lock vh100"> 
           <div class="admin-form">
             <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
-            <h4>Sign Up Account</h4>
-            <span>Please enter your user information</span>
+            <h4>Formulaire d'inscription</h4>
+            <span> Remplir le formulaire d'inscription</span>
             <form method="post">
               <label><i class="fa fa-user-circle-o"></i></label>
-              <input type="text" placeholder="Complete Name">
+              <input type="text" placeholder="Login">
               <label><i class="fa fa-envelope"></i></label>
-              <input type="text" placeholder="Email Address">
+              <input type="email" placeholder="Email ">
               <label><i class="fa fa-unlock-alt"></i></label>
-              <input type="text" placeholder="Password">
+              <input type="password" placeholder="Mot De Passe">
               <label><i class="fa fa-unlock-alt"></i></label>
-              <input type="text" placeholder="Confirm Password">
-              <input type="checkbox" id="checkbox">
-              <label for="checkbox">I accept the <a href="#" title="">terms & Conditions</a></label>
-              <button type="submit">sign up</button>
+              <input type="password" placeholder="Confirmer Mot De Passe">
+              
+              
+              <button type="submit"><h4 style="color: #f0edea;"> <b> S'inscrire </b> </h4></button>
             </form>
 <span>Vous avez déjà un compte? &nbsp;&nbsp;&nbsp; <b> <a style="color: #412927;" 
             href="{{path('login_user')}}" 
