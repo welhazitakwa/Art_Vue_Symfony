@@ -13,7 +13,7 @@
 		</div>
 		<ul class="bread-crumb">
 			<li>
-				<a href="#" title="">Home</a>
+				<a href="{{ path('app_home') }}" title="">Home</a>
 			</li>
 			<li>Galerie</li>
 			<li>Catégorie</li>
@@ -28,22 +28,8 @@
         </p>
     </div>
 </div>
-
-
-
-	<!--<div>
-        <div >
-            <h5 class="card-title">Nombre de catégories</h5>
-            <p class="card-text">
-                <img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 24px; height: 24px;">
-                <span>{{ categoriesCount }}</span> catégories.
-            </p>
-        </div>
-    </div>-->
-
-
 	<div class="widget">
-		<div class="widget-title no-margin">
+		<div class="widget-title no-margin" >
 			<h4>Catégorie</h4>
 			<span>Les catégories des oeuvre d'art accepté</span>
 			<ul class="widget-controls">
@@ -54,7 +40,7 @@
 			</ul>
 		</div>
 
-		<table class="prj-tbl bordered table-responsive">
+		<table class="prj-tbl bordered table-responsive" >
 			<thead>
 				<tr>
 					<th>Id du catégorie</th>

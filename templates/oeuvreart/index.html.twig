@@ -2,21 +2,37 @@
 
 {% block title %}Oeuvreart index{% endblock %}
 
-{% block panelBody %}
-    <h1>Oeuvreart index</h1>
+{% block body %}
+<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
+		<div class="sub-title">
+			<h4>Oeuvre d'art:</h4>
+			<span>Les oeuvres d'art ajoutées</span>
+		</div>
+		<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+			<li>Galerie</li>
+			<li>Oeuvre d'art</li>
+		</ul>
+	</div>
 
-    <table class="table">
+    <div class="widget-title no-margin" >
+			<h4>Oeuvre d'art</h4>
+			
+	</div>
+
+    <table class="prj-tbl bordered table-responsive">
         <thead>
             <tr>
-                <th>Idoeuvreart</th>
-                <th>Image</th>
+                <th>Id</th>
+                <th class="image-column">Image</th>
                 <th>Titre</th>
-                <th>Description</th>
+                <th style="width: 300px;">Description</th> <!-- Définir la largeur de la colonne de description -->
                 <th>Prixvente</th>
                 <th>Status</th>
                 <th>Dateajout</th>
                 <th>Catégorie</th>
-                <th>Artiste</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,18 +40,27 @@
         {% for oeuvreart in oeuvrearts %}
             <tr>
                 <td>{{ oeuvreart.idoeuvreart }}</td>
-                <td>{{ oeuvreart.image }}</td>
+                <td><img src="/TemplateAdmin/images/peinture.jpg" alt="Image" style="max-width: 80px;"></td>
                 <td>{{ oeuvreart.titre }}</td>
                 <td>{{ oeuvreart.description }}</td>
                 <td>{{ oeuvreart.prixvente }}</td>
                 <td>{{ oeuvreart.status }}</td>
                 <td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
                 <td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
-                <td>{{ oeuvreart.idArtiste.nom }}</td>
                 <td>
-                    <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">show</a>
-                    <a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">edit</a>
-                </td>
+							<ul>
+                                <li>
+									<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
+										<img src="/TemplateAdmin/images/trouve.png" alt="Modifier" style="width: 24px; height: 24px;">
+									</a>
+								</li>
+				
+								<li>
+									{{ include('oeuvreart/_delete_form.html.twig') }}
+								</li>
+							</ul>
+						</td>
+    
             </tr>
         {% else %}
             <tr>
