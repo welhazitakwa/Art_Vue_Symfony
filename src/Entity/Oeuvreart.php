@@ -54,7 +54,7 @@ class Oeuvreart
      *
      * @ORM\Column(name="status", type="string", length=255, nullable=false)
      */
-    private $status;
+    private $status= 'Disponible';
 
     /**
      * @var \DateTime
@@ -93,7 +93,7 @@ class Oeuvreart
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string $image): static
     {
         $this->image = $image;
         return $this;
@@ -104,7 +104,7 @@ class Oeuvreart
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre(string $titre): static
     {
         $this->titre = $titre;
         return $this;
@@ -115,7 +115,7 @@ class Oeuvreart
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $description): static
     {
         $this->description = $description;
         return $this;
@@ -126,7 +126,7 @@ class Oeuvreart
         return $this->prixvente;
     }
 
-    public function setPrixvente(float $prixvente): self
+    public function setPrixvente(float $prixvente): static
     {
         $this->prixvente = $prixvente;
         return $this;
@@ -137,7 +137,7 @@ class Oeuvreart
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(string $status): static
     {
         $this->status = $status;
         return $this;
@@ -148,7 +148,7 @@ class Oeuvreart
         return $this->dateajout;
     }
 
-    public function setDateajout(\DateTimeInterface $dateajout): self
+    public function setDateajout(\DateTimeInterface $dateajout): static
     {
         $this->dateajout = $dateajout;
         return $this;
@@ -159,7 +159,7 @@ class Oeuvreart
         return $this->idCategorie;
     }
 
-    public function setIdCategorie(?Categorie $idCategorie): self
+    public function setIdCategorie(?Categorie $idCategorie): static
     {
         $this->idCategorie = $idCategorie;
         return $this;
@@ -170,7 +170,7 @@ class Oeuvreart
         return $this->idArtiste;
     }
 
-    public function setIdArtiste(?Utilisateur $idArtiste): self
+    public function setIdArtiste(?Utilisateur $idArtiste): static
     {
         $this->idArtiste = $idArtiste;
         return $this;
