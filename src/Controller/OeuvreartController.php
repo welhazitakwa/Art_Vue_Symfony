@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Utilisateur;
 
 #[Route('/oeuvreart')]
 class OeuvreartController extends AbstractController
@@ -26,24 +27,39 @@ class OeuvreartController extends AbstractController
     }
 
     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $oeuvreart = new Oeuvreart();
-        $form = $this->createForm(OeuvreartType::class, $oeuvreart);
-        $form->handleRequest($request);
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
+    // Création d'une instance de l'entité Oeuvreart
+    $oeuvreart = new Oeuvreart();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($oeuvreart);
-            $entityManager->flush();
+    // Définition de l'ID utilisateur statique (remplacez 1 par l'ID de l'utilisateur statique)
+    $userId = 14;
 
-            return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-        }
+    // Récupération de l'utilisateur statique depuis la base de données
+    $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
 
-        return $this->renderForm('oeuvreart/new.html.twig', [
-            'oeuvreart' => $oeuvreart,
-            'form' => $form,
-        ]);
+    // Affectation de l'utilisateur à l'oeuvre d'art
+    $oeuvreart->setIdArtiste($user);
+
+    // Création du formulaire
+    $form = $this->createForm(OeuvreartType::class, $oeuvreart);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Persister l'entité Oeuvreart
+        $entityManager->persist($oeuvreart);
+        $entityManager->flush();
+
+        // Redirection vers la page d'index des œuvres d'art
+        return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // Affichage du formulaire
+    return $this->renderForm('oeuvreart/new.html.twig', [
+        'oeuvreart' => $oeuvreart,
+        'form' => $form,
+    ]);
+}
 
 
     

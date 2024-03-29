@@ -17,11 +17,17 @@
 		</ul>
 	</div>
 
-    <div class="widget-title no-margin" >
+<div class="widget">
+		<div class="widget-title no-margin" >
 			<h4>Oeuvre d'art</h4>
-			
-	</div>
-
+			<span>Les oeuvre d'art accepté</span>
+			<ul class="widget-controls">
+				<li title="Ajouter nouveau catégorie" class="refresh-content">
+					<a href="{{ path('app_oeuvreart_new') }}"><img src="/TemplateAdmin/images/plus.png" style="width: 25px; height: 25px;" alt="Ajouter Catégorie">
+						Ajouter Oeuvre d'art</a>
+				</li>
+			</ul>
+		</div>
     <table class="prj-tbl bordered table-responsive">
         <thead>
             <tr>
@@ -69,6 +75,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+     </div>
     <a href="{{ path('app_oeuvreart_new') }}">Create new</a>
 {% endblock %}
