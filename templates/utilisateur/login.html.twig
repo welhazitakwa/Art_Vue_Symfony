@@ -33,18 +33,18 @@
           <div class="admin-form" >
 			  <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
             <h4>Se Connecter</h4>
-            <span>Please enter your user information</span>
+            <span>Connecter vous pour continuer</span>
             <form method="post">
-              <label><i class="fa fa-envelope"></i></label>
-              <input type="text" placeholder="Email Address">
+              <label><i class="fa fa-user"></i></label>
+              <input type="text" placeholder="login">
               <label><i class="fa fa-unlock-alt"></i></label>
-              <input type="text" placeholder="Password">
-              <input type="checkbox" id="remember">
-              <label for="remember">Remember Me 
-              <a href="#" title="">Forgot password?</a></label>
-              <button type="submit">sign in</button>
+              <input type="password" placeholder="Mot De Passe">
+              {# <input type="checkbox" id="remember"> #}
+              <label for="remember">{#  Remember Me  #}
+              <a href="#" title="">Mot de passe oublié?</a></label>
+              <button type="submit"> <h4 style="color: #f0edea;"> <b> Se Connecter </b> </h4> </button>
             </form>
-            <span>Don't have an account? &nbsp;&nbsp;&nbsp; <b> <a style="color: #412927;" 
+            <span>Vous n'avez pas un compte ? &nbsp;&nbsp;&nbsp; <b> <a style="color: #412927;" 
             href="{{path('registre_user')}}" 
             title="">S'inscrire</a> </b>  </span> </div>
         </div>
