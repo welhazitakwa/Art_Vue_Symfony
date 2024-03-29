@@ -16,5 +16,18 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    
+    #[Route('/login', name: 'login_user')]
+    public function list ():Response{
+       
+        return $this->render('Utilisateur/login.html.twig', [
+            
+        ]);
+        
+    }
+
+
+
+
+
+
 }
