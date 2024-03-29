@@ -17,9 +17,17 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/login', name: 'login_user')]
-    public function list ():Response{
+    public function login ():Response{
        
         return $this->render('Utilisateur/login.html.twig', [
+            
+        ]);
+        
+    }
+    #[Route('/registre', name: 'registre_user')]
+    public function registre ():Response{
+       
+        return $this->render('Utilisateur/registre.html.twig', [
             
         ]);
         
