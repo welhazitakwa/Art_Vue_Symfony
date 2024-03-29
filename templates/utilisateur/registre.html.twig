@@ -18,7 +18,27 @@
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
 {% endblock %}
+<style>
+        .radio-group {
+            display: flex;
+        }
 
+        .radio-group label {
+            display: flex;
+            align-items: center; /* Alignement vertical */
+            margin-right: 20px; /* Espacement entre les boutons radio */
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right:50px; /* Espacement entre le bouton radio et le texte */
+             
+        }
+        .NP{ display: flex;}
+        .inline-text {
+    white-space: nowrap;
+    font-size : 16px;
+}
+    </style>
 </head>
 <body>
 <!-- Start Page Loading -->
@@ -33,10 +53,36 @@
       <div class="col-md-12">
         <div class="admin-lock vh100"> 
           <div class="admin-form">
-            <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
+            <div class="logo">
+            <img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS">
+            </div>
             <h4>Formulaire d'inscription</h4>
             <span> Remplir le formulaire d'inscription</span>
             <form method="post">
+              {# <div class="col-md-12">
+							  <label>Status</label>
+							  <input type="radio" name="status">
+							  <label>Published</label>
+							  <input type="radio" name="status">
+							 </div>  #}
+               
+                    <div class="radio-group">
+                    <label class="inline-text">Je suis un client</label>
+							      <input type="radio" name="status">
+							      <label class="inline-text">Je suis un artiste</label>
+							      <input type="radio" name="status">                     
+                    </div>
+              <div   class="NP">
+              <div >
+							  <label> </label>
+							  <input  type="text" placeholder="Prenom">
+							</div>
+							<div >
+							  <label ></label>
+							  <input  type="text" placeholder="Nom">
+							</div>
+            </div>
+
               <label><i class="fa fa-user-circle-o"></i></label>
               <input type="text" placeholder="Login">
               <label><i class="fa fa-envelope"></i></label>
