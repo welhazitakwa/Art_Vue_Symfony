@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier index{% endblock %}
+
+{% block body %}
+
+<div>        
+<h1>Listes des paniers</h1>
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+             
+                <th>Id du Client</th>
+        
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for panier in paniers %}
+            <tr>
+                <td>{{ panier.id }}</td>
+                <td>{{ panier.client.id }}</td>
+
+
+                <td>
+                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">Afficher</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucun panier</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_panier_new') }}">Creer panier</a>
+{% endblock %}

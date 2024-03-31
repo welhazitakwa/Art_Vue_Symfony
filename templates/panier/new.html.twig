@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Panier{% endblock %}
+
+{% block body %}
+    <h1>Create new Panier</h1>
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+    {{ include('panier/_form.html.twig') }}
+
+    <a href="{{ path('app_panier_index') }}">Retour à la liste des paniers</a>
+{% endblock %}

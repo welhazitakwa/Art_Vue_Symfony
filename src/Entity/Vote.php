@@ -58,5 +58,58 @@ class Vote
      */
     private $user;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getNote(): ?int
+    {
+        return $this->note;
+    }
+
+    public function setNote(int $note): static
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    public function getOeuvre(): ?Oeuvreart
+    {
+        return $this->oeuvre;
+    }
+
+    public function setOeuvre(?Oeuvreart $oeuvre): static
+    {
+        $this->oeuvre = $oeuvre;
+
+        return $this;
+    }
+
+    public function getConcours(): ?Concours
+    {
+        return $this->concours;
+    }
+
+    public function setConcours(?Concours $concours): static
+    {
+        $this->concours = $concours;
+
+        return $this;
+    }
+
+    public function getUser(): ?Utilisateur
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Utilisateur $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
 
 }

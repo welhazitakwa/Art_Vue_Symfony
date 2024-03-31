@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    <h1>Panier</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ panier.id }}</td>
+            </tr>
+            <tr>
+                <th>Dateajout</th>
+                <td>{{ panier.dateajout ? panier.dateajout|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+           <tr>
+                <th> Id du Client</th>
+                <td>{{ panier.client.id }}</td>
+            </tr>
+              <tr>
+                <th>Client</th>
+                <td>{{ panier.client.nom }}</td>
+                                <td>{{ panier.client.prenom }}</td>
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_panier_index') }}">retour à la liste des paniers </a>
+
+
+{% endblock %}

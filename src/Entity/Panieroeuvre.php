@@ -48,5 +48,46 @@ class Panieroeuvre
      */
     private $idPanier;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(int $quantite): static
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    public function getIdOeuvre(): ?Oeuvreart
+    {
+        return $this->idOeuvre;
+    }
+
+    public function setIdOeuvre(?Oeuvreart $idOeuvre): static
+    {
+        $this->idOeuvre = $idOeuvre;
+
+        return $this;
+    }
+
+    public function getIdPanier(): ?Panier
+    {
+        return $this->idPanier;
+    }
+
+    public function setIdPanier(?Panier $idPanier): static
+    {
+        $this->idPanier = $idPanier;
+
+        return $this;
+    }
+
 
 }

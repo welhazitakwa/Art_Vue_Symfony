@@ -41,5 +41,34 @@ class OeuvreConcours
      */
     private $idOeuvre;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdConcours(): ?Concours
+    {
+        return $this->idConcours;
+    }
+
+    public function setIdConcours(?Concours $idConcours): static
+    {
+        $this->idConcours = $idConcours;
+
+        return $this;
+    }
+
+    public function getIdOeuvre(): ?Oeuvreart
+    {
+        return $this->idOeuvre;
+    }
+
+    public function setIdOeuvre(?Oeuvreart $idOeuvre): static
+    {
+        $this->idOeuvre = $idOeuvre;
+
+        return $this;
+    }
+
 
 }

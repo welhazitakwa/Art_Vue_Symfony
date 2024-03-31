@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block body %}
+    <h1>Liste des commandes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.etat }}</td>
+                <td>
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">Détails</a>
+                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">Modifier</a>
+
+
+                </td>
+                <td> {{ include('commande/_delete_form.html.twig', {'button_label': 'Supprimer'}) }} </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune commande</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_commande_new') }}">Create new</a>
+{% endblock %}
