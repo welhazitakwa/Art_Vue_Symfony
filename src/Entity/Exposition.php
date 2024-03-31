@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Categorie;
 
 /**
  * Exposition
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Exposition
 {
+
     /**
      * @var int
      *
