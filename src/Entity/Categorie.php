@@ -32,7 +32,7 @@ class Categorie
         return $this->idcategorie;
     }
 
-    public function setIdcategorie(int $idcategorie): self
+    public function setIdcategorie(int $idcategorie): static
     {
         $this->idcategorie = $idcategorie;
 
@@ -44,7 +44,7 @@ class Categorie
         return $this->nomcategorie;
     }
 
-    public function setNomcategorie(string $nomcategorie): self
+    public function setNomcategorie(string $nomcategorie): static
     {
         $this->nomcategorie = $nomcategorie;
 

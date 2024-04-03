@@ -12,6 +12,53 @@
 
     {% block css%}
 
+    <!--Css Nourhen zedetou  -->
+    <style>
+	.table tr,
+	.table th,
+	.table td {
+		background-color: transparent;
+	}
+
+	
+
+	
+
+	#form-container {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 50px;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+
+}
+
+     .admin-form-button {
+        background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #dbc2ad 0%, #e09f74 100%) repeat scroll 0 0;
+        border: medium none;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        margin-top: 20px;
+        padding: 13px 0;
+        text-transform: uppercase;
+        width: 25%; 
+        transition: all 0.2s linear 0s;
+        border-radius: 30px;
+        margin: auto;
+        display: block;
+    }
+
+    .admin-form-button:hover {
+        background: #333;
+    }
+</style>
+
+<!--Css Nourhen youfa  -->
+
+
     <link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
@@ -21,10 +68,13 @@
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
     <!-- calander -->
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+
 
     {% endblock %}
 </head>
@@ -858,6 +908,7 @@
 
 
     <script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
