@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
-    #[Route('/', name: 'app_utilisateur_index', methods: ['GET'])]
+    #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
         return $this->render('utilisateur/index.html.twig', [
