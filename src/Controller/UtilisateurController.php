@@ -6,6 +6,7 @@ use App\Entity\Utilisateur;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,23 @@ class UtilisateurController extends AbstractController
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurRepository->findAll(),
         ]);
+    }
+
+    #[Route('/login', name: 'login_user')]
+    public function login ():Response{
+       
+        return $this->render('utilisateur/login.html.twig', [
+            
+        ]);
+        
+    }
+    #[Route('/registre', name: 'registre_user')]
+    public function registre ():Response{
+       
+        return $this->render('utilisateur/registre.html.twig', [
+            
+        ]);
+        
     }
 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
@@ -68,14 +86,14 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_utilisateur_delete', methods: ['POST'])]
-    public function delete(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$utilisateur->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($utilisateur);
-            $entityManager->flush();
-        }
+    #[Route('/delete/{id}', name:"utilisateurDelete")]
+    public function deleteUtilisateur (ManagerRegistry $doctrine , $id, UtilisateurRepository $utilisateurRepo) : Response {
+        $em = $doctrine->getManager();
+        $utilisateurDel= $utilisateurRepo->find($id);
+        $em->remove($utilisateurDel);
+        $em->flush();
 
-        return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute("listUtilisateur");
     }
+
 }

@@ -1,61 +1,141 @@
+  {# {% for a in utilisateurs %}
+       {{ a.id }}      
+  {% endfor %}  #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur index{% endblock %}
-
+{% block title %}Utilisateurs{% endblock %}
 {% block body %}
-    <h1>Utilisateur index</h1>
+ 
+<div class="panel-body">
+                                <div class="content-area">
+                                    <div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des utilisateurs </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="#" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Dashbord</li>
+                                        </ul>
+                                    </div>
+                                    <div class="info-section">
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta">
+                                                <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Sales Earnings</span>
+                                                    <h4><ins>$</ins>0.00</h4>
+                                                    <i>10%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-6.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>total sales</span>
+                                                    <h4>4512</h4>
+                                                    <i>20%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_three"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-8.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Today's Visits</span>
+                                                    <h4>158</h4>
+                                                    <i>30%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline22"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget">
+                                        <div class="widget-title no-margin">
+                                            <h4>Liste des utilisateurs</h4>
+                                            <ul class="widget-controls">
+                                                <li class="refresh-content" title="Refresh"><i class="fa fa-refresh"></i></li>
+                                                <li class="expand-content" title="Maximize"><i class="icon-frame"></i></li>
+                                                <li class="more-option" title="More Options"><i class="ti-more-alt"></i></li>
+                                            </ul>
+                                            <div class="more-optn">
+                                                <ul>
+                                                    <li><a href="#" title="">option 1</a></li>
+                                                    <li><a href="#" title="">option 2</a></li>
+                                                    <li><a href="#" title="">option 3</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="main-table">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom & Prenom</th>
+                                                        <th>Cordonnées</th>
+                                                        <th>Téléphone</th>
+                                                        <th>CIN</th>
+                                                        <th>Age</th>
+                                                        <th>Membre depuis</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>{% for u in utilisateurs %}
+                                                {% if u.profil  != 0 %}
+                                                    <tr> 
+                                                    <td>
+                                                    <div class="owner-pic"> <img src="{{ asset('TemplateAdmin/images/resources/owner.jpg') }}" alt=""> 
+                                                    </div><div class="owner-info">
+                                                    <h6>{{ u.nom }} {{u.prenom}} </h6>
+                                                    <span> 
+                                              {% if u.genre is not null %}
+                                              {% if u.genre == "Femme"%}
+                                              <i class="fa fa-female"></i> &nbsp; {{ u.genre }}
+                                              {% else %} <i class="fa fa-male"></i> &nbsp; {{ u.genre }} {% endif %}
+                                              {% else %} Non disponible {% endif %}
+                                                     </span> </div> </td>
+                                                   
+                                                        <td> <div >    
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-envelope-o"></i> &nbsp; {{ u.email }}</span> <br/>        
+                        <span><i class="fa  fa-key"></i> &nbsp; {{ u.login }} </span>        
+                                                        </td>
+                                                        <td> 
+                                                        <div >     
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-home"></i> &nbsp;  {{ u.adresse }}</span>  <br />        
+                        <span><i class="fa  fa-phone"></i> &nbsp; {{ u.numTel }} </span> 
+                                            </td>
+                                            <td><span > {{u.cin}} </span></td>
+                                            <td><span > 
+                                             {% if u.dateNaissance is not null %}
+                                             {% set aujourdhui = date('now') %}
+                                             {% set age = aujourdhui.diff(u.dateNaissance).y %}
+                                             {{ age }}
+                                             {% else %} Non disponible {% endif %}</span></td>
+                                             <td> {{ u.dateInscription | date('y-m-d')}} </td>
+                                            <td>
+                                                    
+             <a href="{{ path('utilisateurDelete', {'id': u.id}) }}" class="del-btn"  onclick="return confirm('Êtes-vous sûr de vouloir supprimer {{u.Nom}} {{u.prenom }} ?')"><i     class="icon-trash" style="color:red;"></i></a> 
+            {# <a href="#" class="edit-btn"><i class="icon-pencil"  style="color:green;"></i></a> #}
+                                             </td>
+                                            </tr>
+                                            {% endif %}
+                                                   {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
-                <th>Numtel</th>
-                <th>Login</th>
-                <th>Cin</th>
-                <th>Mdp</th>
-                <th>Profil</th>
-                <th>Image</th>
-                <th>Genre</th>
-                <th>Datenaissance</th>
-                <th>Adresse</th>
-                <th>DateInscription</th>
-                <th>EtatCompte</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.id }}</td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenom }}</td>
-                <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.numtel }}</td>
-                <td>{{ utilisateur.login }}</td>
-                <td>{{ utilisateur.cin }}</td>
-                <td>{{ utilisateur.mdp }}</td>
-                <td>{{ utilisateur.profil }}</td>
-                <td>{{ utilisateur.image }}</td>
-                <td>{{ utilisateur.genre }}</td>
-                <td>{{ utilisateur.datenaissance ? utilisateur.datenaissance|date('Y-m-d') : '' }}</td>
-                <td>{{ utilisateur.adresse }}</td>
-                <td>{{ utilisateur.dateInscription ? utilisateur.dateInscription|date('Y-m-d') : '' }}</td>
-                <td>{{ utilisateur.etatCompte }}</td>
-                <td>
-                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="16">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                </div>
 
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+
+
 {% endblock %}
