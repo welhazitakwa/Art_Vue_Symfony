@@ -1,13 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Categorie{% endblock %}
+{% block title %}Modifier Categorie
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Categorie</h1>
-
-    {{ include('categorie/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_categorie_index') }}">back to list</a>
-
-    {{ include('categorie/_delete_form.html.twig') }}
+	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
+		<div class="sub-title">
+			<h4>Catégorie:</h4>
+			<span>Modifier une catégorie d'œuvres d'art
+			</span>
+		</div>
+		<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+			<li>Galerie</li>
+			<li>Catégorie</li>
+			<li>Modifier</li>
+		</ul>
+	</div>
+	<div class="panel-layout">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="admin-lock vh100">
+						<div class="admin-form">
+							<div class="logo"><img src="/TemplateAdmin/images/categorieImage.png" style="width: 1000px; height: 270px;" alt=""></div>
+							<h4>Modifier Catégorie</h4>
+							<br>
+							<form method="post">
+								{{ form_start(form) }}
+								{{ form_row(form.nomcategorie, {'label': 'Nom du catégorie à modifier'}) }}
+								<button type="submit">Modifier</button>
+								{{ form_end(form) }}
+							</form>
+							<a href="{{ path('app_categorie_index') }}">Retour au list</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
