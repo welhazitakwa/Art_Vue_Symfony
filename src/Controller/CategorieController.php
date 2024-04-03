@@ -20,11 +20,12 @@ class CategorieController extends AbstractController
         return $this->render('base.html.twig');
     }
 
-    #[Route('/homeClient', name: 'app_home', methods: ['GET'])]
+    #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
     public function homeClient(): Response
     {
         return $this->render('baseClient.html.twig');
     }
+
 
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
