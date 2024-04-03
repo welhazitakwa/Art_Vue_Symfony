@@ -27,24 +27,28 @@
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
 {% endblock %}
 <style>
-.radio-group {
-  display: flex;
-  flex-direction: row;
-}
+    .NP{ display: flex;}
+ 
+     
 
-.radio-group label {
-  align-items: center; /* Alignement vertical */
-  margin-right: 20px; /* Espacement entre les boutons radio */
-}
+        .radio-group label {
+            display: flex;
+            align-items: center; /* Alignement vertical */
+            margin-right: 20px; /* Espacement entre les boutons radio */
+        }
 
-.radio-group input[type="radio"] {
-  margin-right: 50px; /* Espacement entre le bouton radio et le texte */
-  white-space: nowrap;
-                       font-size : 16px;
-}
+        .radio-group input[type="radio"] {
+            margin-right:50px; /* Espacement entre le bouton radio et le texte */
+             
+        }
         .NP{ display: flex;}
-        .inline-text { white-space: nowrap;
-                       font-size : 16px;}
+        .inline-text {
+    white-space: nowrap;
+    font-size : 16px;
+}
+
+
+
     </style>
 </head>
 <body >
@@ -68,18 +72,29 @@
             <span> Remplir le formulaire d'inscription</span>
             <form method="post">
                 {{ form_start(form) }} 
-                    <div class="radio-group">
-  {{ form_label(form.profil) }}
-  {{ form_widget(form.profil, {'expanded': true}) }}
+                                {# <div class="radio-group">
+            {{ form_label(form.profil) }}
+            {{ form_widget(form.profil, {'expanded': true}) }}
+            </div> #}
+            
+
+                  
+<div class="radio-group">
+  <label class="inline-text"></label>
+{{ form_widget(form.profil, {'attr': {'style': 'display: flex; font-size : 16px;    white-space: nowrap;
+
+'}}) }}
+  <label class="inline-text"></label>
 </div>
 
 
-             <div class="NP">
-  
-     {{ form_widget(form.prenom , {'attr': {'placeholder': 'Prenom'}}) }}  
 
-         {{ form_widget(form.nom , {'attr': {'placeholder': 'Nom'}}) }}      
-</div>
+
+<label></label>
+{{ form_widget(form.prenom, {'attr': {'placeholder': 'Prénom', 'style': 'width: 195px;border: none; margin-bottom: -20px;'}}) }}
+ <label></label>
+
+{{ form_widget(form.nom, {'attr': {'placeholder': 'Nom', 'style': 'width: 197px;border: none; margin-bottom: -20px;'}})}}
 
 
               <label><i class="fa fa-user-circle-o"></i></label>
@@ -94,9 +109,7 @@
               <label><i class="fa fa-unlock-alt"></i></label>
               <input type="password" placeholder="Confirmer Mot De Passe">
               {# <input type="hidden" name="profil"> #}
-              <label class="hidden" for="dateInscription">Date d'inscription</label>
                 {{ form_widget(form.dateInscription) }}
-            <label class="hidden" for="etatCompte">Date d'inscription</label>
                 {{ form_widget(form.etatCompte) }}
               
               <button style="margin-top: 40px;" type="submit"><h4 style="color: #f0edea;"> <b> {{ button_label|default("S'inscrire") }} </b> </h4></button>
