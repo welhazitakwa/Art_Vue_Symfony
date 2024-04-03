@@ -25,19 +25,14 @@ class UtilisateurController extends AbstractController
 
     #[Route('/login', name: 'login_user')]
     public function login ():Response{
-       
-        return $this->render('utilisateur/login.html.twig', [
-            
+        return $this->render('utilisateur/login.html.twig', [        
         ]);
         
     }
     #[Route('/registre', name: 'registre_user')]
-    public function registre ():Response{
-       
-        return $this->render('utilisateur/registre.html.twig', [
-            
-        ]);
-        
+    public function registre ():Response{  
+        return $this->render('utilisateur/registre.html.twig', [       
+        ]);  
     }
 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
@@ -51,7 +46,7 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('utilisateur/new.html.twig', [
@@ -77,7 +72,7 @@ class UtilisateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_utilisateur_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('utilisateur/edit.html.twig', [
