@@ -46,7 +46,7 @@ class UtilisateurController extends AbstractController
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
-            return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
+           // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('utilisateur/new.html.twig', [
