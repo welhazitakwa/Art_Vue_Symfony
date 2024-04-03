@@ -29,12 +29,7 @@ class UtilisateurController extends AbstractController
         ]);
         
     }
-    #[Route('/registre', name: 'registre_user')]
-    public function registre ():Response{  
-        return $this->render('utilisateur/registre.html.twig', [       
-        ]);  
-    }
-
+ 
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
