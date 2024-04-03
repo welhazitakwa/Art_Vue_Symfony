@@ -14,17 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
-    #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
-    public function homeAdmin(): Response
-    {
-        return $this->render('base.html.twig');
-    }
-
-    #[Route('/homeClient', name: 'app_home', methods: ['GET'])]
-    public function homeClient(): Response
-    {
-        return $this->render('baseClient.html.twig');
-    }
 
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response

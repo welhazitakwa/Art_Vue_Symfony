@@ -8,6 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UtilisateurController extends AbstractController
 {
+    #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
+    public function homeAdmin(): Response
+    {
+        return $this->render('base.html.twig');
+    }
+
+    #[Route('/homeClient', name: 'app_home', methods: ['GET'])]
+    public function homeClient(): Response
+    {
+        return $this->render('baseClient.html.twig');
+    }
+    
     #[Route('/utilisateur', name: 'app_utilisateur')]
     public function index(): Response
     {
