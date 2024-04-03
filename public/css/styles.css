@@ -1,0 +1,76 @@
+
+        .sub-bar {
+            margin-top: 70px;
+            padding-right: 30px;
+            padding-left: 20px;
+        }
+
+        .sub-title h4 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            font-style :oblique;
+            color :#593A37;
+        }
+
+        .bread-crumb {
+            margin-top: 10px;
+            font-size: 14px;
+            list-style: none;
+        }
+
+        .main-table {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #593A37;
+        }
+
+        .table th {
+            background-color: #CDC2BE; /* Beige */
+        }
+
+        .table tbody tr:hover {
+            background-color: #CDC2BE; /* Beige clair au survol */
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #CDC2BE; /* Beige clair pour les lignes paires */
+        }
+
+        .edit-btn {
+            text-decoration: none;
+            color: maroon; /* Bleu */
+        }
+
+        .edit-btn:hover {
+            text-decoration: underline;
+        }
+
+        .project-title h5 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .prj-team ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .prj-team ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        

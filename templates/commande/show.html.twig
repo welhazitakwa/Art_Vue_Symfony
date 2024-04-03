@@ -2,13 +2,35 @@
 
 {% block title %}Commande{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5dc; /* Beige */
+            color: #333;
+        }
+
+    </style>
+{% endblock %}
+
 {% block body %}
     <h1>Détails de la commande</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;"²>Id</th>
                 <td>{{ commande.id }}</td>
             </tr>
             <tr>

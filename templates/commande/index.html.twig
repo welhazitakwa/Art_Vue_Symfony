@@ -2,37 +2,69 @@
 
 {% block title %}Commande index{% endblock %}
 
-{% block body %}
-    <h1>Liste des commandes</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
+{% block body %}
+	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
+		<div class="sub-title">
+			<h4>Liste des commandes:</h4>
+		</div>
+		<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+
+		</ul>
+	</div>
+
+<div class="main-table">
+			<table class="table table-hover table-responsive">
+				<thead>
+					<tr>
+						  <th>Id</th>
                 <th>Etat</th>
                 <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.etat }}</td>
-                <td>
-                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">Détails</a>
-                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">Modifier</a>
+					</tr>
+				</thead>
+				<tbody>
+                {% for commande in commandes %}
+
+					<tr>
+						<td>
+							<span c"sr"lass=>{{ commande.id }}</span>
+						</td>
+						<td>
+							<div class="project-title">
+								<h5>{{ commande.etat }}</h5>
+							</div>
+						</td>
 
 
-                </td>
-                <td> {{ include('commande/_delete_form.html.twig', {'button_label': 'Supprimer'}) }} </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucune commande</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+						<td>
+							<div class="prj-team">
+								<ul>
+									<li>
+										<a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="edit-btn"> Modifier</a>
 
-    <a href="{{ path('app_commande_new') }}">Create new</a>
-{% endblock %}
+									</li>
+                                  <li>                          
+                                   <a href="{{ path('app_commande_show', {'id': commande.id}) }}">Détails</a>
+
+									</li>
+                                    <li>
+                                        {{ include('commande/_delete_form.html.twig', {'button_label': 'Supprimer'}) }} 
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+	</div>
+</div>
+   {% endblock %}

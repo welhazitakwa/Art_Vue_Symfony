@@ -85,8 +85,6 @@ class Panier
      */
     public function __toString()
     {
-        // Retournez une représentation sous forme de chaîne de l'objet Panier
-        // Par exemple, vous pouvez retourner le nom du client si c'est pertinent
-        return $this->getClient()->getNom(); // Assurez-vous que getClient() retourne l'entité Utilisateur/Client associée au panier et que cette entité a une méthode getNom()
+        return $this->getClient()->getNom(); 
     }
 }
