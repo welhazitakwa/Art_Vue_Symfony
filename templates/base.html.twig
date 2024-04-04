@@ -94,7 +94,7 @@
                         <header>
                             <div class="side-menus">
                                 <div class="side-header">
-									<div class="logo"><a title="" href="index.html"><img alt="" src="images/logo2.png"></a></div>
+									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
                                     <nav class="slide-menu">
                                         <span>Navigation <i class="ti-layout"></i></span>
                                         <ul class="parent-menu">
@@ -305,17 +305,22 @@
                                     <div class="col-lg-1">
                                         <div class="user-head">
                                             <div class="admin">
-                                                <div class="admin-avatar"><img src="images/resources/admin.png" alt=""> <i class="online"></i> </div>
+                                                <div class="admin-avatar">
+                                                <img 
+                                src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
+                                                 <i class="online"></i> </div>
                                             </div>
                                             <div class="drop setting"> <span class="drop-head">stifen Doe <i>30 days trial</i></span>
                                                 <ul class="drop-meta">
                                                     <li> <a href="#" title=""><i class="fa fa-eyedropper"></i>Edit Profile</a> </li>
-                                                    <li> <a href="#" title=""><i class="fa fa-envelope-o"></i>My Inbox</a> </li>
+                                                    {# <li> <a href="#" title=""><i class="fa fa-envelope-o"></i>My Inbox</a> </li>
                                                     <li> <a href="#" title=""><i class="fa fa-adjust"></i>task</a> </li>
                                                     <li> <a href="#" title=""><i class="fa fa-calendar"></i>Calender</a> </li>
-                                                    <li> <a href="#" title=""><i class="fa fa-align-right"></i>Balance Report</a> </li>
+                                                    <li> <a href="#" title=""><i class="fa fa-align-right"></i>Balance Report</a> </li> #}
                                                 </ul>
-                                                <span class="drop-bottom"><a href="#" title=""><i class="fa fa-sign-out"></i>log Out</a></span> </div>
+                                                <span class="drop-bottom"><a  href="{{path('login_user')}}"  title=""><i class="fa fa-sign-out"></i>Déconnecter</a></span> 
+                                                
+                                                 </div>
                                         </div>
                                     </div>
                                 </div>
