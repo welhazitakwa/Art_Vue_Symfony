@@ -74,7 +74,7 @@ class Exposition
         return $this->nom;
     }
 
-    public function setNom(string $nom): static
+    public function setNom(string $nom)
     {
         $this->nom = $nom;
 
@@ -86,7 +86,7 @@ class Exposition
         return $this->datedebut;
     }
 
-    public function setDatedebut(\DateTimeInterface $datedebut): static
+    public function setDatedebut(\DateTimeInterface $datedebut)
     {
         $this->datedebut = $datedebut;
 
@@ -98,7 +98,7 @@ class Exposition
         return $this->datefin;
     }
 
-    public function setDatefin(\DateTimeInterface $datefin): static
+    public function setDatefin(\DateTimeInterface $datefin)
     {
         $this->datefin = $datefin;
 
@@ -110,7 +110,7 @@ class Exposition
         return $this->nbroeuvre;
     }
 
-    public function setNbroeuvre(int $nbroeuvre): static
+    public function setNbroeuvre(int $nbroeuvre)
     {
         $this->nbroeuvre = $nbroeuvre;
 
@@ -122,7 +122,7 @@ class Exposition
         return $this->idUtilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static 
+    public function setIdUtilisateur(?Utilisateur $idUtilisateur)
     {
         $this->idUtilisateur = $idUtilisateur;
 
