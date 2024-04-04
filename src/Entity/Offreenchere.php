@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +52,59 @@ class Offreenchere
      * })
      */
     private $idVenteenchere;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): static
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getIdUtilisateur(): ?int
+    {
+        return $this->idUtilisateur;
+    }
+
+    public function setIdUtilisateur(?int $idUtilisateur): static
+    {
+        $this->idUtilisateur = $idUtilisateur;
+
+        return $this;
+    }
+
+    public function getIdVenteenchere(): ?Venteencheres
+    {
+        return $this->idVenteenchere;
+    }
+
+    public function setIdVenteenchere(?Venteencheres $idVenteenchere): static
+    {
+        $this->idVenteenchere = $idVenteenchere;
+
+        return $this;
+    }
 
 
 }

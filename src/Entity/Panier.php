@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +38,35 @@ class Panier
      * })
      */
     private $client;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDateajout(): ?\DateTimeInterface
+    {
+        return $this->dateajout;
+    }
+
+    public function setDateajout(\DateTimeInterface $dateajout): static
+    {
+        $this->dateajout = $dateajout;
+
+        return $this;
+    }
+
+    public function getClient(): ?Utilisateur
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Utilisateur $client): static
+    {
+        $this->client = $client;
+
+        return $this;
+    }
 
 
 }

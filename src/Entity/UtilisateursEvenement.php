@@ -41,5 +41,34 @@ class UtilisateursEvenement
      */
     private $idUtilisateur;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getIdEvenement(): ?Evenement
+    {
+        return $this->idEvenement;
+    }
+
+    public function setIdEvenement(?Evenement $idEvenement): static
+    {
+        $this->idEvenement = $idEvenement;
+
+        return $this;
+    }
+
+    public function getIdUtilisateur(): ?Utilisateur
+    {
+        return $this->idUtilisateur;
+    }
+
+    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static
+    {
+        $this->idUtilisateur = $idUtilisateur;
+
+        return $this;
+    }
+
 
 }
