@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\LoginType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,11 +24,35 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    #[Route('/login', name: 'login_user')]
-    public function login ():Response{
-        return $this->render('utilisateur/login.html.twig', [        
-        ]);
+    // #[Route('/login', name: 'login_user')]
+    // public function login ():Response{
+    //     return $this->render('utilisateur/login.html.twig', [        
+    //     ]);
         
+    // }
+
+       #[Route('/login', name : "login")]
+    public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{
+        $user = new Utilisateur();
+        $form1 = $this->createForm(LoginType::class, $user);
+        $form1->handleRequest($request);
+        if ($form1->isSubmitted()){
+            // $title= $form->get('title')->getData();
+            $login = $user->getLogin();
+            $mdp = $user->getMdp();
+            $result = $userRepo->login($login, $mdp);
+            return $this->render('utilisateur/login.html.twig',[
+                'user' => $result,
+                'form1' => $form1->createView(),
+            ]) ;
+        } else {
+                // return $this-> redirectToRoute('listBooks');
+                return $this->render('utilisateur/login.html.twig',[
+                                    'form1' => $form1->createView(),
+
+                'user'=> "no user found !!!",
+            ]) ;
+            }
     }
  
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]

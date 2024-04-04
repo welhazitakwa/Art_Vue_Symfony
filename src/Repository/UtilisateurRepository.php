@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -45,4 +46,65 @@ class UtilisateurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+// public function validateLogin($loginFourni, $mdpFourni): int {
+//     $profilUser = 3;
+//     $em = $this->getEntityManager();
+//     $queryBuilder = $em->createQueryBuilder();
+
+//     // Vérifier si l'utilisateur avec le login fourni existe
+//     $queryBuilder->select('COUNT(u.id)')
+//                  ->from(Utilisateur::class, 'u')
+//                  ->where('u.login = :login')
+//                  ->setParameter('login', $loginFourni);
+    
+//     $count = $queryBuilder->getQuery()->getSingleScalarResult();
+
+//     if ($count == 1) {
+//         // Récupérer le mot de passe de l'utilisateur
+//         $queryBuilder = $em->createQueryBuilder();
+//         $queryBuilder->select('u.mdp')
+//                      ->from(Utilisateur::class, 'u')
+//                      ->where('u.login = :login')
+//                      ->setParameter('login', $loginFourni);
+        
+//         $mdpfromdatabase = $queryBuilder->getQuery()->getSingleScalarResult();
+
+//         // Vérifier si le mot de passe fourni correspond
+//         $mdphashed = $this->checkExistingUser($mdpFourni, $mdpfromdatabase);
+//         if ($mdphashed) {
+//             // Authentification réussie, récupérer le profil de l'utilisateur
+//             $queryBuilder = $em->createQueryBuilder();
+//             $queryBuilder->select('u.profil')
+//                          ->from(Utilisateur::class, 'u')
+//                          ->where('u.login = :login')
+//                          ->setParameter('login', $loginFourni);
+            
+//             $profilUser = $queryBuilder->getQuery()->getSingleScalarResult();
+//             echo "welcome !!";
+//         } else {
+//             echo "mawelcomch !!";
+//         }
+//     } else {
+//         echo "verifiez vos parametres d'authentification !! ";
+//     }
+
+//     return $profilUser;
+// }
+
+public function login($login,$mdp)
+ {
+ return $this->createQueryBuilder('u')
+ ->where('u.login LIKE :login')
+ ->andWhere('u.mdp LIKE :mdp')
+ ->setParameter('login', $login)
+ ->setParameter('mdp',$mdp)
+ ->getQuery()
+ ->getResult()
+ ;
+ }
+
+
 }

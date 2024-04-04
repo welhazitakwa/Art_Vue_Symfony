@@ -1,3 +1,38 @@
+{{ form_start(form1) }}
+    {# {{ form_widget(form) }} #}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form1) }}
+
+
+
+
+
+<table border="1">
+<tr>
+    {# <th> id </th> #}
+    <th>title</th>
+    <th> Publication date </th>
+    
+</tr>
+
+      <tr>  {% for u in user %} </tr>
+      {# <td> {{ b.id }}</td> #}
+      <td>{{ u.nom }}</td>
+      <td>{{ u.prenom }}</td>
+      {% else %}
+        <tr>
+        <td> No record found </td> 
+        </tr>
+            
+    {% endfor %}    
+</table>
+
+
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
