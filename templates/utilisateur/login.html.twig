@@ -93,29 +93,20 @@
         {% if u.profil == 0 %}
             {% set url = path('app_home') %}
                 <script>window.location.href = "{{ url }}";</script>
-                        {% endif %}
-
-        {% if  u.profil == 1 %} 
+        
+        {% elseif  u.profil == 1 %} 
             {% set url = path('app_home_client') %}
                 <script>window.location.href = "{{ url }}";</script>
-        {% endif %}
-
-        {% if  u.profil == 2 %} 
+        {% elseif  u.profil == 2 %} 
          {% set url = path('app_home_client') %}
                 <script>window.location.href = "{{ url }}";</script>
-
+        {% else %}
+         <h1>
+        Aucune condition n'est vérifiée.
+    </h1>
         {% endif %}
 
-
-
-
-      {{ u.prenom }}
-      {% else %}
-        
-       No record found 
-        
-            
-    {% endfor %}    
+   {% endfor %}
 </table>
 
 
