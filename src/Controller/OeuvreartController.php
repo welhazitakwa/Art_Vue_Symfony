@@ -26,36 +26,36 @@ class OeuvreartController extends AbstractController
         ]);
     }
 
-//     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-// public function new(Request $request, EntityManagerInterface $entityManager): Response
-// {
+    #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
+public function new(Request $request, EntityManagerInterface $entityManager): Response
+{
     
-//     $oeuvreart = new Oeuvreart();
-//     $userId = 14;
-//     $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
-//     $oeuvreart->setIdArtiste($user);
-//     $form = $this->createForm(OeuvreartType::class, $oeuvreart);
-//     $form->handleRequest($request);
+    $oeuvreart = new Oeuvreart();
+    $userId = 14;
+    $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
+    $oeuvreart->setIdArtiste($user);
+    $form = $this->createForm(OeuvreartType::class, $oeuvreart);
+    $form->handleRequest($request);
 
-//     if ($form->isSubmitted() && $form->isValid()) {
-//         // Persister l'entité Oeuvreart
-//         $file = $form->get('image')->getData();
-//         $fileName = uniqid().'.'.$file->guessExtension();
-//         $file->move($this->getParameter('images_directory'), $fileName);
-//         $oeuvreart->setImage($fileName);
-//         $entityManager->persist($oeuvreart);
-//         $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Persister l'entité Oeuvreart
+        // $file = $form->get('image')->getData();
+        // $fileName = uniqid().'.'.$file->guessExtension();
+        // $file->move($this->getParameter('images_directory'), $fileName);
+        // $oeuvreart->setImage($fileName);
+        $entityManager->persist($oeuvreart);
+        $entityManager->flush();
 
-//         // Redirection vers la page d'index des œuvres d'art
-//         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-//     }
+        // Redirection vers la page d'index des œuvres d'art
+        return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
+    }
 
-//     // Affichage du formulaire
-//     return $this->renderForm('oeuvreart/new.html.twig', [
-//         'oeuvreart' => $oeuvreart,
-//         'form' => $form,
-//     ]);
-// }
+    // Affichage du formulaire
+    return $this->renderForm('oeuvreart/new.html.twig', [
+        'oeuvreart' => $oeuvreart,
+        'form' => $form,
+    ]);
+}
 
 
     

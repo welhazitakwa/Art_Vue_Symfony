@@ -4,11 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
+	<div class="sub-bar" style="margin-top: 70px; padding-right: 30px; padding-left: 20px">
 		<div class="sub-title">
 			<h4>Catégorie:</h4>
-			<span>Ajouter une catégorie d'œuvres d'art
-			</span>
+			<span>Ajouter une catégorie d'œuvres d'art</span>
 		</div>
 		<ul class="bread-crumb">
 			<li>
@@ -25,12 +24,22 @@
 				<div class="col-md-12">
 					<div class="admin-lock vh100">
 						<div class="admin-form">
+
 							<div class="logo"><img src="/TemplateAdmin/images/categorieImage.png" style="width: 1000px; height: 270px;" alt=""></div>
 							<h4>Ajouter Catégorie</h4>
 							<br>
+							{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}
+							) }}
 							<form method="post">
 								{{ form_start(form) }}
 								{{ form_row(form.nomcategorie, {'label': 'Nom du catégorie à ajouter'}) }}
+								{% if form_errors(form.nomcategorie)|length > 0 %}
+									<div class="alert alert-danger" style="background-color: transparent; color: red; font-weight: bold; border: 1px solid transparent; font-size: 12px; padding-left: 0; padding-right: 0; text-align: left;">
+										<i class="fa fa-exclamation-circle"></i>
+										<!-- Icône d'erreur -->
+										{{ form_errors(form.nomcategorie)}}
+									</div>
+								{% endif %}
 								<button type="submit">Ajouter</button>
 								{{ form_end(form) }}
 							</form>
