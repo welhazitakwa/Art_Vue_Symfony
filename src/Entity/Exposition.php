@@ -122,7 +122,7 @@ class Exposition
         return $this->idUtilisateur;
     }
 
-    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static | null
+    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static 
     {
         $this->idUtilisateur = $idUtilisateur;
 
