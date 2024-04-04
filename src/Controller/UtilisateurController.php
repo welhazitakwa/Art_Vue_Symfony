@@ -31,7 +31,7 @@ class UtilisateurController extends AbstractController
         
     // }
 
-       #[Route('/login', name : "login")]
+       #[Route('/login', name : "login_user")]
     public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{
         $user = new Utilisateur();
         $form1 = $this->createForm(LoginType::class, $user);

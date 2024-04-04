@@ -1,22 +1,18 @@
-{{ form_start(form1) }}
-    {# {{ form_widget(form) }} #}
+{# {{ form_start(form1) }}
+    {{ form_widget(form) }} 
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form1) }}
+{{ form_end(form1) }} #}
 
-
-
-
-
+{# 
 <table border="1">
 <tr>
-    {# <th> id </th> #}
+    
     <th>title</th>
     <th> Publication date </th>
     
 </tr>
 
       <tr>  {% for u in user %} </tr>
-      {# <td> {{ b.id }}</td> #}
       <td>{{ u.nom }}</td>
       <td>{{ u.prenom }}</td>
       {% else %}
@@ -25,7 +21,7 @@
         </tr>
             
     {% endfor %}    
-</table>
+</table> #}
 
 
 
@@ -69,18 +65,69 @@
             <h4>Se Connecter</h4>
             <span>Connecter vous pour continuer</span>
             <form method="post">
+            {{ form_start(form1) }}
+
               <label><i class="fa fa-user-circle-o"></i></label>
-              <input type="text" placeholder="login">
+                {{ form_widget(form1.login, {'attr': {'placeholder': 'Login'}}) }}
               <label><i class="fa fa-unlock-alt"></i></label>
-              <input type="password" placeholder="Mot De Passe">
+                {{ form_widget(form1.mdp, {'attr': {'placeholder': ' Mot de Passe'}}) }}
               {# <input type="checkbox" id="remember"> #}
               <label for="remember">{#  Remember Me  #}
               <a href="#" title="">Mot de passe oublié?</a></label>
-              <button type="submit"> <h4 style="color: #f0edea;"> <b> Se Connecter </b> </h4> </button>
+              <button type="submit"> <h4 style="color: #f0edea;"> <b> {{ button_label|default("Se Connecter") }}  </b> </h4> </button>
+              {{ form_end(form1) }}
             </form>
             <span>Vous n'avez pas un compte ? &nbsp;&nbsp;&nbsp; <b> <a style="color: #412927;" 
             href="{{path('app_utilisateur_new')}}" 
             title="">S'inscrire</a> </b>  </span> </div>
+
+
+
+
+
+
+
+      {% for u in user %} 
+      
+
+        {% if u.profil == 0 %}
+            {% set url = path('app_home') %}
+                <script>window.location.href = "{{ url }}";</script>
+                        {% endif %}
+
+        {% if  u.profil == 1 %} 
+            {% set url = path('app_home_client') %}
+                <script>window.location.href = "{{ url }}";</script>
+        {% endif %}
+
+        {% if  u.profil == 2 %} 
+         {% set url = path('app_home_client') %}
+                <script>window.location.href = "{{ url }}";</script>
+
+        {% endif %}
+
+
+
+
+      {{ u.prenom }}
+      {% else %}
+        
+       No record found 
+        
+            
+    {% endfor %}    
+</table>
+
+
+
+
+
+
+
+
+
+
+
         </div>
       </div>
     </div>
