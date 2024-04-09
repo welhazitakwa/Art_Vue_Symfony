@@ -1,20 +1,141 @@
+  {# {% for a in utilisateurs %}
+       {{ a.id }}      
+  {% endfor %}  #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateurController!{% endblock %}
-
+{% block title %}Utilisateurs{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+ 
+<div class="panel-body">
+                                <div class="content-area">
+                                    <div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des utilisateurs </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="#" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Dashbord</li>
+                                        </ul>
+                                    </div>
+                                    <div class="info-section">
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta">
+                                                <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Sales Earnings</span>
+                                                    <h4><ins>$</ins>0.00</h4>
+                                                    <i>10%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-6.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>total sales</span>
+                                                    <h4>4512</h4>
+                                                    <i>20%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_three"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-8.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Today's Visits</span>
+                                                    <h4>158</h4>
+                                                    <i>30%</i>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline22"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget">
+                                        <div class="widget-title no-margin">
+                                            <h4>Liste des utilisateurs</h4>
+                                            <ul class="widget-controls">
+                                                <li class="refresh-content" title="Refresh"><i class="fa fa-refresh"></i></li>
+                                                <li class="expand-content" title="Maximize"><i class="icon-frame"></i></li>
+                                                <li class="more-option" title="More Options"><i class="ti-more-alt"></i></li>
+                                            </ul>
+                                            <div class="more-optn">
+                                                <ul>
+                                                    <li><a href="#" title="">option 1</a></li>
+                                                    <li><a href="#" title="">option 2</a></li>
+                                                    <li><a href="#" title="">option 3</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="main-table">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom & Prenom</th>
+                                                        <th>Cordonnées</th>
+                                                        <th>Téléphone</th>
+                                                        <th>CIN</th>
+                                                        <th>Age</th>
+                                                        <th>Membre depuis</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>{% for u in utilisateurs %}
+                                                {% if u.profil  != 0 %}
+                                                    <tr> 
+                                                    <td>
+                                                    <div class="owner-pic"> <img src="{{ asset('TemplateAdmin/images/resources/owner.jpg') }}" alt=""> 
+                                                    </div><div class="owner-info">
+                                                    <h6>{{ u.nom }} {{u.prenom}} </h6>
+                                                    <span> 
+                                              {% if u.genre is not null %}
+                                              {% if u.genre == "Femme"%}
+                                              <i class="fa fa-female"></i> &nbsp; {{ u.genre }}
+                                              {% else %} <i class="fa fa-male"></i> &nbsp; {{ u.genre }} {% endif %}
+                                              {% else %} Non disponible {% endif %}
+                                                     </span> </div> </td>
+                                                   
+                                                        <td> <div >    
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-envelope-o"></i> &nbsp; {{ u.email }}</span> <br/>        
+                        <span><i class="fa  fa-key"></i> &nbsp; {{ u.login }} </span>        
+                                                        </td>
+                                                        <td> 
+                                                        <div >     
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-home"></i> &nbsp;  {{ u.adresse }}</span>  <br />        
+                        <span><i class="fa  fa-phone"></i> &nbsp; {{ u.numTel }} </span> 
+                                            </td>
+                                            <td><span > {{u.cin}} </span></td>
+                                            <td><span > 
+                                             {% if u.dateNaissance is not null %}
+                                             {% set aujourdhui = date('now') %}
+                                             {% set age = aujourdhui.diff(u.dateNaissance).y %}
+                                             {{ age }}
+                                             {% else %} Non disponible {% endif %}</span></td>
+                                             <td> {{ u.dateInscription | date('y-m-d')}} </td>
+                                            <td>
+                                                    
+             <a href="{{ path('utilisateurDelete', {'id': u.id}) }}" class="del-btn"  onclick="return confirm('Êtes-vous sûr de vouloir supprimer {{u.Nom}} {{u.prenom }} ?')"><i     class="icon-trash" style="color:red;"></i></a> 
+            {# <a href="#" class="edit-btn"><i class="icon-pencil"  style="color:green;"></i></a> #}
+                                             </td>
+                                            </tr>
+                                            {% endif %}
+                                                   {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ESPRIT/3A17 semestre 2/PI-DEV/Art_Vue_Symfony/src/Controller/UtilisateurController.php'|file_link(0) }}">src/Controller/UtilisateurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ESPRIT/3A17 semestre 2/PI-DEV/Art_Vue_Symfony/templates/utilisateur/index.html.twig'|file_link(0) }}">templates/utilisateur/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+
 {% endblock %}
