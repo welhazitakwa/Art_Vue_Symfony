@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Oeuvreart
  *
  * @ORM\Table(name="oeuvreart", indexes={@ORM\Index(name="fk_categorie_id", columns={"id_categorie"}), @ORM\Index(name="fk_id_artiste", columns={"id_artiste"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\OeuvreartRepository")
  */
 class Oeuvreart
 {

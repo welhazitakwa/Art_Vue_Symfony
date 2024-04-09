@@ -25,8 +25,7 @@ class CategorieController extends AbstractController
     {
         return $this->render('baseClient.html.twig');
     }
-
-
+  
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -51,6 +50,8 @@ class CategorieController extends AbstractController
             'bestCategoryName' => $bestCategoryName,
         ]);
     }
+
+
 
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
