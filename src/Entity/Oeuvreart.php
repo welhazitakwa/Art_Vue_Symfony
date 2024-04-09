@@ -2,86 +2,54 @@
 
 namespace App\Entity;
 
+use App\Repository\OeuvreartRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Oeuvreart
- *
- * @ORM\Table(name="oeuvreart", indexes={@ORM\Index(name="fk_categorie_id", columns={"id_categorie"}), @ORM\Index(name="fk_id_artiste", columns={"id_artiste"})})
- * @ORM\Entity
- */
+
+
+#[ORM\Table(name: "oeuvreart", indexes: [
+    new ORM\Index(name: "fk_categorie_id", columns: ["id_categorie"]),
+    new ORM\Index(name: "fk_id_artiste", columns: ["id_artiste"]),
+])]
+
+#[ORM\Entity(repositoryClass: "App\Repository\OeuvreartRepository")]
 class Oeuvreart
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idOeuvreArt", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idoeuvreart;
+     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idoeuvreart = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     */
-    private $image;
+    
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
-     */
-    private $titre;
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", length=0, nullable=false)
-     */
-    private $description;
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prixVente", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixvente;
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=255, nullable=false)
-     */
-    private $status= 'Disponible';
+    #[ORM\Column]
+    private ?float $prixvente = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateAjout", type="date", nullable=false)
-     */
-    private $dateajout;
+    #[ORM\Column(length: 255)]
+    private ?string $status= 'Disponible';
 
-    /**
-     * @var \Categorie|null
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="idCategorie")
-     * })
-     */
-    private $idCategorie;
+      #[ORM\Column(type :"date")]
+    private ?\DateTimeInterface $dateajout = null;
 
-    /**
-     * @var \Utilisateur|null
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_artiste", referencedColumnName="id")
-     * })
-     */
-    private $idArtiste;
+
+     #[ORM\ManyToOne(targetEntity: Categorie::class)]
+     #[ORM\JoinColumn(name: "id_categorie", referencedColumnName: "idcategorie")]
+    private ?Categorie $idCategorie;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "id_artiste", referencedColumnName: "id")]
+    private ?Utilisateur $idArtiste;
+
 
     public function getIdoeuvreart(): ?int
     {
