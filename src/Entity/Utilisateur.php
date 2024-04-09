@@ -2,74 +2,81 @@
 
 namespace App\Entity;
 
-
 use App\Repository\UtilisateurRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
+#[ORM\Table(
+    name: "utilisateur",
+    uniqueConstraints: [
+        new ORM\UniqueConstraint(name: "login", columns: ["login"]),
+        new ORM\UniqueConstraint(name: "email", columns: ["email"])
+    ]
+)]
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-
-
-/**
- * Utilisateur
- *
- * @ORM\Table(name="utilisateur", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"}), @ORM\UniqueConstraint(name="email", columns={"email"})})
- * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
- */
-
-
-class Utilisateur
+class Utilisateur 
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: "IDENTITY")]
-    #[ORM\Column(type: "integer", nullable: false)]
-    private $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Column(type: "text", length: 65535, nullable: false)]
-    private $nom;
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
 
-    #[ORM\Column(type: "text", length: 65535, nullable: false)]
-    private $prenom;
 
-    #[ORM\Column(type: "string", length: 100, nullable: false)]
-    private $email;
+    #[ORM\Column(length: 255)]
+    private ?string $prenom = null;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private $numtel;
 
-    #[ORM\Column(type: "string", length: 100, nullable: false)]
-    private $login;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private $cin;
 
-    #[ORM\Column(type: "text", length: 65535, nullable: false)]
-    private $mdp;
+    #[ORM\Column]
+    private ?int $numtel = null;
 
-    #[ORM\Column(type: "integer", nullable: false)]
-    private $profil;
+    
 
-    #[ORM\Column(type: "text", length: 65535, nullable: true)]
-    private $image;
+     #[ORM\Column(length: 255)]
+    private ?string $login = null;
 
-    #[ORM\Column(type: "text", length: 65535, nullable: true)]
-    private $genre;
 
-    #[ORM\Column(type: "date", nullable: true)]
-    private $datenaissance;
+   #[ORM\Column]
+    private ?int $cin = null;
 
-    #[ORM\Column(type: "text", length: 65535, nullable: true)]
-    private $adresse;
+    #[ORM\Column(length: 255)]
+    private ?string $mdp = null;
 
-    #[ORM\Column(type: "date", nullable: false)]
-    private $dateInscription;
 
-    #[ORM\Column(type: "integer", nullable: false)]
-    private $etatCompte;
+   #[ORM\Column]
+    private ?int $profil = null;
 
-    #[ORM\ManyToMany(targetEntity: Evenement::class, mappedBy: 'utilisateurs')]
-    private Collection $Evenement;
+     #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+
+     #[ORM\Column(length: 255)]
+    private ?string $genre = null;
+
+
+    #[ORM\Column(type :"date")]
+    private ?\DateTimeInterface $datenaissance = null;
+
+
+     #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+
+    #[ORM\Column(type: "date")]
+    private ?\DateTimeInterface $dateInscription = null;
+
+    #[ORM\Column]
+    private ?int $etatCompte = null;
+
+
+
 
     public function getId(): ?int
     {
@@ -246,39 +253,5 @@ class Utilisateur
 
     
 
-
-
-    public function __construct()
-    {
-        $this->Evenement = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection<int, Evenement>
-     */
-    public function getEvenement(): Collection
-    {
-        return $this->Evenement;
-    }
-
-    public function addEvenement(Evenement $evenement): static
-    {
-        if (!$this->Evenement->contains($evenement)) {
-            $this->Evenement->add($evenement);
-        }
-
-        return $this;
-    }
-
-    public function removeEvenement(Evenement $evenement): static
-    {
-        $this->Evenement->removeElement($evenement);
-
-        return $this;
-    }
-    public function __toString(): string
-    {
-        return $this->nom . ' (' . $this->email . ')';
-    }       
 
 }
