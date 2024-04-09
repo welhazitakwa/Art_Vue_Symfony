@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+
+
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -20,6 +22,7 @@ class UtilisateurRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Utilisateur::class);
     }
+
 
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
@@ -46,3 +49,4 @@ class UtilisateurRepository extends ServiceEntityRepository
 //        ;
 //    }
 }
+

@@ -25,7 +25,7 @@ class CategorieController extends AbstractController
     {
         return $this->render('baseClient.html.twig');
     }
-    
+  
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
