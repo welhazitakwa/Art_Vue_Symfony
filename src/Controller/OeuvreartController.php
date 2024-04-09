@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Oeuvreart;
+use App\Entity\Categorie;
 use App\Form\OeuvreartType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,9 +21,25 @@ class OeuvreartController extends AbstractController
         $oeuvrearts = $entityManager
             ->getRepository(Oeuvreart::class)
             ->findAll();
+            $categories = $entityManager->getRepository(Categorie::class)->findAll();
+            $categoriesCount = $this->countCategories();
+            $totalArtworksCount = $this->countTotalArtworks();
+            $categoriesWithArtworksCount = [];
+            foreach ($categories as $category) {
+            $categoryId = $category->getIdcategorie();
+            $artworksCount = $this->countArtworksByCategory($categoryId);
+            $categoriesWithArtworksCount[$categoryId] = $artworksCount;
+            $bestCategoryName = $this->bestCategory()->getContent();
+        }
 
         return $this->render('oeuvreart/index.html.twig', [
             'oeuvrearts' => $oeuvrearts,
+            'categories' => $categories,
+            'categoriesCount' => $categoriesCount,
+            'categoriesWithArtworksCount' => $categoriesWithArtworksCount,
+            'totalArtworksCount' => $totalArtworksCount,
+            'bestCategoryName' => $bestCategoryName,
+            
         ]);
     }
 
@@ -95,6 +112,55 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
 
         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
     } 
+
+    #[Route('/count', name: 'app_categorie_count2', methods: ['GET'])]
+    public function countCategories(): int
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        return $entityManager->getRepository(Categorie::class)->count([]);
+    }
+
+    #[Route('/countByCat', name: 'app_oeuver_count2', methods: ['GET'])]
+    public function countArtworksByCategory(int $categoryId): int
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    return $entityManager->getRepository(Oeuvreart::class)->count(['idCategorie' => $categoryId]);
+}
+#[Route('/countTotal', name: 'app_oeuvre_total2', methods: ['GET'])]
+public function countTotalArtworks(): int
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    return $entityManager->getRepository(Oeuvreart::class)->count([]);
+}
+
+#[Route('/best-category', name: 'app_best_category2', methods: ['GET'])]
+public function bestCategory(): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+
+    // Récupérer toutes les catégories
+    $categories = $entityManager->getRepository(Categorie::class)->findAll();
+
+    // Initialiser la meilleure catégorie et son nombre d'œuvres d'art
+    $bestCategory = null;
+    $maxArtworksCount = 0;
+
+    // Parcourir les catégories pour trouver la meilleure
+    foreach ($categories as $category) {
+        $categoryId = $category->getIdcategorie();
+        $artworksCount = $this->countArtworksByCategory($categoryId);
+
+        // Mettre à jour la meilleure catégorie si nécessaire
+        if ($artworksCount > $maxArtworksCount) {
+            $bestCategory = $category;
+            $maxArtworksCount = $artworksCount;
+        }
+    }
+
+    // Retourner le nom de la meilleure catégorie
+    return new Response($bestCategory->getNomcategorie());
+}
+
     
     
 }
