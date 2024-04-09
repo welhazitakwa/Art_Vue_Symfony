@@ -29,24 +29,20 @@ class OeuvreartController extends AbstractController
     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
 public function new(Request $request, EntityManagerInterface $entityManager): Response
 {
-    // Création d'une instance de l'entité Oeuvreart
+    
     $oeuvreart = new Oeuvreart();
-
-    // Définition de l'ID utilisateur statique (remplacez 1 par l'ID de l'utilisateur statique)
     $userId = 14;
-
-    // Récupération de l'utilisateur statique depuis la base de données
     $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
-
-    // Affectation de l'utilisateur à l'oeuvre d'art
     $oeuvreart->setIdArtiste($user);
-
-    // Création du formulaire
     $form = $this->createForm(OeuvreartType::class, $oeuvreart);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         // Persister l'entité Oeuvreart
+        // $file = $form->get('image')->getData();
+        // $fileName = uniqid().'.'.$file->guessExtension();
+        // $file->move($this->getParameter('images_directory'), $fileName);
+        // $oeuvreart->setImage($fileName);
         $entityManager->persist($oeuvreart);
         $entityManager->flush();
 
@@ -98,5 +94,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
         }
 
         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-    }  
+    } 
+    
+    
 }

@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 ])]
 
 #[ORM\Entity(repositoryClass: "App\Repository\OeuvreartRepository")]
+
 class Oeuvreart
 {
      #[ORM\Id]

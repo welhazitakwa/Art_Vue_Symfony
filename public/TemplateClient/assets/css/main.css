@@ -475,7 +475,7 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 }
 
 .breadcrumb-bg {
-  background-image: url(../img/breadcrumb-bg.jpg);
+  background-image: url(../img/galerie1.jpeg);
 }
 
 .breadcrumb-text p {
@@ -1361,7 +1361,7 @@ a.mobile-show.search-bar-icon:hover {
 
 ----------------------------------------------------------------------------- */
 .hero-bg {
-  background-image: url(../img/hero-bg.jpg);
+  background-image: url(../img/Coster.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -1468,7 +1468,7 @@ input[type="submit"] {
 }
 
 .homepage-bg-1 {
-  background-image: url(../img/hero-bg.jpg);
+  background-image: url(../img/Coster.jpg);
 }
 
 .homepage-bg-2 {
@@ -2117,7 +2117,7 @@ a.video-play-btn {
 .shop-banner {
   position: relative;
   background-color: #f5f5f5;
-  background-image: url(../img/1.jpg);
+  background-image: url(../img/Banner1.png);
   background-size: cover;
   padding: 110px 0px 115px;
 }
@@ -2158,7 +2158,7 @@ a.video-play-btn {
 }
 
 .feature-bg:after {
-  background-image: url(../img/feature-bg.jpg);
+  background-image: url(../img/Coster.jpg);
   position: absolute;
   right: 0;
   top: 0;
@@ -2174,23 +2174,24 @@ a.video-play-btn {
 }
 
 .team-bg-1 {
-  background-image: url(../img/team/team-1.jpg);
+  background-image: url(../img/team/Nourhen.jpg);
 }
 
 .team-bg-2 {
-  background-image: url(../img/team/team-2.jpg);
+  background-image: url(../img/team/Nourhen.jpg);
 }
 
 .team-bg-3 {
-  background-image: url(../img/team/team-3.jpg);
+  background-image: url(../img/team/Nourhen.jpg);
 }
 
 .team-bg-4 {
-  background-image: url(../img/team/team-4.jpg);
+  background-image: url(../img/team/Nourhen.jpg);
 }
 
 .team-bg {
-  height: 400px;
+  height: 350px;
+  width: 300px;
   background-size: cover;
   background-position: center;
   border-radius: 5px;
@@ -2416,6 +2417,25 @@ ul.social-link-team li a {
   margin-bottom: 20px;
 }
 
+.like-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.like-btn:focus,
+    .like-btn:active {
+        outline: none; /* Supprime la mise en évidence lorsqu'on clique sur le bouton */
+    }
+
+.like-btn .far.fa-heart {
+  color: black; /* Couleur du cœur vide */
+}
+
+.like-btn .fas.fa-heart {
+  color: red; /* Couleur du cœur rempli */
+}
+
 .single-product-item h3 {
   font-size: 20px;
   font-weight: 600;
@@ -2424,7 +2444,7 @@ ul.social-link-team li a {
 
 p.product-price {
   font-family: 'Poppins', sans-serif;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   margin-bottom: 15px;
 }

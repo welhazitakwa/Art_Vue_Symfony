@@ -1,0 +1,71 @@
+{# templates/calendar/form.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+<body>
+<div class="container">
+        {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+
+    <div class="col-md-6">
+        {{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control' ~ (form_errors(form.name)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomName'}}) }}
+        {% if form_errors(form.name)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.name) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.startdate, 'Start Date', {'label_attr': {'class': 'form-label'}}) }}
+        <div class="input-group">
+            {{ form_widget(form.startdate, {'attr': {'class': 'form-control datepicker' ~ (form_errors(form.startdate)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomStartdate'}}) }}
+            <span class="input-group-text">
+        <i class="bi bi-calendar-fill"></i>
+      </span>
+        </div>
+        {% if form_errors(form.startdate)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.startdate) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.enddate, 'End Date', {'label_attr': {'class': 'form-label'}}) }}
+        <div class="input-group">
+            {{ form_widget(form.enddate, {'attr': {'class': 'form-control datepicker' ~ (form_errors(form.enddate)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomEnddate'}}) }}
+            <span class="input-group-text">
+        <i class="bi bi-calendar-fill"></i>
+      </span>
+        </div>
+        {% if form_errors(form.enddate)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.enddate) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+    {{ form_end(form) }}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd' // You can customize the date format here
+        });
+    });
+</script>

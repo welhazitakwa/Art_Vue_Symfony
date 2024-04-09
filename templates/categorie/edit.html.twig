@@ -31,6 +31,13 @@
 							<form method="post">
 								{{ form_start(form) }}
 								{{ form_row(form.nomcategorie, {'label': 'Nom du catégorie à modifier'}) }}
+								{% if form_errors(form.nomcategorie)|length > 0 %}
+									<div class="alert alert-danger" style="background-color: transparent; color: red; font-weight: bold; border: 1px solid transparent; font-size: 12px; padding-left: 0; padding-right: 0; text-align: left;">
+										<i class="fa fa-exclamation-circle"></i>
+										<!-- Icône d'erreur -->
+										{{ form_errors(form.nomcategorie)}}
+									</div>
+								{% endif %}
 								<button type="submit">Modifier</button>
 								{{ form_end(form) }}
 							</form>

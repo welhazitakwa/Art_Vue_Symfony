@@ -1,0 +1,120 @@
+{# In your template or layout file #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
+<body>
+<div class="container">
+    {{ form_start(form, {'attr': {'class': 'row g-3 needs-validation', 'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+
+    <div class="col-md-6">
+        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.nom, {'attr': {'class': 'form-control' ~ (form_errors(form.nom)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomNom'}}) }}
+        {% if form_errors(form.nom)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.nom) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.lieu, 'Lieu', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.lieu, {'attr': {'class': 'form-control' ~ (form_errors(form.lieu)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomLieu'}}) }}
+        {% if form_errors(form.lieu)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.lieu) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+        <div class="input-group date" id="datepicker">
+            {{ form_widget(form.date, {'attr': {'class': 'form-control' ~ (form_errors(form.date)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomDate'}}) }}
+            <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+            </div>
+        </div>
+        {% if form_errors(form.date)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.date) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.price, 'Price', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.price, {'attr': {'class': 'form-control' ~ (form_errors(form.price)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomPrice'}}) }}
+        {% if form_errors(form.price)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.price) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.capacite, 'Capacité', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.capacite, {'attr': {'class': 'form-control' ~ (form_errors(form.capacite)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomCapacite'}}) }}
+        {% if form_errors(form.capacite)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.capacite) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        {{ form_label(form.calender, 'Calendrier', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.calender, {'attr': {'class': 'form-control' ~ (form_errors(form.calender)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomCalender'}}) }}
+        {% if form_errors(form.calender)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.calender) }}
+            </div>
+        {% endif %}
+
+    </div>
+    <div class="col-md-6">
+
+        {{ form_label(form.utilisateurs, 'Utilisateurs', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.utilisateurs, {'attr': {'class': 'form-control' ~ (form_errors(form.utilisateurs)|length ? ' is-invalid' : (form.vars.valid ? ' is-valid' : '')), 'id': 'validationCustomUtilisateurs'}}) }}
+        {% if form_errors(form.utilisateurs)|length %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.utilisateurs) }}
+            </div>
+        {% endif %}
+    </div>
+
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">{{ button_label|default('Save') }}</button>
+    </div>
+    {{ form_end(form) }}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: true,
+            todayHighlight: true
+        }).on('changeDate', function(e) {
+            // When the date is changed, update the form field value
+            var selectedDate = e.format('yyyy-mm-dd hh:ii:ss');
+            $('#validationCustomDate').val(selectedDate);
+        }).on('clearDate', function(e) {
+            // When the date is cleared, set the form field value to null
+            $('#validationCustomDate').val('');
+        });
+    });
+</script>
+
+
+</body>
+</html>

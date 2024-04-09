@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar Events{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4 mb-4">Events for Calendar: {{ calendar.name }}</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td>{{ event.nom }}</td>
+                        <td>{{ event.lieu }}</td>
+                        <td>{{ event.date ? event.date|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ event.price }}</td>
+                        <td>{{ event.capacite }}</td>
+                        <td>
+                            <a href="{{ path('app_evenement_show', {'id': event.id}) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ path('app_evenement_edit', {'id': event.id}) }}" class="btn btn-secondary">Edit</a>                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">No events found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

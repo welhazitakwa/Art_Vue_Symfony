@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
  
 
 
  #[ORM\Table(name: "categorie")]
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
+
 class Categorie
 {
      #[ORM\Id]
@@ -20,6 +22,7 @@ class Categorie
     
     #[ORM\Column(length: 255)]
     private ?string $nomcategorie = null;
+
 
     public function getIdcategorie(): ?int
     {
