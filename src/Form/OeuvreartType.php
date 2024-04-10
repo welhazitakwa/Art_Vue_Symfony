@@ -57,24 +57,6 @@ class OeuvreartType extends AbstractType
             array('data_class' => null))
            
             
-            //  ->add('image', FileType::class, [
-            //     'label' => 'Image Oeuvre Art',
-            //     'mapped' => false,
-            //     'required' => false,
-            //     'constraints' => [
-            //         new File([
-            //             'maxSize' => '1024k',
-            //             'mimeTypes' => [
-            //                 'image/jpeg',
-            //                 'image/jpg',
-            //                 'image/png',
-            //                 'image/gif',
-            //             ],
-            //             'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG, GIF)',
-            //         ])
-            //     ],
-            // ])
-            
         ;
     }
 
