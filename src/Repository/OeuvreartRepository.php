@@ -21,6 +21,14 @@ class OeuvreartRepository extends ServiceEntityRepository
         parent::__construct($registry, Oeuvreart::class);
     }
 
+    public function trie_decroissant_date()
+    {
+        return $this->createQueryBuilder('oeuvreart')
+            ->orderBy('oeuvreart.dateajout','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Oeuvreart[] Returns an array of Oeuvreart objects
 //     */

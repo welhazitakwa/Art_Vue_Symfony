@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OeuvreartRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -25,6 +26,9 @@ class Oeuvreart
     
 
     #[ORM\Column(length: 255)]
+    #[Assert\File(maxSize:"5M",mimeTypes:["image/jpeg","image/png","image/gif"],
+    mimeTypesMessage:"Veuillez télécharger une image valide (JPEG, PNG ou GIF)")]
+    #[Assert\NotBlank(message:"la photo est obligatoire")]
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]

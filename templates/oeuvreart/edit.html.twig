@@ -1,13 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Oeuvreart{% endblock %}
+{% block title %}Edit Oeuvreart
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Oeuvreart</h1>
+	<div class="panel-body">
+		<div class="content-area">
 
-    {{ include('oeuvreart/_form.html.twig', {'button_label': 'Update'}) }}
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Oeuvre d'art:</h4>
+					<span>
+						Modifier Oeuvre d'art "{{ oeuvreart.titre }}"
+					</span>
+				</div>
+				<ul class="bread-crumb">
+					<li>
+						<a href="{{ path('app_home') }}" title="">
+							<i class="fa fa-home"></i>
+						</a>
+					</li>
+					<li>Galerie</li>
+					<li>Oeuvre d'art</li>
+					<li>Modifier Oeuvre d'art</li>
+				</ul>
+			</div>
+			{# <div class="info-section">
+			                                        
+			                                        
+			                                        
+			                                    </div> #}
+			<div class="widget">
+				<div class="widget-title no-margin">
+					<h4>Formulaire modification d'oeuvre d'art</h4>
+					<ul class="widget-controls">
 
-    <a href="{{ path('app_oeuvreart_index') }}">back to list</a>
+						<li title="Retour à la liste" class="refresh-content">
+							<a href="{{ path('app_oeuvreart_index') }}"> Retour à la liste <img src="/TemplateAdmin/images/next.png" style="width: 17px; height: 17px;" alt="Ajouter Catégorie">
+								</a>
+						</li>
+						
+					</ul>
+					
+				</div>
+				<div class="card-body">
+					
+                    <form method="post">
+								{{ form_start(form) }}
+                                
+								{{ form_row(form.titre, {'label': 'Titre oeuvre art'}) }}
+                                {{ form_row(form.idCategorie, {'label': 'Catégorie oeuvre art'}) }}
+                                {{ form_row(form.description, {'label': 'Description'}) }}
+                                {{ form_row(form.prixvente, {'label': 'Oeuvre art à modifier'}) }}
+                                {{ form_row(form.image, {'label': 'Oeuvre art à modifier'}) }}
+								
+								<button type="submit">Modifier</button>
+								{{ form_end(form) }}
+							</form>
 
-    {{ include('oeuvreart/_delete_form.html.twig') }}
-{% endblock %}
+					
+				</div>
+			</div>
+		</div>
+	{% endblock %}

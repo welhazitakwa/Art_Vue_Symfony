@@ -11,16 +11,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Utilisateur;
+use App\Repository\OeuvreartRepository;
 
 #[Route('/oeuvreart')]
 class OeuvreartController extends AbstractController
 {
     #[Route('/', name: 'app_oeuvreart_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager , OeuvreartRepository $oeuvreartsRepository): Response
     {
-        $oeuvrearts = $entityManager
-            ->getRepository(Oeuvreart::class)
-            ->findAll();
+        
             $categories = $entityManager->getRepository(Categorie::class)->findAll();
             $categoriesCount = $this->countCategories();
             $totalArtworksCount = $this->countTotalArtworks();
@@ -33,7 +32,8 @@ class OeuvreartController extends AbstractController
         }
 
         return $this->render('oeuvreart/index.html.twig', [
-            'oeuvrearts' => $oeuvrearts,
+            'oeuvrearts' => $oeuvreartsRepository->trie_decroissant_date(),
+            
             'categories' => $categories,
             'categoriesCount' => $categoriesCount,
             'categoriesWithArtworksCount' => $categoriesWithArtworksCount,
@@ -43,23 +43,19 @@ class OeuvreartController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager): Response
+        #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
 {
     
     $oeuvreart = new Oeuvreart();
-    $userId = 14;
-    $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
-    $oeuvreart->setIdArtiste($user);
     $form = $this->createForm(OeuvreartType::class, $oeuvreart);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Persister l'entité Oeuvreart
-        // $file = $form->get('image')->getData();
-        // $fileName = uniqid().'.'.$file->guessExtension();
-        // $file->move($this->getParameter('images_directory'), $fileName);
-        // $oeuvreart->setImage($fileName);
+        $file = $form->get('image')->getData();
+            $fileName = uniqid().'.'.$file->guessExtension();
+            $file->move($this->getParameter('images_directorys'), $fileName);
+            $oeuvreart->setImage($fileName);
         $entityManager->persist($oeuvreart);
         $entityManager->flush();
 
@@ -75,6 +71,37 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
 }
 
 
+//     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
+// public function new(Request $request, EntityManagerInterface $entityManager): Response
+// {
+    
+//     $oeuvreart = new Oeuvreart();
+//     $userId = 14;
+//     $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
+//     $oeuvreart->setIdArtiste($user);
+//     $form = $this->createForm(OeuvreartType::class, $oeuvreart);
+//     $form->handleRequest($request);
+
+//     if ($form->isSubmitted() && $form->isValid()) {
+//         $file = $form->get('image')->getData();
+//             $fileName = uniqid().'.'.$file->guessExtension();
+//             $file->move($this->getParameter('images_directorys'), $fileName);
+//             $oeuvreart->setImage($fileName);
+//         $entityManager->persist($oeuvreart);
+//         $entityManager->flush();
+
+//         // Redirection vers la page d'index des œuvres d'art
+//         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
+//     }
+
+//     // Affichage du formulaire
+//     return $this->renderForm('oeuvreart/new.html.twig', [
+//         'oeuvreart' => $oeuvreart,
+//         'form' => $form,
+//     ]);
+// }
+
+
     
     #[Route('/{idoeuvreart}', name: 'app_oeuvreart_show', methods: ['GET'])]
     public function show(Oeuvreart $oeuvreart): Response
@@ -87,13 +114,31 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
     #[Route('/{idoeuvreart}/edit', name: 'app_oeuvreart_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(OeuvreartType::class, $oeuvreart);
+        
+
+        $photoold=$oeuvreart->getImage();   
+        $path=$this->getParameter('images_directorys').'/'.$photoold; 
+        
+        $oeuvreart->setImage($path);
+        $form = $this->createForm(OeuvreartType::class, $oeuvreart, [
+            'attr' => ['enctype' => 'multipart/form-data'],
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            if($oeuvreart->getImage()!=null){
+                $file = $form->get('image')->getData();
+                $fileName = uniqid().'.'.$file->guessExtension();
+                $file->move($this->getParameter('images_directorys'), $fileName);
+                $oeuvreart->setImage($fileName);}
+                else{
+                $oeuvreart->setImage($photoold);}
+                $oeuvreart->setDateajout(new \DateTime());
+                $entityManager->flush();
 
             return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
+            
         }
 
         return $this->renderForm('oeuvreart/edit.html.twig', [

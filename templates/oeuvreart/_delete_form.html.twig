@@ -2,7 +2,7 @@
 <form id="deleteForm{{ oeuvreart.idoeuvreart }}" method="post" action="{{ path('app_oeuvreart_delete', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ oeuvreart.idoeuvreart) }}">
     <a href="#" onclick="confirmDelete('{{ oeuvreart.idoeuvreart }}');">
-        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 24px; height: 24px;">
+        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 20px; height: 20px;">
     </a>
 </form>
 

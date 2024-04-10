@@ -24,16 +24,14 @@
                                         
                                         
                                     </div> #}
-	<div>
-	<div class="widget-title no-margin">
+	<div class="widget">
+	    <div class="widget-title no-margin">
 			<h4>Formulaire d'ajout d'oeuvre d'art</h4>
-			
-			
-		</div>
-		<div id="form-container">
+        </div>
+		<div >
 			{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
-			<div class="card">
-				<div class="card-body" style='background-color:#FAF9F8'>
+			
+				<div class="card-body">
 					<table class="table">
 						<tbody>
 
@@ -54,6 +52,16 @@
 								<td>
 									{% if form_errors(form.titre)|length > 0 %}
 										<div class="alert alert-danger">{{ form_errors(form.titre) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							<tr>
+								<th>{{ form_label(form.idArtiste) }}</th>
+								<td>{{ form_widget(form.idArtiste, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.idCategorie)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.idCategorie) }}</div>
 									{% endif %}
 								</td>
 							</tr>
@@ -104,9 +112,13 @@
 					</table>
 					<button type="submit" class="admin-form-button">Ajouter</button>
 				</div>
-			</div>
+			
 			{{ form_end(form) }}
 		</div>
+
+		
+
+
 	</div>
 
 
