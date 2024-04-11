@@ -114,38 +114,36 @@ class OeuvreartController extends AbstractController
     #[Route('/{idoeuvreart}/edit', name: 'app_oeuvreart_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
-        
-
-        $photoold=$oeuvreart->getImage();   
-        $path=$this->getParameter('images_directorys').'/'.$photoold; 
-        
-        $oeuvreart->setImage($path);
         $form = $this->createForm(OeuvreartType::class, $oeuvreart, [
             'attr' => ['enctype' => 'multipart/form-data'],
         ]);
-
+    
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            if($oeuvreart->getImage()!=null){
-                $file = $form->get('image')->getData();
+            $file = $form->get('image')->getData();
+            // Vérifier si une nouvelle image a été téléchargée
+            if ($file) {
                 $fileName = uniqid().'.'.$file->guessExtension();
                 $file->move($this->getParameter('images_directorys'), $fileName);
-                $oeuvreart->setImage($fileName);}
-                else{
-                $oeuvreart->setImage($photoold);}
-                $oeuvreart->setDateajout(new \DateTime());
-                $entityManager->flush();
-
+                $oeuvreart->setImage($fileName);
+            }
+            // Si aucune nouvelle image n'a été téléchargée, conserver l'image existante
+            else {
+                $oeuvreart->setImage($oeuvreart->getImage());
+            }
+            $oeuvreart->setDateajout(new \DateTime());
+            $entityManager->flush();
+    
             return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-            
         }
-
+    
         return $this->renderForm('oeuvreart/edit.html.twig', [
             'oeuvreart' => $oeuvreart,
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{idoeuvreart}', name: 'app_oeuvreart_delete', methods: ['POST'])]
     public function delete(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response

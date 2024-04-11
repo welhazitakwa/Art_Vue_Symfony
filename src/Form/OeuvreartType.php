@@ -29,7 +29,9 @@ class OeuvreartType extends AbstractType
             ->add('idArtiste', EntityType::class, [
                 'label' => 'Artiste',
                 'class' => Utilisateur::class,
-                'choice_label' => 'nom',
+                'choice_label' => function ($utilisateur) {
+                    return ' Num Cin: ' .$utilisateur->getCin() . ' - ' .$utilisateur->getNom() . ' ' . $utilisateur->getPrenom();
+                },
                 'placeholder' => 'Sélectionner Artiste', 
                 'required' => true, 
             ])
