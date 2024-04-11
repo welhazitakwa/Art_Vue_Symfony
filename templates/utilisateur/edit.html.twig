@@ -3,11 +3,83 @@
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Edit Utilisateur</h1>
+ {# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
 
-    {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="panel-body">
+              <div class="content-area">
+                <div class="sub-bar">
+                  
+                  <ul class="bread-crumb">
+                    <li><a href="{{path('app_home')}}" title="">Dashboard</a></li>
+                    <li><a href="{{path('listUtilisateur')}}" title="">Liste des Utilisateurs</a></li>
+                  </ul>
+                </div>
+                <div class="inner-bg">
+                  <div class="element-title">
+                    <h4>Modifier Votre Profil</h4>
+        				  </div>
+                    <div class="pnl-bdy billing-sec">
+                    	<div class="row">
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Nom <span>*</span> </label>
+                        <input value="Brian" type="text">
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Prenom <span>*</span> </label>
+                        <input value="Kelly" type="text">
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Genre <span>*</span> </label>
+                        <select style="background-color:#f4f8ff;">
+                          <option> </option>
+                          <option>Homme</option>
+                          <option>Femme</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label> Date de Naissance <span>*</span> </label>
+                        <input placeholder="Enter Your City" type="text">
+                      </div>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+                      <div class="col-md-12 col-sm-12 field"> 
+							            <span class="upload-image">upload image</span>
+						              <label class="fileContainer"> <span>upload</span>
+							            <input type="file">
+						              </label>
+						          </div>
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>CIN <span>*</span> </label>
+                        <input placeholder="" type="text">
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Adresse<span>*</span> </label>
+                        <input value="" type="text">
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Email <span>*</span> </label>
+                        <input placeholder="" type="text">
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Numéro de Téléphone<span>*</span> </label>
+                        <input value="" type="text">
+                      </div>
+						
+                     
+                      
+                      <div class="col-md-12 col-sm-12">
+                        <button type="submit">Save Settings Now</button>
+                      </div>
+                  </div>
+                    </div>
+                </div>
+              </div>
+            
+            </div>
+         
+
+
 {% endblock %}
