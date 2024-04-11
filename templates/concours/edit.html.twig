@@ -1,0 +1,62 @@
+
+
+{% extends 'base.html.twig' %}
+{% block js %}
+
+	<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+	<!-- scripts -->
+	<script src="{{ asset('TemplateAdmin/js/event-calendar/jquery.eventCalendar.min.js') }}"></script>
+{% endblock %}
+{% block title %}Edit Concours{% endblock %}
+
+{% block body %}
+  
+    
+	<div class="panel-body">
+		<div class="content-area">
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Dashboard:</h4>
+					<span>Welcome To web Admin Panel!</span>
+				</div>
+				<ul class="bread-crumb">
+					<li>
+						<a href="#" title="">Home</a>
+					</li>
+					<li>Dashbord</li>
+				</ul>
+			</div>
+
+			<div class="inner-bg">
+				<div class="element-title">
+
+					  <h1>Edit Concours</h1>
+					<span>Please fill the form bellow.</span>
+				</div>
+
+				<div class="add-prod-from">
+					<div class="row">
+						
+
+    {# Inclure le formulaire de modification du concours avec le label du bouton "Update" #}
+    {{ include('concours/_form.html.twig', {'button_label': 'Update'}) }}
+
+    {# Lien pour retourner à la liste des concours #}
+    <a href="{{ path('app_concours_index') }}">back to list</a>
+
+   </div>
+                 </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

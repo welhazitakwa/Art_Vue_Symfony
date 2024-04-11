@@ -26,6 +26,14 @@
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
 
+     <!-- css mariem -->
+  
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/event-calendar/eventCalendar.css') }}">
+
+
+
     {% endblock %}
 </head>
 
@@ -113,6 +121,14 @@
                                                     
                                                 </ul>
                                             </li>
+                                                <li class="menu-item-has-children"> <a title=""><i class="fa fa-star"></i><span>Concours</span></a>
+                                            <ul class="mega">
+                                                <li><a href="{{ path('app_concours_index') }}">Liste concours</a></li>
+                                                <li><a href="{{ path('app_concours_new') }}">Form concours</a></li>
+                                            
+                                            </ul>
+                                        </li>
+                                            
                                         </ul>
                                     </nav>
                                 </div>
@@ -876,7 +892,13 @@
     <!-- scripts -->
     <script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/jvectormap.js') }}"></script>
-    
+       <!-- scripts -->
+       <!-- scripts  mariem --> 
+    <script src="{{ asset('TemplateAdmin/js/event-calendar/jquery.eventCalendar.min.js') }}"></script>
+     <script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+     <script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+   
+
     {% endblock %}<!-- jvactor map -->
 
 </body>

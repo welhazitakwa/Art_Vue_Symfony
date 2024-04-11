@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +24,7 @@ class OeuvreConcours
     private $id;
 
     /**
-     * @var \Concours
+     * @var \Concours  | null
      *
      * @ORM\ManyToOne(targetEntity="Concours")
      * @ORM\JoinColumns({
@@ -32,7 +34,7 @@ class OeuvreConcours
     private $idConcours;
 
     /**
-     * @var \Oeuvreart
+     * @var \Oeuvreart  | null
      *
      * @ORM\ManyToOne(targetEntity="Oeuvreart")
      * @ORM\JoinColumns({
@@ -41,5 +43,35 @@ class OeuvreConcours
      */
     private $idOeuvre;
 
+// Ajoutez les getters et les setters pour chaque propriété
+
+public function getId(): ?int
+{
+    return $this->id;
+}
+
+public function getIdConcours(): ?Concours
+{
+    return $this->idConcours;
+}
+
+public function setIdConcours(?Concours $idConcours): self
+{
+    $this->idConcours = $idConcours;
+
+    return $this;
+}
+
+public function getIdOeuvre(): ?Oeuvreart
+{
+    return $this->idOeuvre;
+}
+
+public function setIdOeuvre(?Oeuvreart $idOeuvre): self
+{
+    $this->idOeuvre = $idOeuvre;
+
+    return $this;
+}
 
 }

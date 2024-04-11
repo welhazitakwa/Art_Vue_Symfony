@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Concours
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="panel-body">
+		<div class="content-area">
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Dashboard:</h4>
+					<span>Welcome To web Admin Panel!</span>
+				</div>
+				<ul class="bread-crumb">
+					<li>
+						<a href="#" title="">Home</a>
+					</li>
+					<li>Dashbord</li>
+				</ul>
+			</div>
+
+			<div class="inner-bg">
+				<div class="element-title">
+
+
+					<div class="mega-menu demo">
+						<div class="col-md-12">
+
+							<table class="table">
+								<tbody>
+
+									<tr>
+										<div class="col-md-12">
+											<th>
+												<h1>Titre<h1></th>
+												</div>
+
+												<div class="col-md-12">
+													<td>
+														<h1>{{ concour.titre }}<h1></td>
+														</tr>
+														<tr></tr>
+													</td>
+													<th>DateDebut</th>
+													<td>{{ concour.dateDebut ? concour.dateDebut|date('Y-m-d') : '' }}</td>
+												</tr>
+												<tr></tr>
+											</th>
+											<th>DateFin</th>
+											<td>{{ concour.dateFin ? concour.dateFin|date('Y-m-d') : '' }}</td>
+										</tr>
+									</tr>
+									<tr>
+										<th>Description</th>
+										<td>{{ concour.description }}</td>
+									</tr>
+
+									<tr>
+
+										<ul>
+											<th>Oeuvres associées</th>
+											<td>
+												<div class="mega-menu demo">
+													<div class="col-md-12">
+														<ul>
+															{% for oeuvre in oeuvres %}
+																<li>{{ oeuvre.titre }}</li>
+															{% endfor %}
+														</ul>
+													</div>
+												</div>
+											</td>
+										</ul>
+
+									</tr>
+								</tbody>
+							</tr>
+						</tbody>
+					</table>
+
+					<a href="{{ path('app_concours_index') }}">Retour à la liste</a>
+
+					<a href="{{ path('app_concours_edit', {'id': concour.id}) }}">Éditer</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
