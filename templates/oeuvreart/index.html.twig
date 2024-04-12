@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Oeuvreart index
-{% endblock %}
+{% block title %}Oeuvreart index{% endblock %}
 
 {% block body %}
 
@@ -11,9 +10,7 @@
 			<div class="sub-bar">
 				<div class="sub-title">
 					<h4>Oeuvre d'art:</h4>
-					<span>
-						Gestion des oeuvre d'art
-					</span>
+					<span>Gestion des oeuvre d'art</span>
 				</div>
 				<ul class="bread-crumb">
 					<li>
@@ -96,69 +93,55 @@
 							</tr>
 						</thead>
 						<tbody>
-							{% for oeuvreart in oeuvrearts %}
-								<tr>
-									<td class="sr">{{ oeuvreart.idoeuvreart }}</td>
-									<td>
-									<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-									<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="Image" style="width: 70px; height: 90px"></a>
-									</td>
-									<td>{{ oeuvreart.titre }}</td>
-									<td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
-									<td>{{ oeuvreart.description }}</td>
-									<td>
-										<span class="progres">{{ oeuvreart.prixvente }}
-											DT</span>
-									</td>
-									<td>
-										<span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
-									</td>
-									<td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
-
-									<td>
-										<div class="prj-team">
-											<ul>
-												<li>
-													<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
-														<img src="/TemplateAdmin/images/trouve.png" alt="Trouver" style="width: 20px; height: 20px;">
-													</a>
-												</li>
-												<li>
-										<a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
-											<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 20px; height: 20px;">
-										</a>
-									</li>
-												
-
-				</tbody>
-			</tr>
-		{% else %}
-			<tr>
-				<td colspan="10">Aucun enregistrement trouvé</td>
-			</tr>
-		{% endfor %}
-	</tbody>
-</table></div></div>
-{% endblock %}
-
-
-												<li>
-													{{ include('oeuvreart/_delete_form.html.twig') }}
-												</li>
-												
-											</ul>
+							{% if oeuvrearts is not empty %}
+								{% for oeuvreart in oeuvrearts %}
+									<tr>
+										<td class="sr">{{ oeuvreart.idoeuvreart }}</td>
+										<td>
+											<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
+												<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="Image" style="width: 70px; height: 90px">
+											</a>
 										</td>
-									</td>
+										<td>{{ oeuvreart.titre }}</td>
+										<td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
+										<td>{{ oeuvreart.description }}</td>
+										<td>
+											<span class="progres">{{ oeuvreart.prixvente }}
+												DT</span>
+										</td>
+										<td>
+											<span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
+										</td>
+										<td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
+
+										<td>
+											<div class="prj-team">
+												<ul>
+													<li>
+														<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
+															<img src="/TemplateAdmin/images/trouve.png" alt="Trouver" style="width: 20px; height: 20px;">
+														</a>
+													</li>
+													<li>
+														<a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
+															<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 20px; height: 20px;">
+														</a>
+													</li>
+													<li>
+														{{ include('oeuvreart/_delete_form.html.twig') }}
+													</li>
+												</ul>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
+							{% else %}
+								<tr>
+									<td colspan="10">Aucun enregistrement trouvé</td>
 								</tr>
-							</div>
+							{% endif %}
 						</tbody>
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="10">Aucun enregistrement trouvé</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-</div>{% endblock %}
+					</table>
+				</div>
+			</div>
+		{% endblock %}

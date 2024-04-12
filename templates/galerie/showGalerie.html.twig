@@ -197,18 +197,16 @@
 
         <div class="row">
              {% for oeuvreart in similarOeuvres %}
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-                                <img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}">
-                            </a>
-                        </div>
-                        <h3>{{ oeuvreart.titre }}</h3>
-                        <p class="product-price"><span>Prix</span> {{ oeuvreart.prixvente }} DT</p>
-                        <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
-                    </div>
+                <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+            <div class="single-product-item">
+                <div class="product-image">
+                     <img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}"></a>
                 </div>
+                <h3>{{ oeuvreart.titre }}</h3>
+                <p class="product-price"><span>Prix de vente</span> {{ oeuvreart.prixvente }} DT </p>
+                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
+            </div>
+        </div>
             {% endfor %}
         </div>
 

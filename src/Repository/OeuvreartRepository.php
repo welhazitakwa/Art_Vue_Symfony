@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Categorie;
 use App\Entity\Oeuvreart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<Oeuvreart>
@@ -28,6 +30,29 @@ class OeuvreartRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findLastThreeAddedArtworks()
+    {
+    return $this->createQueryBuilder('oeuvre')
+        ->orderBy('oeuvre.dateajout', 'DESC')
+        ->setMaxResults(3)
+        ->getQuery()
+        ->getResult();
+    }
+
+
+    public function findByCategorie(Categorie $categorie)
+{
+    return $this->createQueryBuilder('oa')
+        ->andWhere('oa.idCategorie = :categorieId')
+        ->setParameter('categorieId', $categorie->getIdcategorie())
+        ->getQuery()
+        ->getResult();
+}
+
+
+
+
+
 
 //    /**
 //     * @return Oeuvreart[] Returns an array of Oeuvreart objects

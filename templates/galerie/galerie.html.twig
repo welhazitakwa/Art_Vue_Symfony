@@ -211,9 +211,9 @@
 					<div class="col-md-12">
 						<div class="product-filters">
 							<ul>
-								<li class="active" data-filter="*">Tous</li>
+								<a href="{{ path('app_galerie') }}"><li class="active" >Tous</li></a>
 								{% for categorie in categories %}
-									<li data-filter=".{{ categorie.nomcategorie|lower }}">{{ categorie.nomcategorie }}</li>
+									<a href="{{ path('app_galerie_by_categorieAff', {'idcategorie': categorie.idcategorie}) }}"><li>{{ categorie.nomcategorie }}</li></a>
 								{% endfor %}
 							</ul>
 						</div>
@@ -270,7 +270,15 @@
 		</div>
 		<!-- end products -->
 
+
+
+
+
+		
+
+
 		<!-- logo carousel -->
+	
 		<div class="logo-carousel-section">
 			<div class="container">
 				<div class="row">

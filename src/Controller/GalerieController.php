@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Oeuvreart;
+use App\Repository\OeuvreartRepository;
 
 class GalerieController extends AbstractController
 {
@@ -73,4 +74,39 @@ class GalerieController extends AbstractController
             'similarOeuvres' => $similarOeuvres,
         ];
     }
+
+
+    #[Route('/galerieCategorieAff/{idcategorie}', name: 'app_galerie_by_categorieAff', methods: ['GET'])]
+    public function showByCategorie(int $idcategorie, OeuvreartRepository $oeuvreartRepository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Récupérer la catégorie
+        $categorie = $entityManager->getRepository(Categorie::class)->find($idcategorie);
+
+        // Vérifier si la catégorie existe
+        if (!$categorie) {
+            throw $this->createNotFoundException('Aucune catégorie trouvée pour l\'ID '.$idcategorie);
+        }
+
+        // Récupérer les œuvres d'art de la catégorie sélectionnée en utilisant le repository
+        $oeuvrearts = $oeuvreartRepository->findByCategorie($categorie);
+
+        return $this->render('galerie/galerie.html.twig', [
+            'categories' => [$categorie], // Passer la catégorie sous forme de tableau
+            'oeuvrearts' => $oeuvrearts,
+        ]);
+    }
+
+    #[Route('/lastThreeAddedArtworks', name: 'app_lastThreeAddedArtworks')]
+    public function lastThreeAddedArtworks(OeuvreartRepository $oeuvreartRepository): Response
+    {
+        $lastThreeAddedArtworks = $oeuvreartRepository->findLastThreeAddedArtworks();
+
+        return $this->render('test.html.twig', [
+            'lastThreeAddedArtworks' => $lastThreeAddedArtworks,
+        ]);
+    }
+    
+
 }
