@@ -5,82 +5,131 @@
 
 {% block body %}
 
-	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
-		<div class="sub-title">
-			<h4>Oeuvre d'art:</h4>
-			<span>Les oeuvres d'art ajoutées</span>
-		</div>
-		<ul class="bread-crumb">
-			<li>
-				<a href="{{ path('app_home') }}" title="">Home</a>
-			</li>
-			<li>Galerie</li>
-			<li>Oeuvre d'art</li>
-		</ul>
-	</div>
+	<div class="panel-body">
+		<div class="content-area">
 
-	<div class="widget">
-		<div class="widget-title no-margin">
-			<h4>Oeuvre d'art</h4>
-			<span>Les oeuvre d'art accepté</span>
-			<ul class="widget-controls">
-				<li title="Ajouter nouveau catégorie" class="refresh-content">
-					<a href="{{ path('app_oeuvreart_new') }}"><img src="/TemplateAdmin/images/plus.png" style="width: 25px; height: 25px;" alt="Ajouter Catégorie">
-						Ajouter Oeuvre d'art</a>
-				</li>
-			</ul>
-		</div>
-		<div class="main-table">
-			<table class="table table-hover table-responsive">
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th class="image-column">Image</th>
-						<th>Titre</th>
-						<th>Catégorie</th>
-						<th style="width: 300px;">Description</th>
-						<!-- Définir la largeur de la colonne de description -->
-						<th>Prix</th>
-						<th>Status</th>
-						<th>Date d'ajout</th>
-						
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for oeuvreart in oeuvrearts %}
-						<tr>
-							<td class="sr">{{ oeuvreart.idoeuvreart }}</td>
-							<td><img src="/TemplateAdmin/images/peinture.jpg" alt="Image" style="max-width: 80px;"></td>
-							<td>{{ oeuvreart.titre }}</td>
-							<td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
-							<td>{{ oeuvreart.description }}</td>
-							<td>
-								<span class="progres">{{ oeuvreart.prixvente }}
-									DT</span>
-							</td>
-							<td>
-								<span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
-							</td>
-							<td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
-							
-							<td>
-								<div class="prj-team">
-									<ul>
-										<li>
-											<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
-												<img src="/TemplateAdmin/images/trouve.png" alt="Modifier" style="width: 24px; height: 24px;">
-											</a>
-										</li>
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Oeuvre d'art:</h4>
+					<span>
+						Gestion des oeuvre d'art
+					</span>
+				</div>
+				<ul class="bread-crumb">
+					<li>
+						<a href="{{ path('app_home') }}" title="">
+							<i class="fa fa-home"></i>
+						</a>
+					</li>
+					<li>Galerie</li>
+					<li>Oeuvre d'art</li>
+				</ul>
+			</div>
+			<div class="info-section">
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+						<div class="info-meta">
+							<span>Nombre des catégories</span>
+							<h4>{{ categoriesCount }}</h4>
 
-										<li>
-											{{ include('oeuvreart/_delete_form.html.twig') }}
-										</li>
-									</ul>
-								</td>
-							</td>
-						</tr>
+						</div>
+						<div class="spark">
+							<div class="sparkline_line"></div>
+						</div>
 					</div>
+				</div>
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/image.png') }}" alt="" width="50" height="50">
+						<div class="info-meta">
+							<span>Nombre des Oeuvre d'art</span>
+							<h4>{{ totalArtworksCount }}</h4>
+
+						</div>
+						<div class="spark">
+							<div class="sparkline_three"></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+						<div class="info-meta">
+							<span>La meilleur catégorie</span>
+							<h4 style="font-size: 25px;">{{ bestCategoryName }}</h4>
+
+						</div>
+						<div class="spark">
+							<div class="sparkline22"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="widget">
+				<div class="widget-title no-margin">
+					<h4>Oeuvre d'art</h4>
+					<span>Les oeuvre d'art accepté</span>
+					<ul class="widget-controls">
+						<li title="Ajouter nouveau catégorie" class="refresh-content">
+							<a href="{{ path('app_oeuvreart_new') }}"><img src="/TemplateAdmin/images/plus.png" style="width: 25px; height: 25px;" alt="Ajouter Catégorie">
+								Ajouter Oeuvre d'art</a>
+						</li>
+					</ul>
+				</div>
+				<div class="main-table">
+					<table class="table table-hover table-responsive">
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th class="image-column">Image</th>
+								<th>Titre</th>
+								<th>Catégorie</th>
+								<th style="width: 250px;">Description</th>
+								<!-- Définir la largeur de la colonne de description -->
+								<th>Prix</th>
+								<th>Status</th>
+								<th>Date d'ajout</th>
+
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for oeuvreart in oeuvrearts %}
+								<tr>
+									<td class="sr">{{ oeuvreart.idoeuvreart }}</td>
+									<td>
+									<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
+									<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="Image" style="width: 70px; height: 90px"></a>
+									</td>
+									<td>{{ oeuvreart.titre }}</td>
+									<td>{{ oeuvreart.idCategorie.nomcategorie }}</td>
+									<td>{{ oeuvreart.description }}</td>
+									<td>
+										<span class="progres">{{ oeuvreart.prixvente }}
+											DT</span>
+									</td>
+									<td>
+										<span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
+									</td>
+									<td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
+
+									<td>
+										<div class="prj-team">
+											<ul>
+												<li>
+													<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
+														<img src="/TemplateAdmin/images/trouve.png" alt="Trouver" style="width: 20px; height: 20px;">
+													</a>
+												</li>
+												<li>
+										<a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="edit-btn">
+											<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 20px; height: 20px;">
+										</a>
+									</li>
+												
+
 				</tbody>
 			</tr>
 		{% else %}
@@ -93,3 +142,23 @@
 {% endblock %}
 
 
+												<li>
+													{{ include('oeuvreart/_delete_form.html.twig') }}
+												</li>
+												
+											</ul>
+										</td>
+									</td>
+								</tr>
+							</div>
+						</tbody>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="10">Aucun enregistrement trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>{% endblock %}

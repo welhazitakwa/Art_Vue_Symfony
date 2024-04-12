@@ -211,7 +211,7 @@
 					<div class="col-md-12">
 						<div class="product-filters">
 							<ul>
-								<li class="active" data-filter="*">All</li>
+								<li class="active" data-filter="*">Tous</li>
 								{% for categorie in categories %}
 									<li data-filter=".{{ categorie.nomcategorie|lower }}">{{ categorie.nomcategorie }}</li>
 								{% endfor %}
@@ -222,34 +222,35 @@
 
 
 				<div class="row product-lists">
-    {% for oeuvreart in oeuvrearts %}
-    <div class="col-lg-4 col-md-6 text-center">
-        <div class="single-product-item">
-            <div class="product-image">
-			<!-- Ajout du bouton "Like" -->
-                <button class="like-btn" data-id="{{ oeuvreart.idoeuvreart }}">
-                    <i class="far fa-heart"></i>
-                </button>
-                <!-- Affichage du nombre de likes -->
-                <span class="like-count">20 Likes</span> 
-                <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-                    <img src="{{ asset('TemplateClient/assets/img/products/peinture3.jpg') }}" alt="{{ oeuvreart.titre }}">
-                </a>
-            </div>
-            <h5>{{ oeuvreart.titre }}</h5>
-            <p class="product-price">
-                {{ oeuvreart.prixvente }}DT
-            </p>
-			
-            
-            <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
-                <i class="fas fa-shopping-cart"></i> Add to Cart
-            </a>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+					{% for oeuvreart in oeuvrearts %}
+						<div class="col-lg-3 col-md-6 text-center">
+							<div class="single-product-item">
+								<div
+									class="product-image">
+									<!-- Ajout du bouton "Like" -->
+									<button class="like-btn" data-id="{{ oeuvreart.idoeuvreart }}">
+										<i class="far fa-heart"></i>
+									</button>
+									<!-- Affichage du nombre de likes -->
+									<span class="like-count">20 Likes</span>
+									<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
+										<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}" style="width: 150px; height: 200px">
+									</a>
+								</div>
+								<h5>{{ oeuvreart.titre }}</h5>
+								<p class="product-price">
+									{{ oeuvreart.prixvente }}DT
+								</p>
 
+
+								<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
+									<i class="fas fa-shopping-cart"></i>
+									Ajouter au panier
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
 
 
 				<div class="row">

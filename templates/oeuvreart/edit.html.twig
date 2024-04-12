@@ -3,11 +3,77 @@
 {% block title %}Edit Oeuvreart{% endblock %}
 
 {% block body %}
-    <h1>Edit Oeuvreart</h1>
+    <div class="panel-body">
+        <div class="content-area">
 
-    {{ include('oeuvreart/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="sub-bar">
+                <div class="sub-title">
+                    <h4>Oeuvre d'art:</h4>
+                    <span>
+                        Modifier Oeuvre d'art "{{ oeuvreart.titre }}"
+                    </span>
+                </div>
+                <ul class="bread-crumb">
+                    <li>
+                        <a href="{{ path('app_home') }}" title="">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li>Galerie</li>
+                    <li>Oeuvre d'art</li>
+                    <li>Modifier Oeuvre d'art</li>
+                </ul>
+            </div>
 
-    <a href="{{ path('app_oeuvreart_index') }}">back to list</a>
-
-    {{ include('oeuvreart/_delete_form.html.twig') }}
+            <div class="widget">
+                <div class="widget-title no-margin">
+                    <h4>Formulaire modification d'oeuvre d'art</h4>
+                    <ul class="widget-controls">
+                        <li title="Retour à la liste" class="refresh-content">
+                            <a href="{{ path('app_oeuvreart_index') }}"> Retour à la liste <img src="/TemplateAdmin/images/next.png" style="width: 17px; height: 17px;" alt="Ajouter Catégorie"></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {{ form_start(form) }}
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>{{ form_label(form.titre) }}</th>
+                                    <td>{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+								<tr>
+                                    <th>{{ form_label(form.idArtiste) }}</th>
+                                    <td>{{ form_widget(form.idArtiste, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ form_label(form.idCategorie) }}</th>
+                                    <td>{{ form_widget(form.idCategorie, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ form_label(form.description) }}</th>
+                                    <td>{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ form_label(form.prixvente) }}</th>
+                                    <td>{{ form_widget(form.prixvente, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ form_label(form.image) }}</th>
+                                    <td>{{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+								<tr>
+                                    <th>{{ form_label(form.dateajout, 'Date de modification') }}</th>
+                                    <td>{{ form_widget(form.dateajout, {'attr': {'class': 'form-control'}}) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="admin-form-button">Modifier</button>
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
