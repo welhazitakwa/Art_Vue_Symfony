@@ -2,55 +2,93 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CommandeRepository;
+use DateTime;
 
-/**
- * Commande
- *
- * @ORM\Table(name="commande", indexes={@ORM\Index(name="fk_panier", columns={"panier"})})
- * @ORM\Entity
- */
+
+ #[ORM\Table(name: "commande", indexes: [
+    new ORM\Index(name: "fk_panier", columns: ["panier"]),
+])]
+
+#[ORM\Entity(repositoryClass: "App\Repository\CommandeRepository")]
+
 class Commande
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="montant", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $montant;
+    #[ORM\Column]
+    private ?float $montant = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-    private $date = 'CURRENT_TIMESTAMP';
+   
+   
+    #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?DateTime $date = null;
+    
+   #[ORM\Column(length: 255)]
+    private ?string $etat = null;
+  
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="etat", type="string", length=255, nullable=false)
-     */
-    private $etat;
+    #[ORM\ManyToOne(targetEntity: Panier::class)]
+    #[ORM\JoinColumn(name: "panier", referencedColumnName: "id")]
+   private ?Panier $panier;
 
-    /**
-     * @var \Panier
-     *
-     * @ORM\ManyToOne(targetEntity="Panier")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="panier", referencedColumnName="id")
-     * })
-     */
-    private $panier;
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getMontant(): ?float
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(float $montant): static
+    {
+        $this->montant = $montant;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getEtat(): ?string
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(string $etat): static
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): static
+    {
+        $this->panier = $panier;
+
+        return $this;
+    }
 
 
 }
