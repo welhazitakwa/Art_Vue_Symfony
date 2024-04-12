@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% set parametre2 = 1 %}
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block body %}
@@ -13,7 +13,7 @@
                 <div class="sub-bar">
                   
                   <ul class="bread-crumb">
-                    <li><a href="{{path('app_home')}}" title="">Dashboard</a></li>
+                    <li><a href="{{path('app_home')}}" title="">Dashboard {{ parametre2 }}</a></li>
                     <li><a href="{{path('listUtilisateur')}}" title="">Liste des Utilisateurs</a></li>
                   </ul>
                 </div>
@@ -35,11 +35,7 @@
                       <div class="col-md-6 col-sm-6 field">
                         <label>Genre   </label>
                           {{ form_widget(form.genre, {'attr': { 'style': 'background-color: #f4f8ff; margin-left:5px;'}}) }}
-                        {# <select style="background-color:#f4f8ff;">
-                          <option></option>
-                          <option>Homme</option>
-                          <option>Femme</option>
-                        </select> #}
+                      
                       </div>
                       <div class="col-md-6 col-sm-6 field">
                         <label> Date de Naissance   </label>

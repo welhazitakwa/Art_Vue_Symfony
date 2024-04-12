@@ -87,13 +87,13 @@ class UtilisateurController extends AbstractController
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
+
         $form = $this->createForm(EditProfileType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('utilisateur/edit.html.twig', [
