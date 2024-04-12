@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4 mb-4">Calendar Index</h1>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for calendar in calendars %}
+                    <tr>
+                        <td>{{ calendar.name }}</td>
+                        <td>{{ calendar.startdate ? calendar.startdate|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ calendar.enddate ? calendar.enddate|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <a href="{{ path('app_calendar_show', {'id': calendar.id}) }}" class="btn btn-info btn-sm">Show</a>
+                            <a href="{{ path('app_calendar_edit', {'id': calendar.id}) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ path('app_evenement_new_with_id', {'id': calendar.id}) }}" class="btn btn-success btn-sm">Create Event</a>
+                            <a href="{{ path('app_calendar_events', {'id': calendar.id}) }}" class="btn btn-success btn-sm">View Events</a> <!-- New button -->
+
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5">No records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{{ path('app_calendar_new') }}" class="btn btn-success">Create New</a>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/custom.js') }}"></script>
+{% endblock %}

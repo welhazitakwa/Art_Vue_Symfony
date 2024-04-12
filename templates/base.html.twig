@@ -12,6 +12,53 @@
 
     {% block css%}
 
+    <!--Css Nourhen zedetou  -->
+    <style>
+	.table tr,
+	.table th,
+	.table td {
+		background-color: transparent;
+	}
+
+	
+
+	
+
+	#form-container {
+    flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 50px;
+    border: 0px solid #ccc;
+    border-radius: 10px;
+
+}
+
+     .admin-form-button {
+        background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #dbc2ad 0%, #e09f74 100%) repeat scroll 0 0;
+        border: medium none;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        margin-top: 20px;
+        padding: 13px 0;
+        text-transform: uppercase;
+        width: 25%; 
+        transition: all 0.2s linear 0s;
+        border-radius: 30px;
+        margin: auto;
+        display: block;
+    }
+
+    .admin-form-button:hover {
+        background: #333;
+    }
+</style>
+
+<!--Css Nourhen youfa  -->
+
+
     <link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
@@ -21,16 +68,20 @@
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
     <!-- calander -->
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
     <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+
 
      <!-- css mariem -->
   
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
 
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/event-calendar/eventCalendar.css') }}">
+
 
 
 
@@ -52,32 +103,29 @@
                         <header>
                             <div class="side-menus">
                                 <div class="side-header">
-									<div class="logo"><a title="" href="index.html"><img alt="" src="images/logo2.png"></a></div>
+									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
                                     <nav class="slide-menu">
                                         <span>Navigation <i class="ti-layout"></i></span>
                                         <ul class="parent-menu">
                                             <li class="menu-item-has-children active"> <a title="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
                                                 <ul style="display: block">
-                                                    <li><a class="active" href="index.html" title="">Dashboard 1</a></li>
-                                                    <li><a href="index2.html" title="">Dashboard 2</a></li>
-                                                    <li><a href="index3.html" title="">Dashboard 3</a></li>
-                                                    <li><a href="index4.html" title="">Dashboard 4</a></li>
-                                                    <li><a href="index5.html" title="">Dashboard 5</a></li>
+                                                    <li><a class="active" href="index.html" title="">Dashboard</a></li>
+                                                    <li><a href="index3.html" title="">Autre Statistique</a></li>
+                                                    
                                                 </ul>
                                             </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-laptop"></i><span>layouts</span></a>
+                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
                                                 <ul class="mega">
-                                                    <li><a href="index-boxed.html" title="">boxed layout</a></li>
-                                                    <li><a href="overlap-sidebar.html">overlap sliderbar</a></li>
+                                                    <li><a href="{{ path('app_categorie_index') }}" title="">Catégories</a></li>
+                                                    <li><a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>WooCommercee</span></a>
+                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>Commerce</span></a>
                                                 <ul class="mega">
-                                                    <li><a href="product.html" title="">product</a></li>
-                                                    <li><a href="product-detail.html">product-detail</a></li>
-                                                    <li><a href="product-order.html">product-order</a></li>
-                                                    <li><a href="product-add.html">add product</a></li>
-                                                    <li><a href="product-cart.html">product cart</a></li>
+                                                 <li><a href="{{ path('app_commande_index') }}" title="">Commandes</a></li>
+                                                    <li><a href="{{ path('app_panier_index') }}">Paniers</a></li>
+                                                 <li><a href="{{ path('app_livraison_index') }}">Livraisons</a></li>
+
                                                 </ul>
                                             </li>
                                             <li class="menu-item-has-children"> <a title="#"><i class="fa fa-bookmark-o"></i><span>UI Elements</span></a>
@@ -95,7 +143,8 @@
                                             </li>
 											<li><a href="inbox.html" title=""><i class="fa fa-inbox"></i><span>inbox</span><ins>5</ins></a></li>
                                             <li><a href="charts.html" title=""><i class="fa fa-bar-chart"></i><span>charts</span></a></li>
-                                            <li> <a href="maps.html" title=""><i class="fa fa-globe"></i><span>Google maps</span></a> </li>
+                                                            <li> <a href="{{path('listUtilisateur')}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
+
 											<li class="menu-item-has-children"> 
 												<a title=""><i class="fa fa-flag"></i><span>Icons</span></a>
                                                 <ul>
@@ -272,17 +321,22 @@
                                     <div class="col-lg-1">
                                         <div class="user-head">
                                             <div class="admin">
-                                                <div class="admin-avatar"><img src="images/resources/admin.png" alt=""> <i class="online"></i> </div>
+                                                <div class="admin-avatar">
+                                                <img 
+                                src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
+                                                 <i class="online"></i> </div>
                                             </div>
                                             <div class="drop setting"> <span class="drop-head">stifen Doe <i>30 days trial</i></span>
                                                 <ul class="drop-meta">
                                                     <li> <a href="#" title=""><i class="fa fa-eyedropper"></i>Edit Profile</a> </li>
-                                                    <li> <a href="#" title=""><i class="fa fa-envelope-o"></i>My Inbox</a> </li>
+                                                    {# <li> <a href="#" title=""><i class="fa fa-envelope-o"></i>My Inbox</a> </li>
                                                     <li> <a href="#" title=""><i class="fa fa-adjust"></i>task</a> </li>
                                                     <li> <a href="#" title=""><i class="fa fa-calendar"></i>Calender</a> </li>
-                                                    <li> <a href="#" title=""><i class="fa fa-align-right"></i>Balance Report</a> </li>
+                                                    <li> <a href="#" title=""><i class="fa fa-align-right"></i>Balance Report</a> </li> #}
                                                 </ul>
-                                                <span class="drop-bottom"><a href="#" title=""><i class="fa fa-sign-out"></i>log Out</a></span> </div>
+                                                <span class="drop-bottom"><a  href="{{path('login_user')}}"  title=""><i class="fa fa-sign-out"></i>Déconnecter</a></span> 
+                                                
+                                                 </div>
                                         </div>
                                     </div>
                                 </div>
@@ -876,6 +930,7 @@
 
 
     <script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>

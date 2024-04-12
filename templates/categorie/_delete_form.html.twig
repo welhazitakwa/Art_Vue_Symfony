@@ -2,7 +2,7 @@
 <form id="deleteForm{{ categorie.idcategorie }}" method="post" action="{{ path('app_categorie_delete', {'idcategorie': categorie.idcategorie}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.idcategorie) }}">
     <a href="#" onclick="confirmDelete('{{ categorie.idcategorie }}');">
-        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 24px; height: 24px;">
+        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 20px; height: 20px;">
     </a>
 </form>
 

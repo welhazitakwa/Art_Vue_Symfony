@@ -1,55 +1,52 @@
 <?php
-
+ 
 namespace App\Entity;
 
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Categorie
- *
- * @ORM\Table(name="categorie")
- * @ORM\Entity
- */
+ 
+
+
+ #[ORM\Table(name: "categorie")]
+#[ORM\Entity(repositoryClass: CategorieRepository::class)]
+
 class Categorie
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idCategorie", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idcategorie;
+     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idcategorie = null;
+    
+    
+    #[ORM\Column(length: 255)]
+    private ?string $nomcategorie = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nomCategorie", type="string", length=255, nullable=false)
-     */
-    private $nomcategorie;
+
     public function getIdcategorie(): ?int
     {
         return $this->idcategorie;
     }
-
-    public function setIdcategorie(int $idcategorie): self
+ 
+    public function setIdcategorie(int $idcategorie): static
     {
         $this->idcategorie = $idcategorie;
-
+ 
         return $this;
     }
-
+ 
     public function getNomcategorie(): ?string
     {
         return $this->nomcategorie;
     }
-
-    public function setNomcategorie(string $nomcategorie): self
+ 
+    public function setNomcategorie(string $nomcategorie): static
     {
         $this->nomcategorie = $nomcategorie;
-
+ 
         return $this;
     }
-
-
+ 
+ 
 }

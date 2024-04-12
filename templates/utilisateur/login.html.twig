@@ -1,0 +1,137 @@
+{# {{ form_start(form1) }}
+    {{ form_widget(form) }} 
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form1) }} #}
+
+{# 
+<table border="1">
+<tr>
+    
+    <th>title</th>
+    <th> Publication date </th>
+    
+</tr>
+
+      <tr>  {% for u in user %} </tr>
+      <td>{{ u.nom }}</td>
+      <td>{{ u.prenom }}</td>
+      {% else %}
+        <tr>
+        <td> No record found </td> 
+        </tr>
+            
+    {% endfor %}    
+</table> #}
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title> Bienvenue</title>
+{% block css%}
+<link rel="icon" type="image/png" href="images/fav.png">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+ {% endblock %}
+</head>
+<body >
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+<div class="panel-layout" >
+  <div class="container-fluid" >
+    <div class="row">
+      <div class="col-md-12" >
+        <div class="admin-lock vh100" >
+          <div class="admin-form" >
+			  <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
+            <h4>Se Connecter</h4>
+            <span>Connecter vous pour continuer</span>
+            <form method="post">
+            {{ form_start(form1) }}
+
+              <label><i class="fa fa-user-circle-o"></i></label>
+                {{ form_widget(form1.login, {'attr': {'placeholder': 'Login'}}) }}
+              <label><i class="fa fa-unlock-alt"></i></label>
+                {{ form_widget(form1.mdp, {'attr': {'placeholder': ' Mot de Passe'}}) }}
+              {# <input type="checkbox" id="remember"> #}
+              <label for="remember">{#  Remember Me  #}
+              <a href="#" title="">Mot de passe oublié?</a></label>
+              <button type="submit"> <h4 style="color: #f0edea;"> <b> {{ button_label|default("Se Connecter") }}  </b> </h4> </button>
+              {{ form_end(form1) }}
+            </form>
+            <span>Vous n'avez pas un compte ? &nbsp;&nbsp;&nbsp; <b> <a style="color: #412927;" 
+            href="{{path('app_utilisateur_new')}}" 
+            title="">S'inscrire</a> </b>  </span> </div>
+
+
+
+
+
+
+
+      {% for u in user %} 
+      
+
+        {% if u.profil == 0 %}
+            {% set url = path('app_home') %}
+                <script>window.location.href = "{{ url }}";</script>
+        
+        {% elseif  u.profil == 1 %} 
+            {% set url = path('app_home_client') %}
+                <script>window.location.href = "{{ url }}";</script>
+        {% elseif  u.profil == 2 %} 
+         {% set url = path('app_home_client') %}
+                <script>window.location.href = "{{ url }}";</script>
+        {% else %}
+         <h1>
+        Aucune condition n'est vérifiée.
+    </h1>
+        {% endif %}
+
+   {% endfor %}
+</table>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% block js %}
+    <script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+{% endblock %}
+
+</body>
+
+
+</html>

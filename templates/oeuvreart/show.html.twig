@@ -1,46 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Oeuvreart{% endblock %}
+{% block title %}Oeuvreart
+{% endblock %}
 
 {% block body %}
-    <h1>Oeuvreart</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Idoeuvreart</th>
-                <td>{{ oeuvreart.idoeuvreart }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ oeuvreart.image }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ oeuvreart.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ oeuvreart.description }}</td>
-            </tr>
-            <tr>
-                <th>Prixvente</th>
-                <td>{{ oeuvreart.prixvente }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ oeuvreart.status }}</td>
-            </tr>
-            <tr>
-                <th>Dateajout</th>
-                <td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_oeuvreart_index') }}">back to list</a>
+	<div class="widget-title no-margin" style=" margin-top: 70px">
+		<h4>Details Oeuvre d'art</h4>
+		<span>{{ oeuvreart.titre }}</span>
+		<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+			<li>Galerie</li>
+			<li>Oeuvre d'art</li>
+		</ul>
+	</div>
 
-    <a href="{{ path('app_oeuvreart_edit', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">edit</a>
+	<div class="gap no-gap">
+		<div class="inner-bg">
+			<div class="product-details">
+				<div class="gap no-top">
+					<div class="product-details-wrapper paddlr70">
+						<div class="product-detail paddlr100">
+							<div class="row">
+								<div class="col-lg-5 col-md-5">
+									<div class="product-detail-thumb">
+										<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="" style="width: 400px; height: 500px">
+									</div>
+								</div>
+								<div class="col-lg-7 col-md-7">
+									<div class="product-detail-info">
+										<div class="rating-reviews">
+											<div class="starz-rating">
+												<span class="fa fa-star-o"></span>
+												<span class="fa fa-star-o "></span>
+												<span class="fa fa-star-o "></span>
+												<span class="fa fa-star-o "></span>
+												<span class="fa fa-star-o"></span>
+											</div>
+											<ul>
+												<li><a href="#" class="review-btn" title="">(03 Likes)</a></li>
+											</ul>
+										</div>
+										<h1>{{ oeuvreart.titre }}</h1>
+										<h4>{{ oeuvreart.idCategorie.nomcategorie }}</h4>
+										<br>
+										<h5 style="color: #343a40; font-weight: bold; font-size: 17px;">
+											Date d'ajout :
+											<span style="font-weight: normal; color: #343a40;">{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</span>
+										</h5>
 
-    {{ include('oeuvreart/_delete_form.html.twig') }}
+										<h5>Status :
+											<span style="color: green; font-weight: bold;">{{ oeuvreart.status }}</span>
+										</h5>
+										<br>
+										<div class="card" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); background-color: #f8f9fa;">
+											<div class="card-body">
+												<h5 class="card-title" style="color: #343a40; font-weight: bold; font-size: 17px;">Information Artiste</h5>
+												<p class="card-text" style="font-weight: bold; color: #343a40; font-size: 14px;">Nom et Prénom:
+													<span style="font-weight: normal; color: #343a40;">{{ oeuvreart.idArtiste.nom }}
+														{{ oeuvreart.idArtiste.prenom }}</span>
+												</p>
+												<p class="card-text" style="color: #6c757d; font-size: 12px;">{{ oeuvreart.idArtiste.email }}</p>
+												<p class="card-text" style="color: #6c757d; font-size: 12px;">+216
+													{{ oeuvreart.idArtiste.numtel }}</p>
+											</div>
+										</div>
+
+
+										<p>{{ oeuvreart.description }}</p>
+										<br>
+										<span class="price">
+											<ins>{{ oeuvreart.prixvente }}
+												DT</ins>
+											<del>100 DT</del>
+										</span>
+
+
+										<div class="cart-quantity d-flex justify-content-between">
+                                        <p> </p>
+
+											<a href="{{ path('app_oeuvreart_index') }}" style="color: blue; text-decoration: none;">
+    <i class="fa fa-arrow-right"></i> Retour au list
+</a>
+
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+
 {% endblock %}

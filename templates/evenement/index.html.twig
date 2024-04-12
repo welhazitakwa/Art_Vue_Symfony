@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement index{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4 mb-4">Evenement Index</h1>
+        <div class="row">
+            {% for evenement in evenements %}
+                <div class="col-md-4 mb-4">
+                    <div class="card event-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ evenement.nom }}</h5>
+                            <p class="card-text">Location: {{ evenement.lieu }}</p>
+                            <p class="card-text">Date: {{ evenement.date ? evenement.date|date('Y-m-d H:i:s') : '' }}</p>
+                            <p class="card-text">Price: {{ evenement.price }}</p>
+                            <p class="card-text">Capacity: {{ evenement.capacite }}</p>
+                            <a href="{{ path('app_evenement_show', {'id': evenement.id}) }}" class="btn btn-primary">Show</a>
+                            <a href="{{ path('app_evenement_edit', {'id': evenement.id}) }}" class="btn btn-secondary">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>No records found</p>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{{ path('app_evenement_new') }}" class="btn btn-success">Create New</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = document.querySelectorAll('.event-card');
+
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function () {
+                    card.style.transform = 'translateY(-10px)';
+                });
+
+                card.addEventListener('mouseleave', function () {
+                    card.style.transform = 'translateY(0)';
+                });
+
+                card.addEventListener('touchstart', function () {
+                    card.style.transform = 'translateY(-10px)';
+                });
+
+                card.addEventListener('touchend', function () {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
+

@@ -2,86 +2,59 @@
 
 namespace App\Entity;
 
+use App\Repository\OeuvreartRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Oeuvreart
- *
- * @ORM\Table(name="oeuvreart", indexes={@ORM\Index(name="fk_categorie_id", columns={"id_categorie"}), @ORM\Index(name="fk_id_artiste", columns={"id_artiste"})})
- * @ORM\Entity
- */
+
+
+#[ORM\Table(name: "oeuvreart", indexes: [
+    new ORM\Index(name: "fk_categorie_id", columns: ["id_categorie"]),
+    new ORM\Index(name: "fk_id_artiste", columns: ["id_artiste"]),
+])]
+
+#[ORM\Entity(repositoryClass: "App\Repository\OeuvreartRepository")]
+
 class Oeuvreart
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idOeuvreArt", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idoeuvreart;
+     #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idoeuvreart = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     */
-    private $image;
+    
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=255, nullable=false)
-     */
-    private $titre;
+    #[ORM\Column(length: 255)]
+    #[Assert\File(maxSize:"5M",mimeTypes:["image/jpeg","image/png","image/gif"],
+    mimeTypesMessage:"Veuillez télécharger une image valide (JPEG, PNG ou GIF)")]
+    #[Assert\NotBlank(message:"la photo est obligatoire")]
+    private ?string $image = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", length=0, nullable=false)
-     */
-    private $description;
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prixVente", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixvente;
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=255, nullable=false)
-     */
-    private $status;
+    #[ORM\Column]
+    private ?float $prixvente = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateAjout", type="date", nullable=false)
-     */
-    private $dateajout;
+    #[ORM\Column(length: 255)]
+    private ?string $status= 'Disponible';
 
-    /**
-     * @var \Categorie|null
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_categorie", referencedColumnName="idCategorie")
-     * })
-     */
-    private $idCategorie;
+      #[ORM\Column(type :"date")]
+    private ?\DateTimeInterface $dateajout = null;
 
-    /**
-     * @var \Utilisateur|null
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_artiste", referencedColumnName="id")
-     * })
-     */
-    private $idArtiste;
+
+     #[ORM\ManyToOne(targetEntity: Categorie::class)]
+     #[ORM\JoinColumn(name: "id_categorie", referencedColumnName: "idcategorie")]
+    private ?Categorie $idCategorie;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "id_artiste", referencedColumnName: "id")]
+    private ?Utilisateur $idArtiste;
+
 
     public function getIdoeuvreart(): ?int
     {
@@ -93,7 +66,7 @@ class Oeuvreart
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string $image): static
     {
         $this->image = $image;
         return $this;
@@ -104,7 +77,7 @@ class Oeuvreart
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre(string $titre): static
     {
         $this->titre = $titre;
         return $this;
@@ -115,7 +88,7 @@ class Oeuvreart
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(string $description): static
     {
         $this->description = $description;
         return $this;
@@ -126,7 +99,7 @@ class Oeuvreart
         return $this->prixvente;
     }
 
-    public function setPrixvente(float $prixvente): self
+    public function setPrixvente(float $prixvente): static
     {
         $this->prixvente = $prixvente;
         return $this;
@@ -137,7 +110,7 @@ class Oeuvreart
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(string $status): static
     {
         $this->status = $status;
         return $this;
@@ -148,7 +121,7 @@ class Oeuvreart
         return $this->dateajout;
     }
 
-    public function setDateajout(\DateTimeInterface $dateajout): self
+    public function setDateajout(\DateTimeInterface $dateajout): static
     {
         $this->dateajout = $dateajout;
         return $this;
@@ -159,7 +132,7 @@ class Oeuvreart
         return $this->idCategorie;
     }
 
-    public function setIdCategorie(?Categorie $idCategorie): self
+    public function setIdCategorie(?Categorie $idCategorie): static
     {
         $this->idCategorie = $idCategorie;
         return $this;
@@ -170,7 +143,7 @@ class Oeuvreart
         return $this->idArtiste;
     }
 
-    public function setIdArtiste(?Utilisateur $idArtiste): self
+    public function setIdArtiste(?Utilisateur $idArtiste): static
     {
         $this->idArtiste = $idArtiste;
         return $this;
