@@ -25,12 +25,12 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
-    // #[Route('/login', name: 'login_user')]
-    // public function login ():Response{
-    //     return $this->render('utilisateur/login.html.twig', [        
-    //     ]);
+    #[Route('/forgetPwd', name: 'forget_password')]
+    public function forgetPwd ():Response{
+        return $this->render('utilisateur/forgetPwd.html.twig', [        
+        ]);
         
-    // }
+    }
 
        #[Route('/login', name : "login_user")]
     public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{

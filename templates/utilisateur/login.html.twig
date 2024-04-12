@@ -73,7 +73,7 @@
                 {{ form_widget(form1.mdp, {'attr': {'placeholder': ' Mot de Passe'}}) }}
               {# <input type="checkbox" id="remember"> #}
               <label for="remember">{#  Remember Me  #}
-              <a href="#" title="">Mot de passe oublié?</a></label>
+              <a href="{{path('forget_password')}}" title="">Mot de passe oublié?</a></label>
               <button type="submit"> <h4 style="color: #f0edea;"> <b> {{ button_label|default("Se Connecter") }}  </b> </h4> </button>
               {{ form_end(form1) }}
             </form>
