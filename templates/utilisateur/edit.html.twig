@@ -1,13 +1,95 @@
 {% extends 'base.html.twig' %}
-
+{% set parametre2 = 1 %}
 {% block title %}Edit Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Edit Utilisateur</h1>
+ {# {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
 
-    {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="panel-body">
+              <div class="content-area">
+                <div class="sub-bar">
+                  
+                  <ul class="bread-crumb">
+                    <li><a href="{{path('app_home')}}" title="">Dashboard {{ parametre2 }}</a></li>
+                    <li><a href="{{path('listUtilisateur')}}" title="">Liste des Utilisateurs</a></li>
+                  </ul>
+                </div>
+                <div class="inner-bg">
+                  <div class="element-title">
+                    <h4>Modifier Votre Profil</h4>
+        				  </div>
+                    <div class="pnl-bdy billing-sec">
+                    {{ form_start(form) }}
+                    	<div class="row">
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Nom   </label>
+                   {{ form_widget(form.nom) }}
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Prenom   </label>
+                   {{ form_widget(form.prenom) }}
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label>Genre   </label>
+                          {{ form_widget(form.genre, {'attr': { 'style': 'background-color: #f4f8ff; margin-left:5px;'}}) }}
+                      
+                      </div>
+                      <div class="col-md-6 col-sm-6 field">
+                        <label> Date de Naissance   </label>
+{{ form_widget(form.datenaissance , {'attr': {'class': 'row col-md-6 col-sm-12 field', 'style': 'background-color: #f4f8ff; margin-left:5px;'}}) }}
+                      </div>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+                      <div class="col-md-12 col-sm-12 field"> 
+							            <span class="upload-image">upload image</span>
+						              <label class="fileContainer"> <span>upload</span>
+                          {{ form_widget(form.image, {'attr': {'style': 'width:950px'}}) }}
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
+						              </label>
+						          </div>
+
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>CIN   </label>
+                            {{ form_widget(form.cin) }}     
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Adresse  </label>
+                        {{ form_widget(form.adresse) }}
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Email   </label>
+                        {{ form_widget(form.email) }}
+                      </div>
+                      <div class="col-md-6 col-sm-12 field">
+                        <label>Numéro de Téléphone  </label>
+                        {{ form_widget(form.numtel) }}
+                      </div>
+						
+                     
+                      
+                      <div class="col-md-12 col-sm-12">
+                        <button style="margin-left:942px;" type="submit">{{ button_label|default("S'auvegarder") }}</button>
+                      </div>
+                     {{ form_end(form) }}
+                  </div>
+                    </div>
+                </div>
+              </div>
+            
+            </div>
+         
+
+
+{% endblock %}
+{% block format %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  $('.date-picker').datepicker();
+});
+</script>
 {% endblock %}

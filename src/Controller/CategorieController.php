@@ -16,9 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategorieController extends AbstractController
 {
     #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
-    public function homeAdmin(): Response
-    {
-        return $this->render('base.html.twig');
+    public function homeAdmin(Request $request): Response
+    {           
+        $lid = $request->query->get('parametre');
+        return $this->render('base.html.twig',[ 'parametre2' => (int)$lid,
+]);
+
     }
 
     #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
