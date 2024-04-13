@@ -13,10 +13,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+     public function hashPassword($plainPassword)
+    {
+        // Générez un sel aléatoire
+        $salt = substr(str_replace('+', '.', base64_encode(random_bytes(16))), 0, 22);
+        
+        // Générer le hachage avec le sel généré
+        $hashedPassword = crypt($plainPassword, '$2a$10$' . $salt);
+        
+        return $hashedPassword;
+    }
+
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
@@ -64,6 +84,9 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword =$utilisateur->getMdp() ;
+            $hashedPassword = $this->hashPassword($plainPassword);
+            $utilisateur->setMdp($hashedPassword);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
