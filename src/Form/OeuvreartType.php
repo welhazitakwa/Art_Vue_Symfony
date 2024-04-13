@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Oeuvreart;
-use App\Entity\Categorie; 
+use App\Entity\Categorie;
+use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,16 @@ class OeuvreartType extends AbstractType
         
             ->add('titre' , TextType::class, [
                 'label' => 'Titre', 
+                'required' => true, 
+            ])
+
+            ->add('idArtiste', EntityType::class, [
+                'label' => 'Artiste',
+                'class' => Utilisateur::class,
+                'choice_label' => function ($utilisateur) {
+                    return ' Num Cin: ' .$utilisateur->getCin() . ' - ' .$utilisateur->getNom() . ' ' . $utilisateur->getPrenom();
+                },
+                'placeholder' => 'Sélectionner Artiste', 
                 'required' => true, 
             ])
             ->add('description',TextareaType::class, [
@@ -43,25 +54,10 @@ class OeuvreartType extends AbstractType
                 'placeholder' => 'Sélectionner une catégorie', 
                 'required' => true, 
             ])
-            ->add('image')
-            
-            //  ->add('image', FileType::class, [
-            //     'label' => 'Image Oeuvre Art',
-            //     'mapped' => false,
-            //     'required' => false,
-            //     'constraints' => [
-            //         new File([
-            //             'maxSize' => '1024k',
-            //             'mimeTypes' => [
-            //                 'image/jpeg',
-            //                 'image/jpg',
-            //                 'image/png',
-            //                 'image/gif',
-            //             ],
-            //             'mimeTypesMessage' => 'Please upload a valid image (JPEG, PNG, GIF)',
-            //         ])
-            //     ],
-            // ])
+
+            ->add('image', FileType::class, 
+            array('data_class' => null))
+           
             
         ;
     }

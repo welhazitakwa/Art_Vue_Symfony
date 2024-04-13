@@ -6,56 +6,61 @@
 
 {% block body %}
 
-	<div class="sub-bar" style=" margin-top: 70px; padding-right: 30px ;padding-left: 20px">
-		<div class="sub-title">
-			<h4>Catégorie:</h4>
-			<span>Gérer les catégories des œuvres d'art acceptées</span>
-		</div>
-		<ul class="bread-crumb">
-			<li>
-				<a href="{{ path('app_home') }}" title="">Home</a>
-			</li>
-			<li>Galerie</li>
-			<li>Catégorie</li>
-		</ul>
-	</div>
+	<div class="panel-body">
+		<div class="content-area">
 
-	<div class="d-flex justify-content-start">
-		<div class="card" style="max-width: 400px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 8px; margin-bottom: 20px; margin-right: 20px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-			<div class="card-body" style="padding: 20px;">
-				<h5 class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;">Nombre des catégories :</h5>
-				<p class="card-text" style="font-size: 18px; color: #666;">
-					<img src="/TemplateAdmin/images/categorie.png" alt="Modifier" style="width: 24px; height: 24px; margin-right: 10px; vertical-align: middle;">
-					<span>{{ categoriesCount }} </span>
-					catégories.
-				</p>
-			</div>
-		</div>
-
-		<div class="card" style="max-width: 400px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 8px; margin-bottom: 20px; margin-left: 20px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-			<div class="card-body" style="padding: 20px;">
-				<h5 class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;">Nombre des Oeuvre d'art :</h5>
-				<p class="card-text" style="font-size: 18px; color: #666;">
-					<img src="/TemplateAdmin/images/image.png" alt="Modifier" style="width: 24px; height: 24px; margin-right: 10px; vertical-align: middle;">
-					<span>{{ totalArtworksCount }}</span>
-					Oeuvre d'art.
-				</p>
-			</div>
-		</div>
-		
-
-		<div class="card" style="max-width: 400px; background-color: #f8f9fa; border: 1px solid #ced4da; border-radius: 8px; margin-bottom: 20px; margin-left: 20px; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-			<div class="card-body" style="padding: 20px;">
-				<h5 class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;">La meilleur catégorie :</h5>
-				<p class="card-text" style="font-size: 18px; color: #666;">
-					<img src="/TemplateAdmin/images/categorie.png" alt="Modifier" style="width: 24px; height: 24px; margin-right: 10px; vertical-align: middle;">
-					<span>{{ bestCategoryName }}</span>
-					
-				</p>
-			</div>
-		</div>
-		
-	</div>
+	<div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des catégories </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="{{ path('app_home') }}" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Galerie</li>
+											<li>Catégorie</li>
+                                        </ul>
+                                    </div>
+                                    <div class="info-section">
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta">
+                                                <img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+                                                <div class="info-meta">
+                                                    <span>Nombre des catégories</span>
+                                                    <h4>{{ categoriesCount }}</h4>
+													
+                                                    
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/image.png') }}" alt="" width="50" height="50">
+                                                <div class="info-meta">
+                                                    <span>Nombre des Oeuvre d'art</span>
+                                                    <h4>{{ totalArtworksCount }} </h4>
+													
+                                                    
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_three"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+                                                <div class="info-meta">
+                                                    <span>La meilleur catégorie</span>
+                                                    <h4 style="font-size: 25px;">{{ bestCategoryName }}</h4>
+                                                    
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline22"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 	<div class="widget">
 		<div class="widget-title no-margin">
@@ -100,7 +105,7 @@
 								<ul>
 									<li>
 										<a href="{{ path('app_categorie_edit', {'idcategorie': categorie.idcategorie}) }}" class="edit-btn">
-											<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 24px; height: 24px;">
+											<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 20px; height: 20px;">
 										</a>
 									</li>
 									<li>

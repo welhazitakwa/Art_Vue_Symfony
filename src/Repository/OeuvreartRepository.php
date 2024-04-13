@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Categorie;
 use App\Entity\Oeuvreart;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<Oeuvreart>
@@ -20,6 +22,37 @@ class OeuvreartRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Oeuvreart::class);
     }
+
+    public function trie_decroissant_date()
+    {
+        return $this->createQueryBuilder('oeuvreart')
+            ->orderBy('oeuvreart.dateajout','DESC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findLastThreeAddedArtworks()
+    {
+    return $this->createQueryBuilder('oeuvre')
+        ->orderBy('oeuvre.dateajout', 'DESC')
+        ->setMaxResults(3)
+        ->getQuery()
+        ->getResult();
+    }
+
+
+    public function findByCategorie(Categorie $categorie)
+{
+    return $this->createQueryBuilder('oa')
+        ->andWhere('oa.idCategorie = :categorieId')
+        ->setParameter('categorieId', $categorie->getIdcategorie())
+        ->getQuery()
+        ->getResult();
+}
+
+
+
+
+
 
 //    /**
 //     * @return Oeuvreart[] Returns an array of Oeuvreart objects

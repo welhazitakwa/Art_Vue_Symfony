@@ -7,6 +7,7 @@ use App\Form\CategorieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\OeuvreartRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Oeuvreart;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,9 +25,13 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
-    public function homeClient(): Response
+    public function homeClient(OeuvreartRepository $oeuvreartRepository): Response
     {
-        return $this->render('baseClient.html.twig');
+        $lastThreeAddedArtworks = $oeuvreartRepository->findLastThreeAddedArtworks();
+        return $this->render('baseClient.html.twig', [
+            'lastThreeAddedArtworks' => $lastThreeAddedArtworks,
+        ]);
+        
     }
   
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]

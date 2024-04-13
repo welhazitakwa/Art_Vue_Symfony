@@ -211,6 +211,8 @@ p:last-child {
   animation: spinLeft 800ms linear infinite;
 }
 
+
+
 .circle:after {
   content: '';
   width: 6vmax;
@@ -1472,11 +1474,11 @@ input[type="submit"] {
 }
 
 .homepage-bg-2 {
-  background-image: url(../img/hero-bg-2.jpg);
+  background-image: url(../img/back2.jpg);
 }
 
 .homepage-bg-3 {
-  background-image: url(../img/hero-bg-3.jpg);
+  background-image: url(../img/back3.jpg);
 }
 
 .homepage-slider {
@@ -2178,7 +2180,7 @@ a.video-play-btn {
 }
 
 .team-bg-2 {
-  background-image: url(../img/team/Nourhen.jpg);
+  background-image: url(../img/team/takwa.jpg);
 }
 
 .team-bg-3 {
@@ -2188,10 +2190,15 @@ a.video-play-btn {
 .team-bg-4 {
   background-image: url(../img/team/Nourhen.jpg);
 }
+.team-bg-5 {
+  background-image: url(../img/team/Nourhen.jpg);
+}
+.team-bg-6 {
+  background-image: url(../img/team/oumeyma.jpg);
+}
 
 .team-bg {
-  height: 350px;
-  width: 300px;
+  height: 400px;
   background-size: cover;
   background-position: center;
   border-radius: 5px;
@@ -2400,6 +2407,9 @@ ul.social-link-team li a {
   border: 2px solid #A77B7F;
   background-color: #D3A0A5;
   color: #fff;
+}
+.product-filters ul li:hover > a {
+  color: #D5989E;
 }
 
 .single-product-item {
