@@ -4,90 +4,101 @@
 {% endblock %}
 
 {% block body %}
-		<!-- breadcrumb-section -->
-		<div class="breadcrumb-section breadcrumb-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 offset-lg-2 text-center">
-						<div class="breadcrumb-text">
-							<p>Vibrant et Inspirant</p>
-							<h1>Galerie</h1>
-						</div>
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Vibrant et Inspirant</p>
+						<h1>Galerie</h1>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- end breadcrumb section -->
+	</div>
+	<!-- end breadcrumb section -->
 
-		<!-- products -->
-		<div class="product-section mt-150 mb-150">
-			<div class="container">
+	<!-- products -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
 
-				<div class="row">
-					<div class="col-md-12">
-						<div class="product-filters">
-							<ul>
-								<a href="{{ path('app_galerie') }}"><li class="active" >Tous</li></a>
-								{% for categorie in categories %}
-									<a href="{{ path('app_galerie_by_categorieAff', {'idcategorie': categorie.idcategorie}) }}"><li>{{ categorie.nomcategorie }}</li></a>
-								{% endfor %}
-							</ul>
-						</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-filters">
+						<ul>
+							<a href="{{ path('app_galerie') }}">
+								<li class="active">Tous</li>
+							</a>
+							{% for categorie in categories %}
+								<a href="{{ path('app_galerie_by_categorieAff', {'idcategorie': categorie.idcategorie}) }}">
+									<li>{{ categorie.nomcategorie }}</li>
+								</a>
+							{% endfor %}
+						</ul>
 					</div>
 				</div>
+			</div>
 
 
-				<div class="row product-lists">
-					{% for oeuvreart in oeuvrearts %}
-						<div class="col-lg-3 col-md-6 text-center">
-							<div class="single-product-item">
-								<div
-									class="product-image">
-									<!-- Ajout du bouton "Like" -->
-									<button class="like-btn" data-id="{{ oeuvreart.idoeuvreart }}">
-										<i class="far fa-heart"></i>
-									</button>
-									<!-- Affichage du nombre de likes -->
-									<span class="like-count">20 Likes</span>
-									<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-										<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}" style="width: 150px; height: 200px">
-									</a>
-								</div>
-								<h5>{{ oeuvreart.titre }}</h5>
-								<p class="product-price">
-									{{ oeuvreart.prixvente }}DT
+			<div class="row product-lists">
+				{% for oeuvreart in oeuvrearts %}
+					
+            <div class="col-lg-4 col-md-5">
+						<div class="single-latest-news" style="height: 500px;">
+							<a href="single-news.html">
+								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+							</a>
+							<div class="news-text-box">
+								<h3>
+									<a href="single-news.html">{{ oeuvreart.titre }}</a>
+								</h3>
+								<p class="blog-meta">
+									<span class="author">
+										<i class="fas fa-user"></i>
+										{{ oeuvreart.idArtiste.nom }}
+										{{ oeuvreart.idArtiste.prenom }}</span>
+									<span class="date">
+										<i class="fas fa-calendar"></i>
+										{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
 								</p>
+								<p class="excerpt">
+									{{ oeuvreart.description|slice(0, 70) ~ '...' }}
+								</p>
+								<a href="#" class="read-more-btn ml-2">
+													<i class="fas fa-shopping-cart"></i>
+													Ajouter au panier
+												</a>
 
-
-								<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
-									<i class="fas fa-shopping-cart"></i>
-									Ajouter au panier
-								</a>
+								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">read more
+									<i class="fas fa-angle-right"></i>
+								</a> 
+								
+								
 							</div>
 						</div>
-					{% endfor %}
-				</div>
+					</div>
 
 
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<div class="pagination-wrap">
-							<ul>
-								<li><a href="#">Prev</a></li>
-								<li><a href="#">1</a></li>
-								<li><a class="active" href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">Next</a></li>
-							</ul>
-						</div>
+				{% endfor %}
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="pagination-wrap">
+						<ul>
+							<li><a href="#">Prev</a></li>
+							<li><a href="#">1</a></li>
+							<li><a class="active" href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">Next</a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- end products -->
+	</div>
+	<!-- end products -->
 
 {% endblock %}
-
-
-
-		

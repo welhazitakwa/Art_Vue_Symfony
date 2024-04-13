@@ -85,6 +85,9 @@
 										<a href="{{ path('app_about') }}">A props de nous</a>
 									</li>
 									<li>
+										<a href="{{ path('app_galerie') }}">Galerie</a>
+									</li>
+									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
 											<li>
@@ -319,25 +322,41 @@
 					<div class="row">
 
 						{% for oeuvreart in lastThreeAddedArtworks %}
-							<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-								<div class="single-product-item">
-									<div class="product-image">
-										<img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}"></a>
-								</div>
-								<h3>{{ oeuvreart.titre }}</h3>
-								<p class="product-price">
-									<span>Prix de vente</span>
-									{{ oeuvreart.prixvente }}
-									DT
+							<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+								
+						<div class="single-latest-news" style="height: 500px;">
+							
+								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+							
+							<div class="news-text-box">
+								<h3>
+									<a href="single-news.html">{{ oeuvreart.titre }}</a>
+								</h3>
+								<p class="blog-meta">
+									<span class="author">
+										<i class="fas fa-user"></i>
+										{{ oeuvreart.idArtiste.nom }}
+										{{ oeuvreart.idArtiste.prenom }}</span>
+									<span class="date">
+										<i class="fas fa-calendar"></i>
+										{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
 								</p>
-								<a href="#" class="cart-btn">
-									<i class="fas fa-shopping-cart"></i>
-									Ajouter au panier</a>
+								<p class="excerpt">
+									{{ oeuvreart.description|slice(0, 70) ~ '...' }}
+								</p>
+
+								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ">Voir Plus
+									<i class="fas fa-angle-right"></i>
+								</a> 
+								
+								
 							</div>
 						</div>
-					{% endfor %}
-
-				</div>
+					</div>
+					 	  
+					    {% endfor %}
+                 </div>
+				
 
 			</div>
 		</body>
