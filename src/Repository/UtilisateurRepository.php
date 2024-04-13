@@ -116,7 +116,7 @@ public function login($login, $mdp)
 
     // Vérifier si le mot de passe est correct
     if (password_verify($mdp, $hashedPassword)) {
-        echo "matchou ya3n jed aslkom";        return $utilisateur;
+      return $utilisateur;
     } 
 // echo $mdp;
 // echo $hashedPassword;
