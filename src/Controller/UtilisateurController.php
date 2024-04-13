@@ -40,8 +40,15 @@ class UtilisateurController extends AbstractController
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
+        $ham ='mezel ykaret';
+        if ( password_verify('Allahhh', '$2a$10$hpSYXFW1gA1bp4S3j6GcMuhWY6sokmGLv4BU3ep1ZkkKg00AusbNi')) {
+        $ham = "ya 7aj";
+            }else {
+                $ham= "ooooffffff";
+            }
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurRepository->findAll(),
+            'ham'=> $ham
         ]);
     }
 
@@ -58,7 +65,6 @@ class UtilisateurController extends AbstractController
         $form1 = $this->createForm(LoginType::class, $user);
         $form1->handleRequest($request);
         if ($form1->isSubmitted()){
-            // $title= $form->get('title')->getData();
             $login = $user->getLogin();
             $mdp = $user->getMdp();
             $result = $userRepo->login($login, $mdp);
