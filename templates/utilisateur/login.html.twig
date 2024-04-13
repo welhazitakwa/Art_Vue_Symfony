@@ -12,9 +12,9 @@
     
 </tr>
 
-      <tr>  {% for u in user %} </tr>
-      <td>{{ u.nom }}</td>
-      <td>{{ u.prenom }}</td>
+      <tr>  {% for user in user %} </tr>
+      <td>{{ user.nom }}</td>
+      <td>{{ user.prenom }}</td>
       {% else %}
         <tr>
         <td> No record found </td> 
@@ -62,8 +62,9 @@
         <div class="admin-lock vh100" >
           <div class="admin-form" >
 			  <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
-            <h4>Se Connecter</h4>
-            <span>Connecter vous pour continuer</span>
+            <h4>Se Connecter  </h4>
+            <span>Connecter vous pour continuer 
+      </span>
             <form method="post">
             {{ form_start(form1) }}
 
@@ -73,7 +74,7 @@
                 {{ form_widget(form1.mdp, {'attr': {'placeholder': ' Mot de Passe'}}) }}
               {# <input type="checkbox" id="remember"> #}
               <label for="remember">{#  Remember Me  #}
-              <a href="#" title="">Mot de passe oublié?</a></label>
+              <a href="{{path('forget_password')}}" title="">Mot de passe oublié?</a></label>
               <button type="submit"> <h4 style="color: #f0edea;"> <b> {{ button_label|default("Se Connecter") }}  </b> </h4> </button>
               {{ form_end(form1) }}
             </form>
@@ -85,31 +86,24 @@
 
 
 
-
-
-      {% for u in user %} 
       
-
-        {% if u.profil == 0 %}
-            {% set url = path('app_home') %}
+    {% if user == "no user found !!!" %} 
+     <h1>String </h1> 
+    {% else %}
+      {% if user.profil == 0 %}
+            {% set url = path('app_home', {'parametre': user.id}) %}
                 <script>window.location.href = "{{ url }}";</script>
         
-        {% elseif  u.profil == 1 %} 
+        {% elseif  user.profil == 1 %} 
             {% set url = path('app_home_client') %}
                 <script>window.location.href = "{{ url }}";</script>
-        {% elseif  u.profil == 2 %} 
+        {% elseif  user.profil == 2 %} 
          {% set url = path('app_home_client') %}
                 <script>window.location.href = "{{ url }}";</script>
         {% else %}
-         <h1>
-        Aucune condition n'est vérifiée.
-    </h1>
+         <h1> Aucune condition n'est vérifiée.</h1>
         {% endif %}
-
-   {% endfor %}
-</table>
-
-
+    {% endif %}
 
 
 

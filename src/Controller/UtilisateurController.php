@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\EditProfileType;
 use App\Form\LoginType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
@@ -12,24 +13,51 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
+    private $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
+     public function hashPassword($plainPassword)
+    {
+        // Générez un sel aléatoire
+        $salt = substr(str_replace('+', '.', base64_encode(random_bytes(16))), 0, 22);
+        
+        // Générer le hachage avec le sel généré
+        $hashedPassword = crypt($plainPassword, '$2a$10$' . $salt);
+        
+        return $hashedPassword;
+    }
+
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
+        $ham ='mezel ykaret';
+        if ( password_verify('Allahhh', '$2a$10$hpSYXFW1gA1bp4S3j6GcMuhWY6sokmGLv4BU3ep1ZkkKg00AusbNi')) {
+        $ham = "ya 7aj";
+            }else {
+                $ham= "ooooffffff";
+            }
         return $this->render('utilisateur/index.html.twig', [
             'utilisateurs' => $utilisateurRepository->findAll(),
+            'ham'=> $ham
         ]);
     }
 
-    // #[Route('/login', name: 'login_user')]
-    // public function login ():Response{
-    //     return $this->render('utilisateur/login.html.twig', [        
-    //     ]);
+    #[Route('/forgetPwd', name: 'forget_password')]
+    public function forgetPwd ():Response{
+        return $this->render('utilisateur/forgetPwd.html.twig', [        
+        ]);
         
-    // }
+    }
 
        #[Route('/login', name : "login_user")]
     public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{
@@ -37,7 +65,6 @@ class UtilisateurController extends AbstractController
         $form1 = $this->createForm(LoginType::class, $user);
         $form1->handleRequest($request);
         if ($form1->isSubmitted()){
-            // $title= $form->get('title')->getData();
             $login = $user->getLogin();
             $mdp = $user->getMdp();
             $result = $userRepo->login($login, $mdp);
@@ -63,6 +90,9 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword =$utilisateur->getMdp() ;
+            $hashedPassword = $this->hashPassword($plainPassword);
+            $utilisateur->setMdp($hashedPassword);
             $entityManager->persist($utilisateur);
             $entityManager->flush();
 
@@ -86,13 +116,13 @@ class UtilisateurController extends AbstractController
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UtilisateurType::class, $utilisateur);
+
+        $form = $this->createForm(EditProfileType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
+            // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('utilisateur/edit.html.twig', [
