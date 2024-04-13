@@ -29,7 +29,8 @@
 			<h4>Formulaire d'ajout d'oeuvre d'art</h4>
         </div>
 		<div >
-			{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'enctype': 'multipart/form-data'}}) }}
+		{{ form_errors(form) }}
+			{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
 			
 				<div class="card-body">
 					<table class="table">
@@ -37,74 +38,98 @@
 
 							<tr>
 								<th>{{ form_label(form.idCategorie) }}</th>
-								<td>{{ form_widget(form.idCategorie, {'attr': {'class': 'form-control'}}) }}</td>
 								<td>
-									{% if form_errors(form.idCategorie)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.idCategorie) }}</div>
+								{{ form_widget(form.idCategorie, {'attr': {'class': 'form-control'}}) }}
+								{% if form_errors(form.idCategorie)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.idCategorie) }}</span>
+</div>
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 
 							<tr>
 								<th>{{ form_label(form.titre) }}</th>
-								<td>{{ form_widget(form.titre, {'attr': {'class': 'form-control', 'id': 'form_titre'}}) }}</td>
 								<td>
-									{% if form_errors(form.titre)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.titre) }}</div>
+								{{ form_widget(form.titre, {'attr': {'class': 'form-control', 'id': 'form_titre'}}) }}
+								{% if form_errors(form.titre)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.titre) }}</span>
+</div>
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 							<tr>
 								<th>{{ form_label(form.idArtiste) }}</th>
-								<td>{{ form_widget(form.idArtiste, {'attr': {'class': 'form-control'}}) }}</td>
 								<td>
-									{% if form_errors(form.idCategorie)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.idCategorie) }}</div>
+								{{ form_widget(form.idArtiste, {'attr': {'class': 'form-control'}}) }}
+								{% if form_errors(form.idArtiste)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.idArtiste) }}</span>
+</div>
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 
 							<tr>
 								<th>{{ form_label(form.description) }}</th>
-								<td>{{ form_widget(form.description) }}</td>
-								<td>
-									{% if form_errors(form.description)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.description) }}</div>
+								<td>{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+								{% if form_errors(form.description)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.description) }}</span>
+</div>
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 							<tr>
 								<th>{{ form_label(form.prixvente) }}</th>
-								<td>{{ form_widget(form.prixvente, {'attr': {'class': 'form-control', 'id': 'form_prixvente'}}) }}</td>
-								<td>
-									{% if form_errors(form.prixvente)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.prixvente) }}</div>
+								<td>{{ form_widget(form.prixvente, {'attr': {'class': 'form-control', 'id': 'form_prixvente'}}) }}
+								{% if form_errors(form.prixvente)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.prixvente) }}</span>
+</div>
+
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 							<tr>
 								<th>{{ form_label(form.dateajout) }}</th>
 								<td>{{ form_widget(form.dateajout, {'attr': {'class': 'form-control', 'id': 'form_dateajout'}}) }}</td>
-								<td>
-									{% if form_errors(form.titre)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.dateajout) }}</div>
-									{% endif %}
-								</td>
+								
 							</tr>
 
 							<tr>
 								<th>{{ form_label(form.image) }}</th>
-								<td>{{ form_widget(form.image, {'attr': {'class': 'form-control', 'id': 'form_image'}}) }}</td>
-								<td>
-									{% if form_errors(form.image)|length > 0 %}
-										<div class="alert alert-danger">{{ form_errors(form.image) }}</div>
+								<td>{{ form_widget(form.image, {'attr': {'class': 'form-control', 'id': 'form_image'}}) }}
+								{% if form_errors(form.image)|length > 0 %}
+										<div class="alert alert-danger" style="background-color: transparent; border: none; padding: 5px;">
+    <i class="fa fa-exclamation-circle" style="color: red; font-size: 14px; margin-right: 5px;"></i>
+    <span style="color: red; font-size: 14px; font-weight: bold;">{{ form_errors(form.image) }}</span>
+</div>
+
 									{% endif %}
 								</td>
+								
 							</tr>
 
 

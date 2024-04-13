@@ -19,6 +19,29 @@
 	</div>
 	<!-- end breadcrumb section -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<!-- products -->
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
@@ -46,9 +69,9 @@
 					
             <div class="col-lg-4 col-md-5">
 						<div class="single-latest-news" style="height: 500px;">
-							<a href="single-news.html">
+							
 								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
-							</a>
+						
 							<div class="news-text-box">
 								<h3>
 									<a href="single-news.html">{{ oeuvreart.titre }}</a>
@@ -70,7 +93,7 @@
 													Ajouter au panier
 												</a>
 
-								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">read more
+								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">Savoir plus
 									<i class="fas fa-angle-right"></i>
 								</a> 
 								
