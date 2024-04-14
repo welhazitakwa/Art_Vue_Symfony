@@ -4,26 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Commande;
 use App\Form\CommandeType;
+use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Panier;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use DateTime;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(CommandeRepository $commandeRepository): Response
     {
-        $commandes = $entityManager
-            ->getRepository(Commande::class)
-            ->findAll();
-
         return $this->render('commande/index.html.twig', [
-            'commandes' => $commandes,
+            'commandes' => $commandeRepository->findAll(),
         ]);
     }
 
@@ -33,7 +28,7 @@ class CommandeController extends AbstractController
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-
+       
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($commande);
             $entityManager->flush();
@@ -58,13 +53,7 @@ class CommandeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createFormBuilder($commande)
-        ->add('etat', ChoiceType::class, [
-            'choices' => [
-                'Terminée' => 'Terminée',
-            ],
-        ])
-        ->getForm();
+        $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,14 +71,11 @@ class CommandeController extends AbstractController
     #[Route('/{id}', name: 'app_commande_delete', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-         // Vérifier si la commande est terminée
-    if ($commande->getEtat() === 'Terminée') {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($commande);
-        $entityManager->flush();
-        
-        // Redirection vers la liste des commandes
-        return $this->redirectToRoute('app_commande_index');
+        if ($this->isCsrfTokenValid('delete'.$commande->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($commande);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
     }
-}
 }

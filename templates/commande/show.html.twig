@@ -3,12 +3,12 @@
 {% block title %}Commande{% endblock %}
 
 {% block body %}
-    <h1>Détails de la commande</h1>
+    <h1>Commande</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;"²>Id</th>
+                <th>Id</th>
                 <td>{{ commande.id }}</td>
             </tr>
             <tr>
@@ -17,26 +17,18 @@
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>Etat</th>
                 <td>{{ commande.etat }}</td>
             </tr>
-            <tr>
-            <th>Client </th>
-            <td>{{ commande.panier.client.nom }}</td>
-                        <td>{{ commande.panier.client.prenom }}</td>
-
-             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_commande_index') }}">Retour à la liste des commandes</a>
+    <a href="{{ path('app_commande_index') }}">back to list</a>
 
+    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
 
-    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">Modifier</a>
-{{ include('commande/_delete_form.html.twig', {'button_label': 'Supprimer'}) }}
-
-
+    {{ include('commande/_delete_form.html.twig') }}
 {% endblock %}

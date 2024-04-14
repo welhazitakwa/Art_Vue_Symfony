@@ -6,6 +6,8 @@ use App\Entity\Panieroeuvre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\Entity\Oeuvreart;
+use App\Entity\Panier;
 
 class PanieroeuvreType extends AbstractType
 {

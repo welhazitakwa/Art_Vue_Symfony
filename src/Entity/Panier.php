@@ -6,7 +6,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PanierRepository;
 use DateTime;
-
+use App\Entity\Utilisateur;
+use DateTimeInterface;
 
  #[ORM\Table(name: "panier", indexes: [
     new ORM\Index(name: "fk_client", columns: ["client"]),
@@ -23,8 +24,8 @@ class Panier
     private ?int $id = null;
   
 
-    #[ORM\Column(type: 'date', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?DateTime $dateajout = null;
+    #[ORM\Column(type: 'date')]
+    private ?DateTimeInterface $dateajout = null;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
     #[ORM\JoinColumn(name: "client", referencedColumnName: "id")]
@@ -58,9 +59,10 @@ class Panier
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->getClient()->getNom(); 
-    }
 
+   
+    public function __toString(): string
+    {
+        return $this->getId(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
+    }
 }

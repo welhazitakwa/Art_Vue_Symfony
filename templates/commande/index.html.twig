@@ -1,64 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande{% endblock %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            border-spacing: 0;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f5f5dc; /* Beige */
-            color: #333;
-        }
-
-    </style>
-{% endblock %}
+{% block title %}Commande index{% endblock %}
 
 {% block body %}
-    <h1>Détails de la commande</h1>
+    <h1>Commande index</h1>
 
     <table class="table">
-        <tbody>
+        <thead>
             <tr>
-                <th class="card-title" style="font-size: 18px; color: #343a40; font-weight: bold;"²>Id</th>
-                <td>{{ commande.id }}</td>
-            </tr>
-            <tr>
+                <th>Id</th>
                 <th>Montant</th>
-                <td>{{ commande.montant }}</td>
-            </tr>
-            <tr>
                 <th>Date</th>
-                <td>{{ commande.date ? commande.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
                 <th>Etat</th>
-                <td>{{ commande.etat }}</td>
+                <th>actions</th>
             </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
             <tr>
-            <th>Client </th>
-            <td>{{ commande.panier.client.nom }}</td>
-                        <td>{{ commande.panier.client.prenom }}</td>
-
-             </tr>
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.montant }}</td>
+                <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
+                <td>{{ commande.etat }}</td>
+                <td>
+                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">show</a>
+                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_commande_index') }}">Retour à la liste des commandes</a>
-
-
-    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">Modifier</a>
-{{ include('commande/_delete_form.html.twig', {'button_label': 'Supprimer'}) }}
-
-
+    <a href="{{ path('app_commande_new') }}">Create new</a>
 {% endblock %}

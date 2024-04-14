@@ -6,6 +6,7 @@ use App\Entity\Commande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class CommandeType extends AbstractType
 {
@@ -13,8 +14,11 @@ class CommandeType extends AbstractType
     {
         $builder
             ->add('montant')
-            ->add('date')
-            ->add('etat')
+            ->add('date', DateType::class, [
+                'widget' => 'single_text',
+                'data' => (new \DateTime())->setTime(0, 0, 0), 
+            ])        
+              ->add('etat')
             ->add('panier')
         ;
     }

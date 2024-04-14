@@ -31,7 +31,7 @@ class Panieroeuvre
 
    #[ORM\ManyToOne(targetEntity: Panier::class)]
    #[ORM\JoinColumn(name: "id_panier", referencedColumnName: "id")]
-  private ?Oeuvreart $idPanier;
+  private ?Panier $idPanier;
   
 
     public function getId(): ?int
