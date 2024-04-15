@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use App\Entity\Livraison;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -25,10 +27,11 @@ class CommandeController extends AbstractController
     #[Route('/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
-       
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($commande);
             $entityManager->flush();
@@ -53,19 +56,36 @@ class CommandeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CommandeType::class, $commande);
-        $form->handleRequest($request);
+        $form = $this->createFormBuilder($commande)
+        ->add('etat', ChoiceType::class, [
+            'choices' => [
+                'Terminée' => 'Terminée',
+            ],
+        ])
+        ->getForm();
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        // Si l'état de la commande est "Terminée", créer une livraison
+        if ($commande->getEtat() === 'Terminée') {
+            $livraison = new Livraison();
+            $livraison->setCommande($commande);
+            $livraison->setAdresse($commande->getPanier()->getClient()->getAdresse());
+            $livraison->setFrais(10); // Frais de livraison fixe
+            $livraison->setTotal($commande->getMontant() + 10); // Total = Montant de la commande + frais de livraison
+            $entityManager->persist($livraison);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('commande/edit.html.twig', [
-            'commande' => $commande,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    return $this->renderForm('commande/edit.html.twig', [
+        'commande' => $commande,
+        'form' => $form,
+    ]);
     }
 
     #[Route('/{id}', name: 'app_commande_delete', methods: ['POST'])]

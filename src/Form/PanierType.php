@@ -21,7 +21,8 @@ class PanierType extends AbstractType
             ]) 
             ->add('client', EntityType::class, [
                 'class' => Utilisateur::class,
-                'choice_label' => 'nom', // Remplacez 'nom' par le nom de la propriété de l'entité Utilisateur que vous souhaitez afficher dans le champ
+                'placeholder' => 'Sélectionner l id du client', 
+                'choice_label' => 'id', 
             ])
         ;
     }
