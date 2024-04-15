@@ -21,10 +21,8 @@ class EditProfileType extends AbstractType
             ->add('email')
             ->add('numtel')
             ->add('cin')
-            ->add('image', FileType::class, [
-                'label' => 'Image (JPEG, PNG, GIF)',
-                'mapped' => false,
-                'required' => false])
+            ->add('image', FileType::class, 
+            array('data_class' => null))
             ->add('genre',ChoiceType::class, [
         'choices'  => [
             'Homme' => 'Homme',
