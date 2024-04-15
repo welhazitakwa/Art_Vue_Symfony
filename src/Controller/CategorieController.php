@@ -18,8 +18,8 @@ class CategorieController extends AbstractController
     #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
     public function homeAdmin(Request $request): Response
     {           
-        $lid = $request->query->get('parametre');
-        return $this->render('base.html.twig',[ 'parametre2' => (int)$lid,
+        $id = $request->query->get('parametre');
+        return $this->render('base.html.twig',[ 'parametre2' => (int)$id,
 ]);
 
     }

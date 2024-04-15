@@ -118,10 +118,11 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
-    public function show(Utilisateur $utilisateur): Response
+    public function show(Utilisateur $utilisateur, $id): Response
     {
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
+            "parametre2" => $id
         ]);
     }
 
