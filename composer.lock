@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51b9a7eee3d2d274019357b0aa0f6b5f",
+    "content-hash": "a4742da628b224558d21364ed56d91b4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -6160,32 +6160,31 @@
         },
         {
             "name": "symfony/runtime",
-            "version": "v5.4.35",
+            "version": "v6.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/runtime.git",
-                "reference": "a32a623d71fc0f699a2a196377b3b85c840bd39a"
+                "reference": "f8b0751b33888329be8f8f0481bb81d279ec4157"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/runtime/zipball/a32a623d71fc0f699a2a196377b3b85c840bd39a",
-                "reference": "a32a623d71fc0f699a2a196377b3b85c840bd39a",
+                "url": "https://api.github.com/repos/symfony/runtime/zipball/f8b0751b33888329be8f8f0481bb81d279ec4157",
+                "reference": "f8b0751b33888329be8f8f0481bb81d279ec4157",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0|^2.0",
-                "php": ">=7.2.5",
-                "symfony/polyfill-php80": "^1.15"
+                "php": ">=8.1"
             },
             "conflict": {
-                "symfony/dotenv": "<5.1"
+                "symfony/dotenv": "<5.4"
             },
             "require-dev": {
                 "composer/composer": "^1.0.2|^2.0",
-                "symfony/console": "^4.4.30|^5.4.9|^6.0.9",
-                "symfony/dotenv": "^5.1|^6.0",
-                "symfony/http-foundation": "^4.4.30|^5.3.7|^6.0",
-                "symfony/http-kernel": "^4.4.30|^5.3.7|^6.0"
+                "symfony/console": "^5.4|^6.0",
+                "symfony/dotenv": "^5.4|^6.0",
+                "symfony/http-foundation": "^5.4|^6.0",
+                "symfony/http-kernel": "^5.4|^6.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -6220,7 +6219,7 @@
                 "runtime"
             ],
             "support": {
-                "source": "https://github.com/symfony/runtime/tree/v5.4.35"
+                "source": "https://github.com/symfony/runtime/tree/v6.2.8"
             },
             "funding": [
                 {
@@ -6236,7 +6235,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T13:51:25+00:00"
+            "time": "2023-03-14T15:48:35+00:00"
         },
         {
             "name": "symfony/security-bundle",
@@ -10248,10 +10247,10 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2.5",
+        "php": ">=8.0",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
