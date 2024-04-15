@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,16 +34,22 @@ class UtilisateurType extends AbstractType
             'expanded' => true, // Afficher comme des boutons radio
             'multiple' => false, // seulement un choix
                  ])
-         ->add('dateInscription', DateType::class, [
-    'widget' => 'single_text',
-    'data' => $dateActuelle,
-    'attr' => ['hidden' => true],
-    'label' => ''
-]) 
+            ->add('dateInscription', DateType::class, [
+                                    'widget' => 'single_text',
+                                    'data' => $dateActuelle,
+                                    'attr' => ['hidden' => true],
+                                    'label' => ''
+                                                    ]) 
             ->add('etatCompte', TextType::class, [
-    'data' => 0, 
-    'attr' => ['hidden' => true],
-]);
+                                'data' => 0, 
+                                'attr' => ['hidden' => true],
+                                                ])
+            ->add('image', FileType::class, [
+                'label' => ' ',
+                'required' => false, // L'image n'est pas obligatoire
+                'attr' => ['hidden' => true],
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
