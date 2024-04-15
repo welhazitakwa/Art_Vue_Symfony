@@ -19,7 +19,8 @@ class CategorieController extends AbstractController
     public function homeAdmin(Request $request): Response
     {           
         $id = $request->query->get('parametre');
-        return $this->render('base.html.twig',[ 'parametre2' => (int)$id,
+        return $this->render('base.html.twig',[ 
+            'parametre2' => (int)$id,
 ]);
 
     }
