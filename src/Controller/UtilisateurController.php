@@ -12,10 +12,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
@@ -53,14 +53,18 @@ class UtilisateurController extends AbstractController
     }
 
        #[Route('/login', name : "login_user")]
-    public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{
+    public function login (UtilisateurRepository $userRepo ,Request $request , SessionInterface $session ): Response{
         $user = new Utilisateur();
         $form1 = $this->createForm(LoginType::class, $user);
         $form1->handleRequest($request);
+
         if ($form1->isSubmitted()){
             $login = $user->getLogin();
             $mdp = $user->getMdp();
             $result = $userRepo->login($login, $mdp);
+            $session ->set('user_id', $result->getId()) ;
+           $session->set('user_image', $result->getImage()) ;
+
             return $this->render('utilisateur/login.html.twig',[
                 'user' => $result,
                 'form1' => $form1->createView(),
@@ -118,16 +122,15 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
-    public function show(Utilisateur $utilisateur, $id): Response
+    public function show(Utilisateur $utilisateur): Response
     {
         return $this->render('utilisateur/show.html.twig', [
             'utilisateur' => $utilisateur,
-            "parametre2" => $id
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_utilisateur_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager, $id): Response
+    public function edit(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
     {
 
         $form = $this->createForm(EditProfileType::class, $utilisateur);
@@ -145,7 +148,6 @@ class UtilisateurController extends AbstractController
         return $this->renderForm('utilisateur/edit.html.twig', [
             'utilisateur' => $utilisateur,
             'form' => $form,
-            "parametre2" => $id
         ]);
     }
 

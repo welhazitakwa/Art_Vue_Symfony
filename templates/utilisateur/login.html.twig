@@ -49,6 +49,7 @@
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
  {% endblock %}
 </head>
+
 <body >
     <div id="loader-wrapper">
       <div id="loader"></div>
@@ -89,7 +90,7 @@
      <h1>String </h1> 
     {% else %}
       {% if user.profil == 0 %}
-            {% set url = path('app_home', {'parametre': user.id}) %}
+            {% set url = path('app_home') %}
                 <script>window.location.href = "{{ url }}";</script>
         
         {% elseif  user.profil == 1 %} 

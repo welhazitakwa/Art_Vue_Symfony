@@ -81,7 +81,6 @@
     {% endblock %}
 
 </head>
-{% set parametre2 = 12 %}
 <body>
     <!-- Start Page Loading -->
     <div id="loader-wrapper">
@@ -99,7 +98,7 @@
                                 <div class="side-header">
 									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
                                     <nav class="slide-menu">
-                                        <span>Navigation <i class="ti-layout"></i></span>
+                                        <span>Navigation           <i class="ti-layout"></i></span>
                                         <ul class="parent-menu">
                                             <li> <a href="{{path('app_home')}}" title="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a> </li>
                                             <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
@@ -132,7 +131,7 @@
                                             </li>
 											<li><a href="inbox.html" title=""><i class="fa fa-inbox"></i><span>inbox</span><ins>5</ins></a></li>
                                             <li><a href="charts.html" title=""><i class="fa fa-bar-chart"></i><span>charts</span></a></li>
-                                                            <li> <a href="{{path('listUtilisateur')}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
+                                                            <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
 
 											<li class="menu-item-has-children"> 
 												<a title=""><i class="fa fa-flag"></i><span>Icons</span></a>
@@ -206,9 +205,9 @@
                                             <div class="drop setting"> <span class="drop-head">stifen Doe 
                                             <i>30 days trial </i></span>
                                                 <ul class="drop-meta">
-                                                            <li> <a href="{{path('app_utilisateur_edit',{'id': parametre2 })}}"  title="">
+                                                            <li> <a href="{{path('app_utilisateur_edit',{'id': app.session.get('user_id') })}}"  title="">
                                                                 <i class="fa fa-eyedropper"></i>Modifier Profile</a> </li>
-                                                                <li> <a href="{{path('app_utilisateur_show',{'id': parametre2 })}}" title=""><i class="fa fa-eye"></i>Consulter Profile</a> </li>
+                                                                <li> <a href="{{path('app_utilisateur_show',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-eye"></i>Consulter Profile</a> </li>
                                                 </ul>
                                                             <span class="drop-bottom"><a  href="{{path('login_user')}}"  title="">
                                                             <i class="fa fa-sign-out"></i>Déconnecter</a></span> 
@@ -273,8 +272,7 @@
                                     <div class="sub-bar">
                                         <div class="sub-title">
                                             <h4>Dashboard:</h4>
-                                            <span>Welcome To web Admin Panel!</span>
-                                        </div>
+                                            <span>Welcome To web Admin Panel!                                       </div>
                                         <ul class="bread-crumb">
                                             <li><a href="#" title="">Home</a></li>
                                             <li>Dashbord</li>
