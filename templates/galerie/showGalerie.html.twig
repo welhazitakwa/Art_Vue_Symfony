@@ -29,68 +29,97 @@
 					</div>
 				</div>
 				<div class="col-md-7">
-					<div class="single-product-content">
-                    
-                    </br></br>
-						<h3>{{ oeuvreart.titre }}</h3>
-						<p class="single-product-pricing"> {{ oeuvreart.prixvente }} DT</p>
-						<p>{{ oeuvreart.description }}</p>
-						<div class="single-product-form">
-							<form action="index.html">
-								<input type="number" placeholder="0">
-							</form>
-							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
-							<p><strong>Catégorie: </strong>{{ oeuvreart.idCategorie.nomcategorie }}</p>
+					<div class="single-product-content"></br>
+				</br>
+				<h3>{{ oeuvreart.titre }}</h3>
+				<p class="single-product-pricing">
+					{{ oeuvreart.prixvente }}
+					DT</p>
+				<p>{{ oeuvreart.description }}</p>
+				<div class="single-product-form">
+					<form action="index.html">
+						<input type="number" placeholder="0">
+					</form>
+					<a href="cart.html" class="cart-btn">
+						<i class="fas fa-shopping-cart"></i>
+						Ajouter au panier</a>
+					<p>
+						<strong>Catégorie:
+						</strong>
+						{{ oeuvreart.idCategorie.nomcategorie }}</p>
+				</div>
+				<h4>Share:</h4>
+				<ul class="product-share">
+					<li>
+						<a href="">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fab fa-google-plus-g"></i>
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="fab fa-linkedin"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div></div><!-- end single product --><!-- more products --><div class="more-products mb-150">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2 text-center">
+			<div class="section-title">
+				<h3>
+					<span class="orange-text">Autre</span>
+					{{ oeuvreart.idCategorie.nomcategorie }}</h3>
+				<p>Explorez d'avantage de merveilles artistiques de la même catégorie, où l'imagination rencontre l'expression à travers une diversité d'œuvres extraordinaires</p>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+
+		{% for oeuvreart in similarOeuvres %}
+			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+								
+						<div class="single-latest-news" style="height: 400px;">
+							<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
+								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div> </a>
+							
+							<div class="news-text-box">
+								<h3>
+									<a href="single-news.html">{{ oeuvreart.titre }}</a>
+								</h3>
+								<p class="blog-meta">
+									<span class="author">
+										<i class="fas fa-user"></i>
+										{{ oeuvreart.idArtiste.nom }}
+										{{ oeuvreart.idArtiste.prenom }}</span>
+									<span class="date">
+										<i class="fas fa-calendar"></i>
+										{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
+								</p>
+								
+
+								
+								
+								
+							</div>
 						</div>
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-twitter"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-						</ul>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end single product -->
+	{% endfor %}
+</div>
 
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Autre</span> {{ oeuvreart.idCategorie.nomcategorie }}</h3>
-						<p>Explorez d'avantage de merveilles artistiques de la même catégorie, où l'imagination rencontre l'expression à travers une diversité d'œuvres extraordinaires</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- autre de meme catégorie -->
 
-        <div class="row">
-             {% for oeuvreart in similarOeuvres %}
-                <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-            <div class="single-product-item">
-                <div class="product-image">
-                     <img style="object-fit: cover; width: 200px; height: 200px;" src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}"></a>
-                </div>
-                <h3>{{ oeuvreart.titre }}</h3>
-                <p class="product-price"><span>Prix de vente</span> {{ oeuvreart.prixvente }} DT </p>
-                <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
-            </div>
-        </div>
-            {% endfor %}
-        </div>
-
-       
-    
-<!-- end autre de meme catégorie -->
-			</div>
-		</div>
-	</div>
-	<!-- end more products -->
- 
-	{% endblock %}
+<!-- end autre de meme catégorie --></div></div></div><!-- end more products -->{% endblock %}

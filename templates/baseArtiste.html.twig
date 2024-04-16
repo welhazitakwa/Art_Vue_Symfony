@@ -85,17 +85,10 @@
 									<li>
 										<a href="{{ path('app_about') }}">A props de nous</a>
 									</li>
-									<li>
-										<a href="#">Oeuvre d'art</a>
-										<ul class="sub-menu">
-											<li>
-												<a href="{{ path('app_galerie') }}">Galerie</a>
-											</li>
-											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
-											</li>
-										</ul>
+                                    <li>
+										<a href="{{ path('app_galerieOeuvre_artiste') }}">Oeuvre d'art</a>
 									</li>
+								
 									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
@@ -328,7 +321,7 @@
 						</div>
 					</div>
 
-					<div class="row">
+					{# <div class="row">
 
 						{% for oeuvreart in lastThreeAddedArtworks %}
 							<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
@@ -367,7 +360,7 @@
 						<a href="{{ path('app_galerie') }}" class="read-more-btn ">Voir Plus d'oeuvre 
 									<i class="fas fa-angle-right"></i>
 								</a>
-					</div>
+					</div> #}
 
 
 				</div>

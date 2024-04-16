@@ -28,6 +28,16 @@ class CategorieController extends AbstractController
 
     }
 
+    #[Route('/homeArtiste', name: 'app_homeArtiste', methods: ['GET'])]
+    public function homeArtiste(Request $request): Response
+    {           
+        $lid = $request->query->get('parametre');
+        return $this->render('baseArtiste.html.twig',[ 'parametre2' => (int)$lid,
+]);
+
+    }
+
+
     #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
     public function homeClient(OeuvreartRepository $oeuvreartRepository): Response
     {
