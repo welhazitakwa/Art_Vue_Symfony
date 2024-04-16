@@ -158,9 +158,25 @@
 											<a class="shopping-cart" href="cart.html">
 												<i class="fas fa-shopping-cart"></i>
 											</a>
-											<a class="mobile-hide search-bar-icon" href="#">
-												<i class="fas fa-search"></i>
-											</a>
+											
+											
+										<a href="#"><i class="fas fa-user"></i></a>
+										<ul class="sub-menu">
+											<li>
+												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
+												</a> 											
+											</li>
+											<li>
+												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
+											</li>
+										</ul>
+									
+
+											{# <a class="mobile-hide search-bar-icon" href="#">
+												<i class="fas fa-user"></i>
+											</a> #}
+											{# user takwaaaa #}
+											
 										</div>
 									</li>
 								</ul>
@@ -177,6 +193,26 @@
 		</div>
 		<!-- end header -->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<!-- search area -->
 		<div class="search-area">
 			<div class="container">
@@ -187,7 +223,7 @@
 						</span>
 						<div class="search-bar">
 							<div class="search-bar-tablecell">
-								<h3>Search For:</h3>
+								<h3>Search For:  {{ app.session.get('userConnected').nom}}   </h3>
 								<input type="text" placeholder="Keywords">
 								<button type="submit">Search
 									<i class="fas fa-search"></i>
@@ -199,6 +235,32 @@
 			</div>
 		</div>
 		<!-- end search area -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
 		{% block body %}
 
 			<!-- Continue à modifier -->
