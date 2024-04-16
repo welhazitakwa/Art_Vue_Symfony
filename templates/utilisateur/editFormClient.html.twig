@@ -25,9 +25,22 @@
     <div class="content__actions"><a href="#">
         
         </svg><span> </span></a>
+
+        
+        {% if app.session.get('user_profil') == 1 %}
+        <a href="{{ path('app_homeArtiste') }}">
+        </svg>
+        <span style="color:#db9aa2; font-size: 25px;" > <b> Retour </b> </span>
+        </a>
+        {% elseif app.session.get('user_profil') == 2 %} 
         <a href="{{ path('app_home_client') }}">
-        </svg><span style="color:#db9aa2; font-size: 25px;" > <b> Retour </b> </span>
-        </a></div>
+        </svg>
+        <span style="color:#db9aa2; font-size: 25px;" > <b> Retour </b> </span>
+        </a>
+        {% endif %} 
+
+        
+        </div>
     
     
 

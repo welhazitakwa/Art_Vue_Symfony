@@ -151,9 +151,27 @@
 											<a class="shopping-cart" href="cart.html">
 												<i class="fas fa-shopping-cart"></i>
 											</a>
-											<a class="mobile-hide search-bar-icon" href="#">
-												<i class="fas fa-search"></i>
-											</a>
+											<a href="#"><i class="fas fa-user"></i></a>
+										<ul class="sub-menu">
+											<li> 
+											<center><b>
+												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> {% if app.session.get('user_profil') == 0 %}
+                                              Admin
+                                              {% elseif app.session.get('user_profil') == 1 %} 
+                                              Artiste
+                                              {% else %}
+                                              Client
+                                              {% endif %} 
+												</a></b>	 </center>										
+											</li>
+											<li>
+												<a class="mobile-hide" href="{{ path('editprofileclient') }}"> Consulter profile
+												</a> 											
+											</li>
+											<li>
+												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > Modifier profile </a>
+											</li>
+										</ul>
 										</div>
 									</li>
 								</ul>
