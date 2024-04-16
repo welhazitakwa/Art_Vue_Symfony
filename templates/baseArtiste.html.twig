@@ -165,11 +165,14 @@
 												</a></b>	 </center>										
 											</li>
 											<li>
-												<a class="mobile-hide" href="{{ path('editprofileclient') }}"> Consulter profile
+												<a class="mobile-hide" href="{{ path('editprofileclient') }}">  <i class="fas fa-eye"></i> &nbsp; Consulter profile
 												</a> 											
 											</li>
 											<li>
-												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > Modifier profile </a>
+												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > <i class="fas fa-user-edit"></i> &nbsp; Modifier profile </a>
+											</li>
+											<li>
+												<a href="{{path('login_user')}}" > <i class="fas fa-sign-out-alt"></i>&nbsp;  Déconnexion </a>
 											</li>
 										</ul>
 										</div>
