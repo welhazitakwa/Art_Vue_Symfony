@@ -158,16 +158,19 @@
 											<a class="shopping-cart" href="cart.html">
 												<i class="fas fa-shopping-cart"></i>
 											</a>
-											
+											{# <li>
+												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
+												</a> 											
+											</li> #}
 											
 										<a href="#"><i class="fas fa-user"></i></a>
 										<ul class="sub-menu">
 											<li>
-												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
+												<a class="mobile-hide" href="{{ path('editprofileclient') }}"> Consulter profile
 												</a> 											
 											</li>
 											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
+												<a href="{{ path('app_galerieOeuvre_artiste') }}"> Modifier profile </a>
 											</li>
 										</ul>
 									
@@ -260,7 +263,7 @@
 
 
 
-		
+
 		{% block body %}
 
 			<!-- Continue à modifier -->
@@ -788,4 +791,8 @@
 			</div>
 		</div>
 	</div>
-</div></div><!-- end copyright --><!-- jquery --><script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script><!-- bootstrap --><script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>
+</div></div><!-- end copyright -->
+<!-- jquery -->
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="author" content="CodeHim">
+      <title> Dashboard Profile Page Theme Color CSS Vanilla JS Example </title>
+      <link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/styleeditClient.css') }}">
+      <link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/demoeditClient.css') }}">
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
+   </head>
+   <body>
+     
+      <main class="cd__main">
+         <div class="profile-page">
+  <div class="content">
+    <div class="content__cover">
+      {# ----------------------------------------------------------------------------------------- #}
+      <img  class src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 12rem;
+      height: 12rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, 50%);
+  background: #b4874e  center center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: 0 15px 35px rgba(50,50,93,0.1), 0 5px 15px rgba(0,0,0,0.07);">
+      <div class="content__bull"><span></span><span></span>
+      </div>
+    </div>
+    <div class="content__actions"><a href="#">
+        
+        </svg><span> </span></a>
+        <a href="{{ path('app_home_client') }}">
+        </svg><span style="color:#db9aa2; font-size: 25px;" > <b> Retour </b> </span>
+        </a></div>
+    
+    
+    <div class="content__title">
+      <h1>{{ app.session.get('userConnected').nom }} {{ app.session.get('userConnected').prenom }}</h1> <b style="color:#00; font-size: 17px;"> Adresse :</b> <span> {{app.session.get('userConnected').adresse}} </span>
+    </div>
+    <div class="content__description">
+    <p> <b> <span style="color:#d5989e; font-size: 20px;"  >Téléphone :</span> </b>{{app.session.get('userConnected').numTel}}</p>
+
+      <p> <b> <span style="color:#d5989e; font-size: 20px;"  >Email :</span> </b> {{app.session.get('userConnected').email}} </p>
+      
+      <p> <b> <span style="color:#d5989e; font-size: 20px;"  >CIN :</span> </b> {{app.session.get('userConnected').cin}}</p>
+      <p><b> <span style="color:#d5989e; font-size: 20px;"  >Membre depuis :</span> </b> {{app.session.get('userConnected').dateInscription | date('d-M-Y')}}  </p>
+    </div>
+    <ul class="content__list">
+      <li>Age<span>{% if app.session.get('userConnected').dateNaissance is not null %}
+      {% set aujourdhui = date('now') %}
+      {% set age = aujourdhui.diff(app.session.get('userConnected').dateNaissance).y %}
+      {{ age }} ans
+      {% else %} Non disponible {% endif %}</span></li>
+      <li>Genre<span>{{ app.session.get('userConnected').genre }}</span></li>
+      <li>Login<span>{{ app.session.get('userConnected').login }}</span></li>
+    </ul>
+    <div class="content__button"><a class="button" href="#">
+        <div class="button__border"></div>
+        <div class="button__bg"></div>
+        <p class="button__text">Show more</p></a></div>
+  </div>
+  <div class="bg">
+    <div>
+    </div>
+  </div>
+ 
+ 
+</div>
+
+      </main>
+      
+      <script src="{{ asset('TemplateClient/assets/js/scripteditClient.js') }}"></script>
+   </body>
+</html>

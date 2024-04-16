@@ -51,6 +51,12 @@ class UtilisateurController extends AbstractController
         ]);
         
     }
+    #[Route('/editprofileclient', name: 'editprofileclient')]
+    public function editprofileclient ():Response{
+        return $this->render('utilisateur/editProfileClient.html.twig', [        
+        ]);
+        
+    }
 
        #[Route('/login', name : "login_user")]
     public function login (UtilisateurRepository $userRepo ,Request $request , SessionInterface $session ): Response{
