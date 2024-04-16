@@ -13,14 +13,15 @@ use App\Entity\Utilisateur;
 use App\Form\OeuvreartType;
 use App\Entity\Categorie;
 use App\Repository\UtilisateurRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class GalerieArtisteController extends AbstractController
 {
     #[Route('/galerie/artiste/Oeuvre', name: 'app_galerieOeuvre_artiste')]
-    public function index(EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository): Response
+    public function index(SessionInterface $session, EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository): Response
 {
     // Récupérer l'artiste d'ID 14
-    $utilisateur = $entityManager->getRepository(Utilisateur::class)->find(14);
+    $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($session->get('user_id'));
     
     // Récupérer les œuvres de l'artiste d'ID 14
     $oeuvrearts = $oeuvreartRepository->findBy(['idArtiste' => $utilisateur]);
@@ -36,10 +37,10 @@ class GalerieArtisteController extends AbstractController
 
 
 #[Route('/galerie/artiste/OeuvreByCategorie/{idcategorie}', name: 'app_galerieOeuvre_artisteByCategorie')]
-    public function ArtisteByCategorie(int $idcategorie, EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository): Response
+    public function ArtisteByCategorie(SessionInterface $session, int $idcategorie, EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository): Response
     {
         // Récupérer l'artiste d'ID 14
-        $utilisateur = $entityManager->getRepository(Utilisateur::class)->find(14);
+        $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($session->get('user_id'));
 
         // Récupérer la catégorie
         $categorie = $entityManager->getRepository(Categorie::class)->find($idcategorie);
