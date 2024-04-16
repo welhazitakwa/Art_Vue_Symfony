@@ -3,32 +3,89 @@
 {% block title %}Livraison{% endblock %}
 
 {% block body %}
-    <h1>Livraison</h1>
+<div class="widget-title no-margin" style=" margin-top: 70px">
+<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+			<li>Commerce</li>
+			<li>Livraisons</li>
+		</ul>
+		<h4 style ="color: #593A37">Détails livraison
+		{{ livraison.id }}
+        </h4>
+        <div class="prj-team">
+								<ul>
+								
+								<li>
+										{{ include('livraison/_delete_form.html.twig') }}
+									</li>
+									</ul>
+							</div>
+		
+	</div>
+    <div class="gap no-gap">
+		<div class="inner-bg">
+			<div class="product-details">
+				<div class="gap no-top">
+					<div class="product-details-wrapper paddlr70">
+						<div class="product-detail paddlr100">
+							<div class="row">
+								<div class="col-lg-5 col-md-5">
+<br>
+                                        <h5 style="color: #87695D; font-weight: bold; font-size: 17px;">
+											Adresse du client  :
+											<span style="font-weight: normal; color: #87695D;">{{livraison.adresse}}</span>
+										</h5>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ livraison.id }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ livraison.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Frais</th>
-                <td>{{ livraison.frais }}</td>
-            </tr>
-            <tr>
-                <th>Total</th>
-                <td>{{ livraison.total }}</td>
-            </tr>
-        </tbody>
-    </table>
+                                     
+                                        <h5 style="color: #87695D; font-weight: bold; font-size: 17px;">
+											Frais de livraison  :
+											<span style="font-weight: normal; color: #87695D;">{{livraison.frais}}</span>
+										</h5>
+<h5 style="color: #87695D; font-weight: bold; font-size: 17px;">
+											Montant total  :
+											<span style="font-weight: normal; color: #87695D;">{{livraison.total }}</span>
+										</h5>
+									
+										<br>
 
-    <a href="{{ path('app_livraison_index') }}">back to list</a>
+	<div class="card" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); background-color: #f8f9fa;">
+											<div class="card-body">
+												<h5 class="card-title" style="color: #87695D; font-weight: bold; font-size: 17px;">Informations de la commande</h5>
+                                                <p class="card-text" style="font-weight: bold; color: #87695D; font-size: 14px;">ID:
+                                                	<span style="font-weight: normal; color: #87695D;">{{ livraison.commande.id }}
+													</span>
+                                                </p>
 
-    <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}">edit</a>
+												<p class="card-text" style="font-weight: bold; color: #87695D; font-size: 14px;">Date commande:
+													<span style="font-weight: normal; color: #87695D;">{{ livraison.commande.date ?livraison.commande.date|date('Y-m-d') : ''}}
+														</span>
+												</p>
+                                                	<p class="card-text" style="font-weight: bold; color: #87695D; font-size: 14px;">Client :
+													<span style="font-weight: normal; color: #87695D;">{{ livraison.commande.panier.client.nom}}
+                                                    {{ livraison.commande.panier.client.prenom}}
+														</span>
+												</p>
+												
 
-    {{ include('livraison/_delete_form.html.twig') }}
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+		<div class="cart-quantity d-flex justify-content-between">
+                                        <p> </p>
+
+											<a href="{{ path('app_livraison_index') }}" style="color: #593A37; text-decoration: none;">
+    <i class="fa fa-arrow-left"></i> Retour à la liste
+</a>
+
+										</div>
+                                    
 {% endblock %}
