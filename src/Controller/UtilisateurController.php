@@ -64,6 +64,9 @@ class UtilisateurController extends AbstractController
             $result = $userRepo->login($login, $mdp);
             $session ->set('user_id', $result->getId()) ;
            $session->set('user_image', $result->getImage()) ;
+           $session->set('user_nom', $result->getNom()) ;
+           $session->set('user_prenom', $result->getPrenom()) ;
+           $session->set('user_profil', $result->getProfil()) ;
 
             return $this->render('utilisateur/login.html.twig',[
                 'user' => $result,

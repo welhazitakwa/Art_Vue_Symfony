@@ -199,11 +199,17 @@
                                         <div class="user-head">
                                             <div class="admin">
                                                 <div class="admin-avatar">
-                                                <img src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
+                                                <img src="{{ asset('oeuvre/' ~ app.session.get('user_image')) }}" alt="Image" style="width: 50px; height: 50px">
                                                  <i class="online"></i> </div>
                                             </div>
-                                            <div class="drop setting"> <span class="drop-head">stifen Doe 
-                                            <i>30 days trial </i></span>
+                                            <div class="drop setting"> <span class="drop-head">{{ app.session.get('user_nom')}} {{ app.session.get('user_prenom') }}
+                                            <i>{% if app.session.get('user_profil') == 0 %}
+                                              Admin
+                                              {% elseif app.session.get('user_profil') == 1 %} 
+                                              Artiste
+                                              {% else %}
+                                              Client
+                                              {% endif %} </i></span>
                                                 <ul class="drop-meta">
                                                             <li> <a href="{{path('app_utilisateur_edit',{'id': app.session.get('user_id') })}}"  title="">
                                                                 <i class="fa fa-eyedropper"></i>Modifier Profile</a> </li>
