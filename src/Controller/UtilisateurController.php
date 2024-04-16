@@ -12,10 +12,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder;
+
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
@@ -53,14 +53,22 @@ class UtilisateurController extends AbstractController
     }
 
        #[Route('/login', name : "login_user")]
-    public function login (UtilisateurRepository $userRepo ,Request $request  ): Response{
+    public function login (UtilisateurRepository $userRepo ,Request $request , SessionInterface $session ): Response{
         $user = new Utilisateur();
         $form1 = $this->createForm(LoginType::class, $user);
         $form1->handleRequest($request);
+
         if ($form1->isSubmitted()){
             $login = $user->getLogin();
             $mdp = $user->getMdp();
             $result = $userRepo->login($login, $mdp);
+            $session ->set('user_id', $result->getId()) ;
+           $session->set('user_image', $result->getImage()) ;
+           $session->set('user_nom', $result->getNom()) ;
+           $session->set('user_prenom', $result->getPrenom()) ;
+           $session->set('user_profil', $result->getProfil()) ;
+           $session->set('userConnected', $result) ;
+
             return $this->render('utilisateur/login.html.twig',[
                 'user' => $result,
                 'form1' => $form1->createView(),
@@ -83,6 +91,14 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $defaultImagePath = $this->getParameter('kernel.project_dir').'/public/oeuvre/userimg.png';
+             $uploadsDirectory = $this->getParameter('images_directorys');
+             $newFilename = uniqid().'.'.pathinfo($defaultImagePath, PATHINFO_EXTENSION);
+             copy($defaultImagePath, $uploadsDirectory.'/'.$newFilename);
+            // Enregistrez le nom de fichier de l'image par défaut dans l'entité utilisateur
+            $utilisateur->setImage($newFilename);
+
             $plainPassword =$utilisateur->getMdp() ;
             $hashedPassword = $this->hashPassword($plainPassword);
             $utilisateur->setMdp($hashedPassword);
@@ -114,6 +130,10 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('image')->getData();
+            $fileName = uniqid().'.'.$file->guessExtension();
+            $file->move($this->getParameter('images_directorys'), $fileName);
+            $utilisateur->setImage($fileName);
             $entityManager->flush();
             // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }

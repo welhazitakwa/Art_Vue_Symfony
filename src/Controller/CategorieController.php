@@ -10,16 +10,20 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\OeuvreartRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Oeuvreart;
+use App\Repository\UtilisateurRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
     #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
-    public function homeAdmin(Request $request): Response
-    {           
-        $lid = $request->query->get('parametre');
-        return $this->render('base.html.twig',[ 'parametre2' => (int)$lid,
+    public function homeAdmin(Request $request, UtilisateurRepository $userRepo, SessionInterface $session): Response
+    {      
+         $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
+        //$id = $request->query->get('id');
+        return $this->render('base.html.twig',[ 
+            
 ]);
 
     }

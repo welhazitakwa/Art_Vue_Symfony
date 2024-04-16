@@ -49,6 +49,7 @@
 <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
  {% endblock %}
 </head>
+
 <body >
     <div id="loader-wrapper">
       <div id="loader"></div>
@@ -66,7 +67,7 @@
             <span>Connecter vous pour continuer 
       </span>
             <form method="post">
-            {{ form_start(form1) }}
+            {{ form_start(form1 ,{'attr':{'novalidate':'novalidate'}}) }}
 
               <label><i class="fa fa-user-circle-o"></i></label>
                 {{ form_widget(form1.login, {'attr': {'placeholder': 'Login'}}) }}
@@ -84,14 +85,12 @@
 
 
 
-
-
       
     {% if user == "no user found !!!" %} 
      <h1>String </h1> 
     {% else %}
       {% if user.profil == 0 %}
-            {% set url = path('app_home', {'parametre': user.id}) %}
+            {% set url = path('app_home', {'id': user.id}) %}
                 <script>window.location.href = "{{ url }}";</script>
         
         {% elseif  user.profil == 1 %} 
