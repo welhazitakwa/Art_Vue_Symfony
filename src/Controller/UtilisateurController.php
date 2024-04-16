@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\EditFormClientType;
 use App\Form\EditProfileType;
 use App\Form\LoginType;
 use App\Form\UtilisateurType;
@@ -51,13 +52,34 @@ class UtilisateurController extends AbstractController
         ]);
         
     }
+    // --------------------------------------------------------------------
     #[Route('/editprofileclient', name: 'editprofileclient')]
     public function editprofileclient ():Response{
         return $this->render('utilisateur/editProfileClient.html.twig', [        
         ]);
         
     }
+    #[Route('/{id}/editFormClient', name: 'editFormClient', methods: ['GET', 'POST'])]
+    public function editFormClient(Request $request, Utilisateur $utilisateur, EntityManagerInterface $entityManager): Response
+    {
 
+        $form = $this->createForm(EditProfileType::class, $utilisateur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('image')->getData();
+            $fileName = uniqid().'.'.$file->guessExtension();
+            $file->move($this->getParameter('images_directorys'), $fileName);
+            $utilisateur->setImage($fileName);
+            $entityManager->flush();
+        }
+
+        return $this->renderForm('utilisateur/editFormClient.html.twig', [
+            'utilisateur' => $utilisateur,
+            'form' => $form,
+        ]);
+    }
+    // --------------------------------------------------------------------
        #[Route('/login', name : "login_user")]
     public function login (UtilisateurRepository $userRepo ,Request $request , SessionInterface $session ): Response{
         $user = new Utilisateur();

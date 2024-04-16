@@ -181,7 +181,7 @@
 												</a> 											
 											</li>
 											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}"> Modifier profile </a>
+												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > Modifier profile </a>
 											</li>
 										</ul>
 									
