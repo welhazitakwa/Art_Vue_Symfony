@@ -28,28 +28,23 @@ class ConcoursController extends AbstractController
             'concours' => $concours,
         ]);
     }
-
-    /*#[Route('/new', name: 'app_concours_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    
+    #[Route('/showClient', name: 'app_concoursclient_index', methods: ['GET'])]
+    public function indexClient(EntityManagerInterface $entityManager): Response
     {
-        $concour = new Concours();
-        $form = $this->createForm(ConcoursType::class, $concour);
-        $form->handleRequest($request);
+        $concours = $entityManager
+            ->getRepository(Concours::class)
+            ->findAll();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($concour);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('concours/new.html.twig', [
-            'concour' => $concour,
-            'form' => $form,
+        return $this->render('concours/showClient.html.twig', [
+            'concours' => $concours,
         ]);
     }
-*/
-#[Route('/new', name: 'app_concours_new', methods: ['GET', 'POST'])]
+    
+
+    
+
+#[Route('/concours/new', name: 'app_concours_new', methods: ['GET', 'POST'])]
 public function new(Request $request, EntityManagerInterface $entityManager): Response
 {
     $concours = new Concours();
@@ -57,12 +52,13 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        // Récupérer les identifiants des œuvres sélectionnées à partir de la requête
-        /** @var array $selectedOeuvresIds */
-$selectedOeuvresIds = $request->request->get('concours')['oeuvres'];
+        $entityManager->persist($concours);
 
-        // Ajouter les relations entre le concours et les œuvres sélectionnées dans la table OeuvreConcours
-        foreach ($selectedOeuvresIds as $oeuvreId) {
+        // Récupérer les données soumises du formulaire
+        $selectedOeuvres = $request->request->get('concours')['oeuvres'] ?? [];
+
+        // Associer les œuvres sélectionnées au concours
+        foreach ($selectedOeuvres as $oeuvreId) {
             $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
             if ($oeuvre) {
                 $oeuvreConcours = new OeuvreConcours();
@@ -72,96 +68,60 @@ $selectedOeuvresIds = $request->request->get('concours')['oeuvres'];
             }
         }
 
-        $entityManager->persist($concours);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    return $this->renderForm('concours/new.html.twig', [
-        'concours' => $concours,
-        'form' => $form,
-    ]);
-}
-
-   /* #[Route('/{id}', name: 'app_concours_show', methods: ['GET'])]
-    public function show(Concours $concour): Response
-    {
-        return $this->render('concours/show.html.twig', [
-            'concour' => $concour,
-        ]);
-    }*/
-    #[Route('/{id}', name: 'app_concours_show', methods: ['GET'])]
-public function show(Concours $concour): Response
-{
-    // Récupérer les œuvres associées à ce concours
-    $oeuvres = $concour->getOeuvres();
-
-    return $this->render('concours/show.html.twig', [
-        'concour' => $concour,
-        'oeuvres' => $oeuvres,
+    return $this->render('concours/new.html.twig', [
+        'form' => $form->createView(),
     ]);
 }
 
 
-  /*  #[Route('/{id}/edit', name: 'app_concours_edit', methods: ['GET', 'POST'])]
+  
+
+
+ 
+    #[Route('/{id}/edit', name: 'app_concours_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Concours $concour, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ConcoursType::class, $concour);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Supprimer les anciennes relations dans la table OeuvresConcours
+            $oldRelations = $entityManager->getRepository(OeuvreConcours::class)->findBy(['idConcours' => $concour]);
+            foreach ($oldRelations as $relation) {
+                $entityManager->remove($relation);
+            }
+    
+            // Récupérer les identifiants des nouvelles œuvres sélectionnées à partir du formulaire
+            $selectedOeuvresIds = $form->get('oeuvres')->getData();
+    
+            // Ajouter les nouvelles relations dans la table OeuvresConcours
+            foreach ($selectedOeuvresIds as $oeuvreId) {
+                $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
+                if ($oeuvre) {
+                    $oeuvreConcours = new OeuvreConcours();
+                    $oeuvreConcours->setIdConcours($concour);
+                    $oeuvreConcours->setIdOeuvre($oeuvre);
+                    $entityManager->persist($oeuvreConcours);
+                }
+            }
+    
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->renderForm('concours/edit.html.twig', [
             'concour' => $concour,
             'form' => $form,
         ]);
-    }*/
-    #[Route('/{id}/edit', name: 'app_concours_edit', methods: ['GET', 'POST'])]
-public function edit(Request $request, Concours $concour, EntityManagerInterface $entityManager): Response
-{
-    $form = $this->createForm(ConcoursType::class, $concour);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Supprimer les relations existantes entre le concours et les œuvres
-        foreach ($concour->getOeuvres() as $oeuvre) {
-            $oeuvreConcours = $entityManager->getRepository(OeuvreConcours::class)->findOneBy(['idConcours' => $concour, 'idOeuvre' => $oeuvre]);
-            if ($oeuvreConcours) {
-                $entityManager->remove($oeuvreConcours);
-            }
-        }
-
-        // Récupérer les identifiants des nouvelles œuvres sélectionnées à partir du formulaire
-        $selectedOeuvresIds = $form->get('oeuvres')->getData();
-
-        // Ajouter les nouvelles relations entre le concours et les œuvres sélectionnées dans le formulaire
-        foreach ($selectedOeuvresIds as $oeuvreId) {
-            $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
-            if ($oeuvre) {
-                $oeuvreConcours = new OeuvreConcours();
-                $oeuvreConcours->setIdConcours($concour);
-                $oeuvreConcours->setIdOeuvre($oeuvre);
-                $entityManager->persist($oeuvreConcours);
-            }
-        }
-
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
     }
-
-    return $this->renderForm('concours/edit.html.twig', [
-        'concour' => $concour,
-        'form' => $form,
-    ]);
-}
-
-
+    
+    
 
 
 #[Route('/{id}', name: 'app_concours_delete', methods: ['POST'])]
@@ -183,5 +143,63 @@ public function delete(Request $request, Concours $concour, EntityManagerInterfa
 
     return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
 }
+
+#[Route('/concours/{id}', name: 'app_concours_show')]
+public function show($id, EntityManagerInterface $entityManager): Response
+{
+    // Récupérer le concours associé à l'ID
+    $concoursRepository = $entityManager->getRepository(Concours::class);
+    $concours = $concoursRepository->find($id);
+
+    // Vérifier si le concours existe
+    if (!$concours) {
+        throw $this->createNotFoundException('Le concours avec l\'identifiant ' . $id . ' n\'existe pas.');
+    }
+
+    // Récupérer les oeuvreConcours associés à ce concours
+    $oeuvreConcoursRepository = $entityManager->getRepository(OeuvreConcours::class);
+    $oeuvreConcours = $oeuvreConcoursRepository->findBy(['idConcours' => $id]);
+
+    // Récupérer les œuvres à partir des oeuvreConcours trouvés
+    $oeuvres = [];
+    foreach ($oeuvreConcours as $oc) {
+        $oeuvres[] = $oc->getIdOeuvre();
+    }
+
+    // Passer les données à la vue Twig pour l'affichage
+    return $this->render('concours/show.html.twig', [
+        'concours' => $concours,
+        'oeuvres' => $oeuvres,
+    ]);
+}
+
+
+#[Route('/concours/{id}/oeuvres', name: 'app_concours_oeuvres', methods: ['GET'])]
+public function showOeuvres($id, EntityManagerInterface $entityManager): Response
+{
+    $concours = $entityManager->getRepository(Concours::class)->find($id);
+
+    // Vérifier si le concours existe
+    if (!$concours) {
+        throw $this->createNotFoundException('Le concours avec l\'identifiant ' . $id . ' n\'existe pas.');
+    }
+
+    $oeuvreConcoursRepository = $entityManager->getRepository(OeuvreConcours::class);
+
+    // Récupérer les oeuvreConcours associés à ce concours
+    $oeuvreConcours = $oeuvreConcoursRepository->findBy(['idConcours' => $id]);
+
+    // Récupérer les oeuvres à partir des oeuvreConcours trouvés
+    $oeuvres = [];
+    foreach ($oeuvreConcours as $oc) {
+        $oeuvres[] = $oc->getIdOeuvre();
+    }
+
+    return $this->render('concours/oeuvreConcoursClient.html.twig', [
+        'concours' => $concours,
+        'oeuvres' => $oeuvres,
+    ]);
+}
+
 
 }

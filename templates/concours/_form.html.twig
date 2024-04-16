@@ -1,39 +1,77 @@
-{{ form_start(form) }}
-{{ form_row(form.titre) }}
-
-
-{{ form_row(form.dateDebut) }}
-{{ form_row(form.dateFin) }}
-{{ form_row(form.description) }}
 
 
 
-<div class="col-lg-4 col-sm-6">
-	<div class="widget">
-		<div class="widget-title no-margin">
-			<h4>liste des oeuvres:
-			</h4>
-			<ul class="widget-controls">
-				<li class="refresh-content" title="Refresh">
-					<i class="fa fa-refresh"></i>
-				</li>
-				<li class="expand-content" title="Maximize">
-					<i class="icon-frame"></i>
-				</li>
-				<li class="more-option" title="More Options">
-					<i class="ti-more-alt"></i>
-                    {{ form_row(form.oeuvres) }}
-				</li>
-			</ul>
+
+<div class="widget-title no-margin">
+			<h4>Formulaire d'ajout d'oeuvre d'art</h4>
+        </div>
+		<div >
+			      {{ form_start(form) }}
+				<div class="card-body">
+					<table class="table">
+						<tbody>
+
+						
 
 
+							<tr>
+								<th>{{ form_label(form.titre) }}</th>
+								<td>{{ form_widget(form.titre, ) }}</td>
+								<td>
+									{% if form_errors(form.titre)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.titre) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							<tr>
+								<th>{{ form_label(form.dateDebut) }}</th>
+								<td>{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.dateDebut)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.dateDebut) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+                            <tr>
+								<th>{{ form_label(form.dateFin )}}</th>
+								<td>{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.dateFin)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.dateFin) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							<tr>
+								<th>{{ form_label(form.description) }}</th>
+								<td>{{ form_widget(form.description) }}</td>
+								<td>
+									{% if form_errors(form.description)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.description) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							
+
+							<tr>
+								<th>{{ form_label(form.oeuvres) }}</th>
+								<td>{{ form_widget(form.oeuvres) }}</td>
+								<td>
+									{% if form_errors(form.oeuvres)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.oeuvres) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+
+						</tbody>
+					</table>
+                    
+<button type="submit" class="admin-form-button">{{ button_label|default('Confirmer') }}</button
+					
+				</div>
+			
+			{{ form_end(form) }}
 		</div>
-          <div class="widget-peding">
-                                                    <ul class="todo">
-                                                    </ul>
-                                                    </div>
-	</div>
-</div>
-
-<button type="submit" class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}

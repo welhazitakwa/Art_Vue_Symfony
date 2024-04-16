@@ -54,7 +54,7 @@
 			<div class="sub-bar">
 				<div class="sub-title">
 					<h4>Dashboard:</h4>
-					<span>Welcome To web Admin Panel!</span>
+					<span>liste des jeux concours</span>
 				</div>
 				<ul class="bread-crumb">
 					<li>
@@ -68,14 +68,14 @@
 
 			<div class="inner-bg">
 				<div class="element-title">
-					<h4>List des Concours
+					<h4>liste des jeux concours :
 					</h4>
 					<h4></h4>
 
 
 					<div class="mega-menu demo">
 						<div class="col-md-12">
-							<div class="cart-page">
+							<div class="main-table">
 
 								<table class="cart-table table table-responsive">
 									<thead>
@@ -83,10 +83,10 @@
 										<tr>
 
 											<th>Titre</th>
-											<th>DateDebut</th>
-											<th>DateFin</th>
+											<th>Date Debut</th>
+											<th>Date Fin</th>
 											<th>Description</th>
-											<th>actions</th>
+											<th>Actions</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -101,11 +101,15 @@
 
 
 													<form method="GET" action="{{ path('app_concours_edit', {'id': concour.id}) }}">
-														<button class="btn" type="submit">Modifier</button>
+														<button type="submit" class="btn">
+															<img src="{{ asset('/TemplateAdmin/images/editer.png') }}" alt="Modifier" style="width: 20px; height: 20px;">
+														</button>
 													</form>
 
 													<form method="GET" action="{{ path('app_concours_show', {'id': concour.id}) }}">
-														<button class="btn" type="submit">Afficher</button>
+														<button type="submit" class="btn">
+															<img src="{{ asset('/TemplateAdmin/images/trouve.png') }}" alt="Afficher" style="width: 20px; height: 20px;">
+														</button>
 													</form>
 
 
@@ -121,16 +125,17 @@
 										{% endfor %}
 									</tbody>
 								</table>
+                                  <br>
 
-								<a href="{{ path('app_concours_new') }}">Create new</a>
+
+								<a href="{{ path('app_concours_new') }}"><span style="font-size: larger;">Create new</span></a>
+
 
 							</ul>
 						</div>
 					</div>
 				</div>
 
-
-			
 
 				<div class="mega-menu demo">
 					<div class="col-md-12">
@@ -160,36 +165,10 @@
 
 				<div class="mega-menu demo">
 					<div class="col-md-12">
-						<h4>Concours 2: Photography</h4>
-						<ul class="megamenu-caro">
-							<li>
-								<a href="#" title=""><img src="{{ asset('TemplateAdmin/images/resources/mega-caro-1.jpg') }}" alt=""></a>
-								<span>
-									<a href="#" title="">envato elements</a>
-								</span>
-							</li>
-							<li>
-								<a href="#" title=""><img src="{{ asset('TemplateAdmin/images/resources/mega-caro-2.jpg') }}" alt=""></a>
-								<span>
-									<a href="#" title="">themeforest</a>
-								</span>
-							</li>
-							<li>
-								<a href="#" title=""><img src="{{ asset('TemplateAdmin/images/resources/mega-caro-3.jpg') }}" alt=""></a>
-								<span>
-									<a href="#" title="">envato market</a>
-								</span>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="mega-menu demo">
-					<div class="col-md-12">
 
 
-						<div class="full-calendar">
-							<div id="yourId" class="jalendar">
+						<div class="full-calendar" >
+							<div id="yourId" class="jalendar" style="width: 100%;">
 								<div class="added-event" data-date="19-11-2015" data-link="http://google.com" data-title="WWDC 13 on San Francisco, LA"></div>
 								<div class="added-event" data-date="19-11-2015" data-title="Hazal ve Bora Nikah Töreni"></div>
 								<div class="added-event" data-date="10-12-2015" data-title="Tarkan İstanbul Concert on Harbiye Açık Hava Tiyatrosu"></div>

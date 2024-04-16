@@ -1,0 +1,128 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Concours Client
+{% endblock %}
+
+
+
+
+{% block css %}
+.nouvelle-image {
+    background-image: url('public\TemplateAdmin\images\0.png');
+}
+<link rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+<!-- fontawesome -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
+<!-- bootstrap -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
+<!-- owl carousel -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
+<!-- magnific popup -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
+<!-- animate css -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
+<!-- mean menu css -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
+<!-- main style -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
+<!-- responsive -->
+<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+
+{% endblock %}
+
+
+
+
+{% block js %}
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- count down -->
+<script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+<!-- isotope -->
+<script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+<!-- waypoints -->
+<script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+<!-- owl carousel -->
+<script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+<!-- magnific popup -->
+<script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!-- mean menu -->
+<script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+<!-- sticker js -->
+<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+<!-- main js -->
+<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+{% block body %}
+
+<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>We sale fresh fruits</p>
+						<h1>Concours</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- latest news -->
+	<div class="latest-news pt-150 pb-150">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text">Our</span> News</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+					</div>
+				</div>
+			</div>
+
+			
+
+                
+    <div class="row">
+        {% for concour in concours %}
+            <div class="col-lg-4 col-md-6">
+                <div class="single-latest-news">
+                    <a href="{{ path('app_concours_show', {id: concour.id}) }}"><div class="latest-news-bg nouvelle-image"></div></a>
+                    <div class="news-text-box">
+                        <h3><a href="{{ path('app_concours_show', {id: concour.id}) }}">{{ concour.titre }}</a></h3>
+                        <p class="blog-meta">
+                            <span class="author"><i class="fas fa-user"></i> Admin</span>
+                            <span class="date"><i class="fas fa-calendar"></i> {{ concour.dateFin|date('d F, Y') }}</span>
+                        </p>
+                        <p class="excerpt">{{ concour.description }}</p>
+                        <a href="{{ path('app_concours_oeuvres', {id: concour.id}) }}" class="read-more-btn">Voter <i class="fas fa-angle-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<a href="news.html" class="boxed-btn">More News</a>
+				</div>
+			</div>
+		</div>
+
+        
+	</div>
+
+
+
+
+
+{% endblock %}

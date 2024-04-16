@@ -2,54 +2,37 @@
 
 namespace App\Entity;
 use App\Entity\Oeuvreart;
+use Doctrine\DBAL\Types\Types;
+
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-/**
- * Concours
- *
- * @ORM\Table(name="concours")
- * @ORM\Entity
- */
+
+
+
+use App\Repository\concoursRepository;
+#[ORM\Table(name: "concours")]
+#[ORM\Entity(repositoryClass: "App\Repository\concoursRepository")]
 class Concours
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    #[ORM\Column(name: "id", type: "integer", nullable: false)]
+    private ?int $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titre", type="string", length=11, nullable=false)
-     */
-    private $titre;
+    #[ORM\Column(name: "titre", type: "string", length: 11, nullable: false)]
+    private ?string $titre;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_debut", type="date", nullable=false)
-     */
-    private $dateDebut;
+    #[ORM\Column(name: "date_debut", type: "date", nullable: false)]
+    private ?\DateTimeInterface $dateDebut;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_fin", type="date", nullable=false)
-     */
-    private $dateFin;
+    #[ORM\Column(name: "date_fin", type: "date", nullable: false)]
+    private ?\DateTimeInterface $dateFin;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=50, nullable=false)
-     */
-    private $description;
+    #[ORM\Column(name: "description", type: "string", length: 50, nullable: false)]
+    private ?string $description;
+
 
      // Getters
      public function getId(): ?int
@@ -101,52 +84,45 @@ class Concours
          $this->description = $description;
          return $this;
      }
+     
 
-     /**
+      
+   
+  /**
  * @ORM\ManyToMany(targetEntity="Oeuvreart")
  * @ORM\JoinTable(name="oeuvre_concours",
  *      joinColumns={@ORM\JoinColumn(name="id_concours", referencedColumnName="id")},
  *      inverseJoinColumns={@ORM\JoinColumn(name="id_oeuvre", referencedColumnName="idOeuvreArt")}
  * )
  */
-private $oeuvres;
+    private $oeuvres;
 
-public function __construct() {
-    $this->oeuvres = new ArrayCollection();
-}
-
-public function getOeuvres(): Collection
-{
-    return $this->oeuvres;
-}
-
-
-
-// Dans votre classe Concours
-
-public function getOeuvreConcours(): Collection
-{
-    return $this->oeuvres;
-}
-// Dans votre entité Concours
-public function addOeuvre(Oeuvreart $oeuvre): self
-{
-    if (!$this->oeuvres->contains($oeuvre)) {
-        $this->oeuvres[] = $oeuvre;
+    public function __construct()
+    {
+        $this->oeuvres ;
     }
 
-    return $this;
-}
+    /**
+     * @return Collection|Oeuvreart[]
+     */
+    public function getOeuvres(): Collection
+    {
+        return $this->oeuvres= new ArrayCollection();
+    }
 
+    public function addOeuvre(Oeuvreart $oeuvre): self
+    {
+        if (!$this->oeuvres->contains($oeuvre)) {
+            $this->oeuvres[] = $oeuvre;
+        }
 
+        return $this;
+    }
 
-public function removeOeuvre(Oeuvreart $oeuvre): self
-{
-    $this->oeuvres->removeElement($oeuvre);
+    public function removeOeuvre(Oeuvreart $oeuvre): self
+    {
+        $this->oeuvres->removeElement($oeuvre);
 
-    return $this;
-}
-
-
-
+        return $this;
+    }
 }

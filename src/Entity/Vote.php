@@ -6,59 +6,43 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Vote
- *
- * @ORM\Table(name="vote", indexes={@ORM\Index(name="fk_concours", columns={"concours"}), @ORM\Index(name="fk_user", columns={"user"}), @ORM\Index(name="fk_oeuvres", columns={"oeuvre"})})
- * @ORM\Entity
- */
+
+ #[ORM\Table(
+    name: "vote",
+    indexes: [
+       new ORM\Index(name: "fk_concours", columns: ["concours"]),
+       new ORM\Index(name: "fk_user", columns: ["user"]),
+       new ORM\Index(name: "fk_oeuvres", columns: ["oeuvre"])
+    ]
+)]
+
+#[ORM\Entity(repositoryClass: "App\Repository\VoteRepository")]
 class Vote
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    #[ORM\Column(name: "id", type: "integer", nullable: false)]
+    private ?int $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="note", type="integer", nullable=false)
-     */
-    private $note;
+    #[ORM\Column(name: "note", type: "integer", nullable: false)]
+    private ?int $note;
 
-    /**
-     * @var \Oeuvreart  | null
-     *
-     * @ORM\ManyToOne(targetEntity="Oeuvreart")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="oeuvre", referencedColumnName="idOeuvreArt")
-     * })
-     */
-    private $oeuvre;
+    #[ORM\ManyToOne(targetEntity: Oeuvreart::class)]
+     #[ORM\JoinColumn(name: "oeuvre", referencedColumnName: "idoeuvreart")]
+  
+    private ?Oeuvreart $oeuvre;
 
-    /**
-     * @var \Concours  | null
-     *
-     * @ORM\ManyToOne(targetEntity="Concours")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="concours", referencedColumnName="id")
-     * })
-     */
-    private $concours;
+    #[ORM\ManyToOne(targetEntity: Concours::class)]
 
-    /**
-     * @var \Utilisateur  | null
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
+        #[ORM\JoinColumn(name: "concours", referencedColumnName: "id")]
+   
+    private ?Concours $concours;
+
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+   
+        #[ORM\JoinColumn(name: "user", referencedColumnName: "id")]
+  
+    private ?Utilisateur $user;
 
     // Ajoutez les getters et les setters pour chaque propriété
 

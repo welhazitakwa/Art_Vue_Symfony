@@ -1,0 +1,151 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Concours Client
+{% endblock %}
+
+
+{% block css %}
+
+	<style>
+		.product-image img {
+			width: 300px; /* Définir la largeur souhaitée */
+			height: 300px; /* Définir la hauteur souhaitée */
+			object-fit: cover; /* Pour conserver les proportions et remplir l'espace sans déformer l'image */
+		}
+
+
+		.product-image img {
+			width: 300px;
+			height: 300px;
+			object-fit: cover;
+		}
+
+		.star {
+			cursor: pointer;
+			font-size: 20px;
+			color: #ccc;
+		}
+
+		.star.selected {
+			color: #ffc107;
+		}
+	</style>
+
+	<link
+	rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link
+	href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
+	<!-- bootstrap -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
+	<!-- owl carousel -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
+	<!-- magnific popup -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
+	<!-- animate css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
+	<!-- mean menu css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
+	<!-- main style -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+
+{% endblock %}
+
+
+{% block js %}
+
+
+
+
+
+	<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+	<!-- bootstrap -->
+	<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	<!-- count down -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+	<!-- isotope -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+	<!-- waypoints -->
+	<script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+	<!-- owl carousel -->
+	<script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+	<!-- magnific popup -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+	<!-- mean menu -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+	<!-- sticker js -->
+	<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+	<!-- main js -->
+	<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+{% endblock %}
+
+
+
+{% block body %}
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>We sale fresh fruits</p>
+                        <h1>Œuvres du Concours "{{ concours.titre }}"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-section mt-150 mb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="section-title">
+                        <h3>Our <span class="orange-text">Team</span></h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+                    </div>
+                </div>
+            </div>
+            {% if oeuvres is empty %}
+                <p>Aucune œuvre n'est associée à ce concours pour le moment.</p>
+            {% else %}
+                <div class="row">
+                    {% for oeuvre in oeuvres %}
+                        <div class="col-lg-4 col-md-6 text-center">
+                            <div class="single-product-item">
+                                <div class="product-image">
+                                    <img src="{{ asset('oeuvre/' ~ oeuvre.image) }}" alt="{{ oeuvre.titre }}">
+                                </div>
+                                <form action="{{ path('app_vote_new') }}" method="POST">
+                                    <input type="hidden" name="concoursId" value="{{ concours.id }}">
+                                    <input type="hidden" name="oeuvreId" value="{{ oeuvre.idoeuvreart }}">
+                                    <h3>{{ oeuvre.titre }}</h3>
+                                    <select name="note">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                    <button type="submit">Confirmer</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -28,36 +28,32 @@
 			<div class="sub-bar">
 				<div class="sub-title">
 					<h4>Dashboard:</h4>
-					<span>Welcome To web Admin Panel!</span>
+					<span>Formulaire jeux Concours</span>
 				</div>
-				<ul class="bread-crumb">
-					<li>
-						<a href="#" title="">Home</a>
-					</li>
-					<li>Dashbord</li>
-				</ul>
+
 			</div>
 
 			<div class="inner-bg">
-				<div class="element-title">
-
-					<h1>Create new Concours</h1>
-					<span>Please fill the form bellow.</span>
-				</div>
-
-				<div class="add-prod-from">
-					<div class="row">
-						
-					
-				
 
 
-				{{ include('concours/_form.html.twig') }}
-
-				<a href="{{ path('app_concours_index') }}">back to list</a>
-				</div>
-                 </div>
+				<h1>
+					Créer un nouveau concours</h1>
+				<span>Veuillez remplir le formulaire ci-dessous:</span>
 			</div>
+			<div class="widget">
+				<div class="widget-title no-margin">
+					<div class="add-prod-from">
+						<div class="row">
+
+
+							{{ include('concours/_form.html.twig') }}
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
-</div>{% endblock %}
+	{% endblock %}

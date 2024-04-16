@@ -48,5 +48,46 @@ class Likes
      */
     private $idutilisateur;
 
+    public function getIdlike(): ?int
+    {
+        return $this->idlike;
+    }
+
+    public function isEstlike(): ?bool
+    {
+        return $this->estlike;
+    }
+
+    public function setEstlike(?bool $estlike): static
+    {
+        $this->estlike = $estlike;
+
+        return $this;
+    }
+
+    public function getIdoeuvreart(): ?Oeuvreart
+    {
+        return $this->idoeuvreart;
+    }
+
+    public function setIdoeuvreart(?Oeuvreart $idoeuvreart): static
+    {
+        $this->idoeuvreart = $idoeuvreart;
+
+        return $this;
+    }
+
+    public function getIdutilisateur(): ?Utilisateur
+    {
+        return $this->idutilisateur;
+    }
+
+    public function setIdutilisateur(?Utilisateur $idutilisateur): static
+    {
+        $this->idutilisateur = $idutilisateur;
+
+        return $this;
+    }
+
 
 }
