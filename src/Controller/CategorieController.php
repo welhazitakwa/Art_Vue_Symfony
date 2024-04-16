@@ -29,19 +29,20 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/homeArtiste', name: 'app_homeArtiste', methods: ['GET'])]
-    public function homeArtiste(Request $request): Response
+    public function homeArtiste(Request $request,UtilisateurRepository $userRepo, SessionInterface $session): Response
     {           
-        $lid = $request->query->get('parametre');
-        return $this->render('baseArtiste.html.twig',[ 'parametre2' => (int)$lid,
+        $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
+        return $this->render('baseArtiste.html.twig',[ 
+            
 ]);
-
     }
 
-
     #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
-    public function homeClient(OeuvreartRepository $oeuvreartRepository): Response
+    public function homeClient(OeuvreartRepository $oeuvreartRepository, UtilisateurRepository $userRepo, SessionInterface $session): Response
     {
         $lastThreeAddedArtworks = $oeuvreartRepository->findLastThreeAddedArtworks();
+        
+        $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
         return $this->render('baseClient.html.twig', [
             'lastThreeAddedArtworks' => $lastThreeAddedArtworks,
         ]);

@@ -94,7 +94,7 @@
                 <script>window.location.href = "{{ url }}";</script>
         
         {% elseif  user.profil == 1 %} 
-            {% set url = path('app_home_client') %}
+            {% set url = path('app_homeArtiste') %}
                 <script>window.location.href = "{{ url }}";</script>
         {% elseif  user.profil == 2 %} 
          {% set url = path('app_home_client') %}
