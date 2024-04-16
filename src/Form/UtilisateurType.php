@@ -22,7 +22,7 @@ class UtilisateurType extends AbstractType
         $dateActuelle = new DateTime();
         $builder
             ->add('nom')
-            ->add('prenom')
+            ->add('prenom', )
             ->add('email')
             ->add('login')
             ->add('mdp',PasswordType::class)

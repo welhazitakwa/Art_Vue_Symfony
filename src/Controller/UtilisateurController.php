@@ -67,6 +67,7 @@ class UtilisateurController extends AbstractController
            $session->set('user_nom', $result->getNom()) ;
            $session->set('user_prenom', $result->getPrenom()) ;
            $session->set('user_profil', $result->getProfil()) ;
+           $session->set('userConnected', $result) ;
 
             return $this->render('utilisateur/login.html.twig',[
                 'user' => $result,
@@ -91,18 +92,7 @@ class UtilisateurController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // $defaultImagePath = '/chemin/vers/votre/image.jpg';
-            // // Vous devrez remplacer "/chemin/vers/votre/image.jpg" par le chemin réel de votre image
-            // // Copiez l'image existante dans le répertoire d'uploads de Symfony
-            // $uploadsDirectory = $this->getParameter('uploads_directory');
-            // $newFilename = uniqid().'.'.pathinfo($defaultImagePath, PATHINFO_EXTENSION);
-            // copy($defaultImagePath, $uploadsDirectory.'/'.$newFilename);
-            // // Enregistrez le nom de fichier dans vos données
-            //     $data->setImageFileName($newFilename);
-
-
-
-             $defaultImagePath = $this->getParameter('kernel.project_dir').'/public/oeuvre/userimg.png';
+            $defaultImagePath = $this->getParameter('kernel.project_dir').'/public/oeuvre/userimg.png';
              $uploadsDirectory = $this->getParameter('images_directorys');
              $newFilename = uniqid().'.'.pathinfo($defaultImagePath, PATHINFO_EXTENSION);
              copy($defaultImagePath, $uploadsDirectory.'/'.$newFilename);
