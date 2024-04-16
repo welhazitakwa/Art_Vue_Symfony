@@ -9,7 +9,7 @@
 
 
 body {
-  background: #fff;
+  background: #595757;
   font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   color: rgba(0,0,0,0.6);
 }
@@ -332,7 +332,8 @@ body {
   left: 0;
   z-index: 1;
   overflow: hidden;
-  background: linear-gradient(150deg, #ebcbb5 20%, #F19C7C 100%);
+  background: url("../../assets/img/galerie1.jpeg") 
+  /* linear-gradient(150deg, #ebcbb5 20%, #F19C7C 100%); */
 }
 .theme-orange .profile-page .bg div {
   background: linear-gradient(150deg, #ff4086 20%, #fd8d76 100%);
