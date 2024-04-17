@@ -99,27 +99,27 @@ class UtilisateurController extends AbstractController
         $form1 = $this->createForm(LoginType::class, $user);
         $form1->handleRequest($request);
 
-        if ($form1->isSubmitted()){
+        if ($form1->isSubmitted() && $form1->isValid()){
             $login = $user->getLogin();
             $mdp = $user->getMdp();
             $result = $userRepo->login($login, $mdp);
-            $session ->set('user_id', $result->getId()) ;
+            if ($result instanceof Utilisateur) {
+
+           $session ->set('user_id', $result->getId()) ;
            $session->set('user_image', $result->getImage()) ;
            $session->set('user_nom', $result->getNom()) ;
            $session->set('user_prenom', $result->getPrenom()) ;
            $session->set('user_profil', $result->getProfil()) ;
-           $session->set('userConnected', $result) ;
+           $session->set('userConnected', $result) ;}   
 
             return $this->render('utilisateur/login.html.twig',[
                 'user' => $result,
                 'form1' => $form1->createView(),
             ]) ;
         } else {
-                // return $this-> redirectToRoute('listBooks');
                 return $this->render('utilisateur/login.html.twig',[
                                     'form1' => $form1->createView(),
-
-                'user'=> "no user found !!!",
+                                    'user'=> "no user found !!!",
             ]) ;
             }
     }

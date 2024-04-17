@@ -64,7 +64,28 @@
           <div class="admin-form" >
 			  <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
             <h4>Se Connecter  </h4>
-            <span>Connecter vous pour continuer 
+            <span>Connecter vous pour continuer
+            
+             {% if user == "no user found !!!" %} 
+     <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>Vous devez remplir tous les champs</strong> 
+                           </div> 
+             {% elseif user == "Vous devez remplir le champ de login" %} 
+       <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>  Vous devez remplir le champ de login </strong> 
+                            </div>  
+             {% elseif user == "Vous devez saisir votre mot de passe" %} 
+       <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>  Vous devez saisir votre mot de passe </strong> 
+                            </div>  
+    
+    {% else %} 
+     <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+        <p><strong> Vous Devez Vérifier Vos Données !</strong> 
+                             </div>  
+    
+    
+                        {% endif %}
       </span>
             <form method="post">
             {{ form_start(form1 ,{'attr':{'novalidate':'novalidate'}}) }}
@@ -87,8 +108,15 @@
 
       
     {% if user == "no user found !!!" %} 
-     <h1>String </h1> 
+     <h1></h1> 
+     {% elseif user == "Vous devez remplir le champ de login" %} 
+     <h1></h1> 
+    {% elseif user == "Vous devez saisir votre mot de passe" %} 
+     <h1></h1> 
+    {% elseif user == "Vérifier Vos Données" %} 
+     <h1>gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg </h1>    
     {% else %}
+      
       {% if user.profil == 0 %}
             {% set url = path('app_home', {'id': user.id}) %}
                 <script>window.location.href = "{{ url }}";</script>
@@ -103,14 +131,6 @@
          <h1> Aucune condition n'est vérifiée.</h1>
         {% endif %}
     {% endif %}
-
-
-
-
-
-
-
-
 
         </div>
       </div>

@@ -99,6 +99,12 @@ class UtilisateurRepository extends ServiceEntityRepository
 
 public function login($login, $mdp)
 {
+    if ($login == "") {
+        return "Vous devez remplir le champ de login";
+    }
+    if ($mdp == "") {
+        return "Vous devez saisir votre mot de passe";
+    }
     // Récupérer l'utilisateur par le login
     $utilisateur = $this->createQueryBuilder('u')
         ->where('u.login = :login')
@@ -107,17 +113,19 @@ public function login($login, $mdp)
         ->getOneOrNullResult();
         
     // Utilisateur non trouvé
+    
     if (!$utilisateur) {
         return "Vérifier Vos Données";
     }
-
     // Récupérer le mot de passe haché de l'utilisateur
     $hashedPassword = $utilisateur->getMdp();
 
     // Vérifier si le mot de passe est correct
     if (password_verify($mdp, $hashedPassword)) {
       return $utilisateur;
-    } 
+    } else {
+               return "Vérifier Vos Données"; 
+    }
 // echo $mdp;
 // echo $hashedPassword;
 

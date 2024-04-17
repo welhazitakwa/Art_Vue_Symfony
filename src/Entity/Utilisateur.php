@@ -49,7 +49,8 @@ class Utilisateur
     
 
      #[ORM\Column(length: 255)]
-     #[Assert\NotBlank(message:"Le Login ne peut pas être vide.")]
+   #[Assert\Length(min:"1",
+    minMessage:"Ce champ ne doit pas etre vide")]
     private ?string $login = null;
 
 
