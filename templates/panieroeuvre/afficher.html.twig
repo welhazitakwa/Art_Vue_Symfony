@@ -186,16 +186,21 @@
                 <div class="single-product-info">
                     <h5>{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
                     <p>Quantité: {{ panieroeuvre.quantite }}</p>
+					{#modifier#}
 					 <form method="post" action="{{ path('app_panier_modifier_quantite', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">
                         <input type="number" name="quantite" value="{{ panieroeuvre.quantite }}" min="1">
                         <button type="submit">Modifier</button>
                     </form>
                     {# Suppression #}
 					    <a href="{{ path('app_panier_supprimer_oeuvre', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">Supprimer</a>
+				
+
                 </div>
             </div>
         </div>
         {% endfor %}
+				{#commande#}
+						        <a href="{{ path('commander_panier') }}" class="btn btn-primary">Commander</a>
 		 {% endif %}
     </div>
 	   

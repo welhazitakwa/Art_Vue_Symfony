@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Commande;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -90,7 +91,46 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute('app_panier_index', [], Response::HTTP_SEE_OTHER);
     }
-  
-    
+
+//commander panier
+    #[Route('/panier/commander', name: 'commander_panier')]
+    public function commanderPanier(EntityManagerInterface $entityManager): Response
+    {    
+         // Récupérer l'ID du panier statique à partir de la requête
+    $panierId = 43; // par exemple
+
+    // Récupérer le panier à partir de l'ID statique
+    $panier = $this->getDoctrine()->getRepository(Panier::class)->find($panierId);
+        
+      
+        
+        // Calculer le montant total de la commande
+        $montantTotal = 0;
+        foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
+            $montantTotal += $panieroeuvre->getIdOeuvre()->getPrixvente() * $panieroeuvre->getQuantite();
+        }
+
+        // Créer une nouvelle instance de Commande
+        $commande = new Commande();
+        $commande->setMontant($montantTotal);
+        $commande->setDate(new \DateTime());
+        $commande->setEtat('envoyé');
+        $commande->setPanier($panier);
+
+        // Enregistrer la commande dans la base de données
+        $entityManager->persist($commande);
+        $entityManager->flush();
+
+      // Supprimer tous les éléments du panier après la commande
+    foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
+        $panier->removePanieroeuvre($panieroeuvre);
+        $entityManager->remove($panieroeuvre);
+    }
+    $entityManager->flush();
+
+        // Rediriger l'utilisateur vers une page de confirmation de commande
+        return $this->redirectToRoute('app_panieroeuvre_afficher');
+    }
+
 
 }
