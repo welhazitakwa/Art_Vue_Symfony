@@ -35,6 +35,9 @@ class Panier
    #[ORM\OneToMany(targetEntity: Panieroeuvre::class, mappedBy: 'idPanier')]
    private Collection $panieroeuvres;
 
+   #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'panier')]
+   private Collection $commandes;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,7 +72,12 @@ class Panier
     {
         return $this->getId(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
     }
+    public function __construct()
+    {
+        $this->panieroeuvres = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
 
+    }
     /**
      * @return Collection|Panieroeuvre[]
      */
@@ -77,10 +85,7 @@ class Panier
     {
         return $this->panieroeuvres; // Remplacez 'panieroeuvres' par le nom de votre propriété qui contient les œuvres ajoutées dans le panier
     }
-    public function __construct()
-    {
-        $this->panieroeuvres = new ArrayCollection();
-    }
+ 
     public function addPanieroeuvre(Panieroeuvre $panieroeuvre): self
     {
         if (!$this->panieroeuvres->contains($panieroeuvre)) {
@@ -104,4 +109,34 @@ class Panier
     }
   
    
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setPanier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getPanier() === $this) {
+                $commande->setPanier(null);
+            }
+        }
+
+        return $this;
+    }
 }

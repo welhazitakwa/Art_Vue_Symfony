@@ -33,6 +33,8 @@ class Commande
     #[ORM\JoinColumn(name: "panier", referencedColumnName: "id")]
    private ?Panier $panier;
 
+ 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,4 +92,9 @@ class Commande
     {
         return $this->getId(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
     }
+
+
+    
+
+
 }

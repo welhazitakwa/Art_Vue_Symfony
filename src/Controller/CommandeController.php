@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Livraison;
+use App\Entity\Panier;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -98,4 +99,31 @@ class CommandeController extends AbstractController
 
         return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    //affichage client
+  
+#[Route('/panier/afficher', name: 'panier_afficher_commandes')]
+public function listerCommandesPanier(EntityManagerInterface $entityManager): Response
+{
+    $panierId = 43; // Remplacez 43 par l'ID du panier que vous souhaitez afficher
+    
+    // Récupérer le panier à partir de l'ID
+    $panier = $entityManager->getRepository(Panier::class)->find($panierId);
+    
+    // Vérifier si le panier existe
+    if (!$panier) {
+        throw $this->createNotFoundException('Le panier demandé n\'existe pas.');
+    }
+        
+    // Récupérer toutes les commandes liées à ce panier
+    $commandes = $panier->getCommandes();
+
+    return $this->render('commande/listeCommandeClient.html.twig', [
+        'commandes' => $commandes,
+    ]);
+}
+
+    
 }
