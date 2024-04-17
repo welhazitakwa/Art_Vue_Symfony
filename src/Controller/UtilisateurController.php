@@ -68,10 +68,22 @@ class UtilisateurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('image')->getData();
-            $fileName = uniqid().'.'.$file->guessExtension();
-            $file->move($this->getParameter('images_directorys'), $fileName);
-            $utilisateur->setImage($fileName);
+           $file = $form->get('image')->getData();
+            // Vérifier si une nouvelle image a été téléchargée
+            if ($file) {
+                $fileName = uniqid().'.'.$file->guessExtension();
+                $file->move($this->getParameter('images_directorys'), $fileName);
+                $utilisateur->setImage($fileName);
+            }
+              else {
+            // Récupérer l'image existante de l'entité Utilisateur
+            $imageExistante = $utilisateur->getImage();
+
+            // Si une image existante est présente, la conserver
+            if ($imageExistante) {
+                $utilisateur->setImage($imageExistante);
+            }
+        }
             $entityManager->flush();
         }
 

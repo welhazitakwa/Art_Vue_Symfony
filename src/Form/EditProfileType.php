@@ -26,8 +26,9 @@ class EditProfileType extends AbstractType
             ->add('numtel')
             ->add('cin')
             ->add('image', FileType::class, 
-            ['data_class' => null,
-            ])
+    ['data_class' => null,
+     'required'=>false
+    ])
             ->add('genre',ChoiceType::class, [
         'choices'  => [
             'Homme' => 'Homme',
