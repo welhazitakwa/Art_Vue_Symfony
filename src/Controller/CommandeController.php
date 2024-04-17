@@ -125,5 +125,28 @@ public function listerCommandesPanier(EntityManagerInterface $entityManager): Re
     ]);
 }
 
+// Exemple de contrôleur Symfony pour supprimer une commande
+#[Route('/commande/supprimer', name: 'supprimer_commande')]
+public function supprimerCommande(Request $request): Response
+{
+    // Récupérer l'ID de la commande à supprimer à partir des données POST
+    $data = json_decode($request->getContent(), true);
+    $commandeId = $data['commandeId'];
+
+    // Récupérer la commande à supprimer depuis la base de données
+    $entityManager = $this->getDoctrine()->getManager();
+    $commande = $entityManager->getRepository(Commande::class)->find($commandeId);
+
+    // Vérifier si la commande existe
+    if ($commande) {
+        // Supprimer la commande
+        $entityManager->remove($commande);
+        $entityManager->flush();
+    }
+
+    // Répondre avec une réponse vide (200 OK)
+    return new Response('', Response::HTTP_OK);
+}
+
     
 }

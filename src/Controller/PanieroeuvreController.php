@@ -121,6 +121,7 @@ public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityMa
     // Rediriger vers la page d'affichage du panier
     return $this->redirectToRoute('app_panieroeuvre_afficher');
 }
+
 #[Route('/modifier/{oeuvreId}', name: 'app_panier_modifier_quantite')]
 public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerInterface $entityManager): Response
 {

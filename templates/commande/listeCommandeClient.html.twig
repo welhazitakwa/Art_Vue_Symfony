@@ -126,6 +126,8 @@
 								<li>
 									<div class="header-icons">
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                        										<a class="shopping-cart"  href="{{ path('app_panieroeuvre_afficher')}}" ><i class="fas fa-shopping-cart"></i></a>
+
 									</div>
 								</li>
 							</ul>
@@ -183,11 +185,15 @@
         <div class="col-md-4">
             <div class="single-product">
                 <div class="single-product-info">
+                <p> Référence: {{ commande.id }} </p>
                     <p>Montant: {{ commande.montant }} </p>
                     <p> Date de Commande: {{ commande.date|date('Y-m-d') }}</p>
                     <p> État: {{ commande.etat }} </p>
                     {# Suppression #}
-				
+				  {% if commande.etat == 'envoyé' %}
+                    {# Afficher le bouton de suppression #}
+                    <button onclick="supprimerCommande({{ commande.id }})">Supprimer</button>
+                {% endif %}
 
                 </div>
             </div>
@@ -294,6 +300,26 @@
 	<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
 	<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+    <script>
+
+    function supprimerCommande(commandeId) {
+        if (confirm("Êtes-vous sûr de vouloir supprimer cette commande?")) {
+            // Envoyer une requête AJAX pour supprimer la commande
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ path('supprimer_commande') }}", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // La commande a été supprimée avec succès, actualiser la page ou mettre à jour l'affichage
+                    window.location.reload(); // Actualiser la page après la suppression
+                }
+            };
+            var data = JSON.stringify({ commandeId: commandeId });
+            xhr.send(data);
+        }
+    }
+</script>
+
 
 </body>
 </html>
