@@ -7,9 +7,7 @@
 
 
 {% block css %}
-.nouvelle-image {
-    background-image: url('public\TemplateAdmin\images\0.png');
-}
+
 <link rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -30,7 +28,11 @@
 <link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
 <!-- responsive -->
 <link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
-
+<style>
+.nouvelle-image {
+    background-image: url('public\TemplateAdmin\images\0.png');
+}
+</style>
 {% endblock %}
 
 

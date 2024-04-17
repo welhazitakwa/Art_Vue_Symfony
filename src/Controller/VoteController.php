@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Concours;
 use App\Entity\Utilisateur;
 use App\Entity\Vote;
+use App\Form\VoteType;
 use App\Entity\Oeuvreart;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 #[Route('/vote')]
 class VoteController extends AbstractController
 
@@ -21,14 +22,20 @@ class VoteController extends AbstractController
     #[Route('/', name: 'app_vote_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $votes = $entityManager
-            ->getRepository(Vote::class)
-            ->findAll();
+       
+          $userId = 50;
 
-        return $this->render('vote/index.html.twig', [
-            'votes' => $votes,
-        ]);
+          // Récupérer les votes de l'utilisateur avec l'ID 50
+          $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
+          $votes = $entityManager
+              ->getRepository(Vote::class)
+              ->findBy(['user' => $user]);
+  
+          return $this->render('vote/index.html.twig', [
+              'votes' => $votes,
+          ]);
     }
+
     #[Route('/new', name: 'app_vote_new', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -58,6 +65,19 @@ class VoteController extends AbstractController
             return $this->redirectToRoute('nom_de_la_route_vers_la_page_d_accueil');
         }
     
+        // Vérifier si l'utilisateur a déjà voté pour cette œuvre dans ce concours
+        $existingVote = $entityManager->getRepository(Vote::class)->findOneBy([
+            'user' => $userId,
+            'oeuvre' => $oeuvre,
+            'concours' => $concours
+        ]);
+    
+        if ($existingVote) {
+            // Redirection ou affichage de message d'erreur approprié
+            $this->addFlash('error', 'Vous avez déjà voté pour cette œuvre dans ce concours.');
+            return $this->redirectToRoute('app_vote_index');
+        }
+    
         // Créer une nouvelle instance de l'entité Vote avec les données reçues
         $vote = new Vote();
         $vote->setConcours($concours);
@@ -85,6 +105,9 @@ class VoteController extends AbstractController
         }
     }
     
+
+
+
     #[Route('/{id}', name: 'app_vote_delete', methods: ['POST'])]
     public function delete(Request $request, Vote $vote, EntityManagerInterface $entityManager): Response
     {
@@ -95,4 +118,25 @@ class VoteController extends AbstractController
 
         return $this->redirectToRoute('app_vote_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/edit', name: 'app_vote_edit', methods: ['GET', 'POST'])]
+public function edit(Request $request, Vote $vote, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(VoteType::class, $vote);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Vote modifié avec succès.');
+
+        return $this->redirectToRoute('app_vote_index');
+    }
+
+    return $this->render('vote/edit.html.twig', [
+        'vote' => $vote,
+        'form' => $form->createView(),
+    ]);
+}
+
 }

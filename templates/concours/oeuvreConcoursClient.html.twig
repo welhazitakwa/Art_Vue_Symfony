@@ -68,7 +68,21 @@
 
 
 
+   <script>
+        // Fonction JavaScript pour afficher la fenêtre pop-up
+        function showPopup(message) {
+            var popup = document.getElementById("popup");
+            var popupMessage = document.getElementById("popup-message");
+            popupMessage.innerHTML = message;
+            popup.style.display = "block";
+        }
 
+        // Fonction JavaScript pour fermer la fenêtre pop-up
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.display = "none";
+        }
+    </script>
 
 	<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
@@ -146,6 +160,14 @@
                     {% endfor %}
                 </div>
             {% endif %}
+        </div>
+    </div>
+
+	 <!-- Conteneur pour la fenêtre pop-up -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <p id="popup-message"></p>
         </div>
     </div>
 {% endblock %}

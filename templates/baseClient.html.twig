@@ -52,18 +52,13 @@
 				<div class="col-lg-12 col-sm-12 text-center">
 					<div class="main-menu-wrap">
 						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="{{ asset('TemplateClient/assets/img/artView.png') }}" alt="">
-
-							</a>
-						</div>
+						
 						<!-- logo -->
 
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
+								<li class="current-list-item"><a href="{{ path('app_home_client') }}">Home</a>
 									<ul class="sub-menu">
 										<li><a href="index.html">Static Home</a></li>
 										<li><a href="index_2.html">Slider Home</a></li>
@@ -96,8 +91,11 @@
 										<li><a href="cart.html">Cart</a></li>
 									</ul>
 								</li>
-								<li ><a href="{{ path('app_concoursclient_index') }}">Concours</a>
-									
+								<li class="current-list-item"><a href="{{ path('app_concoursclient_index') }}">Concours</a>
+									<ul class="sub-menu">
+										<li><a href="{{ path('app_concoursclient_index') }}">Liste Des Concours</a></li>
+										<li><a href="{{ path('app_vote_index') }}">Consulter Mes Votes</a></li>
+									</ul>
 								</li>
 								<li>
 									<div class="header-icons">

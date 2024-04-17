@@ -15,6 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\Count;
+
+
+
 
 
 class ConcoursType extends AbstractType
@@ -28,16 +35,29 @@ class ConcoursType extends AbstractType
         ->add('titre', TextType::class, [
             'label' => 'Titre du concours',
             // Autres options du champ titre
+            'constraints' => [
+                new Regex([
+                    'pattern' => '/^[A-Za-z]+$/',
+                    'message' => 'Le titre ne peut contenir que des lettres.',
+                ]),
+            ],
         ])
         ->add('dateDebut', DateType::class, [
             'label' => 'Date de fin',
             'widget' => 'single_text',
             'data' => (new \DateTime())->setTime(0, 0, 0), 
+            'constraints' => [
+                new Callback([$this, 'validateDateDebut']),
+            ],
+
         ])
         ->add('dateFin',  DateType::class, [
             'label' => 'Date de fin',
             'widget' => 'single_text',
             'data' => (new \DateTime())->setTime(0, 0, 0), 
+            'constraints' => [
+                new Callback([$this, 'validateDateFin']),
+            ],
         ])
       
         
@@ -52,18 +72,48 @@ class ConcoursType extends AbstractType
             'multiple' => true,
             'expanded' => true,
             'by_reference' => false,
-            // Autres options
+            'constraints' => [
+                new Count(['min' => 2, 'minMessage' => 'Veuillez sélectionner au moins deux œuvres.']),
+            ],
+            
         ]);
         
         
             
         
     }
-
+   
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Concours::class,
         ]);
     }
+
+    public function validateDateFin($value, ExecutionContextInterface $context)
+    {
+        $form = $context->getRoot();
+        $concours = $form->getData();
+        $dateDebut = $concours->getDateDebut();
+        $dateFin = $value;
+    
+        if ($dateDebut > $dateFin) {
+            $context->buildViolation('La date de fin doit être postérieure à la date de début.')
+                ->atPath('dateFin')
+                ->addViolation();
+        }
+    }
+    public function validateDateDebut($value, ExecutionContextInterface $context)
+{
+    $now = new \DateTime();
+    $dateDebut = $value;
+
+    if ($dateDebut < $now) {
+        $context->buildViolation('La date de début doit être postérieure ou égale à la date d\'aujourd\'hui.')
+            ->atPath('dateDebut')
+            ->addViolation();
+    }
+}
+
+    
 }
