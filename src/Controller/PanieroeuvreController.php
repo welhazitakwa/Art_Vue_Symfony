@@ -87,6 +87,77 @@ class PanieroeuvreController extends AbstractController
         ]);
     }
    
+#[Route('/supprimer/{oeuvreId}', name: 'app_panier_supprimer_oeuvre')]
+public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityManager): Response
+{
+    // Récupérer l'œuvre à partir de l'ID
+    $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
+    
+    if (!$oeuvre) {
+        throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
+    }
+
+    // Récupérer le panier correspondant à l'identifiant statique
+    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+    
+    if (!$panier) {
+        throw $this->createNotFoundException('Le panier n\'existe pas.');
+    }
+
+    // Récupérer l'association Panieroeuvre correspondant à l'œuvre et au panier
+    $panieroeuvre = $entityManager->getRepository(Panieroeuvre::class)->findOneBy([
+        'idOeuvre' => $oeuvre,
+        'idPanier' => $panier
+    ]);
+    
+    if (!$panieroeuvre) {
+        throw $this->createNotFoundException('L\'oeuvre n\'est pas présente dans le panier.');
+    }
+
+    // Supprimer l'association du panier
+    $entityManager->remove($panieroeuvre);
+    $entityManager->flush();
+
+    // Rediriger vers la page d'affichage du panier
+    return $this->redirectToRoute('app_panieroeuvre_afficher');
+}
+#[Route('/modifier/{oeuvreId}', name: 'app_panier_modifier_quantite')]
+public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerInterface $entityManager): Response
+{
+    $quantite = max(1, (int)$request->request->get('quantite', 1));
+
+    // Récupérer l'œuvre à partir de l'ID
+    $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
+
+    if (!$oeuvre) {
+        throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
+    }
+
+    // Récupérer le panier correspondant à l'identifiant statique
+    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+
+    if (!$panier) {
+        throw $this->createNotFoundException('Le panier n\'existe pas.');
+    }
+
+    // Récupérer la ligne de panier correspondant à l'œuvre dans le panier
+    $panieroeuvre = $entityManager->getRepository(Panieroeuvre::class)->findOneBy([
+        'idOeuvre' => $oeuvre,
+        'idPanier' => $panier
+    ]);
+
+    if (!$panieroeuvre) {
+        throw $this->createNotFoundException('Cette œuvre n\'est pas dans votre panier.');
+    }
+
+    // Mettre à jour la quantité de l'œuvre dans le panier
+    $panieroeuvre->setQuantite($quantite);
+
+    $entityManager->flush();
+
+    return $this->redirectToRoute('app_panieroeuvre_afficher');
+}
+
 
 
 }
