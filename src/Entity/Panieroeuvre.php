@@ -11,7 +11,7 @@ use App\Repository\PanieroeuvreRepository;
 
 ])]
 
-#[ORM\Entity(repositoryClass: "App\Repository\PanierRepository")]
+#[ORM\Entity(repositoryClass: "App\Repository\PanieroeuvreRepository")]
 
 class Panieroeuvre
 {
@@ -74,6 +74,7 @@ class Panieroeuvre
 
         return $this;
     }
+
 
 
 }

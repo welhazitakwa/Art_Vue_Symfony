@@ -143,7 +143,7 @@
 									</li>
 									<li>
 										<div class="header-icons">
-											<a class="shopping-cart" href="cart.html">
+											<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}">
 												<i class="fas fa-shopping-cart"></i>
 											</a>
 											<a class="mobile-hide search-bar-icon" href="#">
@@ -243,7 +243,7 @@
 								</p>
 
 
-								<a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
+								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
 									<i class="fas fa-shopping-cart"></i>
 									Ajouter au panier
 								</a>

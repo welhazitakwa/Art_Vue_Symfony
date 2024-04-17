@@ -9,8 +9,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Oeuvreart;
+use App\Entity\Panier;
 #[Route('/panieroeuvre')]
 class PanieroeuvreController extends AbstractController
 {
@@ -21,61 +23,70 @@ class PanieroeuvreController extends AbstractController
             'panieroeuvres' => $panierRepository->findAll(),
         ]);
     }
-
-    #[Route('/new', name: 'app_panieroeuvre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    private const PANIER_ID = 43; // Identifiant statique du panier
+    #[Route('/add/{oeuvreId}', name: 'app_panier_add_oeuvre')]
+    public function addToPanier(int $oeuvreId, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $quantite = max(1, (int)$request->request->get('quantite', 1));
+    
+        // Récupérer l'œuvre à partir de l'ID
+        $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
+    
+        if (!$oeuvre) {
+            throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
+        }
+    
+        // Récupérer le panier correspondant à l'identifiant statique ou créer un nouveau panier
+        $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+    
+        if (!$panier) {
+            $panier = new Panier();
+            $entityManager->persist($panier);
+            $entityManager->flush();
+        }
+    
+        // Vérifier si l'œuvre est déjà présente dans le panier
+        $panieroeuvre = $entityManager->getRepository(Panieroeuvre::class)->findOneBy([
+            'idOeuvre' => $oeuvre,
+            'idPanier' => $panier
+        ]);
+    
+        if ($panieroeuvre) {
+            // Retourner une réponse JSON avec un message d'erreur
+            return new JsonResponse(['error' => 'Cette œuvre est déjà dans votre panier.']);
+        }
+    
+    
+        // Créer une nouvelle association Panieroeuvre et l'ajouter au panier
         $panieroeuvre = new Panieroeuvre();
-        $form = $this->createForm(PanieroeuvreType::class, $panieroeuvre);
-        $form->handleRequest($request);
+        $panieroeuvre->setIdOeuvre($oeuvre);
+        $panieroeuvre->setIdPanier($panier);
+        $panieroeuvre->setQuantite($quantite);
+    
+        $entityManager->persist($panieroeuvre);
+        $entityManager->flush();
+    
+        return $this->redirectToRoute('app_galerie');
+    }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($panieroeuvre);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_panieroeuvre_index', [], Response::HTTP_SEE_OTHER);
+    #[Route('/afficher', name: 'app_panieroeuvre_afficher', methods: ['GET'])]
+    public function afficherPanier(PanierRepository $panierRepository): Response
+    {
+        // Récupérer le panier correspondant à l'identifiant statique
+        $panier = $this->getDoctrine()->getRepository(Panier::class)->find(self::PANIER_ID);
+        
+        if (!$panier) {
+            throw $this->createNotFoundException('Le panier n\'existe pas.');
         }
+        
+        // Récupérer les œuvres ajoutées dans le panier
+        $panieroeuvres = $panier->getPanieroeuvres();
 
-        return $this->renderForm('panieroeuvre/new.html.twig', [
-            'panieroeuvre' => $panieroeuvre,
-            'form' => $form,
+        return $this->render('panieroeuvre/afficher.html.twig', [
+            'panieroeuvres' => $panieroeuvres,
         ]);
     }
+   
 
-    #[Route('/{id}', name: 'app_panieroeuvre_show', methods: ['GET'])]
-    public function show(Panieroeuvre $panieroeuvre): Response
-    {
-        return $this->render('panieroeuvre/show.html.twig', [
-            'panieroeuvre' => $panieroeuvre,
-        ]);
-    }
 
-    #[Route('/{id}/edit', name: 'app_panieroeuvre_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Panieroeuvre $panieroeuvre, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(PanieroeuvreType::class, $panieroeuvre);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_panieroeuvre_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('panieroeuvre/edit.html.twig', [
-            'panieroeuvre' => $panieroeuvre,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_panieroeuvre_delete', methods: ['POST'])]
-    public function delete(Request $request, Panieroeuvre $panieroeuvre, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$panieroeuvre->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($panieroeuvre);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_panieroeuvre_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

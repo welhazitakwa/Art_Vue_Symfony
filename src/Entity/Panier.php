@@ -8,7 +8,8 @@ use App\Repository\PanierRepository;
 use DateTime;
 use App\Entity\Utilisateur;
 use DateTimeInterface;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
  #[ORM\Table(name: "panier", indexes: [
     new ORM\Index(name: "fk_client", columns: ["client"]),
 ])]
@@ -30,6 +31,9 @@ class Panier
     #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
     #[ORM\JoinColumn(name: "client", referencedColumnName: "id")]
    private ?Utilisateur $client;
+
+   #[ORM\OneToMany(targetEntity: Panieroeuvre::class, mappedBy: 'idPanier')]
+   private Collection $panieroeuvres;
 
     public function getId(): ?int
     {
@@ -65,4 +69,39 @@ class Panier
     {
         return $this->getId(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
     }
+
+    /**
+     * @return Collection|Panieroeuvre[]
+     */
+    public function getPanieroeuvres()
+    {
+        return $this->panieroeuvres; // Remplacez 'panieroeuvres' par le nom de votre propriété qui contient les œuvres ajoutées dans le panier
+    }
+    public function __construct()
+    {
+        $this->panieroeuvres = new ArrayCollection();
+    }
+    public function addPanieroeuvre(Panieroeuvre $panieroeuvre): self
+    {
+        if (!$this->panieroeuvres->contains($panieroeuvre)) {
+            $this->panieroeuvres[] = $panieroeuvre;
+            $panieroeuvre->setIdPanier($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanieroeuvre(Panieroeuvre $panieroeuvre): self
+    {
+        if ($this->panieroeuvres->removeElement($panieroeuvre)) {
+            // Définit le côté propriétaire à null (sauf si déjà défini)
+            if ($panieroeuvre->getIdPanier() === $this) {
+                $panieroeuvre->setIdPanier(null);
+            }
+        }
+
+        return $this;
+    }
+  
+   
 }

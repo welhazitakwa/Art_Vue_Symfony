@@ -7,7 +7,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Single Product</title>
+	<title>Panier</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
@@ -30,7 +30,36 @@
 	<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
 	<!-- responsive -->
 	<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+ <style>
+        .single-product-img {
+            overflow: hidden;
+            width: 100%;
+            height: 200px; /* Ajustez la hauteur selon vos besoins */
+            margin-bottom: 20px; /* Ajoute de l'espace entre chaque produit */
+        }
 
+        .single-product-img img {
+            width: 100%; /* Ajuster la largeur à 100% pour remplir complètement le conteneur */
+            height: 100%; /* Remplir complètement la hauteur du conteneur */
+            object-fit: cover; /* Assurez-vous que l'image couvre complètement le conteneur */
+            transition: transform 0.3s ease; /* Ajouter une transition pour un effet de survol */
+        }
+
+        .single-product-img img:hover {
+            transform: scale(1.1); /* Agrandir légèrement l'image au survol */
+        }
+        /* Ajouter de l'espace entre la section des miettes de pain et la section des produits */
+       
+       .container {
+            margin-bottom: 120px; /* Ajustez la marge inférieure selon vos préférences */
+        }
+     .breadcrumb-section {
+        margin-bottom: 120px;
+        padding: 100px 10px; /* Ajustez la valeur de remplissage pour réduire l'espace vertical */
+    }
+
+   
+    </style>
 </head>
 <body>
 	
@@ -94,7 +123,6 @@
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart"  href="{{ path('app_panieroeuvre_afficher')}}" ><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -135,8 +163,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>VOIR PLUS DE DÉTAILS</p>
-						<h1>{{ oeuvreart.titre }}</h1>
+						<p>Votre panier</p>
 					</div>
 				</div>
 			</div>
@@ -145,85 +172,29 @@
 	<!-- end breadcrumb section -->
 
 	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-					<div class="single-product-img">
-						<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="">
-					</div>
-				</div>
-				<div class="col-md-7">
-					<div class="single-product-content">
-                    
-                    </br></br>
-						<h3>{{ oeuvreart.titre }}</h3>
-						<p class="single-product-pricing"> {{ oeuvreart.prixvente }} DT</p>
-						<p>{{ oeuvreart.description }}</p>
-						<div class="single-product-form">
-						<form action="{{ path('app_panier_add_oeuvre', {'oeuvreId': oeuvreart.idoeuvreart}) }}" method="post">
-    <input type="number" name="quantite" placeholder="0" value="1" min="1"> <!-- Ajout de min="1" pour s'assurer que la valeur minimale est 1 -->
-    <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
-</form>
+<div class="container">
+    <div class="row">
+        {% for panieroeuvre in panieroeuvres %}
+        <div class="col-md-4">
+            <div class="single-product">
+                <div class="single-product-img">
+                    <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" alt="" class="img-fluid">
+                </div>
+                <div class="single-product-info">
+                    <h3>{{ panieroeuvre.idOeuvre.getTitre() }}</h3>
+                    <p>Quantité: {{ panieroeuvre.quantite }}</p>
+                    {# Ajoutez d'autres détails de l'œuvre si nécessaire #}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
-							<p><strong>Catégorie: </strong>{{ oeuvreart.idCategorie.nomcategorie }}</p>
-						</div>
-						<div id="alert-container"></div>
 
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-twitter"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<!-- end single product -->
 
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Autre</span> {{ oeuvreart.idCategorie.nomcategorie }}</h3>
-						<p>Explorez d'avantage de merveilles artistiques de la même catégorie, où l'imagination rencontre l'expression à travers une diversité d'œuvres extraordinaires</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- autre de meme catégorie -->
-
-        <div class="row">
-             {% for oeuvreart in similarOeuvres %}
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-                                <img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}">
-                            </a>
-                        </div>
-                        <h3>{{ oeuvreart.titre }}</h3>
-                        <p class="product-price"><span>Prix</span> {{ oeuvreart.prixvente }} DT</p>
-                        <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-       
-    
-<!-- end autre de meme catégorie -->
-			</div>
-		</div>
-	</div>
-	<!-- end more products -->
- 
-	
 
 	<!-- footer -->
 	<div class="footer-area">
@@ -315,35 +286,6 @@
 	<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
 	<!-- main js -->
 	<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelector('form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Empêcher le formulaire de se soumettre normalement
-            
-            // Envoyer la requête via AJAX
-            var form = this;
-            var formData = new FormData(form);
-            var xhr = new XMLHttpRequest();
-            xhr.open(form.method, form.action, true);
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.error) {
-                        // Afficher l'alerte d'erreur
-                        var alertContainer = document.getElementById('alert-container');
-                        alertContainer.innerHTML = '<div class="alert alert-danger" role="alert">' + response.error + '</div>';
-                    } else {
-                        // Rediriger vers une autre page ou effectuer une autre action
-                        window.location.href = response.redirect;
-                    }
-                }
-            };
-            xhr.send(formData);
-        });
-    });
-</script>
 
 </body>
 </html>
