@@ -3,70 +3,66 @@
 {% block title %}Commandes{% endblock %}
 
 {% block body %}
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Vos commandes</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
 
-	<!-- single product -->
-<div class="container">
-    <div class="row">
-	 {% if commandes is empty %}
-        <p>Vous n'avez passé aucune commande jusqu'à maintenant</p>
-    {% else %}
- {% for commande in commandes %}
-        <div class="col-md-4">
-            <div class="single-product">
-                <div class="single-product-info">
-                <p> Référence: {{ commande.id }} </p>
-                    <p>Montant: {{ commande.montant }} </p>
-                    <p> Date de Commande: {{ commande.date|date('Y-m-d') }}</p>
-                    <p> État: {{ commande.etat }} </p>
-                    {# Suppression #}
-				  {% if commande.etat == 'envoyé' %}
-                    {# Afficher le bouton de suppression #}
-                    <button onclick="supprimerCommande({{ commande.id }})">Supprimer</button>
-                {% endif %}
-
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Vos commandes</p>
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-		 {% endif %}
     </div>
-	   
+    <!-- end breadcrumb section -->
 
-</div>
- <script>
+    <!-- commandes -->
+    <div class="container mt-4">
+        <div class="row">
+            {% if commandes is empty %}
+                <div class="col-md-12">
+                    <p class="text-center">Vous n'avez passé aucune commande jusqu'à maintenant.</p>
+                </div>
+            {% else %}
+                {% for commande in commandes %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Commande #{{ commande.id }}</h5>
+                                <p class="card-text">Montant: {{ commande.montant }} DT</p>
+                                <p class="card-text">Date de Commande: {{ commande.date|date('Y-m-d') }}</p>
+                                <p class="card-text">État: {{ commande.etat }}</p>
+                                {% if commande.etat == 'envoyé' %}
+                                    <button onclick="supprimerCommande({{ commande.id }})" class="btn btn-danger btn-sm">Supprimer</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- end commandes -->
 
-    function supprimerCommande(commandeId) {
-        if (confirm("Êtes-vous sûr de vouloir supprimer cette commande?")) {
-            // Envoyer une requête AJAX pour supprimer la commande
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "{{ path('supprimer_commande') }}", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    // La commande a été supprimée avec succès, actualiser la page ou mettre à jour l'affichage
-                    window.location.reload(); // Actualiser la page après la suppression
-                }
-            };
-            var data = JSON.stringify({ commandeId: commandeId });
-            xhr.send(data);
+    <script>
+        function supprimerCommande(commandeId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette commande?")) {
+                // Envoyer une requête AJAX pour supprimer la commande
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{{ path('supprimer_commande') }}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // La commande a été supprimée avec succès, actualiser la page ou mettre à jour l'affichage
+                        window.location.reload(); // Actualiser la page après la suppression
+                    }
+                };
+                var data = JSON.stringify({ commandeId: commandeId });
+                xhr.send(data);
+            }
         }
-    }
-</script>
-
-
+    </script>
 
 {% endblock %}

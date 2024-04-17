@@ -3,58 +3,51 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Votre panier</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
 
-	<!-- single product -->
-<div class="container">
-    <div class="row">
-	 {% if panieroeuvres is empty %}
-        <p>Votre panier est vide.</p>
-    {% else %}
-        {% for panieroeuvre in panieroeuvres %}
-        <div class="col-md-4">
-            <div class="single-product">
-                <div class="single-product-img">
-                    <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" alt="" class="img-fluid">
-                </div>
-                <div class="single-product-info">
-                    <h5>{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
-                    <p>Quantité: {{ panieroeuvre.quantite }}</p>
-					{#modifier#}
-					 <form method="post" action="{{ path('app_panier_modifier_quantite', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">
-                        <input type="number" name="quantite" value="{{ panieroeuvre.quantite }}" min="1">
-                        <button type="submit">Modifier</button>
-                    </form>
-                    {# Suppression #}
-					    <a href="{{ path('app_panier_supprimer_oeuvre', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">Supprimer</a>
-				
-
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Votre panier</p>
+                    </div>
                 </div>
             </div>
         </div>
-        {% endfor %}
-				{#commande#}
-						        <a href="{{ path('commander_panier') }}" class="btn btn-primary">Commander</a>
-		 {% endif %}
     </div>
-	   
+    <!-- end breadcrumb section -->
 
-</div>
-
-
-
-	<!-- end single product -->
+    <!-- single product -->
+    <div class="container">
+        <div class="row">
+            {% if panieroeuvres is empty %}
+                <p>Votre panier est vide.</p>
+            {% else %}
+                {% for panieroeuvre in panieroeuvres %}
+                    <div class="col-md-4 mb-4">
+                        <div class="single-product">
+                            <div class="single-product-img">
+                                <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" alt="" class="img-fluid product-image">
+                            </div>
+                            <div class="single-product-info">
+                                <h5>{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
+                                <p>Quantité: {{ panieroeuvre.quantite }}</p>
+                                <form method="post" action="{{ path('app_panier_modifier_quantite', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">
+                                    <input type="number" name="quantite" value="{{ panieroeuvre.quantite }}" min="1">
+                                    <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
+                                </form>
+                                <a href="{{ path('app_panier_supprimer_oeuvre', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-md-12 text-center">
+                    <a href="{{ path('commander_panier') }}" class="btn btn-primary btn-lg">Commander</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- end single product -->
 
 {% endblock %}
