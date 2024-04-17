@@ -157,23 +157,20 @@ class UtilisateurController extends AbstractController
 
         $form = $this->createForm(EditProfileType::class, $utilisateur);
         $form->handleRequest($request);
-        $oldImage = $utilisateur->getImage();
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $file = $form->get('image')->getData();
-            
-            if ($file instanceof UploadedFile) {
-
+   if ($file instanceof UploadedFile) {
             $fileName = uniqid().'.'.$file->guessExtension();
             $file->move($this->getParameter('images_directorys'), $fileName);
-            $utilisateur->setImage($fileName); }
-            else {
-                $utilisateur->setImage($oldImage);
-
+            $utilisateur->setImage($fileName);
+        } else {
+                $utilisateur->setImage($utilisateur->getImage());
             
         }
             $entityManager->flush();
+
             // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }
 
