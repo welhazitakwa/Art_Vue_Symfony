@@ -11,6 +11,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -156,12 +157,22 @@ class UtilisateurController extends AbstractController
 
         $form = $this->createForm(EditProfileType::class, $utilisateur);
         $form->handleRequest($request);
+        $oldImage = $utilisateur->getImage();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $file = $form->get('image')->getData();
+            
+            if ($file instanceof UploadedFile) {
+
             $fileName = uniqid().'.'.$file->guessExtension();
             $file->move($this->getParameter('images_directorys'), $fileName);
-            $utilisateur->setImage($fileName);
+            $utilisateur->setImage($fileName); }
+            else {
+                $utilisateur->setImage($oldImage);
+
+            
+        }
             $entityManager->flush();
             // return $this->redirectToRoute('listUtilisateur', [], Response::HTTP_SEE_OTHER);
         }

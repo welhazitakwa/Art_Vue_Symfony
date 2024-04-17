@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,11 +19,15 @@ class EditProfileType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('email')
+            ->add('email',EmailType::class, [
+                'required' => false,
+                // Autres options si nécessaire
+            ])
             ->add('numtel')
             ->add('cin')
             ->add('image', FileType::class, 
-            array('data_class' => null))
+            ['data_class' => null,
+            ])
             ->add('genre',ChoiceType::class, [
         'choices'  => [
             'Homme' => 'Homme',
