@@ -10,24 +10,39 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Repository\OeuvreartRepository;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Oeuvreart;
+use App\Repository\UtilisateurRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
     #[Route('/homeAdmin', name: 'app_home', methods: ['GET'])]
-    public function homeAdmin(Request $request): Response
-    {           
-        $lid = $request->query->get('parametre');
-        return $this->render('base.html.twig',[ 'parametre2' => (int)$lid,
+    public function homeAdmin(Request $request, UtilisateurRepository $userRepo, SessionInterface $session): Response
+    {      
+         $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
+        //$id = $request->query->get('id');
+        return $this->render('base.html.twig',[ 
+            
 ]);
 
     }
 
+    #[Route('/homeArtiste', name: 'app_homeArtiste', methods: ['GET'])]
+    public function homeArtiste(Request $request,UtilisateurRepository $userRepo, SessionInterface $session): Response
+    {           
+        $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
+        return $this->render('baseArtiste.html.twig',[ 
+            
+]);
+    }
+
     #[Route('/homeClient', name: 'app_home_client', methods: ['GET'])]
-    public function homeClient(OeuvreartRepository $oeuvreartRepository): Response
+    public function homeClient(OeuvreartRepository $oeuvreartRepository, UtilisateurRepository $userRepo, SessionInterface $session): Response
     {
         $lastThreeAddedArtworks = $oeuvreartRepository->findLastThreeAddedArtworks();
+        
+        $session->set('userConnected', $userRepo->findOneBy(['id' => $session->get('user_id')]))    ;
         return $this->render('baseClient.html.twig', [
             'lastThreeAddedArtworks' => $lastThreeAddedArtworks,
         ]);

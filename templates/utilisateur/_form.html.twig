@@ -71,7 +71,7 @@
             <h4 style="margin-bottom:20px;">Formulaire d'inscription</h4>
               <br/>
             <form method="post">
-                {{ form_start(form) }} 
+                {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }} 
                                 {# <div class="radio-group">
             {{ form_label(form.profil) }}
             {{ form_widget(form.profil, {'expanded': true}) }}

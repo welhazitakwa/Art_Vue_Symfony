@@ -79,23 +79,16 @@
 							<nav class="main-menu">
 								<ul>
 									<li class="current-list-item">
-										<a href="{{ path('app_home_client') }}">Home  </a>
+										<a href="{{ path('app_home_client') }}">Home</a>
 									
 									</li>
 									<li>
 										<a href="{{ path('app_about') }}">A props de nous</a>
 									</li>
-									<li>
-										<a href="#">Oeuvre d'art</a>
-										<ul class="sub-menu">
-											<li>
-												<a href="{{ path('app_galerie') }}">Galerie   </a>
-											</li>
-											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
-											</li>
-										</ul>
+                                    <li>
+										<a href="{{ path('app_galerieOeuvre_artiste') }}">Oeuvre d'art</a>
 									</li>
+								
 									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
@@ -328,7 +321,7 @@
 						</div>
 					</div>
 
-					<div class="row">
+					{# <div class="row">
 
 						{% for oeuvreart in lastThreeAddedArtworks %}
 							<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
@@ -364,13 +357,10 @@
 							</div>
 
 						{% endfor %}
-						
-					</div>
-					<div class="row">
-			<div class="col-lg-12 text-center">
-				<a href="{{ path('app_galerie') }}" class="boxed-btn">Voir Plus</a>
-			</div>
-		</div>
+						<a href="{{ path('app_galerie') }}" class="read-more-btn ">Voir Plus d'oeuvre 
+									<i class="fas fa-angle-right"></i>
+								</a>
+					</div> #}
 
 
 				</div>
@@ -689,7 +679,7 @@
 			<div class="footer-box pages">
 				<h2 class="widget-title">Pages</h2>
 				<ul>
-					<li><a href="index.html">Home   </a></li>
+					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li><a href="services.html">Shop</a></li>
 					<li><a href="news.html">News</a></li>

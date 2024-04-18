@@ -71,6 +71,16 @@ class OeuvreartController extends AbstractController
 }
 
 
+
+#[Route('/galerieArtiste', name: 'app_galerieArtiste', methods: ['GET'])]
+    public function homeAdmin(Request $request): Response
+    {           
+        $lid = $request->query->get('parametre');
+        return $this->render('galerie/galerieArtiste.html.twig',[ 'parametre2' => (int)$lid,
+]);
+    }
+
+
 //     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
 // public function new(Request $request, EntityManagerInterface $entityManager): Response
 // {

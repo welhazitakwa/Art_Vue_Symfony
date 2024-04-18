@@ -25,13 +25,13 @@ class GalerieController extends AbstractController
         ]);
     }
     
-    #[Route('/galerieOeuvre', name: 'app_oeuvreart_galerie', methods: ['GET'])]
-    public function OeuvreArt(EntityManagerInterface $entityManager): Response
-    {
-        $oeuvrearts = $entityManager->getRepository(Oeuvreart::class)->findAll();
+    // #[Route('/galerieOeuvre', name: 'app_oeuvreart_galerie', methods: ['GET'])]
+    // public function OeuvreArt(EntityManagerInterface $entityManager): Response
+    // {
+    //     $oeuvrearts = $entityManager->getRepository(Oeuvreart::class)->findAll();
         
-        return $oeuvrearts;
-    }
+    //     return $oeuvrearts;
+    // }
 
     #[Route('/galerieCategorie/{idoeuvreart}', name: 'app_galerie_show', methods: ['GET'])]
     public function show(Request $request, EntityManagerInterface $entityManager, $idoeuvreart): Response

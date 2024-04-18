@@ -32,12 +32,26 @@ class Oeuvreart
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le titre ne peut pas être vide.")]
+    #[Assert\Length(min:"3",max:"20",
+    minMessage:"Le titre doit contenir au moins {{ limit }} caractères",
+    maxMessage:"Le titre ne peut pas dépasser {{ limit }} caractères")]
     private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"La description ne peut pas être vide.")]
+    #[Assert\Length(min:"5",max:"800",
+    minMessage:"La description doit contenir au moins {{ limit }} caractères",
+    maxMessage:"La description ne peut pas dépasser {{ limit }} caractères")]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message:"Le prix ne peut pas être vide.")]
+    #[Assert\Range(
+        min: 1.0,
+        minMessage: "Le prix doit être d'au moins {{ limit }} DT.",
+        invalidMessage: "Veuillez entrer un prix valide."
+    )]
     private ?float $prixvente = null;
 
     #[ORM\Column(length: 255)]
@@ -49,10 +63,12 @@ class Oeuvreart
 
      #[ORM\ManyToOne(targetEntity: Categorie::class)]
      #[ORM\JoinColumn(name: "id_categorie", referencedColumnName: "idcategorie")]
+     #[Assert\NotBlank(message:"Veuillez choisir une catégorie.")]
     private ?Categorie $idCategorie;
 
     #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
     #[ORM\JoinColumn(name: "id_artiste", referencedColumnName: "id")]
+    #[Assert\NotBlank(message:"Veuillez choisir un artiste.")]
     private ?Utilisateur $idArtiste;
 
 
