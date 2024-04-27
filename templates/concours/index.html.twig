@@ -31,7 +31,29 @@
 {% endblock %}
 
 {% block js %}
-
+         
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+                $(document).ready(function () {
+                    $('#searchButton').click(function () {
+                        var searchQuery = $('#example-search-input').val().toLowerCase();
+                        var noEventsRow = $('#noEventsRow');
+            
+                
+                        $('.event-row').each(function () {
+                            var eventRowText = $(this).text().toLowerCase();
+            
+                        
+                            $(this).toggle(eventRowText.includes(searchQuery));
+                        });
+            
+                    
+                        noEventsRow.toggle($('.event-row:visible').length === 0);
+                    });
+                });
+        </script>
 	<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
 	<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
@@ -45,6 +67,8 @@
 	<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
 	<!-- scripts -->
 	<script src="{{ asset('TemplateAdmin/js/event-calendar/jquery.eventCalendar.min.js') }}"></script>
+
+	
 {% endblock %}
 {% block body %}
 
@@ -76,11 +100,29 @@
 					<div class="mega-menu demo">
 						<div class="col-md-12">
 							<div class="main-table">
-
+<!--_______________________________________-->
+<!--_________AJAX SEARCH__________ -->
+        <div class="d-flex"  >
+            <!--_______________________________________-->
+           
+            <div class="col-md-4 mx-auto">
+                <div class="input-group">
+                    <input class="form-control border-end-1 border rounded-pill" type="search" value="" id="example-search-input" style="bottom: 10px;padding-right: 12px;">
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary border-bottom-1 border rounded-pill ms-n5 border border-primary" type="button" id="searchButton"style="left: 60px;">
+                            Search
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--__________-->
+    
+<!--___________________________________________________-->
 								<table class="cart-table table table-responsive">
 									<thead>
 
-										<tr>
+										<tr >
 
 											<th>Titre</th>
 											<th>Date Debut</th>
@@ -91,7 +133,7 @@
 									</thead>
 									<tbody>
 										{% for concour in concours %}
-											<tr>
+											<tr class="event-row">
 
 												<td>{{ concour.titre }}</td>
 												<td>{{ concour.dateDebut ? concour.dateDebut|date('Y-m-d') : '' }}</td>

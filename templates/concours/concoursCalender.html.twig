@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier des Concours{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/main.min.css"> <!-- FullCalendar CSS -->
+{% endblock %}
+
+{% block body %}
+<div id="calendar"></div> <!-- Élément du calendrier -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar'); // Assurez-vous que l'élément existe
+
+    if (calendarEl) {
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth', // Vue par défaut
+        events: {
+          url: '{{ path("calendar_events") }}', // Route qui retourne les événements au format JSON
+          method: 'GET' // Méthode HTTP
+        },
+        locale: 'fr', // Pour afficher en français
+      });
+
+      calendar.render(); // Rendre le calendrier
+    } else {
+      console.error("L'élément #calendar n'a pas été trouvé");
+    }
+  });
+</script>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/main.min.js"></script> <!-- FullCalendar JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/locale/fr.js"></script> <!-- Support du français -->
+{% endblock %}

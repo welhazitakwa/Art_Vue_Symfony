@@ -40,10 +40,22 @@ class VoteController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         // Récupérer les données de la requête
+      
+     
         $concoursId = $request->request->get('concoursId');
         $oeuvreId = $request->request->get('oeuvreId');
-        $note = $request->request->get('note');
+        $note = (int) $request->request->get('note'); // Nom cohérent
     
+        // Validez que la note est présente
+        if ($note === null) {
+            throw new \Exception("La note n'a pas été soumise correctement.");
+        }
+       
+
+      
+    
+        // Note potentielle provenant du formulaire
+     
         // Initialiser l'ID de l'utilisateur à 50 (à adapter selon votre logique)
         $userId = 50;
     

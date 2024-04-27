@@ -37,13 +37,13 @@ class ConcoursType extends AbstractType
             // Autres options du champ titre
             'constraints' => [
                 new Regex([
-                    'pattern' => '/^[A-Za-z]+$/',
+                    'pattern' => '/^[A-Za-z\s]+$/',
                     'message' => 'Le titre ne peut contenir que des lettres.',
                 ]),
             ],
         ])
         ->add('dateDebut', DateType::class, [
-            'label' => 'Date de fin',
+            'label' => 'Date de Debut',
             'widget' => 'single_text',
             'data' => (new \DateTime())->setTime(0, 0, 0), 
             'constraints' => [

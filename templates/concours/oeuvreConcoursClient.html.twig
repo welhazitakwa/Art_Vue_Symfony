@@ -1,3 +1,4 @@
+
 {% extends 'baseClient.html.twig' %}
 
 {% block title %}Concours Client
@@ -13,22 +14,50 @@
 			object-fit: cover; /* Pour conserver les proportions et remplir l'espace sans déformer l'image */
 		}
 
+      
+    .single-product-item {
+        text-align: center; /* Centrer le texte */
+    }
+        
 
-		.product-image img {
-			width: 300px;
-			height: 300px;
-			object-fit: cover;
+		.stars input {
+			display: none;
 		}
-
-		.star {
+		.stars label {
+			float: right;
+			font-size: 40px;
+			color: lightgrey;
+			margin: 0 5px;
+			text-shadow: 1px 1px #bbb;
 			cursor: pointer;
-			font-size: 20px;
-			color: #ccc;
 		}
-
-		.star.selected {
-			color: #ffc107;
+		.stars label:before {
+			content: '★';
 		}
+		.stars input:checked ~ label {
+			color: gold;
+			text-shadow: 1px 1px #c60;
+		}
+		.stars:not(:checked) > label:hover,
+		.stars:not(:checked) > label:hover ~ label {
+			color: gold;
+		}
+		.stars .result:before {
+			position: absolute;
+			content: "";
+			bottom: -10px;
+			font-size: 16px;
+			color: gold;
+			display: none;
+		}
+		.stars input:checked ~ .result:before {
+			display: block;
+		}
+		  .center {
+            position: center;
+           
+        }
+		  
 	</style>
 
 	<link
@@ -67,22 +96,59 @@
 {% block js %}
 
 
+	<script>
+		// Fonction pour gérer le survol des étoiles
+document.addEventListener('DOMContentLoaded', function () { // Trouver tous les ensembles d'étoiles
+var starSets = document.querySelectorAll('.stars');
 
-   <script>
-        // Fonction JavaScript pour afficher la fenêtre pop-up
-        function showPopup(message) {
-            var popup = document.getElementById("popup");
-            var popupMessage = document.getElementById("popup-message");
-            popupMessage.innerHTML = message;
-            popup.style.display = "block";
-        }
+// Pour chaque ensemble d'étoiles
+starSets.forEach(function (stars) {
+var labels = stars.querySelectorAll('label');
+var inputs = stars.querySelectorAll('input');
 
-        // Fonction JavaScript pour fermer la fenêtre pop-up
-        function closePopup() {
-            var popup = document.getElementById("popup");
-            popup.style.display = "none";
-        }
-    </script>
+// Gérer le survol des étoiles
+labels.forEach(function (label, index) {
+label.addEventListener('mouseover', function () { // Mettre en surbrillance toutes les étoiles jusqu'à celle survolée
+for (var i = 0; i <= index; i++) {
+labels[i].style.color = 'gold';
+}
+});
+
+// Réinitialiser les couleurs au retrait du survol
+label.addEventListener('mouseout', function () { // Ne conserver en surbrillance que les étoiles cochées
+labels.forEach(function (l, j) {
+l.style.color = inputs[j].checked ? 'gold' : 'lightgrey';
+});
+});
+
+// Gérer la sélection de l'étoile
+label.addEventListener('click', function () { // Marquer la sélection de l'étoile
+inputs[index].checked = true;
+
+// Mettre à jour la couleur des étoiles
+labels.forEach(function (l, j) {
+l.style.color = j <= index ? 'gold' : 'lightgrey';
+});
+});
+});
+});
+});
+	</script>
+	<script>
+		// Fonction JavaScript pour afficher la fenêtre pop-up
+function showPopup(message) {
+var popup = document.getElementById("popup");
+var popupMessage = document.getElementById("popup-message");
+popupMessage.innerHTML = message;
+popup.style.display = "block";
+}
+
+// Fonction JavaScript pour fermer la fenêtre pop-up
+function closePopup() {
+var popup = document.getElementById("popup");
+popup.style.display = "none";
+}
+	</script>
 
 	<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
 	<!-- bootstrap -->
@@ -106,68 +172,55 @@
 {% endblock %}
 
 
-
 {% block body %}
-    <div class="breadcrumb-section breadcrumb-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="breadcrumb-text">
-                        <p>We sale fresh fruits</p>
-                        <h1>Œuvres du Concours "{{ concours.titre }}"</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Welcome to our art competition!</p>
+						<h1>Œuvres du Concours "{{ concours.titre }}"</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <div class="product-section mt-150 mb-150">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center">
-                    <div class="section-title">
-                        <h3>Our <span class="orange-text">Team</span></h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-                    </div>
-                </div>
-            </div>
-            {% if oeuvres is empty %}
-                <p>Aucune œuvre n'est associée à ce concours pour le moment.</p>
-            {% else %}
-                <div class="row">
-                    {% for oeuvre in oeuvres %}
-                        <div class="col-lg-4 col-md-6 text-center">
-                            <div class="single-product-item">
-                                <div class="product-image">
-                                    <img src="{{ asset('oeuvre/' ~ oeuvre.image) }}" alt="{{ oeuvre.titre }}">
-                                </div>
-                                <form action="{{ path('app_vote_new') }}" method="POST">
-                                    <input type="hidden" name="concoursId" value="{{ concours.id }}">
-                                    <input type="hidden" name="oeuvreId" value="{{ oeuvre.idoeuvreart }}">
-                                    <h3>{{ oeuvre.titre }}</h3>
-                                    <select name="note">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                    <button type="submit">Confirmer</button>
-                                </form>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-    </div>
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			{% if oeuvres is empty %}
+				<p>Aucune œuvre n'est associée à ce concours pour le moment.</p>
+			{% else %}
+				<div class="row">
+					{% for oeuvre in oeuvres %}
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="single-product-item">
+								<div class="product-image">
+									<img src="{{ asset('oeuvre/' ~ oeuvre.image) }}" alt="{{ oeuvre.titre }}">
 
-	 <!-- Conteneur pour la fenêtre pop-up -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close-popup" onclick="closePopup()">&times;</span>
-            <p id="popup-message"></p>
-        </div>
-    </div>
+									<h3>{{ oeuvre.titre }}</h3>
+									<form action="{{ path('app_vote_new') }}" method="POST">
+										<input type="hidden" name="concoursId" value="{{ concours.id }}">
+										<input type="hidden" name="oeuvreId" value="{{ oeuvre.idoeuvreart }}">
+										<div class="center">
+											<div class="stars">
+												{% for i in range(5, 1, -1) %}
+													<input type="radio" id="star-{{ oeuvre.idoeuvreart }}-{{ i }}" name="note" value="{{ i }}">
+													<label for="star-{{ oeuvre.idoeuvreart }}-{{ i }}"></label>
+												{% endfor %}
+											</div></div>
+										</br>
+										<button type="submit">Confirmer</button>
+									</div>
+								</form>
+
+
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}

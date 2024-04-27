@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 #[Route('/concours')]
 class ConcoursController extends AbstractController
 {
@@ -200,6 +204,31 @@ public function showOeuvres($id, EntityManagerInterface $entityManager): Respons
         'oeuvres' => $oeuvres,
     ]);
 }
+#[Route('/calendrier', name: 'app_calendrier')]
+    public function showCalendar(): Response
+    {
+        // Rendre le template du calendrier
+        return $this->render('concours/concoursCalender.html.twig');
+    }
 
+    #[Route('/calendar/events', name: 'calendar_events', methods: ['GET'])]
+    public function getCalendarEvents(EntityManagerInterface $entityManager): JsonResponse
+    {
+        // Récupérer tous les concours
+        $concours = $entityManager->getRepository(Concours::class)->findAll();
 
+        $events = [];
+
+        // Convertir les concours en événements FullCalendar
+        foreach ($concours as $concour) {
+            $events[] = [
+                'title' => $concour->getTitre(),
+                'start' => $concour->getDateDebut()->format('Y-m-d'),
+                'end' => $concour->getDateFin()->format('Y-m-d'),
+            ];
+        }
+
+        // Retourner les événements au format JSON
+        return new JsonResponse($events);
+    }
 }
