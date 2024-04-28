@@ -16,6 +16,24 @@
 
 		<!-- favicon -->
 		{% block css%}
+		{# links to template admin #}
+		<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+		{# links to template admin #}
 			<link
 			rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
 			<!-- google font -->
@@ -151,10 +169,18 @@
 											<a class="shopping-cart" href="cart.html">
 												<i class="fas fa-shopping-cart"></i>
 											</a>
-											<a href="#"><i class="fas fa-user"></i></a>
+											<a href="#">
+												<a href="#">
+										<div class="admin">
+           <div class="admin-avatar">
+            <img src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 40px; height: 40px">
+              <i class="online"></i> </div>
+           </div>
+											</a>
 										<ul class="sub-menu">
 											<li> 
-											<center><b>
+											<center><b style="color:#d5989e;font-size:15px">
+											{{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }} :
 												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> {% if app.session.get('user_profil') == 0 %}
                                               Admin
                                               {% elseif app.session.get('user_profil') == 1 %} 
