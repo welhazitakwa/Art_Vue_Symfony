@@ -53,6 +53,12 @@ class UtilisateurController extends AbstractController
         ]);
         
     }
+    #[Route('/blocked', name: 'blockRedirection')]
+    public function blockRedirection ():Response{
+        return $this->render('utilisateur/blockedPage.html.twig', [        
+        ]);
+        
+    }
     // --------------------------------------------------------------------
     #[Route('/editprofileclient', name: 'editprofileclient')]
     public function editprofileclient ():Response{
@@ -197,6 +203,23 @@ class UtilisateurController extends AbstractController
         $em = $doctrine->getManager();
         $utilisateurDel= $utilisateurRepo->find($id);
         $em->remove($utilisateurDel);
+        $em->flush();
+
+        return $this->redirectToRoute("listUtilisateur");
+    }
+    #[Route('/blockDeblock/{id}', name:"utilisateurBlockage")]
+    public function utilisateurBlockage (ManagerRegistry $doctrine , $id, UtilisateurRepository $utilisateurRepo) : Response {
+        $em = $doctrine->getManager();
+        $utilisateur= $utilisateurRepo->find($id);
+        $checkState = $utilisateur->getEtatCompte() ;
+        if ($checkState == 0) {
+            $utilisateur->setEtatCompte(1);
+        } elseif ($checkState == 1) { 
+            $utilisateur->setEtatCompte(0);
+
+        }
+
+        //$em->remove($utilisateurDel);
         $em->flush();
 
         return $this->redirectToRoute("listUtilisateur");

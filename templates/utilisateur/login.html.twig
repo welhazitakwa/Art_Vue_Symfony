@@ -116,7 +116,11 @@
     {% elseif user == "Vérifier Vos Données" %} 
      <h1></h1>    
     {% else %}
-      
+
+    {% if  user.etatCompte == 1 %} 
+            {% set url = path('blockRedirection') %}
+                <script>window.location.href = "{{ url }}";</script>
+    {% endif %}
       {% if user.profil == 0 %}
             {% set url = path('app_home', {'id': user.id}) %}
                 <script>window.location.href = "{{ url }}";</script>
@@ -124,6 +128,7 @@
         {% elseif  user.profil == 1 %} 
             {% set url = path('app_homeArtiste') %}
                 <script>window.location.href = "{{ url }}";</script>
+
         {% elseif  user.profil == 2 %} 
          {% set url = path('app_home_client') %}
                 <script>window.location.href = "{{ url }}";</script>
