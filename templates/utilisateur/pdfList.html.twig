@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Reversed and split list</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel="stylesheet" href="./style.css">
+
+</head>
+<style>
+
+body {
+	margin: 0;
+	padding: clamp(1rem, 2vw, 3rem);
+	font-family: "Open Sans", sans-serif;
+}
+
+a {
+	color: inherit;
+}
+
+.wrapper {
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+ol {
+	padding: 0.5rem 0.5rem 0.5rem 4em;
+	border: 0.1rem solid turquoise;
+	columns: 15rem;
+	column-gap: 3rem;
+	column-rule: 2px dotted turquoise;
+	border-radius: 0.5rem;
+}
+
+
+::marker {
+	content: counters(list-item, '') ': ';
+	font-size: 0.5em;
+	color: turquoise;
+}
+
+li span {
+	display: block;
+}
+
+li span:first-child {
+	font-size: 1em;
+}
+
+li span:last-child {
+	font-style: italic;
+}
+
+.divider {
+	min-height: 2rem;
+	background: lavender;
+}
+</style>
+<body>
+
+<div class="wrapper">
+	 <center> <h3>liste des utilisateurs à {{date('now') | date('y-m-d')}}</h3> </center>
+	
+	<ol reversed start="1">
+		<li>
+			<span>Arooj Aftab</span>
+			<span>Vulture Prince</span>
+		</li>
+		<li>
+			<span>Dave</span>
+			<span>We’re All Alone in This Together</span>
+		</li>
+		<li>
+			<span>Turnstile</span>
+			<span>Glow On</span>
+		</li>
+		<li>
+			<span>Tirzah</span>
+			<span>Colourgrade</span>
+		</li>
+		<li>
+			<span>Deafheaven</span>
+			<span>Infinite Granite</span>
+		</li>
+		<li>
+			<span>Nick Cave and Warren Ellis</span>
+			<span>Carnage</span>
+		</li>
+		<li>
+			<span>Lil Nas X</span>
+			<span>Montero</span>
+		</li>
+		<li>
+			<span>Japanese Breakfast</span>
+			<span>Jubilee</span>
+		</li>
+		<li>
+			<span>Jazmine Sullivan</span>
+			<span>Heaux Tales</span>
+		</li>
+		<li>
+			<span>Sam Fender</span>
+			<span>Seventeen Going Under</span>
+		</li>
+	</ol>
+	
+	<div class="divider"></div>
+	
+	<ol reversed>
+		<li>
+			<span>Mdou Moctar</span>
+			<span>Afrique Victime</span>
+		</li>
+		<li>
+			<span>Arlo Parks</span>
+			<span>Collapsed in Sunbeams</span>
+		</li>
+		<li>
+			<span>Olivia Rodrigo</span>
+			<span>Sour</span>
+		</li>
+		<li>
+			<span>Dry Cleaning</span>
+			<span>New Long Leg</span>
+		</li>
+		<li>
+			<span>Sault</span>
+			<span>Nine</span>
+		</li>
+		<li>
+			<span>Tyler, the Creator</span>
+			<span>Call Me If You Get Lost</span>
+		</li>
+		<li>
+			<span>The Weather Station</span>
+			<span>Ignorance</span>
+		</li>
+		<li>
+			<span>Little Simz</span>
+			<span>Sometimes I Might Be Introvert</span>
+		</li>
+		<li>
+			<span>Wolf Alice</span>
+			<span>Blue Weekend</span>
+		</li>
+		<li>
+			<span>Self Esteem</span>
+			<span>Prioritise Pleasure</span>
+		</li>
+	</ol>
+</div>
+<!-- partial -->
+  
+</body>
+</html>

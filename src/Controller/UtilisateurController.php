@@ -10,6 +10,7 @@ use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,12 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
     private $passwordEncoder;
-
+    // private SessionInterface $session;
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
@@ -38,8 +41,31 @@ class UtilisateurController extends AbstractController
         
         return $hashedPassword;
     }
+    #[Route('/generate-pdf', name:"generate_pdf", methods: ['GET'])]
+    public function generatePdf(): Response
+    {
+        // Créer une instance de Dompdf
+        $dompdf = new Dompdf();
 
+        // Générer le contenu HTML du PDF en utilisant le template Twig
+        $html = $this->renderView('utilisateur/pdfList.html.twig');
+
+        // Charger le contenu HTML dans Dompdf
+        $dompdf->loadHtml($html);
+
+        // Rendre le PDF
+        $dompdf->render();
+
+        // Retourner une réponse avec le contenu du PDF
+        return new Response($dompdf->output(), Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="list.pdf"',
+        ]);
+    }
+
+    
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
+    // #[Security("app.session.get('profil') == 0")]
     public function index(UtilisateurRepository $utilisateurRepository): Response
     {
         return $this->render('utilisateur/index.html.twig', [

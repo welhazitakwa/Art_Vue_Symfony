@@ -12,6 +12,7 @@
     "doctrine/doctrine-bundle": "^2.11",
     "doctrine/doctrine-migrations-bundle": "^3.3",
     "doctrine/orm": "^2.18.0",
+    "dompdf/dompdf": "^2.0",
     "knplabs/knp-paginator-bundle": "^5.9",
     "pagerfanta/pagerfanta": "*",
     "phpdocumentor/reflection-docblock": "^5.3",
