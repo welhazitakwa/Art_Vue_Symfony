@@ -37,6 +37,7 @@ class Utilisateur
    
     #[ORM\Column(length: 255)]  
     #[Assert\Email(message: "l'email {{ value }} is not a valid email.",)]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $email = null;
 
 
@@ -49,8 +50,7 @@ class Utilisateur
     
 
      #[ORM\Column(length: 255)]
-   #[Assert\Length(min:"1",
-    minMessage:"Ce champ ne doit pas etre vide")]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $login = null;
 
 
@@ -61,6 +61,7 @@ class Utilisateur
     private ?int $cin = null;
 
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $mdp = null;
 
 

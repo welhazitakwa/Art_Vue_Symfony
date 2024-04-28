@@ -130,7 +130,7 @@ class UtilisateurController extends AbstractController
         $utilisateur = new Utilisateur();
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
 
             $defaultImagePath = $this->getParameter('kernel.project_dir').'/public/oeuvre/userimg.png';
