@@ -42,13 +42,15 @@ class UtilisateurController extends AbstractController
         return $hashedPassword;
     }
     #[Route('/generate-pdf', name:"generate_pdf", methods: ['GET'])]
-    public function generatePdf(): Response
+    public function generatePdf(UtilisateurRepository $utilisateurRepository): Response
     {
         // Créer une instance de Dompdf
         $dompdf = new Dompdf();
 
         // Générer le contenu HTML du PDF en utilisant le template Twig
-        $html = $this->renderView('utilisateur/pdfList.html.twig');
+        $html = $this->renderView('utilisateur/pdfList.html.twig', [
+            'utilisateurs' => $utilisateurRepository->findAll(),
+        ]);
 
         // Charger le contenu HTML dans Dompdf
         $dompdf->loadHtml($html);
@@ -59,7 +61,7 @@ class UtilisateurController extends AbstractController
         // Retourner une réponse avec le contenu du PDF
         return new Response($dompdf->output(), Response::HTTP_OK, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'attachment; filename="list.pdf"',
+            'Content-Disposition' => 'attachment; filename="listUsers.pdf"',
         ]);
     }
 
