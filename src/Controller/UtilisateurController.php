@@ -11,6 +11,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Dompdf\Dompdf;
+use Endroid\QrCode\Writer\PngWriter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,13 +19,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
+// use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\Label\Font\NotoSans;
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
-    private $passwordEncoder;
+    private $passwordEncoder; 
+    private SessionInterface $session ;
+
     // private SessionInterface $session;
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -41,7 +50,7 @@ class UtilisateurController extends AbstractController
         
         return $hashedPassword;
     }
-    #[Route('/generate-pdf', name:"generate_pdf", methods: ['GET'])]
+    #[Route('/generate-pdf', name:"generate_qr_code", methods: ['GET'])]
     public function generatePdf(UtilisateurRepository $utilisateurRepository): Response
     {
         // Créer une instance de Dompdf
@@ -64,6 +73,61 @@ class UtilisateurController extends AbstractController
             'Content-Disposition' => 'attachment; filename="listUsers.pdf"',
         ]);
     }
+
+    #[Route('/qr-codes', name: 'app_qr_codes')]
+    public function indexQR(SessionInterface $session): Response
+    {
+        $path = "oeuvre/".$session->get('user_image');
+        $userData = [
+            'username' => "hihyhyhuhuhyhuhyuhyuhyuh",
+            'email' => "rrrrrrrrrrrrrrrrrrr",
+            'photo' => $path
+            // Ajoutez d'autres informations utilisateur selon vos besoins
+        ];
+
+     $writer = new PngWriter();
+
+        // Créer un objet QrCode de base
+        $qrCodeBase = QrCode::create(json_encode($userData))
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setSize(450)
+            ->setMargin(0)
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        // Créer le logo
+        $logo = Logo::create($path)->setResizeToWidth(60);
+
+        // Créer le label
+        $label = Label::create('')->setFont(new NotoSans(8));
+
+        // Tableau pour stocker les URI des codes QR
+        $qrCodes = [];
+
+        // Générer les codes QR et stocker les URI dans le tableau
+        $qrCodes['img'] = $writer->write($qrCodeBase, $logo)->getDataUri();
+        $qrCodes['simple'] = $writer->write($qrCodeBase, null, $label->setText('Simple'))->getDataUri();
+
+        // Changer la couleur du premier code QR
+        $qrCodeBase->setForegroundColor(new Color(255, 0, 0));
+        $qrCodes['changeColor'] = $writer->write($qrCodeBase, null, $label->setText('Color Change'))->getDataUri();
+
+        // Changer la couleur d'arrière-plan du premier code QR
+        $qrCodeBase->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 0, 0));
+        $qrCodes['changeBgColor'] = $writer->write($qrCodeBase, null, $label->setText('Background Color Change'))->getDataUri();
+
+        // Modifier la taille et ajouter un label et un logo au premier code QR
+        $qrCodeBase->setSize(200)->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 255, 255));
+        $qrCodes['withImage'] = $writer->write($qrCodeBase, $logo, $label->setText('With Image')->setFont(new NotoSans(20)))->getDataUri();
+
+        // Retourner le tableau des URI des codes QR
+        return $this->render('utilisateur/qr.html.twig', $qrCodes);
+
+    }
+
+
+
+
 
     
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]

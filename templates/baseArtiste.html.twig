@@ -181,7 +181,8 @@
 											<li> 
 											<center><b style="color:#d5989e;font-size:15px">
 											{{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }} :
-												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> {% if app.session.get('user_profil') == 0 %}
+												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> 
+												{% if app.session.get('user_profil') == 0 %}
                                               Admin
                                               {% elseif app.session.get('user_profil') == 1 %} 
                                               Artiste
@@ -196,6 +197,9 @@
 											</li>
 											<li>
 												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > <i class="fas fa-user-edit"></i> &nbsp; Modifier profile </a>
+											</li>
+											<li>
+												<a href="{{path('app_qr_codes')}}" > <i class="fas fa-qrcode"></i> &nbsp; QR CODE </a>
 											</li>
 											<li>
 												<a href="{{path('login_user')}}" > <i class="fas fa-sign-out-alt"></i>&nbsp;  Déconnexion </a>
