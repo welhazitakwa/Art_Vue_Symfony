@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Commande;
+use App\Entity\Utilisateur;
+use Doctrine\Common\Collections\Criteria;
+use App\Repository\PanieroeuvreRepository;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -93,22 +96,33 @@ class PanierController extends AbstractController
     }
 
 //commander panier
-    #[Route('/panier/commander', name: 'commander_panier')]
-    public function commanderPanier(EntityManagerInterface $entityManager): Response
-    {    
-         // Récupérer l'ID du panier statique à partir de la requête
-    $panierId = 43; // par exemple
-
-    // Récupérer le panier à partir de l'ID statique
+  
+#[Route('/panier/commander', name: 'commander_panier')]
+public function commanderPanier(EntityManagerInterface $entityManager, Request $request): Response
+{
+    $panierId = 43; // Exemple : Récupérer l'ID du panier à partir de la session ou d'une autre méthode
+    
+    // Récupérer le panier à partir de l'ID
     $panier = $this->getDoctrine()->getRepository(Panier::class)->find($panierId);
+
+    // Calculer le montant total de la commande
+    $montantTotal = 0;
+    foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
+        $montantTotal += $panieroeuvre->getIdOeuvre()->getPrixvente() * $panieroeuvre->getQuantite();
+    }
+
+    // Si le formulaire de confirmation est soumis
+    if ($request->isMethod('POST')) {
+        // Récupérer l'utilisateur actuel associé au panier
+        $client = $panier->getClient();
         
-      
+        // Mettre à jour l'adresse de l'utilisateur avec la nouvelle valeur du champ d'adresse du formulaire
+        $nouvelleAdresse = $request->request->get('adresse');
+        $client->setAdresse($nouvelleAdresse);
         
-        // Calculer le montant total de la commande
-        $montantTotal = 0;
-        foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
-            $montantTotal += $panieroeuvre->getIdOeuvre()->getPrixvente() * $panieroeuvre->getQuantite();
-        }
+        // Enregistrer les modifications de l'utilisateur dans la base de données
+        $entityManager->persist($client);
+        $entityManager->flush();
 
         // Créer une nouvelle instance de Commande
         $commande = new Commande();
@@ -121,16 +135,30 @@ class PanierController extends AbstractController
         $entityManager->persist($commande);
         $entityManager->flush();
 
-      // Supprimer tous les éléments du panier après la commande
-    foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
-        $panier->removePanieroeuvre($panieroeuvre);
-        $entityManager->remove($panieroeuvre);
-    }
-    $entityManager->flush();
+        // Supprimer tous les éléments du panier après la commande
+        foreach ($panier->getPanieroeuvres() as $panieroeuvre) {
+            $panier->removePanieroeuvre($panieroeuvre);
+            $entityManager->remove($panieroeuvre);
+        }
+        $entityManager->flush();
 
-        // Rediriger l'utilisateur vers une page de confirmation de commande
+        // Rediriger l'utilisateur vers une page de confirmation de commande réussie
         return $this->redirectToRoute('app_panieroeuvre_afficher');
     }
+   
+    // Si le formulaire de confirmation n'est pas soumis, afficher la page de confirmation
+    return $this->render('panieroeuvre/confirmation_commande.html.twig', [
+        'panier' => $panier,
+        'montantTotal' => $montantTotal,
+        'nom' => $panier->getClient()->getNom(),
+        'prenom' => $panier->getClient()->getPrenom(),
+        'adresse' => $panier->getClient()->getAdresse(),
+
+    ]);
+}
+
 
 
 }
+
+

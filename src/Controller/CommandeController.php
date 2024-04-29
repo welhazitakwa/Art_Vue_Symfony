@@ -14,6 +14,8 @@ use DateTime;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Livraison;
 use App\Entity\Panier;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -105,7 +107,7 @@ class CommandeController extends AbstractController
     //affichage client
   
 #[Route('/panier/afficher', name: 'panier_afficher_commandes')]
-public function listerCommandesPanier(EntityManagerInterface $entityManager): Response
+public function listerCommandesPanier(Request $request,EntityManagerInterface $entityManager): Response
 {
     $panierId = 43; // Remplacez 43 par l'ID du panier que vous souhaitez afficher
     
@@ -117,15 +119,27 @@ public function listerCommandesPanier(EntityManagerInterface $entityManager): Re
         throw $this->createNotFoundException('Le panier demandé n\'existe pas.');
     }
         
+    $etat = $request->query->get('etat');
+
     // Récupérer toutes les commandes liées à ce panier
     $commandes = $panier->getCommandes();
+
+    // Filtrer les commandes par état si un filtre est spécifié
+    if ($etat === 'envoyé') {
+        $commandes = $commandes->filter(function (Commande $commande) {
+            return $commande->getEtat() === 'envoyé';
+        });
+    } elseif ($etat === 'Terminée') {
+        $commandes = $commandes->filter(function (Commande $commande) {
+            return $commande->getEtat() === 'Terminée';
+        });
+    }
 
     return $this->render('commande/listeCommandeClient.html.twig', [
         'commandes' => $commandes,
     ]);
 }
 
-// Exemple de contrôleur Symfony pour supprimer une commande
 #[Route('/commande/supprimer', name: 'supprimer_commande')]
 public function supprimerCommande(Request $request): Response
 {
@@ -147,6 +161,6 @@ public function supprimerCommande(Request $request): Response
     // Répondre avec une réponse vide (200 OK)
     return new Response('', Response::HTTP_OK);
 }
+ 
 
-    
 }

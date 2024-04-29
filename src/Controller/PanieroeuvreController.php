@@ -81,9 +81,14 @@ class PanieroeuvreController extends AbstractController
         
         // Récupérer les œuvres ajoutées dans le panier
         $panieroeuvres = $panier->getPanieroeuvres();
-
+        $totalPanier = 0;
+        foreach ($panieroeuvres as $panieroeuvre) {
+            $totalPanier += $panieroeuvre->getIdOeuvre()->getPrixvente() * $panieroeuvre->getQuantite();
+        }
         return $this->render('panieroeuvre/afficher.html.twig', [
             'panieroeuvres' => $panieroeuvres,
+            'totalPanier' => $totalPanier,
+
         ]);
     }
    
@@ -159,6 +164,40 @@ public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerI
     return $this->redirectToRoute('app_panieroeuvre_afficher');
 }
 
+//tri
+#[Route('/trier/{tri}', name: 'app_panieroeuvre_trier')]
+public function trierPanier(string $tri, EntityManagerInterface $entityManager): Response
+{
+    // Récupérer le panier correspondant à l'identifiant statique
+    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+    
+    if (!$panier) {
+        throw $this->createNotFoundException('Le panier n\'existe pas.');
+    }
+
+// Récupérer les œuvres ajoutées dans le panier
+$panieroeuvres = $panier->getPanieroeuvres()->toArray();
+$totalPanier = 0;
+foreach ($panieroeuvres as $panieroeuvre) {
+    $totalPanier += $panieroeuvre->getIdOeuvre()->getPrixvente() * $panieroeuvre->getQuantite();
+}
+    // Trier les œuvres en fonction du critère choisi
+  if ($tri === 'quantite') {
+        usort($panieroeuvres, function($a, $b) {
+            return $a->getQuantite() - $b->getQuantite();
+        });
+    } elseif ($tri === 'prix') {
+        usort($panieroeuvres, function($a, $b) {
+            return $a->getIdOeuvre()->getPrixvente() - $b->getIdOeuvre()->getPrixvente();
+        });
+    }
+
+    return $this->render('panieroeuvre/afficher.html.twig', [
+        'panieroeuvres' => $panieroeuvres,
+        'totalPanier' => $totalPanier,
+
+    ]);
+}
 
 
 }

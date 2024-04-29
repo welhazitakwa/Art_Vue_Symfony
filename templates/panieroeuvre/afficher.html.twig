@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <!-- breadcrumb-section -->
+    <!-- Breadcrumb -->
     <div class="breadcrumb-section breadcrumb-bg">
         <div class="container">
             <div class="row">
@@ -16,38 +16,65 @@
             </div>
         </div>
     </div>
-    <!-- end breadcrumb section -->
+    <!-- End Breadcrumb -->
 
-    <!-- single product -->
+    <!-- Main Content -->
     <div class="container">
         <div class="row">
             {% if panieroeuvres is empty %}
-                <p>Votre panier est vide.</p>
+                <!-- Message si le panier est vide -->
+                <div class="col-md-12 text-center">
+                    <p>Votre panier est actuellement vide.</p>
+                </div>
             {% else %}
-                {% for panieroeuvre in panieroeuvres %}
-                    <div class="col-md-4 mb-4">
-                        <div class="single-product">
-                            <div class="single-product-img">
-                                <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" alt="" class="img-fluid product-image">
-                            </div>
-                            <div class="single-product-info">
-                                <h5>{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
-                                <p>Quantité: {{ panieroeuvre.quantite }}</p>
-                                <form method="post" action="{{ path('app_panier_modifier_quantite', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">
+                <!-- Liste des produits dans le panier -->
+                
+                <div class="col-md-8">
+                    {% for panieroeuvre in panieroeuvres %}
+                        <div class="card mb-4">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" alt="" class="img-fluid">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
+                                        <p class="card-text">Quantité: {{ panieroeuvre.quantite }}</p>
+                                        <p class="card-text">Prix: {{ panieroeuvre.idOeuvre.prixvente }} DT</p>
+                                         <form method="post" action="{{ path('app_panier_modifier_quantite', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}">
                                     <input type="number" name="quantite" value="{{ panieroeuvre.quantite }}" min="1">
                                     <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
+                                                                    <a href="{{ path('app_panier_supprimer_oeuvre', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+
                                 </form>
-                                <a href="{{ path('app_panier_supprimer_oeuvre', {'oeuvreId': panieroeuvre.idOeuvre.idoeuvreart}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                                        <!-- Ajoutez les boutons de modification et de suppression ici -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-                <div class="col-md-12 text-center">
-                    <a href="{{ path('commander_panier') }}" class="btn btn-primary btn-lg">Commander</a>
+                    {% endfor %}
                 </div>
-            {% endif %}
+                <!-- Total du panier -->
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-header">Total du panier</div>
+        <div class="card-body">
+            <p class="card-text">Total : {{ totalPanier }} DT</p>
+            <!-- Bouton de commande -->
+            <div class="col-md-12 text-center">
+                <a href="{{ path('commander_panier') }}" class="btn btn-primary btn-lg">Commander</a>
+            </div>
         </div>
     </div>
-    <!-- end single product -->
+</div>
+                        <div class="col-md-12 text-center">
+    <a href="{{ path('app_panieroeuvre_trier', {'tri': 'quantite'}) }}" class="btn btn-info btn-lg">Trier par Quantité</a>
+    <a href="{{ path('app_panieroeuvre_trier', {'tri': 'prix'}) }}" class="btn btn-info btn-lg">Trier par Prix</a>
+</div>
+            {% endif %}
+      
+        </div>
+    </div>
+    <!-- End Main Content -->
 
 {% endblock %}
