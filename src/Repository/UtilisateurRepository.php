@@ -127,9 +127,27 @@ public function login($login, $mdp)
                return "Vérifier Vos Données"; 
     }
 // echo $mdp;
-// echo $hashedPassword;
+// echo $hashedPassword;           
+}
 
-              
+
+public function verifEmail($email)
+{
+    // Récupérer l'utilisateur par le email
+    $utilisateur = $this->createQueryBuilder('u')
+        ->where('u.email = :email')
+        ->setParameter('email', $email)
+        ->getQuery()
+        ->getOneOrNullResult();
+        
+    // Utilisateur non trouvé
+    
+    if (!$utilisateur) {
+        return "aucun utilisateur n'est trouvé avec cet email";
+    } else {
+              return $utilisateur;
+    }
+               
 }
 
 }

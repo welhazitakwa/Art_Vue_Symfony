@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\EditFormClientType;
 use App\Form\EditProfileType;
+use App\Form\ForgetPWDType;
 use App\Form\LoginType;
 use App\Form\UtilisateurType;
 use App\Repository\UtilisateurRepository;
@@ -79,8 +80,6 @@ class UtilisateurController extends AbstractController
     {
         $path = "oeuvre/".$session->get('user_image');
         $userConnected = $session->get('userConnected');
-
-// Vérifier si l'utilisateur est défini et s'il a la propriété 'nom'
         $username = $userConnected ? $userConnected->getNom() : null;
         $prenom =  $userConnected ? $userConnected->getPrenom() : null;
         $email =  $userConnected ? $userConnected->getEmail() : null;
@@ -90,7 +89,6 @@ class UtilisateurController extends AbstractController
         $DateInscription =  $userConnected ? $userConnected->getDateInscription() : null;
         $getDatenaissance =  $userConnected ? $userConnected->getDatenaissance() : null;
 
-    // Formater les informations de l'utilisateur pour le contenu du QR code
     $userData = "Nom et Prenom : " . $username . "  " .$prenom .    "                                ".
             "Email : " . $email ."                                ".
             "Numero de Telephone : " . $numTel. "                                ".
@@ -138,10 +136,6 @@ class UtilisateurController extends AbstractController
     }
 
 
-
-
-
-    
     #[Route('/list', name:"listUtilisateur", methods: ['GET'])]
     // #[Security("app.session.get('profil') == 0")]
     public function index(UtilisateurRepository $utilisateurRepository): Response
@@ -152,11 +146,29 @@ class UtilisateurController extends AbstractController
     }
 
     #[Route('/forgetPwd', name: 'forget_password')]
-    public function forgetPwd ():Response{
-        return $this->render('utilisateur/forgetPwd.html.twig', [        
-        ]);
+    public function forgetPwd (UtilisateurRepository $userRepo ,Request $request):Response{
         
-    }
+        $user = new Utilisateur();
+        $form = $this->createForm(ForgetPWDType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $email = $user->getEmail();
+            $result = $userRepo->verifEmail($email);
+            return $this->render('utilisateur/forgetPwd.html.twig',[
+                'user' => $result,
+                'form' => $form->createView(),
+            ]) ;
+        } else {
+                return $this->render('utilisateur/forgetPwd.html.twig',[
+                    'form' => $form->createView(),
+                    'user'=> "no user found !!!",
+            ]) ;
+            }
+    
+ } 
+
+
     #[Route('/blocked', name: 'blockRedirection')]
     public function blockRedirection ():Response{
         return $this->render('utilisateur/blockedPage.html.twig', [        

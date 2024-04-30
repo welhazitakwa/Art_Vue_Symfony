@@ -31,12 +31,26 @@
         <div class="admin-lock vh100"> 
           <div class="admin-form">
             <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
-            <h4>Mot de Passe Oublié</h4>
-            <span>Enter Votre Email </span>
+            <h4>Mot de Passe Oublié</h4> <br>
+            {% if user == "aucun utilisateur n'est trouvé avec cet email" %} 
+     <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>aucun utilisateur n'est trouvé avec cet email</strong> 
+                           </div>   {% endif %}           
+                             <span>Entez Votre Email </span>
             <form method="post">
+              {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
               <label><i class="fa fa-envelope"></i></label>
-              <input type="text" placeholder="Votre Adresse Email">
-              <button style="margin-top:40px;" type="submit">Récupérer le mot de passe</button>
+                {{ form_widget(form.email, {'attr': {'placeholder': ' Votre Adresse Email'}}) }}
+                {% if form_errors(form.email) is not empty %}
+                        <div class="alert alert-danger brd-5" >
+                           {{ form_errors(form.email) }}
+                           </div>
+                        {% endif %}
+              <button style="margin-top:40px;" type="submit">
+              <h4 style="color: #f0edea;"> <b> 
+              {{ button_label|default("Récupérer le mot de passe") }}  </b> </h4>
+              </button>
+              {{ form_end(form) }}
             </form>
           </div>
         </div>
