@@ -28,6 +28,9 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Label\Label;
 use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\Label\Font\NotoSans;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
@@ -145,8 +148,14 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+    #[Route('/verifySendedCode', name: 'verifySendedCode')]
+public function verifySendedCode(){
+    return $this->render('utilisateur/verifySendedCode.html.twig',[
+        
+    ]);
+}
     #[Route('/forgetPwd', name: 'forget_password')]
-    public function forgetPwd (UtilisateurRepository $userRepo ,Request $request):Response{
+    public function forgetPwd (UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session):Response{
         
         $user = new Utilisateur();
         $form = $this->createForm(ForgetPWDType::class, $user);
@@ -155,10 +164,29 @@ class UtilisateurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $email = $user->getEmail();
             $result = $userRepo->verifEmail($email);
-            return $this->render('utilisateur/forgetPwd.html.twig',[
+           
+            if ($result) {
+            $code = mt_rand(100000, 999999);
+            $message = (new Email())
+                ->from('artvuecontact@gmail.com')
+                ->to($email)
+                ->subject('Code de réinitialisation du mot de passe')
+                ->html("<p>Votre code de réinitialisation du mot de passe est : $code</p>");
+
+            $mailer->send($message);
+
+            // Enregistrez le code de vérification et l'email dans la session
+            $session->set('reset_password_email', $email);
+            $session->set('reset_password_code', $code);
+
+            // Redirigez l'utilisateur vers la page de réinitialisation du mot de passe
+            return $this->redirectToRoute('verifySendedCode');
+            }
+             return $this->render('utilisateur/forgetPwd.html.twig',[
                 'user' => $result,
                 'form' => $form->createView(),
             ]) ;
+            
         } else {
                 return $this->render('utilisateur/forgetPwd.html.twig',[
                     'form' => $form->createView(),
@@ -340,5 +368,105 @@ class UtilisateurController extends AbstractController
 
         return $this->redirectToRoute("listUtilisateur");
     }
+
+
+
+
+
+
+
+
+    // sarra ------------------------------------------------------------------------------------
+//     #[Route('/forgot-password', name: 'forgot_password')]
+// public function forgotPassword( Request $request, MailerInterface $mailer, SessionInterface $session ): Response
+// {
+//     $error = '';
+
+//     if ($request->isMethod('POST')) {
+//         $email = $request->request->get('email');
+
+//         // Valider l'email
+//         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//             $error = 'Format d\'email invalide';
+//         } else {
+//             // Générer un code aléatoire
+//             $code = mt_rand(100000, 999999);
+
+//             // Envoyer le code par email
+//             $message = (new Email())
+//                 ->from('pinsight76@gmail.com')
+//                 ->to($email)
+//                 ->subject('Code de réinitialisation du mot de passe')
+//                 ->html("<p>Votre code de réinitialisation du mot de passe est : $code</p>");
+
+//             $mailer->send($message);
+
+//             // Enregistrez le code de vérification et l'email dans la session
+//             $session->set('reset_password_email', $email);
+//             $session->set('reset_password_code', $code);
+
+//             // Redirigez l'utilisateur vers la page de réinitialisation du mot de passe
+//             return $this->redirectToRoute('reset_password');
+//         }
+//     }
+
+//     return $this->render('login/forgot_password_index.html.twig', [
+//         'error' => $error,
+//     ]);
+// }
+
+
+// #[Route('/reset-passwordPage', name: 'reset_password_page')]
+// public function resetPage(){
+//     return $this->render('login/resetPassword.html.twig',[
+        
+//     ]);
+// }
+
+
+
+// #[Route('/reset-password', name: 'reset_password')]
+// public function resetPassword(
+//     Request $request,
+//     ManagerRegistry $doctrine,
+//     SessionInterface $session
+// ): Response
+// {
+//     $error = '';
+
+//     // Récupérez l'email et le code de la session
+//     $email = $session->get('reset_password_email');
+//     $code = $session->get('reset_password_code');
+
+//     if ($request->isMethod('POST')) {
+//         $enteredCode = $request->request->get('code');
+//         $password = $request->request->get('password');
+
+//         // Vérifiez si le code entré correspond à celui enregistré dans la session
+//         if ($enteredCode != $code) {
+//             $error = 'Code de vérification invalide';
+//         } else {
+//             // Récupérez l'utilisateur à partir de l'email enregistré dans la session
+//             $student = $doctrine->getRepository(Student::class)->findOneBy(['email' => $email]);
+
+//             if (!$student) {
+//                 $error = 'Utilisateur non trouvé';
+//             } else {
+//                 // Mettez à jour le mot de passe de l'utilisateur
+//                 $student->setPassword($password);
+//                 $entityManager = $doctrine->getManager();
+//                 $entityManager->flush();
+
+//                 // Redirigez l'utilisateur vers la page de connexion
+//                 return $this->redirectToRoute('login');
+//             }
+//         }
+//     }
+
+//     return $this->render('login/resetPassword.html.twig', [
+//         'error' => $error,
+//     ]);
+// }
+    // sarra ------------------------------------------------------------------------------------
 
 }
