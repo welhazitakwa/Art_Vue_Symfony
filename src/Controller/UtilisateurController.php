@@ -165,7 +165,7 @@ public function verifySendedCode(){
             $email = $user->getEmail();
             $result = $userRepo->verifEmail($email);
            
-            if ($result) {
+            if ($result instanceof Utilisateur) {
             $code = mt_rand(100000, 999999);
             $message = (new Email())
                 ->from('artvuecontact@gmail.com')
