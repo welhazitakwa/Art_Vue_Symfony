@@ -78,12 +78,24 @@ class UtilisateurController extends AbstractController
     public function indexQR(SessionInterface $session): Response
     {
         $path = "oeuvre/".$session->get('user_image');
-        $userData = [
-            'username' => "hihyhyhuhuhyhuhyuhyuhyuh",
-            'email' => "rrrrrrrrrrrrrrrrrrr",
-            'photo' => $path
-            // Ajoutez d'autres informations utilisateur selon vos besoins
-        ];
+        $userConnected = $session->get('userConnected');
+
+// Vérifier si l'utilisateur est défini et s'il a la propriété 'nom'
+        $username = $userConnected ? $userConnected->getNom() : null;
+        $prenom =  $userConnected ? $userConnected->getPrenom() : null;
+        $email =  $userConnected ? $userConnected->getEmail() : null;
+        $adresse =  $userConnected ? $userConnected->getAdresse() : null;
+        $numTel =  $userConnected ? $userConnected->getNumtel() : null;
+        $cin =  $userConnected ? $userConnected->getCin() : null;
+        $DateInscription =  $userConnected ? $userConnected->getDateInscription() : null;
+        $getDatenaissance =  $userConnected ? $userConnected->getDatenaissance() : null;
+
+    // Formater les informations de l'utilisateur pour le contenu du QR code
+    $userData = "Nom et Prenom : " . $username . "  " .$prenom .    "                                ".
+            "Email : " . $email ."                                ".
+            "Numero de Telephone : " . $numTel. "                                ".
+            "Adresse : " . $adresse. "                                ".
+            "CIN : " . $cin. "                                ";
 
      $writer = new PngWriter();
 
