@@ -133,6 +133,9 @@ public function login($login, $mdp)
 
 public function verifEmail($email)
 {
+    if ($email == "") {
+        return "Ce champ est Obligatoire !";
+    }
     // Récupérer l'utilisateur par le email
     $utilisateur = $this->createQueryBuilder('u')
         ->where('u.email = :email')

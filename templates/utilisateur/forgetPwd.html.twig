@@ -35,7 +35,12 @@
             {% if user == "aucun utilisateur n'est trouvé avec cet email" %} 
      <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
                         <p><strong>aucun utilisateur n'est trouvé avec cet email</strong> 
-                           </div>   {% endif %}           
+                           </div>
+                           {% elseif user == "Ce champ est Obligatoire !" %}   
+                           <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>Ce champ est Obligatoire !</strong> 
+                           </div>
+                           {% endif %}           
                              <span>Entez Votre Email </span>
             <form method="post">
               {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
