@@ -33,17 +33,23 @@
             <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
             <h4>Vérification de Code</h4> <br>
              <span> Un code vous a été envoyé par mail merci de le saisir </span>
+             {% if error == "Code Invalide" %} 
+     <div class="alert alert-danger brd-5"> 
+        <i><img src="images/danger-icon.html" alt="" /></i>
+        <p><strong>Code invalide</strong> 
+     </div>
+                           {% endif %} 
+
             <form method="post">
-              {# {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }} #}
+              {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
               <label><i class="fa fa-envelope"></i></label>
-                {# {{ form_widget(form.email, {'attr': {'placeholder': ' Votre Adresse Email'}}) }} #}
-              <input type="text" placeholder=" CODE ">
+                {{ form_widget(form.code, {'attr': {'placeholder': ' Code envoyé'}}) }}
               <button style="margin-top:40px;" type="submit">
-              <h4 style="color: #f0edea;"> <b> rrrrrrrrrrrr
-              {# {{ button_label|default("Récupérer le mot de passe") }}   #}
+              <h4 style="color: #f0edea;"> <b> 
+              {{ button_label|default("Vérifier") }}  
               </b> </h4>
               </button>
-              {# {{ form_end(form) }} #}
+              {{ form_end(form) }}
             </form>
           </div>
         </div>

@@ -8,6 +8,7 @@ use App\Form\EditProfileType;
 use App\Form\ForgetPWDType;
 use App\Form\LoginType;
 use App\Form\UtilisateurType;
+use App\Form\VerifySendedCodeType;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -147,12 +148,36 @@ class UtilisateurController extends AbstractController
             'utilisateurs' => $utilisateurRepository->findAll(),
         ]);
     }
+    #[Route('/modifierMDP', name: 'modifierMDP')]
+public function resetPage(){
+    return $this->render('utilisateur/modifierMDP.html.twig',[      
+    ]);
+}
+    
 
     #[Route('/verifySendedCode', name: 'verifySendedCode')]
-public function verifySendedCode(){
-    return $this->render('utilisateur/verifySendedCode.html.twig',[
+public function verifySendedCode(UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session){
         
-    ]);
+    $form = $this->createForm(VerifySendedCodeType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()){
+        $enteredCode = $form->get('code')->getData();
+        $sessionCode = $request->getSession()->get('reset_password_code');
+        if ($enteredCode == $sessionCode) {           
+            return $this->redirectToRoute('modifierMDP');
+        } else {
+             return $this->render('utilisateur/verifySendedCode.html.twig',[
+                'error' => "Code Invalide",
+                'form' => $form->createView(),
+            ]) ;
+        }
+} else {
+                return $this->render('utilisateur/verifySendedCode.html.twig',[
+                    'form' => $form->createView(),
+                    'error'=> "eeeeeeeeeeerrrrrrrrreeeeeeeuuuuuuuuurrrrrrrrrrrrrr",
+            ]) ;
+            }
 }
     #[Route('/forgetPwd', name: 'forget_password')]
     public function forgetPwd (UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session):Response{
