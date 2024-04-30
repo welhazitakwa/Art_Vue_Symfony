@@ -2,72 +2,114 @@
 
 namespace App\Entity;
 
+use App\Repository\VenteencheresRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Venteencheres
- *
- * @ORM\Table(name="venteencheres", indexes={@ORM\Index(name="fk_Exposition", columns={"id_exposition"}), @ORM\Index(name="id_utilisateur", columns={"id_utilisateur"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: VenteencheresRepository::class)]
 class Venteencheres
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateDebut", type="date", nullable=false)
-     */
-    private $datedebut;
+    #[ORM\Column(type: 'date')]
+    private \DateTimeInterface $datedebut;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateFin", type="date", nullable=false)
-     */
-    private $datefin;
+    #[ORM\Column(type: 'date')]
+    private \DateTimeInterface $datefin;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="prixDepart", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $prixdepart;
+    #[ORM\Column(type: 'float')]
+    private float $prixdepart;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="statue", type="string", length=200, nullable=false)
-     */
-    private $statue;
+    #[ORM\Column(type: 'string', length: 200)]
+    private string $statue;
 
-    /**
-     * @var \Exposition
-     *
-     * @ORM\ManyToOne(targetEntity="Exposition")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_exposition", referencedColumnName="id")
-     * })
-     */
-    private $idExposition;
+    #[ORM\ManyToOne(targetEntity: Exposition::class)]
+    #[ORM\JoinColumn(name: 'id_exposition', referencedColumnName: 'id')]
+    private ?Exposition $idExposition;
 
-    /**
-     * @var \Utilisateur
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_utilisateur", referencedColumnName="id")
-     * })
-     */
-    private $idUtilisateur;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+    private ?Utilisateur $idUtilisateur;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    // Ajoutez les getters et setters pour les autres propriétés
+
+    public function getDatedebut(): ?\DateTimeInterface
+    {
+        return $this->datedebut;
+    }
+
+    public function setDatedebut(\DateTimeInterface $datedebut): static
+    {
+        $this->datedebut = $datedebut;
+
+        return $this;
+    }
+
+    public function getDatefin(): ?\DateTimeInterface
+    {
+        return $this->datefin;
+    }
+
+    public function setDatefin(\DateTimeInterface $datefin): static
+    {
+        $this->datefin = $datefin;
+
+        return $this;
+    }
+
+    public function getPrixdepart(): ?float
+    {
+        return $this->prixdepart;
+    }
+
+    public function setPrixdepart(float $prixdepart): static
+    {
+        $this->prixdepart = $prixdepart;
+
+        return $this;
+    }
+
+    public function getStatue(): ?string
+    {
+        return $this->statue;
+    }
+
+    public function setStatue(string $statue): static
+    {
+        $this->statue = $statue;
+
+        return $this;
+    }
+
+    public function getIdExposition(): ?Exposition
+    {
+        return $this->idExposition;
+    }
+
+    public function setIdExposition(?Exposition $idExposition): static
+    {
+        $this->idExposition = $idExposition;
+
+        return $this;
+    }
+
+    public function getIdUtilisateur(): ?Utilisateur
+    {
+        return $this->idUtilisateur;
+    }
+
+    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static
+    {
+        $this->idUtilisateur = $idUtilisateur;
+
+        return $this;
+    }
 }

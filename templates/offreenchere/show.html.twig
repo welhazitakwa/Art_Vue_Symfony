@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Offreenchere{% endblock %}
+
+{% block body %}
+    <h1>Offreenchere</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ offreenchere.id }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ offreenchere.montant }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ offreenchere.date ? offreenchere.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>IdUtilisateur</th>
+                <td>{{ offreenchere.idUtilisateur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offreenchere_index') }}">back to list</a>
+
+    <a href="{{ path('app_offreenchere_edit', {'id': offreenchere.id}) }}">edit</a>
+
+    {{ include('offreenchere/_delete_form.html.twig') }}
+{% endblock %}

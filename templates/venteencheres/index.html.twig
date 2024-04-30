@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Venteencheres index{% endblock %}
+
+{% block body %}
+    <h1>Venteencheres index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Prixdepart</th>
+                <th>Statue</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for venteenchere in venteencheres %}
+            <tr>
+                <td>{{ venteenchere.id }}</td>
+                <td>{{ venteenchere.datedebut ? venteenchere.datedebut|date('Y-m-d') : '' }}</td>
+                <td>{{ venteenchere.datefin ? venteenchere.datefin|date('Y-m-d') : '' }}</td>
+                <td>{{ venteenchere.prixdepart }}</td>
+                <td>{{ venteenchere.statue }}</td>
+                <td>
+                    <a href="{{ path('app_venteencheres_show', {'id': venteenchere.id}) }}">show</a>
+                    <a href="{{ path('app_venteencheres_edit', {'id': venteenchere.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_venteencheres_new') }}">Create new</a>
+{% endblock %}

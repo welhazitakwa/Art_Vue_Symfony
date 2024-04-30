@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Venteencheres{% endblock %}
+
+{% block body %}
+    <h1>Venteencheres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ venteenchere.id }}</td>
+            </tr>
+            <tr>
+                <th>Datedebut</th>
+                <td>{{ venteenchere.datedebut ? venteenchere.datedebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datefin</th>
+                <td>{{ venteenchere.datefin ? venteenchere.datefin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Prixdepart</th>
+                <td>{{ venteenchere.prixdepart }}</td>
+            </tr>
+            <tr>
+                <th>Statue</th>
+                <td>{{ venteenchere.statue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_venteencheres_index') }}">back to list</a>
+
+    <a href="{{ path('app_venteencheres_edit', {'id': venteenchere.id}) }}">edit</a>
+
+    {{ include('venteencheres/_delete_form.html.twig') }}
+{% endblock %}
