@@ -7,6 +7,7 @@ use App\Form\EditFormClientType;
 use App\Form\EditProfileType;
 use App\Form\ForgetPWDType;
 use App\Form\LoginType;
+use App\Form\ModifierMDPType;
 use App\Form\UtilisateurType;
 use App\Form\VerifySendedCodeType;
 use App\Repository\UtilisateurRepository;
@@ -149,13 +150,33 @@ class UtilisateurController extends AbstractController
         ]);
     }
     #[Route('/modifierMDP', name: 'modifierMDP')]
-public function resetPage(){
-    return $this->render('utilisateur/modifierMDP.html.twig',[      
-    ]);
+public function resetPage(UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session , EntityManagerInterface $entityManager){
+    $form = $this->createForm(ModifierMDPType::class);
+    $form->handleRequest($request);
+    $utilisateur = new Utilisateur();
+    $utilisateur = $userRepo->findOneBy(['email' => $session->get('reset_password_email')]) ;
+    if ($form->isSubmitted() && $form->isValid()){
+            $plainPassword = $form->get('mdp')->getData(); ;
+            $hashedPassword = $this->hashPassword($plainPassword);
+            $utilisateur->setMdp($hashedPassword);
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+
+             return $this->render('utilisateur/modifierMDP.html.twig',[
+                'success' => "success",
+                'form' => $form->createView(),
+            ]) ;
+        
+        } else {
+                return $this->render('utilisateur/modifierMDP.html.twig',[
+                    'form' => $form->createView(),
+                    'success'=> "Code Invalide",
+            ]) ;
+            }
 }
     
 
-    #[Route('/verifySendedCode', name: 'verifySendedCode')]
+#[Route('/verifySendedCode', name: 'verifySendedCode')]
 public function verifySendedCode(UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session){
         
     $form = $this->createForm(VerifySendedCodeType::class);
@@ -172,10 +193,10 @@ public function verifySendedCode(UtilisateurRepository $userRepo ,Request $reque
                 'form' => $form->createView(),
             ]) ;
         }
-} else {
+        } else {
                 return $this->render('utilisateur/verifySendedCode.html.twig',[
                     'form' => $form->createView(),
-                    'error'=> "eeeeeeeeeeerrrrrrrrreeeeeeeuuuuuuuuurrrrrrrrrrrrrr",
+                    'error'=> "Code Invalide",
             ]) ;
             }
 }

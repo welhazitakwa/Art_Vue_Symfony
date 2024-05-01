@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title> Bienvenue</title>
+{% block css%}
+<link rel="icon" type="image/png" href="images/fav.png">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+ {% endblock %}
+</head>
+<body>
+<!-- Start Page Loading -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+<div class="panel-layout">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="admin-lock vh100"> 
+          <div class="admin-form">
+            <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
+            <h4>Modification de mot de passe</h4> <br>
+             <span> Vous pouvez maintenant modifier votre mot de passe </span>
+             {% if success == "Code Invalide" %} 
+     <div class="alert alert-danger brd-5"> 
+        <i><img src="images/danger-icon.html" alt="" /></i>
+        <p><strong>Code invalide</strong> 
+     </div>
+                          {% elseif success == "success" %}   
+                           <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>Votre mot de passe était modifié avec succés <br> vous pouvez reconnecter maintenant</strong> 
+                           </div>
+                           {% endif %}
+
+            <form method="post">
+              {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
+              <label><i class="fa fa-envelope"></i></label>
+                {{ form_widget(form.mdp, {'attr': {'placeholder': ' nouveau mot de passe '}}) }}
+              <button style="margin-top:40px;" type="submit">
+              <h4 style="color: #f0edea;"> <b> 
+              {{ button_label|default("Modifier") }}  
+              </b> </h4>
+              </button>
+              {{ form_end(form) }}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% block js %}
+    <script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+{% endblock %}
+</body>
+
+</html>
