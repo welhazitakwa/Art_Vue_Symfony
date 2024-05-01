@@ -25,9 +25,17 @@
                                             <div class="b-meta">
                                                 <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
                                                 <div class="info-meta">
-                                                    <span>Sales Earnings</span>
-                                                    <h4><ins>$</ins>0.00</h4>
-                                                    <i>10%</i>
+                                                    <span>Nombre des artistes</span>
+                                                     {% set variable3 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                    
+
+{% if u.profil == 1 %}
+    {% set variable3 = variable3 + 1 %}
+{% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable3 }}</h4>
                                                 </div>
                                                 <div class="spark">
                                                     <div class="sparkline_line"></div>
@@ -37,9 +45,17 @@
                                         <div class="panel-widget style2">
                                             <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-6.png') }}" alt="">
                                                 <div class="info-meta">
-                                                    <span>total sales</span>
-                                                    <h4>4512</h4>
-                                                    <i>20%</i>
+                                                    <span>Nombre des clients</span>
+                                                                           {% set variable2 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                    
+
+{% if u.profil == 2 %}
+    {% set variable2 = variable2 + 1 %}
+{% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable2 }}</h4>
                                                 </div>
                                                 <div class="spark">
                                                     <div class="sparkline_three"></div>
@@ -49,9 +65,17 @@
                                         <div class="panel-widget style2">
                                             <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-8.png') }}" alt="">
                                                 <div class="info-meta">
-                                                    <span>Today's Visits</span>
-                                                    <h4>158</h4>
-                                                    <i>30%</i>
+                                                    <span>Nombre des utilisateurs bloqué</span>
+                                                    {% set variable1 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                    
+
+{% if u.etatCompte == 1 %}
+    {% set variable1 = variable1 + 1 %}
+{% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable1 }}</h4>
                                                 </div>
                                                 <div class="spark">
                                                     <div class="sparkline22"></div>
@@ -62,9 +86,8 @@
                                     <div class="widget">
                                         <div class="widget-title no-margin">
                                             <h4>Liste des utilisateurs</h4>
-                                            <ul class="widget-controls">
-                                             <a href="{{ path('generate_pdf')}}"> hhhhhh </a>  <li class="refresh-content" title="Refresh"><i class="fa fa-refresh"></i></li>
-                                                
+                                            <ul class="widget-controls">                         <li><a href="{{ path('generate_pdf')}}" 
+                                            title="" class="btn-st blu-clr">Générer pdf</a></li>
                                             </ul>
                                            
                                         </div>
@@ -86,7 +109,7 @@
                                                 {% if u.profil  != 0 %}
                                                     <tr> 
                                                     <td>
-                                                    <div class="owner-pic"> <img src="{{ asset('TemplateAdmin/images/resources/owner.jpg') }}" alt=""> 
+                                                    <div class="owner-pic"> <img src="{{ asset('oeuvre/' ~ u.image) }}" alt="Image" style="width: 40px; height: 40px">
                                                     </div><div class="owner-info">
                                                     <h6>{{ u.nom }} {{u.prenom}} </h6>
                                                     <span> 
