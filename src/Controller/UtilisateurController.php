@@ -38,8 +38,6 @@ use Symfony\Component\Mime\Email;
 class UtilisateurController extends AbstractController
 {
     private $passwordEncoder; 
-    private SessionInterface $session ;
-
     // private SessionInterface $session;
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -83,7 +81,7 @@ class UtilisateurController extends AbstractController
     #[Route('/qr-codes', name: 'app_qr_codes')]
     public function indexQR(SessionInterface $session): Response
     {
-        $path = "oeuvre/".$session->get('user_image');
+        // $path = "oeuvre/".$session->get('user_image');
         $userConnected = $session->get('userConnected');
         $username = $userConnected ? $userConnected->getNom() : null;
         $prenom =  $userConnected ? $userConnected->getPrenom() : null;
@@ -94,14 +92,13 @@ class UtilisateurController extends AbstractController
         $DateInscription =  $userConnected ? $userConnected->getDateInscription() : null;
         $getDatenaissance =  $userConnected ? $userConnected->getDatenaissance() : null;
 
-    $userData = "Nom et Prenom : " . $username . "  " .$prenom .    "                                ".
-            "Email : " . $email ."                                ".
-            "Numero de Telephone : " . $numTel. "                                ".
-            "Adresse : " . $adresse. "                                ".
-            "CIN : " . $cin. "                                ";
+    $userData = "Nom et Prenom : " . $username . "  " .$prenom . " // " .
+            "Email : " . $email . " // ".
+            "Numero de Telephone : " . $numTel.  " // ".
+            "Adresse : " . $adresse.  " // ".
+            "CIN : " . $cin.  " // ";
 
      $writer = new PngWriter();
-
         // Créer un objet QrCode de base
         $qrCodeBase = QrCode::create(json_encode($userData))
             ->setEncoding(new Encoding('UTF-8'))
@@ -109,32 +106,12 @@ class UtilisateurController extends AbstractController
             ->setMargin(0)
             ->setForegroundColor(new Color(0, 0, 0))
             ->setBackgroundColor(new Color(255, 255, 255));
-
-        // Créer le logo
-        $logo = Logo::create($path)->setResizeToWidth(60);
-
         // Créer le label
         $label = Label::create('')->setFont(new NotoSans(8));
-
-        // Tableau pour stocker les URI des codes QR
         $qrCodes = [];
 
         // Générer les codes QR et stocker les URI dans le tableau
-        $qrCodes['img'] = $writer->write($qrCodeBase, $logo)->getDataUri();
         $qrCodes['simple'] = $writer->write($qrCodeBase, null, $label->setText('Simple'))->getDataUri();
-
-        // Changer la couleur du premier code QR
-        $qrCodeBase->setForegroundColor(new Color(255, 0, 0));
-        $qrCodes['changeColor'] = $writer->write($qrCodeBase, null, $label->setText('Color Change'))->getDataUri();
-
-        // Changer la couleur d'arrière-plan du premier code QR
-        $qrCodeBase->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 0, 0));
-        $qrCodes['changeBgColor'] = $writer->write($qrCodeBase, null, $label->setText('Background Color Change'))->getDataUri();
-
-        // Modifier la taille et ajouter un label et un logo au premier code QR
-        $qrCodeBase->setSize(200)->setForegroundColor(new Color(0, 0, 0))->setBackgroundColor(new Color(255, 255, 255));
-        $qrCodes['withImage'] = $writer->write($qrCodeBase, $logo, $label->setText('With Image')->setFont(new NotoSans(20)))->getDataUri();
-
         // Retourner le tableau des URI des codes QR
         return $this->render('utilisateur/qr.html.twig', $qrCodes);
 
@@ -177,7 +154,7 @@ public function resetPage(UtilisateurRepository $userRepo ,Request $request, Mai
     
 
 #[Route('/verifySendedCode', name: 'verifySendedCode')]
-public function verifySendedCode(UtilisateurRepository $userRepo ,Request $request, MailerInterface $mailer, SessionInterface $session){
+public function verifySendedCode(Request $request){
         
     $form = $this->createForm(VerifySendedCodeType::class);
     $form->handleRequest($request);
