@@ -4,34 +4,75 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Categorie;
+use App\Entity\Likes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Oeuvreart;
+use App\Entity\Utilisateur;
+use App\Repository\LikesRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\OeuvreartRepository;
 
 class GalerieController extends AbstractController
 {
     #[Route('/galerieCategorie', name: 'app_galerie')]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository, LikesRepository $likesRepository): Response
     {
+        // Appeler la méthode calculateLikes pour obtenir le nombre de likes pour chaque œuvre
+        $likesCountForEachOeuvre = $this->calculateLikes();
+
+        // Récupérer toutes les catégories
         $categories = $entityManager->getRepository(Categorie::class)->findAll();
+
+        // Récupérer tous les œuvres d'art par défaut
         $oeuvrearts = $entityManager->getRepository(Oeuvreart::class)->findAll();
-        
+
+        // Récupérer les paramètres de recherche
+        $search = $request->query->get('search');
+        $searchCategory = $request->query->get('category');
+
+        // Filtrer les œuvres d'art en fonction des critères de recherche
+        if ($search || $searchCategory) {
+            $oeuvrearts = $oeuvreartRepository->findByArtistAndCategory($search, $searchCategory);
+        }
+
         return $this->render('galerie/galerie.html.twig', [
             'categories' => $categories,
             'oeuvrearts' => $oeuvrearts,
+            'likesCountForEachOeuvre' => $likesCountForEachOeuvre,
         ]);
     }
+
+    #[Route('/calculate-likes', name: 'calculate_likes')]
+    public function calculateLikes(): array
+    {
+        // Récupérer le gestionnaire d'entités
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // Récupérer tous les likes où estLike est true
+        $likes = $entityManager->getRepository(Likes::class)->findBy(['estlike' => true]);
+
+        // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
+        $likesCountForEachOeuvre = [];
+
+        // Parcourir les likes et compter le nombre de likes pour chaque œuvre
+        foreach ($likes as $like) {
+            $oeuvreId = $like->getIdoeuvreart()->getIdoeuvreart();
+            if (!isset($likesCountForEachOeuvre[$oeuvreId])) {
+                $likesCountForEachOeuvre[$oeuvreId] = 1;
+            } else {
+                $likesCountForEachOeuvre[$oeuvreId]++;
+            }
+        }
+
+        return $likesCountForEachOeuvre;
+    }
+
     
-    // #[Route('/galerieOeuvre', name: 'app_oeuvreart_galerie', methods: ['GET'])]
-    // public function OeuvreArt(EntityManagerInterface $entityManager): Response
-    // {
-    //     $oeuvrearts = $entityManager->getRepository(Oeuvreart::class)->findAll();
-        
-    //     return $oeuvrearts;
-    // }
+    
+    
 
     #[Route('/galerieCategorie/{idoeuvreart}', name: 'app_galerie_show', methods: ['GET'])]
     public function show(Request $request, EntityManagerInterface $entityManager, $idoeuvreart): Response
@@ -107,6 +148,89 @@ class GalerieController extends AbstractController
             'lastThreeAddedArtworks' => $lastThreeAddedArtworks,
         ]);
     }
+
+
+    #[Route('/like/{id}/toggle', name: 'like_toggle')]
+    public function toggleLike(Request $request, $id, SessionInterface $session, LikesRepository $likesRepository): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        // Get the current user
+        $user = $entityManager->getRepository(Utilisateur::class)->find($session->get('user_id'));;
+        
+        // Get the Oeuvreart entity with the provided ID
+        $oeuvreArt = $entityManager->getRepository(Oeuvreart::class)->find($id);
+        
+        // If the Oeuvreart with the provided ID doesn't exist, handle the error (return a response or throw an exception)
+        
+        // Check if the user already liked this oeuvre
+        $existingLike = $likesRepository->findOneBy(['idutilisateur' => $user, 'idoeuvreart' => $oeuvreArt]);
+        
+        // If the user already liked the oeuvre, toggle the like
+        if ($existingLike) {
+            $existingLike->setEstlike(!$existingLike->getEstlike());
+        } else {
+            // If the user hasn't liked the oeuvre yet, create a new like
+            $newLike = new Likes();
+            $newLike->setIdutilisateur($user);
+            $newLike->setIdoeuvreart($oeuvreArt);
+            $newLike->setEstlike(true);
+            $entityManager->persist($newLike);
+        }
+        
+        $entityManager->flush();
+        
+        // Redirect back to the previous page
+        return $this->redirect($request->headers->get('referer'));
+    }
+
+
+
+
+
+
+    // #[Route('/calculate-likes', name: 'calculate_likes')]
+    // public function calculateLikes(): Response
+    // {
+    //     // Récupérer le gestionnaire d'entités
+    //     $entityManager = $this->getDoctrine()->getManager();
+
+    //     // Récupérer tous les likes où estLike est true
+    //     $likes = $entityManager->getRepository(Likes::class)->findBy(['estlike' => true]);
+
+    //     // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
+    //     $likesCountForEachOeuvre = [];
+
+    //     // Parcourir les likes et compter le nombre de likes pour chaque œuvre
+    //     foreach ($likes as $like) {
+    //         $oeuvreId = $like->getIdoeuvreart()->getIdoeuvreart();
+    //         if (!isset($likesCountForEachOeuvre[$oeuvreId])) {
+    //             $likesCountForEachOeuvre[$oeuvreId] = 1;
+    //         } else {
+    //             $likesCountForEachOeuvre[$oeuvreId]++;
+    //         }
+    //     }
+
+    //     // Afficher les résultats
+    //     foreach ($likesCountForEachOeuvre as $oeuvreId => $likesCount) {
+    //         echo "Nombre de likes pour l'œuvre d'art avec l'ID $oeuvreId : $likesCount <br>";
+    //     }
+        
+    //      return $this->json($likesCountForEachOeuvre);
+        
+    //     // Ou bien, afficher les résultats dans un template Twig
+    //     //  return $this->render('galerie/galerie.html.twig', ['likesCountForEachOeuvre' => $likesCountForEachOeuvre]);
+    // }
+   
+
     
 
+    
 }
+
+
+
+
+
+
+

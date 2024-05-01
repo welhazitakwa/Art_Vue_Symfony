@@ -46,11 +46,10 @@ class Oeuvreart
     private ?string $description = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message:"Le prix ne peut pas être vide.")]
-    #[Assert\Range(
-        min: 1.0,
-        minMessage: "Le prix doit être d'au moins {{ limit }} DT.",
-        invalidMessage: "Veuillez entrer un prix valide."
+    #[Assert\NotBlank(message: "Le prix ne peut pas être vide.")]
+    #[Assert\Type(
+        type: "float",
+        message: "Le prix doit être un nombre décimal."
     )]
     private ?float $prixvente = null;
 
@@ -163,5 +162,9 @@ class Oeuvreart
     {
         $this->idArtiste = $idArtiste;
         return $this;
+    }
+    public function __construct()
+    {
+        $this->dateajout = (new \DateTime())->setTime(0, 0, 0); // Initialise la date d'ajout avec la date d'aujourd'hui
     }
 }

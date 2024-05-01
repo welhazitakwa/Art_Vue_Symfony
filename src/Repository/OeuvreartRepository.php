@@ -49,6 +49,54 @@ class OeuvreartRepository extends ServiceEntityRepository
         ->getResult();
 }
 
+public function findByNom($titre)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.titre LIKE :titre')
+            ->setParameter('titre', '%'.$titre.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findByArtist($artistName)
+{
+    return $this->createQueryBuilder('o')
+        ->leftJoin('o.idArtiste', 'a')
+        ->andWhere('a.nom LIKE :artistName OR a.prenom LIKE :artistName')
+        ->setParameter('artistName', '%' . $artistName . '%')
+        ->getQuery()
+        ->getResult();
+}
+
+public function findByArtistAndCategory($artistName, $categoryId)
+{
+    $qb = $this->createQueryBuilder('oa');
+
+    // Ajouter la condition de recherche par artiste
+    if ($artistName) {
+        $qb->join('oa.idArtiste', 'a')
+        ->andWhere('a.nom LIKE :artistName OR a.prenom LIKE :artistName')
+        ->setParameter('artistName', '%' . $artistName . '%');
+    }
+
+    // Ajouter la condition de recherche par catégorie
+    if ($categoryId) {
+        $qb->join('oa.idCategorie', 'c')
+           ->andWhere('c.idcategorie = :categoryId')
+           ->setParameter('categoryId', $categoryId);
+    }
+
+    return $qb->getQuery()->getResult();
+}
+
+public function getPrixVenteData()
+    {
+        return $this->createQueryBuilder('o')
+            ->select('COUNT(o.idoeuvreart) as count, o.prixvente as price')
+            ->groupBy('o.prixvente')
+            ->getQuery()
+            ->getResult();
+    }
 
 
 

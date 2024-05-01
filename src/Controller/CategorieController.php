@@ -28,6 +28,8 @@ class CategorieController extends AbstractController
 
     }
 
+    
+
     #[Route('/homeArtiste', name: 'app_homeArtiste', methods: ['GET'])]
     public function homeArtiste(Request $request,UtilisateurRepository $userRepo, SessionInterface $session): Response
     {           
@@ -73,6 +75,8 @@ class CategorieController extends AbstractController
             'bestCategoryName' => $bestCategoryName,
         ]);
     }
+
+    
 
 
 

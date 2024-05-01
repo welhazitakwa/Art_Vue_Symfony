@@ -21,6 +21,10 @@ class Categorie
     
     
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le nom du catégorie ne peut pas être vide.")]
+    #[Assert\Length(min:"3",max:"20",
+    minMessage:"Le nom catégorie doit contenir au moins {{ limit }} caractères",
+    maxMessage:"Le nom catégorie ne peut pas dépasser {{ limit }} caractères")]
     private ?string $nomcategorie = null;
 
 

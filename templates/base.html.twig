@@ -104,7 +104,9 @@
                                             <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
                                                 <ul class="mega">
                                                     <li><a href="{{ path('app_categorie_index') }}" title="">Catégories</a></li>
+                                                    <li><a href="{{ path('chart_oeuvre_par_categorie') }}">Statistique Catégorie</a></li>
                                                     <li><a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a></li>
+                                                    <li><a href="{{ path('chart_prix_vente') }}">Statistique Oeuvre d'art</a></li>
                                                 </ul>
                                             </li>
                                             <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>WooCommercee</span></a>
@@ -715,6 +717,8 @@
     <script src="{{ asset('TemplateAdmin/js/jvectormap.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
     <script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+   
+
     
     {% endblock %}<!-- jvactor map -->
 
