@@ -1,38 +1,74 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseClient.html.twig' %}
 
-{% block title %}Calendrier des Concours{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/main.min.css"> <!-- FullCalendar CSS -->
+{% block title %}Calendrier des concours
 {% endblock %}
+
+
 
 {% block body %}
-<div id="calendar"></div> <!-- Élément du calendrier -->
+   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar'); // Assurez-vous que l'élément existe
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Explorez les Concours à Venir</p>
+						<h1>Calendrier </h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- latest news -->
+	<div class="latest-news pt-150 pb-150">
+		<div class="container">
 
-    if (calendarEl) {
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth', // Vue par défaut
-        events: {
-          url: '{{ path("calendar_events") }}', // Route qui retourne les événements au format JSON
-          method: 'GET' // Méthode HTTP
-        },
-        locale: 'fr', // Pour afficher en français
-      });
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">
+						<h3>
+							<span class="orange-text">Découvrez </span>
+							les Concours du Mois !</h3>
+						<p>Explorez notre calendrier interactif pour ne manquer aucun concours passionnant ce mois-ci. Des prix incroyables vous attendent !.</p>
+					</div>
+				</div>
+			</div>
 
-      calendar.render(); // Rendre le calendrier
-    } else {
-      console.error("L'élément #calendar n'a pas été trouvé");
-    }
-  });
+			<div id="calendar"></div>
+		</div>
+		<div class="row">
+				<div class="col-lg-12 text-center">
+					<a href="{{ path('app_concoursclient_index') }}" class="boxed-btn">Voir details</a>
+				</div>
+			</div>
+	</div>
+
+	
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/fullcalendar.min.js"></script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var events = {{ events|raw }};
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: events,
+            eventColor: '#D5989E', // Changer la couleur des événements en rouge
+            eventTextColor: 'white', // Changer la couleur du texte des événements en blanc
+            
+            eventClick: function(info) {
+                // Rediriger vers la page de vote des œuvres pour le concours sélectionné
+                window.location.href = "{{ path('app_concours_oeuvres', {id: 'CONCOUR_ID'}) }}".replace('CONCOUR_ID', info.event.id);
+            }
+        });
+
+        calendar.render();
+    });
 </script>
 
-{% endblock %}
 
-{% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/main.min.js"></script> <!-- FullCalendar JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.7/locale/fr.js"></script> <!-- Support du français -->
 {% endblock %}

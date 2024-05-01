@@ -17,22 +17,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use CalendarBundle\CalendarEvents;
+use CalendarBundle\Entity\Event;
+use CalendarBundle\Event\CalendarEvent;
+use Knp\Component\Pager\PaginatorInterface;
+
 
 #[Route('/concours')]
 class ConcoursController extends AbstractController
 {
+  
     #[Route('/', name: 'app_concours_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator): Response
     {
         $concours = $entityManager
-            ->getRepository(Concours::class)
-            ->findAll();
-
+        ->getRepository(Concours::class)
+        ->findAll();
+        $concours = $paginator->paginate(
+            $concours,
+            $request->query->getInt('page', 1),
+            5,
+        );
         return $this->render('concours/index.html.twig', [
             'concours' => $concours,
         ]);
     }
     
+
+       
     #[Route('/showClient', name: 'app_concoursclient_index', methods: ['GET'])]
     public function indexClient(EntityManagerInterface $entityManager): Response
     {
@@ -48,39 +60,47 @@ class ConcoursController extends AbstractController
 
     
 
-#[Route('/concours/new', name: 'app_concours_new', methods: ['GET', 'POST'])]
-public function new(Request $request, EntityManagerInterface $entityManager): Response
-{
-    $concours = new Concours();
-    $form = $this->createForm(ConcoursType::class, $concours);
-    $form->handleRequest($request);
+    #[Route('/concours/new', name: 'app_concours_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $concours = new Concours();
+        $form = $this->createForm(ConcoursType::class, $concours);
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        $entityManager->persist($concours);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($concours);
 
-        // Récupérer les données soumises du formulaire
-        $selectedOeuvres = $request->request->get('concours')['oeuvres'] ?? [];
-
-        // Associer les œuvres sélectionnées au concours
-        foreach ($selectedOeuvres as $oeuvreId) {
-            $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
-            if ($oeuvre) {
-                $oeuvreConcours = new OeuvreConcours();
-                $oeuvreConcours->setIdConcours($concours);
-                $oeuvreConcours->setIdOeuvre($oeuvre);
-                $entityManager->persist($oeuvreConcours);
+            // Vérifier si tous les champs du formulaire sont vides
+            $formData = $form->getData();
+            if (empty($formData->getTitre()) && empty($formData->getDateDebut()) && empty($formData->getDateFin()) && empty($formData->getDescription()) && empty($formData->getOeuvres())) {
+                // Afficher un message d'erreur
+                $this->addFlash('error', 'Veuillez remplir au moins un champ.');
+                return $this->redirectToRoute('app_concours_new'); // Rediriger vers le formulaire
             }
+
+            // Récupérer les données soumises du formulaire
+            $selectedOeuvres = $request->request->get('concours')['oeuvres'] ?? [];
+
+            // Associer les œuvres sélectionnées au concours
+            foreach ($selectedOeuvres as $oeuvreId) {
+                $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
+                if ($oeuvre) {
+                    $oeuvreConcours = new OeuvreConcours();
+                    $oeuvreConcours->setIdConcours($concours);
+                    $oeuvreConcours->setIdOeuvre($oeuvre);
+                    $entityManager->persist($oeuvreConcours);
+                }
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_concours_index', [], Response::HTTP_SEE_OTHER);
+        return $this->render('concours/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
-
-    return $this->render('concours/new.html.twig', [
-        'form' => $form->createView(),
-    ]);
-}
 
 
   
@@ -204,31 +224,27 @@ public function showOeuvres($id, EntityManagerInterface $entityManager): Respons
         'oeuvres' => $oeuvres,
     ]);
 }
-#[Route('/calendrier', name: 'app_calendrier')]
-    public function showCalendar(): Response
-    {
-        // Rendre le template du calendrier
-        return $this->render('concours/concoursCalender.html.twig');
+
+
+#[Route('/calendrier', name: 'concours_calendar')]
+public function calendar(): Response
+{
+    $concours = $this->getDoctrine()->getRepository(Concours::class)->findAll();
+
+    $events = [];
+    foreach ($concours as $concour) {
+        $events[] = [
+            'id' => $concour->getId(),
+            'title' => $concour->getTitre(),
+            'start' => $concour->getDateDebut()->format('Y-m-d'),
+            'end' => $concour->getDateFin()->format('Y-m-d'),
+        ];
     }
 
-    #[Route('/calendar/events', name: 'calendar_events', methods: ['GET'])]
-    public function getCalendarEvents(EntityManagerInterface $entityManager): JsonResponse
-    {
-        // Récupérer tous les concours
-        $concours = $entityManager->getRepository(Concours::class)->findAll();
+    return $this->render('concours/concoursCalender.html.twig', [
+        'events' => json_encode($events),
+    ]);
+}
 
-        $events = [];
-
-        // Convertir les concours en événements FullCalendar
-        foreach ($concours as $concour) {
-            $events[] = [
-                'title' => $concour->getTitre(),
-                'start' => $concour->getDateDebut()->format('Y-m-d'),
-                'end' => $concour->getDateFin()->format('Y-m-d'),
-            ];
-        }
-
-        // Retourner les événements au format JSON
-        return new JsonResponse($events);
-    }
+ 
 }

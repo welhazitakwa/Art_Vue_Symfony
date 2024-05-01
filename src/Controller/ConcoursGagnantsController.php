@@ -17,8 +17,7 @@ use Twilio\Rest\Client;
 use Symfony\Component\HttpFoundation\Request; 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use DateTime;
-
-
+use Knp\Snappy\Pdf;
 
 
 
@@ -87,7 +86,10 @@ class ConcoursGagnantsController extends AbstractController
 
         return $this->render('concours_gagnants/index.html.twig', [
             'gagnants' => $gagnants,
+            
         ]);
+
+      
     }
 
     
@@ -210,5 +212,55 @@ class ConcoursGagnantsController extends AbstractController
     }
 
   
+    #[Route('/generer_pdf/{concoursId}/{artisteId}', name: 'app_concours_gagnants_generer_pdf', methods: ['GET'])]
+    public function genererPDF(int $concoursId, int $artisteId, Request $request, Pdf $knpSnappyPdf): Response
+    {
+        // Récupérer les données du gagnant du concours depuis la base de données
+        $entityManager = $this->getDoctrine()->getManager();
+    
+        // Recherche du concours par son ID
+        $concours = $entityManager->getRepository(Concours::class)->find($concoursId);
+    
+        if (!$concours) {
+            return new Response("Concours introuvable.", 404);
+        }
+    
+        // Recherche des œuvres associées au concours
+        $oeuvreConcours = $entityManager->getRepository(OeuvreConcours::class)->findBy(['idConcours' => $concours]);
+        if (count($oeuvreConcours) === 0) {
+            return new Response("Pas d'œuvres pour ce concours.", 404);
+        }
+    
+        // Identifier le gagnant en fonction du nombre de votes
+        $votesParOeuvre = [];
+        foreach ($oeuvreConcours as $oc) {
+            $oeuvre = $oc->getIdOeuvre();
+            $nombreDeVotes = $entityManager->getRepository(Vote::class)->count(['oeuvre' => $oeuvre, 'concours' => $concours]);
+            $votesParOeuvre[] = ['oeuvre' => $oeuvre, 'votes' => $nombreDeVotes];
+        }
+    
+        // Trier les œuvres par nombre de votes décroissant
+        usort($votesParOeuvre, function ($a, $b) {
+            return $b['votes'] - $a['votes'];
+        });
+    
+        // Prendre l'œuvre avec le plus grand nombre de votes (le gagnant)
+        $gagnant = $votesParOeuvre[0]['oeuvre'];
+        $artiste = $gagnant->getIdArtiste();
+    
+        // Générer le contenu du PDF
+        $pdfContent = $this->renderView('concours_gagnants/attestation.html.twig', [
+            'concours' => $concours,
+            'artiste' => $artiste,
+        ]);
+    
+        // Générer le PDF à partir du contenu HTML
+        $pdf =  $knpSnappyPdf->getOutputFromHtml($pdfContent);
+    
+        // Renvoyer la réponse PDF au navigateur
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="attestation.pdf"'
+        ]);}
 
 }

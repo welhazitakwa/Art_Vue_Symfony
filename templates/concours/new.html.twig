@@ -23,37 +23,27 @@
 
 
 {% block body %}
-	<div class="panel-body">
-		<div class="content-area">
-			<div class="sub-bar">
-				<div class="sub-title">
-					<h4>Dashboard:</h4>
-					<span>Formulaire jeux Concours</span>
-				</div>
-
-			</div>
-
-			<div class="inner-bg">
-
-
-				<h1>
-					Créer un nouveau concours</h1>
-				<span>Veuillez remplir le formulaire ci-dessous:</span>
-			</div>
-			<div class="widget">
-				<div class="widget-title no-margin">
-					<div class="add-prod-from">
-						<div class="row">
-
-
-							{{ include('concours/_form.html.twig') }}
-
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
+	  <div class="panel-body">
+        <div class="content-area">
+            <div class="sub-bar">
+                <div class="sub-title">
+                    <h4>Dashboard:</h4>
+                    <span>Formulaire jeux Concours</span>
+                </div>
+            </div>
+            <div class="inner-bg">
+                <h1>Créer un nouveau concours</h1>
+                <span>Veuillez remplir le formulaire ci-dessous:</span>
+            </div>
+            <div class="widget">
+                <div class="widget-title no-margin">
+                    <div class="add-prod-from">
+                        <div class="row">
+                            {{ include('concours/_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 	{% endblock %}
