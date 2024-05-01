@@ -56,7 +56,7 @@ class UtilisateurController extends AbstractController
         
         return $hashedPassword;
     }
-    #[Route('/generate-pdf', name:"generate_qr_code", methods: ['GET'])]
+    #[Route('/generate-pdf', name:"generate_pdf", methods: ['GET'])]
     public function generatePdf(UtilisateurRepository $utilisateurRepository): Response
     {
         // Créer une instance de Dompdf
