@@ -36,10 +36,10 @@
              {% if success == "Code Invalide" %} 
      <div class="alert alert-danger brd-5"> 
         <i><img src="images/danger-icon.html" alt="" /></i>
-        <p><strong>Code invalide</strong> 
+        <p><strong>Merci de saisir un nouveau mot de passe</strong> 
      </div>
                           {% elseif success == "success" %}   
-                           <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                           <div class="alert alert-success brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
                         <p><strong>Votre mot de passe était modifié avec succés <br> vous pouvez reconnecter maintenant</strong> 
                            </div>
                            {% endif %}
@@ -55,8 +55,10 @@
               </button>
               {{ form_end(form) }}
             </form>
+          <b>  <a  href="{{path('login_user')}}"   style="color:#d5989e;font-size:20px; margin-left:260px"> Reconnecter </a> <b>
+
           </div>
-        </div>
+                    </div>
       </div>
     </div>
   </div>
