@@ -15,15 +15,28 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Livraison;
 use App\Entity\Panier;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Knp\Component\Pager\PaginatorInterface;
+use Twilio\Rest\Client;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
+  
+
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
-    public function index(CommandeRepository $commandeRepository): Response
+    public function index(CommandeRepository $commandeRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $commandes = $commandeRepository->findAll();
+        $commandes = $paginator->paginate(
+            $commandes,
+            $request->query->getInt('page', 1),
+            4,
+        );
         return $this->render('commande/index.html.twig', [
-            'commandes' => $commandeRepository->findAll(),
+            'commandes' => $commandes,
+
         ]);
     }
 
@@ -57,7 +70,7 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $form = $this->createFormBuilder($commande)
         ->add('etat', ChoiceType::class, [
@@ -71,6 +84,8 @@ class CommandeController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->flush();
 
+       
+
         // Si l'état de la commande est "Terminée", créer une livraison
         if ($commande->getEtat() === 'Terminée') {
             $livraison = new Livraison();
@@ -80,7 +95,44 @@ class CommandeController extends AbstractController
             $livraison->setTotal($commande->getMontant() + 10); // Total = Montant de la commande + frais de livraison
             $entityManager->persist($livraison);
             $entityManager->flush();
-        }
+ //sms
+$twilioSid = "AC470844d0266cf005c021823127fd8530";
+$twilioToken = "706c7dd7eb86174b9b3cc072da6365ca";
+$twilioPhoneNumber = "+13343397109";
+$phoneNumber = '+21625721357'; // Remplacez par le numéro de téléphone réel de votre base de données
+try {
+    $client = new Client($twilioSid, $twilioToken);
+    $client->messages->create(
+        $phoneNumber,
+        [
+            'from' => $twilioPhoneNumber,
+            'body' => 'Votre commande est terminée. La livraison est en cours.'
+        ]
+    );
+} catch (\Exception $e) {
+    // Gérer l'exception ici
+    $errorMessage = $e->getMessage();
+    $this->addFlash('error', 'Erreur lors de l\'envoi du SMS : ' . $errorMessage);
+}
+//mail
+// Adresse e-mail statique à laquelle envoyer les confirmations de commande
+$recipientEmail = 'oumeyma.benkram@esprit.tn';
+
+  // Créer l'e-mail à envoyer
+  $email = (new Email())
+  ->from('Mariem.Saieb@esprit.tn') // Adresse de l'expéditeur
+  ->to($recipientEmail) // Adresse du client
+  ->subject('Fédélité!')
+  ->text("Votre commande est terminée. La livraison est en cours");
+
+// Envoyer l'e-mail et gérer les exceptions
+try {
+    $mailer->send($email);
+  } catch (\Exception $e) {
+  return new Response("Erreur lors de l'envoi de l'e-mail : " . $e->getMessage(), 500);
+}
+}
+ 
 
         return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -107,7 +159,7 @@ class CommandeController extends AbstractController
     //affichage client
   
 #[Route('/panier/afficher', name: 'panier_afficher_commandes')]
-public function listerCommandesPanier(Request $request,EntityManagerInterface $entityManager): Response
+public function listerCommandesPanier(Request $request,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
 {
     $panierId = 43; // Remplacez 43 par l'ID du panier que vous souhaitez afficher
     
@@ -123,6 +175,7 @@ public function listerCommandesPanier(Request $request,EntityManagerInterface $e
 
     // Récupérer toutes les commandes liées à ce panier
     $commandes = $panier->getCommandes();
+  
 
     // Filtrer les commandes par état si un filtre est spécifié
     if ($etat === 'envoyé') {
@@ -134,7 +187,11 @@ public function listerCommandesPanier(Request $request,EntityManagerInterface $e
             return $commande->getEtat() === 'Terminée';
         });
     }
-
+    $commandes = $paginator->paginate(
+        $commandes,
+        $request->query->getInt('page', 1),
+        4,
+    );
     return $this->render('commande/listeCommandeClient.html.twig', [
         'commandes' => $commandes,
     ]);

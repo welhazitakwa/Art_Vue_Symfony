@@ -3,6 +3,7 @@
 {% block title %}Commande index{% endblock %}
 
 {% block body %}
+
 <div class="panel-body">
 		<div class="content-area">
 
@@ -47,7 +48,8 @@
 				</thead>
 </div>
 
-<tbody>{% for commande in commandes %}
+<tbody>
+{% for commande in commandes %}
 
 					<tr class="event-row">
 						<td>
@@ -87,10 +89,16 @@
 				{% endfor %}
 
 			</tbody>
+            <div>
+              
+               </div>
             </table>
+             {{ knp_pagination_render(commandes) }}
 
 </div> 
+
         </div>
+     
     <a href="{{ path('app_commande_new') }}">Create new</a>
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
