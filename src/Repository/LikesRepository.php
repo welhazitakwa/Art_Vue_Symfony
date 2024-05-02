@@ -40,6 +40,18 @@ class LikesRepository extends ServiceEntityRepository
        ;
    }
 
+   public function countLikesForOeuvreArt(int $oeuvreArtId): int
+{
+    return $this->createQueryBuilder('l')
+        ->select('COUNT(l.idlike)')
+        ->where('l.idoeuvreart = :oeuvreArtId')
+        ->setParameter('oeuvreArtId', $oeuvreArtId)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+
+
    public function findOneBySomeField($value): ?Likes
    {
        return $this->createQueryBuilder('l')

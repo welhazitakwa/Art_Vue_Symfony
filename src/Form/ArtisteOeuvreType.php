@@ -57,10 +57,7 @@ class ArtisteOeuvreType extends AbstractType
              ],
         ])
         
-        ->add('dateajout', DateType::class, [
-                'widget' => 'single_text',
-                'data' => (new \DateTime())->setTime(0, 0, 0), 
-            ])
+        
             
             
         ;

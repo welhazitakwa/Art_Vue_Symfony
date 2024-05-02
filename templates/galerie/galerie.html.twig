@@ -47,12 +47,12 @@
 							<input type="text" placeholder="Rechercher un artiste..." name="search" id="search" style="border: none; padding: 10px; width: 20%; background-color: transparent; border-bottom: 1px solid #A77B7F; text-align: center; font-size: 12px; font-weight: 400; color: #D3A0A5;">
 							<div class="input-group-append">
 								<button type="submit" style="border: none;
-																																																																						  background-color: #D3A0A5;
-																																																																						  padding: 5px 30px;
-																																																																						  cursor: pointer;
-																																																																						  display: inline-block;
-																																																																						  border-radius: 50px;
-																																																																						  font-weight: 400;">
+																																																																																																														  background-color: #D3A0A5;
+																																																																																																														  padding: 5px 30px;
+																																																																																																														  cursor: pointer;
+																																																																																																														  display: inline-block;
+																																																																																																														  border-radius: 50px;
+																																																																																																														  font-weight: 400;">
 									<i class="fas fa-search"></i>
 									Rechercher</button>
 							</div>
@@ -74,20 +74,8 @@
 							<div class="single-latest-news" style="height: 500px;">
 								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
 								<div class="news-text-box">
-									<div class="d-flex justify-content-end align-items-center">
-										<a href="{{ path('like_toggle', {'id': oeuvreart.idoeuvreart}) }}" class="btn-like">
-											{% if app.user and oeuvreart.likes.contains(app.user) %}
-												<i class="fas fa-heart like-icon" style="color: red; margin-right: 10px;"></i>
-											{% else %}
-												<i class="far fa-heart like-icon" style="margin-right: 10px;"></i>
-											{% endif %}
-										</a>
-										
-											<p>23
-												likes</p>
-										
 
-									</div>
+									
 									<h3>
 										<a href="">{{ oeuvreart.titre }}</a>
 									</h3>
@@ -120,19 +108,7 @@
 				{% endif %}
 			</div>
 
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+
 		</div>
 	</div>
 	<!-- end products -->

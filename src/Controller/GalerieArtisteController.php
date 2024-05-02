@@ -118,21 +118,21 @@ public function delete(Request $request, Oeuvreart $oeuvreart, EntityManagerInte
             $entityManager->flush();
 
             // Envoi du SMS
-            // $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
-            // $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
-            // $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
-            // $client = new Client($account_sid, $auth_token);
+            $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
+            $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
+            $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
+            $client = new Client($account_sid, $auth_token);
     
         
-            // $recipient_phone_number = '+21692404237';  
+            $recipient_phone_number = '+21692404237';  
     
-            // $client->messages->create(
-            //     $recipient_phone_number,
-            //     [
-            //         'from' => $twilio_number,
-            //         'body' => 'Une nouvelle oeuvre a été ajoutée : " ' . $oeuvreart->getTitre() . '" Venez la découvrir sur ArtVue !',
-            //     ]
-            // );
+            $client->messages->create(
+                $recipient_phone_number,
+                [
+                    'from' => $twilio_number,
+                    'body' => 'Une nouvelle oeuvre a été ajoutée : " ' . $oeuvreart->getTitre() . '" Venez la découvrir sur ArtVue !',
+                ]
+            );
             
             // Redirection vers la page d'index des œuvres d'art
             return $this->redirectToRoute('app_galerieOeuvre_artiste', [], Response::HTTP_SEE_OTHER);

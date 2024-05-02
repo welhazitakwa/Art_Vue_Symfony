@@ -780,5 +780,16 @@
 }
 
 </script>
+<!-- QRCODE -->
+		<script>
+			function toggleQRCode(idoeuvreart) {
+				var qrCodeImg = document.getElementById('qrCode' + idoeuvreart);
+				if (qrCodeImg.style.display === 'none') {
+					qrCodeImg.style.display = 'block';
+				} else {
+					qrCodeImg.style.display = 'none';
+				}
+			}
+		</script>
 </body>
 </html>

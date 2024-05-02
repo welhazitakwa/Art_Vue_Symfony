@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Categorie;
 use App\Entity\Likes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,61 +15,80 @@ use App\Entity\Utilisateur;
 use App\Repository\LikesRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\OeuvreartRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\QrCode;
 
 class GalerieController extends AbstractController
 {
+
     #[Route('/galerieCategorie', name: 'app_galerie')]
     public function index(Request $request, EntityManagerInterface $entityManager, OeuvreartRepository $oeuvreartRepository, LikesRepository $likesRepository): Response
     {
-        // Appeler la méthode calculateLikes pour obtenir le nombre de likes pour chaque œuvre
-        $likesCountForEachOeuvre = $this->calculateLikes();
-
         // Récupérer toutes les catégories
         $categories = $entityManager->getRepository(Categorie::class)->findAll();
-
+    
         // Récupérer tous les œuvres d'art par défaut
         $oeuvrearts = $entityManager->getRepository(Oeuvreart::class)->findAll();
-
+    
         // Récupérer les paramètres de recherche
         $search = $request->query->get('search');
         $searchCategory = $request->query->get('category');
-
+    
         // Filtrer les œuvres d'art en fonction des critères de recherche
         if ($search || $searchCategory) {
             $oeuvrearts = $oeuvreartRepository->findByArtistAndCategory($search, $searchCategory);
+        }
+        
+        // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
+        $likesCountForEachOeuvre = [];
+
+        // Récupérer le nombre de likes pour chaque œuvre d'art
+        foreach ($oeuvrearts as $oeuvreart) {
+            $oeuvreId = $oeuvreart->getIdoeuvreart();
+            $likesCount = $likesRepository->countLikesForOeuvreArt($oeuvreId);
+            $likesCountForEachOeuvre[$oeuvreId] = $likesCount;
         }
 
         return $this->render('galerie/galerie.html.twig', [
             'categories' => $categories,
             'oeuvrearts' => $oeuvrearts,
-            'likesCountForEachOeuvre' => $likesCountForEachOeuvre,
+            'likesCountForEachOeuvre' => $likesCountForEachOeuvre, // Passer les résultats à la vue Twig
         ]);
     }
 
-    #[Route('/calculate-likes', name: 'calculate_likes')]
-    public function calculateLikes(): array
+
+    
+    //---------QR CODE--------------------
+    #[Route('/oeuvre/qr-code/{id}', name: 'oeuvre_qr_code')]
+    public function generateQRCode(int $id, OeuvreartRepository $oeuvreartRepository): Response
     {
-        // Récupérer le gestionnaire d'entités
-        $entityManager = $this->getDoctrine()->getManager();
-
-        // Récupérer tous les likes où estLike est true
-        $likes = $entityManager->getRepository(Likes::class)->findBy(['estlike' => true]);
-
-        // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
-        $likesCountForEachOeuvre = [];
-
-        // Parcourir les likes et compter le nombre de likes pour chaque œuvre
-        foreach ($likes as $like) {
-            $oeuvreId = $like->getIdoeuvreart()->getIdoeuvreart();
-            if (!isset($likesCountForEachOeuvre[$oeuvreId])) {
-                $likesCountForEachOeuvre[$oeuvreId] = 1;
-            } else {
-                $likesCountForEachOeuvre[$oeuvreId]++;
-            }
-        }
-
-        return $likesCountForEachOeuvre;
+        $oeuvreArt = $oeuvreartRepository->find($id); 
+        $qrCodeContent = "\n****Information d'artiste**** ";
+        $qrCodeContent .= "\nNom: " . $oeuvreArt->getIdArtiste()->getNom();
+        $qrCodeContent .= "\nPrenom: " . $oeuvreArt->getIdArtiste()->getPrenom();
+        $qrCodeContent .= "\nAdresse: " . $oeuvreArt->getIdArtiste()->getAdresse();
+        $qrCodeContent .= "\nEmail: " . $oeuvreArt->getIdArtiste()->getEmail();
+        $qrCodeContent .= "\nTelephone: " . $oeuvreArt->getIdArtiste()->getNumtel();
+        
+        // Add more details as needed
+    
+        $qrCode = new QrCode($qrCodeContent);
+        $qrCode->setSize(200);
+        $qrCode->setMargin(10);
+    
+        // Create QR code image
+        $writer = new PngWriter();
+        $result = $writer->write($qrCode);
+    
+        // Return response with QR code image
+        return new Response($result->getString(), Response::HTTP_OK, ['Content-Type' => $result->getMimeType()]);
     }
+
+    
+
 
     
     
@@ -189,39 +209,32 @@ class GalerieController extends AbstractController
 
 
 
-    // #[Route('/calculate-likes', name: 'calculate_likes')]
-    // public function calculateLikes(): Response
-    // {
-    //     // Récupérer le gestionnaire d'entités
-    //     $entityManager = $this->getDoctrine()->getManager();
+    #[Route('/calculate-likes', name: 'calculate_likes')]
+public function calculateLikes(): JsonResponse
+{
+    // Récupérer le gestionnaire d'entités
+    $entityManager = $this->getDoctrine()->getManager();
 
-    //     // Récupérer tous les likes où estLike est true
-    //     $likes = $entityManager->getRepository(Likes::class)->findBy(['estlike' => true]);
+    // Récupérer tous les likes où estLike est true
+    $likes = $entityManager->getRepository(Likes::class)->findBy(['estlike' => true]);
 
-    //     // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
-    //     $likesCountForEachOeuvre = [];
+    // Initialiser un tableau pour stocker le nombre de likes pour chaque œuvre
+    $likesCountForEachOeuvre = [];
 
-    //     // Parcourir les likes et compter le nombre de likes pour chaque œuvre
-    //     foreach ($likes as $like) {
-    //         $oeuvreId = $like->getIdoeuvreart()->getIdoeuvreart();
-    //         if (!isset($likesCountForEachOeuvre[$oeuvreId])) {
-    //             $likesCountForEachOeuvre[$oeuvreId] = 1;
-    //         } else {
-    //             $likesCountForEachOeuvre[$oeuvreId]++;
-    //         }
-    //     }
+    // Parcourir les likes et compter le nombre de likes pour chaque œuvre
+    foreach ($likes as $like) {
+        $oeuvreId = $like->getIdoeuvreart()->getIdoeuvreart();
+        if (!isset($likesCountForEachOeuvre[$oeuvreId])) {
+            $likesCountForEachOeuvre[$oeuvreId] = 1;
+        } else {
+            $likesCountForEachOeuvre[$oeuvreId]++;
+        }
+    }
 
-    //     // Afficher les résultats
-    //     foreach ($likesCountForEachOeuvre as $oeuvreId => $likesCount) {
-    //         echo "Nombre de likes pour l'œuvre d'art avec l'ID $oeuvreId : $likesCount <br>";
-    //     }
-        
-    //      return $this->json($likesCountForEachOeuvre);
-        
-    //     // Ou bien, afficher les résultats dans un template Twig
-    //     //  return $this->render('galerie/galerie.html.twig', ['likesCountForEachOeuvre' => $likesCountForEachOeuvre]);
-    // }
-   
+    // Retourner les résultats sous forme de réponse JSON
+    return new JsonResponse($likesCountForEachOeuvre);
+}
+
 
     
 

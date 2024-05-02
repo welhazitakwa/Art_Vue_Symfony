@@ -97,6 +97,8 @@ public function getPrixVenteData()
             ->getQuery()
             ->getResult();
     }
+    
+    
 
 
 
