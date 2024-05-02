@@ -21,11 +21,21 @@ class UtilisateurType extends AbstractType
     {
         $dateActuelle = new DateTime();
         $builder
-            ->add('nom')
-            ->add('prenom', )
-            ->add('email')
-            ->add('login')
-            ->add('mdp',PasswordType::class)
+            ->add('nom' , TextType::class, [
+                'required' => false,
+            ])
+            ->add('prenom' , TextType::class, [
+                'required' => false,
+            ] )
+            ->add('email' , TextType::class, [
+                'required' => false,
+            ])
+            ->add('login' , TextType::class, [
+                'required' => false,
+            ])
+            ->add('mdp',PasswordType::class , [
+                'required' => false,
+            ])
             ->add('profil',ChoiceType::class, [
             'choices' => [
                 'Je suis un client' => '2',

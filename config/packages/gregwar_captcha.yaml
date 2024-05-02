@@ -1,0 +1,4 @@
+# config/packages/gregwar_captcha.yaml
+
+gregwar_captcha:
+    font_dir: '%kernel.project_dir%/public/fonts/captcha/'
