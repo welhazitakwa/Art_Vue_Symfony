@@ -107,6 +107,7 @@
                                                         <th>CIN</th>
                                                         <th>Age</th>
                                                         <th>Membre depuis</th>
+                                                        {# <th>Profile</th> #}
                                                         <th>Etat </th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -144,7 +145,21 @@
                                              {% set age = aujourdhui.diff(u.dateNaissance).y %}
                                              {{ age }}
                                              {% else %} Non <br> disponible {% endif %}</span></td>
-                                             <td> {{ u.dateInscription | date('y-m-d')}} </td>
+                                             <td> 
+                                             <div >     
+                                                        <div class="project-title">
+                                            {% if u.profil == 1 %}
+                                            Artiste depuis
+        
+        {% elseif  u.profil == 2 %} 
+        Client depuis
+        {% endif %}
+ 
+                                            
+                                            
+                                            
+                                            <br />        
+                                             {{ u.dateInscription | date('y-m-d')}} </td>
 
 
     {# ---------------------------------bloquer debloquer #}
