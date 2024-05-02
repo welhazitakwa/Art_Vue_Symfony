@@ -10,37 +10,87 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\VenteencheresRepository;
+use App\Entity\Venteencheres;
 
 #[Route('/offreenchere')]
 class OffreenchereController extends AbstractController
 {
     #[Route('/', name: 'app_offreenchere_index', methods: ['GET'])]
-    public function index(OffreenchereRepository $offreenchereRepository): Response
+    public function index(OffreenchereRepository $offreenchereRepository, VenteencheresRepository $venteencheresRepository): Response
     {
-        return $this->render('offreenchere/index.html.twig', [
-            'offreencheres' => $offreenchereRepository->findAll(),
-        ]);
-    }
+        // Récupérer toutes les ventes aux enchères
+        $venteencheres = $venteencheresRepository->findAll();
 
-    #[Route('/new', name: 'app_offreenchere_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $offreenchere = new Offreenchere();
-        $form = $this->createForm(OffreenchereType::class, $offreenchere);
-        $form->handleRequest($request);
+        // Créer un tableau pour stocker les offres associées à chaque vente aux enchères
+        $offresParVente = [];
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($offreenchere);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_offreenchere_index', [], Response::HTTP_SEE_OTHER);
+        // Pour chaque vente aux enchères, récupérer les offres associées
+        foreach ($venteencheres as $venteenchere) {
+            $offresParVente[$venteenchere->getId()] = $offreenchereRepository->findBy(['idVenteenchere' => $venteenchere->getId()]);
         }
 
-        return $this->renderForm('offreenchere/new.html.twig', [
-            'offreenchere' => $offreenchere,
-            'form' => $form,
+        // Rendre la vue avec les ventes aux enchères et les offres associées
+        return $this->render('offreenchere/index.html.twig', [
+            'venteencheres' => $venteencheres,
+            'offresParVente' => $offresParVente,
         ]);
     }
+
+    #[Route('/new/{venteenchere_id}', name: 'app_offreenchere_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, int $venteenchere_id, VenteencheresRepository $venteencheresRepository, OffreenchereRepository $offreenchereRepository): Response
+    {
+        // Récupérer la vente aux enchères correspondante
+        $venteenchere = $venteencheresRepository->find($venteenchere_id);
+    
+        if (!$venteenchere) {
+            throw $this->createNotFoundException('La vente aux enchères correspondante n\'existe pas.');
+        }
+    
+        // Récupérer l'offre précédente associée à la même vente
+        $offrePrecedente = $offreenchereRepository->findOneBy(['idVenteenchere' => $venteenchere], ['date' => 'DESC']);
+    
+        // Si aucune offre précédente n'existe, comparer avec le prix de départ de la vente
+        $prixComparaison = $offrePrecedente ? $offrePrecedente->getMontant() : $venteenchere->getPrixdepart();
+    
+        // Créer une nouvelle instance d'Offreenchere
+        $offreenchere = new Offreenchere();
+        $offreenchere->setIdVenteenchere($venteenchere);
+    
+        // Créer le formulaire
+        $form = $this->createForm(OffreenchereType::class, $offreenchere);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Comparaison entre le montant de l'offre et le montant de comparaison
+            if ($offreenchere->getMontant() > $prixComparaison) {
+                // Supprimer l'offre précédente s'il existe
+                if ($offrePrecedente) {
+                    $entityManager->remove($offrePrecedente);
+                }
+                $entityManager->persist($offreenchere);
+                $entityManager->flush();
+    
+                // Ajouter un message flash de succès
+                $this->addFlash('success', 'Votre offre a été ajoutée avec succès.');
+                return $this->redirectToRoute('app_offreenchere_index');
+            } else {
+                // Ajouter un message flash d'erreur si l'offre n'est pas supérieure à la comparaison
+                $this->addFlash('error', 'Votre offre doit être supérieure à l\'offre précédente ou au prix de départ de la vente.');
+            }
+        }
+    
+        // Rendre la vue avec les données nécessaires
+        return $this->render('offreenchere/new.html.twig', [
+            'offreenchere' => $offreenchere,
+            'venteenchere' => $venteenchere,
+            'prixComparaison' => $prixComparaison,
+            'form' => $form->createView(),
+        ]);
+    }
+    
+    
+
 
     #[Route('/{id}', name: 'app_offreenchere_show', methods: ['GET'])]
     public function show(Offreenchere $offreenchere): Response

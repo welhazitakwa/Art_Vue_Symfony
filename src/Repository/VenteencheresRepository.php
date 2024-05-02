@@ -21,6 +21,15 @@ class VenteencheresRepository extends ServiceEntityRepository
         parent::__construct($registry, Venteencheres::class);
     }
 
+    public function search($searchTerm)
+    {
+        return $this->createQueryBuilder('v')
+            ->andWhere('v.id LIKE :searchTerm OR v.datedebut LIKE :searchTerm OR v.datefin LIKE :searchTerm OR v.prixdepart LIKE :searchTerm OR v.statue LIKE :searchTerm')
+            ->setParameter('searchTerm', '%' . $searchTerm . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Venteencheres[] Returns an array of Venteencheres objects
 //     */

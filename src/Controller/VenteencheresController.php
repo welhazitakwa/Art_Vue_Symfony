@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 #[Route('/venteencheres')]
 class VenteencheresController extends AbstractController
@@ -18,6 +20,13 @@ class VenteencheresController extends AbstractController
     public function index(VenteencheresRepository $venteencheresRepository): Response
     {
         return $this->render('venteencheres/index.html.twig', [
+            'venteencheres' => $venteencheresRepository->findAll(),
+        ]);
+    }
+    #[Route('/back', name: 'app_venteencheres_index1', methods: ['GET'])]
+    public function index1(VenteencheresRepository $venteencheresRepository): Response
+    {
+        return $this->render('venteencheresb/index.html.twig', [
             'venteencheres' => $venteencheresRepository->findAll(),
         ]);
     }
@@ -78,4 +87,16 @@ class VenteencheresController extends AbstractController
 
         return $this->redirectToRoute('app_venteencheres_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/venteencheres/search', name: 'app_venteencheres_search', methods: ['GET'])]
+    public function search(Request $request, VenteencheresRepository $venteencheresRepository): JsonResponse
+    {
+        $searchTerm = $request->query->get('q');
+    
+        // Effectuer la recherche dans la base de données
+        $results = $venteencheresRepository->search($searchTerm);
+    
+        // Retourner les résultats au format JSON
+        return $this->json($results);
+    }
+    
 }

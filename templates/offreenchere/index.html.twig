@@ -1,39 +1,99 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseArtiste.html.twig' %}
 
 {% block title %}Offreenchere index{% endblock %}
 
 {% block body %}
     <h1>Offreenchere index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Montant</th>
-                <th>Date</th>
-                <th>IdUtilisateur</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for offreenchere in offreencheres %}
-            <tr>
-                <td>{{ offreenchere.id }}</td>
-                <td>{{ offreenchere.montant }}</td>
-                <td>{{ offreenchere.date ? offreenchere.date|date('Y-m-d') : '' }}</td>
-                <td>{{ offreenchere.idUtilisateur }}</td>
-                <td>
-                    <a href="{{ path('app_offreenchere_show', {'id': offreenchere.id}) }}">show</a>
-                    <a href="{{ path('app_offreenchere_edit', {'id': offreenchere.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        {% if venteencheres is not empty %}
+            {% set prix_depart = [] %}
+            {% for venteenchere in venteencheres %}
+                {% set prix_depart = prix_depart|merge([venteenchere.prixdepart]) %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Vente aux enchères ID: {{ venteenchere.id }}</h5>
+                            <p class="card-text">Date de début: {{ venteenchere.datedebut|date('d/m/Y H:i') }}</p>
+                            <p class="card-text">Date de fin: {{ venteenchere.datefin|date('d/m/Y H:i') }}</p>
+                            <p class="card-text">Prix de départ: {{ venteenchere.prixdepart }} DT</p>
+                            <p class="card-text">Statut: {% if venteenchere.statue %}En cours{% else %}Terminée{% endif %}</p>
 
-    <a href="{{ path('app_offreenchere_new') }}">Create new</a>
+                            {% if offresParVente[venteenchere.id] is not empty %}
+                                <h6 class="mt-3">Offres associées :</h6>
+                                <ul>
+                                    {% for offreenchere in offresParVente[venteenchere.id] %}
+                                        <li>{{ offreenchere.montant }} (ID: {{ offreenchere.id }})</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>Aucune offre associée à cette vente aux enchères</p>
+                            {% endif %}
+
+                            <a href="{{ path('app_offreenchere_new', {'venteenchere_id': venteenchere.id}) }}" class="btn btn-primary">
+                                Ajouter une offre
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            <div class="col-md-12">
+                <canvas id="differencePrixChart"></canvas>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var labels = [];
+                    var differences = [];
+
+                    {% for venteenchere in venteencheres %}
+                        var prixDepart = {{ venteenchere.prixdepart }};
+                        var prixActuel = {% if offresParVente[venteenchere.id] is not empty %}
+                            {% set prix_actuel = 0 %}
+                            {% for offreenchere in offresParVente[venteenchere.id] %}
+                                {% set prix_actuel = offreenchere.montant %}
+                            {% endfor %}
+                            {{ prix_actuel }}
+                        {% else %}
+                            prixDepart
+                        {% endif %};
+                        var difference = prixActuel - prixDepart;
+                        labels.push("Vente ID: {{ venteenchere.id }}");
+                        differences.push(difference);
+                    {% endfor %}
+
+                    var ctx = document.getElementById('differencePrixChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Différence de prix',
+                                data: differences,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
+            </script>
+            
+        {% else %}
+            <div class="col">
+                <p>Aucune vente aux enchères trouvée</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

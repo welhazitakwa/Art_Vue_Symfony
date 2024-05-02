@@ -1,9 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseArtiste.html.twig' %}
 
 {% block title %}New Offreenchere{% endblock %}
 
 {% block body %}
     <h1>Create new Offreenchere</h1>
+
+    {# Affichage des messages flash #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <p>Prix de départ : {{ prixComparaison }}</p>
 
     {{ include('offreenchere/_form.html.twig') }}
 
