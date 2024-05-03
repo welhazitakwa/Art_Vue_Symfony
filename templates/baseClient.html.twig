@@ -106,15 +106,9 @@
 										<a href="{{ path('app_about') }}">A props de nous</a>
 									</li>
 									<li>
-										<a href="#">Oeuvre d'art</a>
-										<ul class="sub-menu">
-											<li>
+										
 												<a href="{{ path('app_galerie') }}">Galerie   </a>
-											</li>
-											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
-											</li>
-										</ul>
+											
 									</li>
 									<li>
 										<a href="#">Pages</a>
@@ -844,8 +838,81 @@
 			</div>
 		</div>
 	</div>
+
+</div></div>
+<!-- end copyright -->
+<!-- jquery -->
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap --><script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+<!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+<!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+<!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+<!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+<!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+<!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+<script>
+    // Fonction pour basculer entre like et dislike
+    function toggleLike(icon, idOeuvreArt) {
+    // Vérifier si l'icône est déjà remplie ou vide
+    if (icon.classList.contains('far')) {
+        // Icône vide, changer en icône remplie et augmenter le nombre de likes
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = 'red';
+
+        // Appeler la méthode like du contrôleur Symfony via AJAX
+        fetch('/like/' + idOeuvreArt, {
+            method: 'POST', // Utiliser la méthode POST pour envoyer des données
+            headers: {
+                'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+            },
+            body: JSON.stringify({ idOeuvreArt: idOeuvreArt }), // Convertir l'objet en chaîne JSON
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Afficher la réponse du serveur dans la console
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite:', error);
+        });
+
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) + 1;
+    } else {
+        // Icône remplie, changer en icône vide et diminuer le nombre de likes
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = 'black'; // Couleur par défaut pour une icône vide
+
+        // Supprimer le like (optionnel)
+
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) - 1;
+    }
+}
+
+</script>
+<!-- QRCODE -->
+		<script>
+			function toggleQRCode(idoeuvreart) {
+				var qrCodeImg = document.getElementById('qrCode' + idoeuvreart);
+				if (qrCodeImg.style.display === 'none') {
+					qrCodeImg.style.display = 'block';
+				} else {
+					qrCodeImg.style.display = 'none';
+				}
+			}
+		</script>
+</body>
+</html>
+
 </div></div><!-- end copyright -->
 <!-- jquery -->
 <script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
 <!-- bootstrap -->
 <script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>
+
