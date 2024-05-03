@@ -68,7 +68,7 @@
             <div class="logo i">
             <img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS">
             </div>
-            <h4 style="margin-bottom:20px;">Formulaire d'inscription</h4>
+            <h4 style="margin-bottom:5px;margin-bottom:-5px">Formulaire d'inscription</h4>
               <br/>
             <form method="post">
                 {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }} 
@@ -91,20 +91,65 @@
 
 
 <label></label>
-{{ form_widget(form.prenom, {'attr': {'placeholder': 'Prénom', 'style': 'width: 195px;border: none; margin-bottom: -20px;'}}) }}
- <label></label>
 
-{{ form_widget(form.nom, {'attr': {'placeholder': 'Nom', 'style': 'width: 197px;border: none; margin-bottom: -20px;'}})}}
+{% if form_errors(form.prenom) is not empty %}
+
+                        <div class=" alert-danger " style="width: 100px;" >
+                           {{ form_errors(form.prenom) }}
+                           </div>
+  {% elseif form.prenom | length == 0 %}
+<div class=" alert-danger " style="width: 197px; margin-bottom: 5px" >
+                        Ce champ est obligatoire 
+                                                      </div>
+                        {% endif %}
+                        {{ form_widget(form.prenom, {'attr': {'placeholder': 'Prénom', 'style': 'width: 195px;border: none; margin-bottom: -20px;'}}) }}
+
+{# {{ form_widget(form.nom, {'attr': {'placeholder': 'Nom', 'style': 'width: 197px;border: none; margin-bottom: -20px;'}})}}
+{% if form_errors(form.prenom) is not empty %}
+<br>
+<br>
+                        <div class=" alert-danger " style="width: 197px;" >
+                           {{ form_errors(form.prenom) }}
+                           </div>
+                        {% endif %} #} 
+                        
+                        
+                        {{ form_widget(form.nom, {'attr': {'placeholder': 'Nom', 'style': 'width: 197px;border: none; margin-bottom: -20px;'}})}}
+                        
+                        {% if form_errors(form.nom) is not empty %}
+                        <div class=" alert-danger " style="width: 197px;" >
+                           {{ form_errors(form.nom) }}
+                           </div>
+                        {% elseif form_errors(form.nom) | length == 0 %}
+                        <div class=" alert-danger " style="width: 195px; margin-left:200px; margin-top:-63px" > Ce champ est obligatoire </div>
+                        <br>
+                        <br>
+                        {% endif %}
+                       
 
 
               <label><i class="fa fa-user-circle-o"></i></label>
              {#  <input type="text" placeholder="Login"> #}
                  {{ form_widget(form.login, {'attr': {'placeholder': 'Login'}}) }}
+                 {% if form_errors(form.login) is not empty  %}
+                        <div class="alert alert-danger brd-5" >
+                           {{ form_errors(form.login) }}
+                           </div>
+                        {% endif %}
               <label><i class="fa fa-envelope"></i></label>
               {{ form_widget(form.email, {'attr': {'placeholder': 'Email'}}) }}
+              {% if form_errors(form.email) is not empty %}
+                        <div class="alert alert-danger brd-5" >
+                           {{ form_errors(form.email) }}
+                           </div>
+                        {% endif %}
 <label><i class="fa fa-unlock-alt"></i></label>
  {{ form_widget(form.mdp, {'attr': {'placeholder': 'Mot De Passe'}}) }}
-
+{% if form_errors(form.mdp) is not empty %}
+                        <div class="alert alert-danger brd-5" >
+                           {{ form_errors(form.mdp) }}
+                           </div>
+                        {% endif %}
 
               {# <label><i class="fa fa-unlock-alt"></i></label>
               <input type="password" placeholder="Confirmer Mot De Passe"> #}

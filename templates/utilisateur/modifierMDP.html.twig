@@ -31,34 +31,34 @@
         <div class="admin-lock vh100"> 
           <div class="admin-form">
             <div class="logo"><img style="margin-left:10px;"  src="{{ asset('TemplateAdmin/images/0.png') }}" width="180" height="100" alt="OUUPS"></div>
-            <h4>Mot de Passe Oublié</h4> <br>
-            {% if user == "aucun utilisateur n'est trouvé avec cet email" %} 
-     <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
-                        <p><strong>aucun utilisateur n'est trouvé avec cet email</strong> 
+            <h4>Modification de mot de passe</h4> <br>
+             <span> Vous pouvez maintenant modifier votre mot de passe </span>
+             {% if success == "Code Invalide" %} 
+     <div class="alert alert-danger brd-5"> 
+        <i><img src="images/danger-icon.html" alt="" /></i>
+        <p><strong>Merci de saisir un nouveau mot de passe</strong> 
+     </div>
+                          {% elseif success == "success" %}   
+                           <div class="alert alert-success brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
+                        <p><strong>Votre mot de passe était modifié avec succés <br> vous pouvez reconnecter maintenant</strong> 
                            </div>
-                           {% elseif user == "Ce champ est Obligatoire !" %}   
-                           <div class="alert alert-danger brd-5"> <i><img src="images/danger-icon.html" alt="" /></i>
-                        <p><strong>Ce champ est Obligatoire !</strong> 
-                           </div>
-                           {% endif %}           
-                             <span>Entez Votre Email </span>
+                           {% endif %}
+
             <form method="post">
               {{ form_start(form ,{'attr':{'novalidate':'novalidate'}}) }}
               <label><i class="fa fa-envelope"></i></label>
-                {{ form_widget(form.email, {'attr': {'placeholder': ' Votre Adresse Email'}}) }}
-                {% if form_errors(form.email) is not empty %}
-                        <div class="alert alert-danger brd-5" >
-                           {{ form_errors(form.email) }}
-                           </div>
-                        {% endif %}
+                {{ form_widget(form.mdp, {'attr': {'placeholder': ' nouveau mot de passe '}}) }}
               <button style="margin-top:40px;" type="submit">
               <h4 style="color: #f0edea;"> <b> 
-              {{ button_label|default("Récupérer le mot de passe") }}  </b> </h4>
+              {{ button_label|default("Modifier") }}  
+              </b> </h4>
               </button>
               {{ form_end(form) }}
             </form>
+          <b>  <a  href="{{path('login_user')}}"   style="color:#d5989e;font-size:20px; margin-left:260px"> Reconnecter </a> <b>
+
           </div>
-        </div>
+                    </div>
       </div>
     </div>
   </div>
@@ -70,5 +70,4 @@
 {% endblock %}
 </body>
 
-<!-- Mirrored from wpkixx.com/html/wooble/forgot-pass.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:42:00 GMT -->
 </html>

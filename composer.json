@@ -13,8 +13,11 @@
     "doctrine/doctrine-migrations-bundle": "^3.3",
     "doctrine/orm": "^2.18.0",
     "dompdf/dompdf": "^2.0",
+
     "endroid/qrcode": "*",
-    "endroid/qrcode-bundle": "^5.0",
+    "endroid/qr-code-bundle": "^5.0",
+    "gregwar/captcha-bundle": "^2.2",
+
     "knplabs/knp-paginator-bundle": "^5.9",
     "knplabs/knp-snappy-bundle": "^1.10",
     "pagerfanta/pagerfanta": "*",

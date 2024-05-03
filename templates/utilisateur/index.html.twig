@@ -8,6 +8,7 @@
 {% block body %}
 
 
+
 	<div class="panel-body">
 		<div class="content-area">
 			<div class="sub-bar">
@@ -200,3 +201,211 @@
 
 
 			{% endblock %}
+
+<div class="panel-body">
+                                <div class="content-area">
+                                    <div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des utilisateurs                                               </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="{{path('app_home')}}" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Dashbord</li>
+                                        </ul>
+                                    </div>
+                                    <div class="info-section">
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta">
+                                                <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Nombre des artistes</span>
+                                                     {% set variable3 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                        {% if u.profil == 1 %}
+                                                            {% set variable3 = variable3 + 1 %}
+                                                        {% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable3 }}</h4>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Nombre des clients</span>
+                                                                           {% set variable2 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                    
+
+{% if u.profil == 2 %}
+    {% set variable2 = variable2 + 1 %}
+{% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable2 }}</h4>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline_three"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-widget style2">
+                                            <div class="b-meta"> <img src="{{ asset('TemplateAdmin/images/icon-5.png') }}" alt="">
+                                                <div class="info-meta">
+                                                    <span>Nombre des utilisateurs bloqué</span>
+                                                    {% set variable1 = 0 %}
+                                                    {% for u in utilisateurs %}
+                                                    
+
+{% if u.etatCompte == 1 %}
+    {% set variable1 = variable1 + 1 %}
+{% endif %}
+                                                   {% endfor %}
+
+                                                    <h4>{{ variable1 }}</h4>
+                                                </div>
+                                                <div class="spark">
+                                                    <div class="sparkline22"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget">
+                                        <div class="widget-title no-margin">
+                                            <h4>Liste des utilisateurs</h4>
+                                            <ul class="widget-controls">                         <li>
+                                            <a href="{{ path('generate_pdf')}}" style="height:40px;" 
+                                            title="" class="btn-st blu-clr">Générer pdf</a></li>
+                                            <li> 
+                                            <div class="t-search">
+                                                <input style="height:40px;margin-top:-80px;" type="text" id="searchInput" placeholder="Enter Your Keyword">
+                                        </div>
+                                            
+                                            
+ </li>
+                                            </ul>
+                                           
+                                        </div>
+                                        <div class="main-table"  id="tableContainer">
+                                            <table class="table table-hover table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom & Prenom</th>
+                                                        <th>Cordonnées</th>
+                                                        <th>Téléphone</th>
+                                                        <th>CIN</th>
+                                                        <th>Age</th>
+                                                        <th>Membre depuis</th>
+                                                        {# <th>Profile</th> #}
+                                                        <th>Etat </th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>{% for u in utilisateurs %}
+                                                {% if u.profil  != 0 %}
+                                                    <tr> 
+                                                    <td>
+                                                    <div class="owner-pic"> <img src="{{ asset('oeuvre/' ~ u.image) }}" alt="Image" style="width: 40px; height: 40px">
+                                                    </div><div class="owner-info">
+                                                    <h6>{{ u.nom }} {{u.prenom}} </h6>
+                                                    <span> 
+                                              {% if u.genre is not null %}
+                                              {% if u.genre == "Femme"%}
+                                              <i class="fa fa-female"></i> &nbsp; {{ u.genre }}
+                                              {% else %} <i class="fa fa-male"></i> &nbsp; {{ u.genre }} {% endif %}
+                                              {% else %} Non disponible {% endif %}
+                                                     </span> </div> </td>
+                                                   
+                                                        <td> <div >    
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-envelope-o"></i> &nbsp; {{ u.email }}</span> <br/>        
+                        <span><i class="fa  fa-key"></i> &nbsp; {{ u.login }} </span>        
+                                                        </td>
+                                                        <td> 
+                                                        <div >     
+                                                        <div class="project-title">
+                        <span><i class="fa  fa-home"></i> &nbsp;  {{ u.adresse }}</span>  <br />        
+                        <span><i class="fa  fa-phone"></i> &nbsp; {{ u.numTel }} </span> 
+                                            </td>
+                                            <td><span > {{u.cin}} </span></td>
+                                            <td><span > 
+                                             {% if u.dateNaissance is not null %}
+                                             {% set aujourdhui = date('now') %}
+                                             {% set age = aujourdhui.diff(u.dateNaissance).y %}
+                                             {{ age }}
+                                             {% else %} Non <br> disponible {% endif %}</span></td>
+                                             <td> 
+                                             <div >     
+                                                        <div class="project-title">
+                                            {% if u.profil == 1 %}
+                                            Artiste depuis
+        
+        {% elseif  u.profil == 2 %} 
+        Client depuis
+        {% endif %}
+ 
+                                            
+                                            
+                                            
+                                            <br />        
+                                             {{ u.dateInscription | date('y-m-d')}} </td>
+
+
+    {# ---------------------------------bloquer debloquer #}
+            <td>   
+
+ {% if u.etatCompte == 0 %}
+    <a href="{{ path('utilisateurBlockage', {'id': u.id}) }}" class="del-btn"  onclick="return confirm('Êtes-vous sûr de bloquer {{u.Nom}} {{u.prenom }} ?')">
+            <i class="fa fa-unlock" style="color:green;"></i> débloqué</a> 
+   {% else %} 
+   <a href="{{ path('utilisateurBlockage', {'id': u.id}) }}" class="del-btn"  onclick="return confirm('Êtes-vous sûr de débloquer {{u.Nom}} {{u.prenom }} ?')">
+            <i class="fa fa-lock" style="color:orange;"></i> bloqué</a> 
+  {% endif %}
+
+
+
+
+            
+            </td>
+
+    {# ---------------------------------bloquer debloquer #}
+
+
+                                            <td>
+                                                    
+             <a href="{{ path('utilisateurDelete', {'id': u.id}) }}" class="del-btn"  onclick="return confirm('Êtes-vous sûr de vouloir supprimer {{u.Nom}} {{u.prenom }} ?')"><i     class="icon-trash" style="color:red;"></i></a> 
+            {# <a href="#" class="edit-btn"><i class="icon-pencil"  style="color:green;"></i></a> #}
+                                             </td>
+                                            </tr>
+                                            {% endif %}
+                                                   {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+<script>
+    function filterTable() {
+        var input = document.getElementById('searchInput').value.toLowerCase();
+        var tableRows = document.querySelectorAll('#tableContainer tbody tr');
+
+        tableRows.forEach(function(row) {
+            var rowData = row.innerText.toLowerCase();
+            if (rowData.indexOf(input) > -1) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    // Ajouter un écouteur d'événement pour le champ de recherche
+    document.getElementById('searchInput').addEventListener('input', filterTable);
+</script>
+		{% endblock %}
+

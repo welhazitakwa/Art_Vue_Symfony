@@ -6,6 +6,7 @@ use App\Repository\UtilisateurRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(
     name: "utilisateur",
@@ -23,30 +24,44 @@ class Utilisateur
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:"2",
+    minMessage:"Votre nom doit contenir au moin 2 lettres")]
     private ?string $nom = null;
 
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(min:"2",
+    minMessage:"Votre nom doit contenir au moin 2 lettres")]
     private ?string $prenom = null;
 
-
-    #[ORM\Column(length: 255)]
+   
+    #[ORM\Column(length: 255)]  
+    #[Assert\Email(message: "l'email {{ value }} is not a valid email.",)]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $email = null;
 
 
     #[ORM\Column]
+    #[Assert\Length(min:"8",max:"8",
+    minMessage:"Le numéro de téléphone avoir exactement 8 chiffres",
+    maxMessage:"Le numéro de téléphone avoir exactement 8 chiffres")]
     private ?int $numtel = null;
 
     
 
      #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $login = null;
 
 
    #[ORM\Column]
+   #[Assert\Length(min:"8",max:"8",
+    minMessage:"Le numéro de téléphone avoir exactement 8 chiffres",
+    maxMessage:"Le numéro de téléphone avoir exactement 8 chiffres")]
     private ?int $cin = null;
 
     #[ORM\Column(length: 255)]
+    // #[Assert\NotBlank(message: "champ obligatoire")]
     private ?string $mdp = null;
 
 

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Reversed and split list</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700"><link rel="stylesheet" href="./style.css">
+
+</head>
+<style>
+
+body {
+	margin: 0;
+	padding: clamp(1rem, 2vw, 3rem);
+	font-family: "Open Sans", sans-serif;
+}
+
+a {
+	color: inherit;
+}
+
+.wrapper {
+	max-width: 80rem;
+	margin: 0 auto;
+}
+
+ol {
+	padding: 0.5rem 0.5rem 0.5rem 4em;
+	border: 0.1rem solid turquoise;
+	columns: 15rem;
+	column-gap: 3rem;
+	column-rule: 2px dotted turquoise;
+	border-radius: 0.5rem;
+}
+
+
+::marker {
+	content: counters(list-item, '') ': ';
+	font-size: 0.5em;
+	color: turquoise;
+}
+
+li span {
+	display: block;
+}
+
+li span:first-child {
+	font-size: 1em;
+}
+
+li span:last-child {
+	font-style: italic;
+}
+
+.divider {
+	min-height: 2rem;
+	background: lavender;
+}
+</style>
+<body>
+
+<div class="wrapper">
+	 <center> <h1 style="color:#d5989e;">liste des utilisateurs à {{date('now') | date('y-m-d')}}</h1> </center>
+	Liste des clients 
+	<ol reversed start="1">
+	{% for u in utilisateurs %}
+	{% if u.profil  == 2 %}
+		<li>
+			<span>{{ u.nom }} {{u.prenom}}
+						
+			 {% if u.etatCompte == 0 %}
+    
+            <i class="fa fa-unlock" style="color:green;">débloqué</i> 
+   {% else %} 
+
+            <i class="fa fa-lock" style="color:orange;"> bloqué
+  {% endif %}</i> 
+			</span>
+		</li>
+		  {% endif %}
+ {% endfor %}
+	</ol>
+	
+	<div class="divider"></div>
+	
+		Liste des Artistes
+	<ol reversed start="1">
+	{% for u in utilisateurs %}
+	{% if u.profil  == 1 %}
+		<li>
+			<span>   {{ u.nom }} {{u.prenom}}  
+				
+			 {% if u.etatCompte == 0 %}
+    
+            <i class="fa fa-unlock" style="color:green;">débloqué</i> 
+   {% else %} 
+
+            <i class="fa fa-lock" style="color:orange;"> bloqué
+  {% endif %}</i> </span>
+		</li>
+		  {% endif %}
+ {% endfor %}
+	</ol>
+</div>
+<!-- partial -->
+  
+</body>
+</html>
