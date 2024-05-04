@@ -24,7 +24,7 @@ class LoginType extends AbstractType
             ])
             ->add('captcha', CaptchaType::class, array(
                 'width' => 200,
-                'height' => 40,
+                'height' => 60,
                 'length' => 5,
                 'required' => false,
             ));
