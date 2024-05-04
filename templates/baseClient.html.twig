@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -110,6 +111,13 @@
 												<a href="{{ path('app_galerie') }}">Galerie   </a>
 											
 									</li>
+                  	<li class="current-list-item"><a href="{{ path('app_concoursclient_index') }}">Concours</a>
+									<ul class="sub-menu">
+										<li><a href="{{ path('app_concoursclient_index') }}">Liste Des Concours</a></li>
+										<li><a href="{{ path('app_vote_index') }}">Consulter Mes Votes</a></li>
+										<li><a href="{{ path('concours_calendar') }}">Calendrier Des Concours</a></li>
+									</ul>
+								</li>
 									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
@@ -234,6 +242,7 @@
 							<div class="mobile-menu"></div>
 							<!-- menu end -->
 						</div>
+
 					</div>
 				</div>
 			</div>

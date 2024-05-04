@@ -57,10 +57,12 @@ class Likes
         return $this;
     }
 
+
     public function getIdutilisateur(): ?Utilisateur
     {
         return $this->idutilisateur;
     }
+
 
     public function setIdutilisateur(?Utilisateur $idutilisateur): static
     {

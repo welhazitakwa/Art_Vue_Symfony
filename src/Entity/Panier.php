@@ -2,41 +2,65 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PanierRepository;
+use DateTime;
 
-/**
- * Panier
- *
- * @ORM\Table(name="panier", indexes={@ORM\Index(name="fk_client", columns={"client"})})
- * @ORM\Entity
- */
+
+ #[ORM\Table(name: "panier", indexes: [
+    new ORM\Index(name: "fk_client", columns: ["client"]),
+])]
+
+#[ORM\Entity(repositoryClass: "App\Repository\PanierRepository")]
+
 class Panier
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+  
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateAjout", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-    private $dateajout = 'CURRENT_TIMESTAMP';
+    #[ORM\Column(type: 'date', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?DateTime $dateajout = null;
 
-    /**
-     * @var \Utilisateur
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="client", referencedColumnName="id")
-     * })
-     */
-    private $client;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "client", referencedColumnName: "id")]
+   private ?Utilisateur $client;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDateajout(): ?\DateTimeInterface
+    {
+        return $this->dateajout;
+    }
+
+    public function setDateajout(\DateTimeInterface $dateajout): static
+    {
+        $this->dateajout = $dateajout;
+
+        return $this;
+    }
+
+    public function getClient(): ?Utilisateur
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Utilisateur $client): static
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getClient()->getNom(); 
+    }
 
 }

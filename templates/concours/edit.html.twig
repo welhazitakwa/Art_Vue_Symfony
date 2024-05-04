@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block js %}
+	<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+	<!-- scripts -->
+	<script src="{{ asset('TemplateAdmin/js/event-calendar/jquery.eventCalendar.min.js') }}"></script>
+{% endblock %}
+
+{% block title %}Edit Concours
+{% endblock %}
+
+{% block body %}
+	<div class="panel-body">
+		<div class="content-area">
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Dashboard:</h4>
+					<span>Formulaire jeux Concours</span>
+				</div>
+
+			</div>
+
+			<div class="inner-bg">
+
+				<h1>Modifier  Concours</h1>
+				<span>Veuillez remplir le formulaire ci-dessous:</span>
+			</div>
+			<div class="widget">
+				<div class="widget-title no-margin">
+					<div class="add-prod-from">
+						<div class="row">
+							{# Inclure le formulaire de modification du concours avec le label du bouton "Update" #}
+							{{ include('concours/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
