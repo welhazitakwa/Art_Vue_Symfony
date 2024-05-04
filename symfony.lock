@@ -38,6 +38,15 @@
             "./migrations/.gitignore"
         ]
     },
+    "endroid/qr-code-bundle": {
+        "version": "5.0.1"
+    },
+    "endroid/qrcode-bundle": {
+        "version": "5.0.1"
+    },
+    "gregwar/captcha-bundle": {
+        "version": "v2.2.0"
+    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
     },
@@ -50,6 +59,7 @@
             "ref": "c81bdcf4a9d4e7b1959071457f9608631865d381"
         }
     },
+
     "mailgun/mailgun-php": {
         "version": "4.2",
         "recipe": {
@@ -71,6 +81,7 @@
             "./config/packages/http_discovery.yaml"
         ]
     },
+
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
