@@ -195,7 +195,7 @@ class ConcoursGagnantsController extends AbstractController
 
         // Créer l'e-mail à envoyer
         $email = (new Email())
-            ->from('Mariem.Saieb@esprit.tn') // Adresse de l'expéditeur
+            ->from('artvuecontact@gmail.com') // Adresse de l'expéditeur
             ->to($artiste->getEmail()) // Adresse du gagnant
             ->subject('Félicitations pour avoir gagné le concours !')
             ->text("Félicitations, vous avez remporté le concours : {$concours->getTitre()}. Nombre de votes : {$votesParOeuvre[0]['votes']}.");

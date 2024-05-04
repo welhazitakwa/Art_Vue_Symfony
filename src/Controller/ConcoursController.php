@@ -21,6 +21,8 @@ use CalendarBundle\CalendarEvents;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\CalendarEvent;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Repository\UtilisateurRepository;
 
 
 #[Route('/concours')]
