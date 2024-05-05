@@ -20,7 +20,11 @@ class PanieroeuvreRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Panieroeuvre::class);
     }
+   
+    
+   
 
+    
 //    /**
 //     * @return Panieroeuvre[] Returns an array of Panieroeuvre objects
 //     */

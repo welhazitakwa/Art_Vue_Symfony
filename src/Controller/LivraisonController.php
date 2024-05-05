@@ -10,15 +10,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/livraison')]
 class LivraisonController extends AbstractController
 {
     #[Route('/', name: 'app_livraison_index', methods: ['GET'])]
-    public function index(LivraisonRepository $livraisonRepository): Response
+    public function index(LivraisonRepository $livraisonRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $livraisons = $livraisonRepository->findAll();
+        $livraisons = $paginator->paginate(
+            $livraisons,
+            $request->query->getInt('page', 1),
+            4,
+        );
         return $this->render('livraison/index.html.twig', [
-            'livraisons' => $livraisonRepository->findAll(),
+            'livraisons' =>  $livraisons
         ]);
     }
 

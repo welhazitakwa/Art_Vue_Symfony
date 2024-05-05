@@ -30,6 +30,7 @@ class OeuvreartRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
     public function findLastThreeAddedArtworks()
     {
     return $this->createQueryBuilder('oeuvre')
@@ -99,11 +100,6 @@ public function getPrixVenteData()
     }
     
     
-
-
-
-
-
 
 
 //    /**

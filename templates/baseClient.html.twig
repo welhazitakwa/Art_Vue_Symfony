@@ -66,7 +66,13 @@
 			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
 			<!-- responsive -->
 			<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
-
+<!-- css panier -->
+ <style>
+        .product-image {
+            height: 200px; /* Ajustez cette valeur en fonction de vos besoins */
+            object-fit: cover; /* Pour ajuster la taille de l'image tout en préservant les proportions */
+        }
+    </style>
 		{% endblock %}
 
 	</head>
@@ -118,6 +124,8 @@
 										<li><a href="{{ path('concours_calendar') }}">Calendrier Des Concours</a></li>
 									</ul>
 								</li>
+                <li><a href="{{ path('panier_afficher_commandes')}}">Commandes</a></li>
+
 									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
@@ -177,8 +185,8 @@
 									</li>
 									<li>
 										<div class="header-icons">
-											<a class="shopping-cart" href="cart.html">
-												<i class="fas fa-shopping-cart"></i>
+<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}">
+<i class="fas fa-shopping-cart"></i></a>
 											</a>
 											{# <li>
 												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
@@ -924,4 +932,3 @@
 <script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
 <!-- bootstrap -->
 <script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>
-

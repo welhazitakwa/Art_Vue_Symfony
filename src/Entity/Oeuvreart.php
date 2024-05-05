@@ -163,8 +163,14 @@ class Oeuvreart
         $this->idArtiste = $idArtiste;
         return $this;
     }
+    
+    public function __toString(): string
+    {
+        return $this->getIdoeuvreart(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
+     }
     public function __construct()
     {
         $this->dateajout = (new \DateTime())->setTime(0, 0, 0); // Initialise la date d'ajout avec la date d'aujourd'hui
+
     }
 }

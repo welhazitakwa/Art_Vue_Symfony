@@ -3,24 +3,75 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-    <h1>Panier</h1>
+<div class="widget-title no-margin" style=" margin-top: 70px">
+		<h4 style ="color: #593A37">Détails du panier
+		{{ panier.id }}
+        </h4>
+		<ul class="bread-crumb">
+			<li>
+				<a href="{{ path('app_home') }}" title="">Home</a>
+			</li>
+			<li>Commerce</li>
+			<li>Panier</li>
+		</ul>
+	</div>
+    <div class="gap no-gap">
+		<div class="inner-bg">
+			<div class="product-details">
+				<div class="gap no-top">
+					<div class="product-details-wrapper paddlr70">
+						<div class="product-detail paddlr100">
+							<div class="row">
+								<div class="col-lg-5 col-md-5">
+<br>
+										<h5 style="color: #87695D; font-weight: bold; font-size: 17px;">
+											Date d'ajout :
+											<span style="font-weight: normal; color: #87695D;">{{panier.dateajout ?panier.dateajout|date('Y-m-d') : '' }}</span>
+										</h5>
+                                        <h5  style="color: #87695D; font-weight: bold; font-size: 17px;">Id Panier
+                                        											<span style="font-weight: normal; color: #87695D;">{{panier.id }}</span>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ panier.id }}</td>
-            </tr>
-            <tr>
-                <th>Dateajout</th>
-                <td>{{ panier.dateajout ? panier.dateajout|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                                        </h5>
+										<br>
+	<div class="card" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); background-color: #f8f9fa;">
+											<div class="card-body">
+												<h5 class="card-title" style="color: #87695D; font-weight: bold; font-size: 17px;">Informations du Client</h5>
+                                                <p class="card-text" style="font-weight: bold; color: #87695D; font-size: 14px;">ID:
+                                                	<span style="font-weight: normal; color: #87695D;">{{ panier.client.id }}
+													</span>
+                                                </p>
+												<p class="card-text" style="font-weight: bold; color: #87695D; font-size: 14px;">Nom et Prénom:
+													<span style="font-weight: normal; color: #87695D;">{{ panier.client.nom }}
+														{{ panier.client.prenom }}</span>
+												</p>
+												
 
-    <a href="{{ path('app_panier_index') }}">back to list</a>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>
+		<div class="cart-quantity d-flex justify-content-between">
+                                        <p> </p>
 
-    {{ include('panier/_delete_form.html.twig') }}
+											<a href="{{ path('app_panier_index') }}" style="color: #593A37; text-decoration: none;">
+    <i class="fa fa-arrow-left"></i> Retour à la liste
+</a>
+
+										</div>
+
+
+
+
+
+
+
+
+
+
 {% endblock %}

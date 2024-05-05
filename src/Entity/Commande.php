@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommandeRepository;
-use DateTime;
-
 
  #[ORM\Table(name: "commande", indexes: [
     new ORM\Index(name: "fk_panier", columns: ["panier"]),
@@ -24,11 +22,9 @@ class Commande
     #[ORM\Column]
     private ?float $montant = null;
 
-   
-   
-    #[ORM\Column(type: 'datetime', options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?DateTime $date = null;
-    
+    #[ORM\Column(type :"date")]
+    private ?\DateTimeInterface $date = null;
+
    #[ORM\Column(length: 255)]
     private ?string $etat = null;
   
@@ -36,6 +32,8 @@ class Commande
     #[ORM\ManyToOne(targetEntity: Panier::class)]
     #[ORM\JoinColumn(name: "panier", referencedColumnName: "id")]
    private ?Panier $panier;
+
+ 
 
     public function getId(): ?int
     {
@@ -89,6 +87,14 @@ class Commande
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getId(); // Ou une autre propriété de l'objet Panier que vous souhaitez afficher
+    }
+
+
+    
 
 
 }

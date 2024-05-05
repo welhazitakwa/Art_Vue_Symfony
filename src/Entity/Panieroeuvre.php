@@ -11,7 +11,7 @@ use App\Repository\PanieroeuvreRepository;
 
 ])]
 
-#[ORM\Entity(repositoryClass: "App\Repository\PanierRepository")]
+#[ORM\Entity(repositoryClass: "App\Repository\PanieroeuvreRepository")]
 
 class Panieroeuvre
 {
@@ -31,7 +31,7 @@ class Panieroeuvre
 
    #[ORM\ManyToOne(targetEntity: Panier::class)]
    #[ORM\JoinColumn(name: "id_panier", referencedColumnName: "id")]
-  private ?Oeuvreart $idPanier;
+  private ?Panier $idPanier;
   
 
     public function getId(): ?int
@@ -74,6 +74,7 @@ class Panieroeuvre
 
         return $this;
     }
+
 
 
 }
