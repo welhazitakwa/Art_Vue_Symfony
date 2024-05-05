@@ -120,7 +120,7 @@ $recipientEmail = 'oumeyma.benkram@esprit.tn';
 
   // Créer l'e-mail à envoyer
   $email = (new Email())
-  ->from('Mariem.Saieb@esprit.tn') // Adresse de l'expéditeur
+  ->from('oumeyma.benkram@esprit.tn') // Adresse de l'expéditeur
   ->to($recipientEmail) // Adresse du client
   ->subject('Fédélité!')
   ->text("Votre commande est terminée. La livraison est en cours");
