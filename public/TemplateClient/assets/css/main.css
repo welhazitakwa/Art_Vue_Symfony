@@ -211,6 +211,8 @@ p:last-child {
   animation: spinLeft 800ms linear infinite;
 }
 
+
+
 .circle:after {
   content: '';
   width: 6vmax;
@@ -773,11 +775,112 @@ a.mobile-show {
   display: none;
 }
 
+
+
 .search-area .search-bar div.search-bar-tablecell {
   display: table-cell;
   vertical-align: middle;
   height: auto;
 }
+
+/* Styles CSS pour le bouton d'ajout avec la classe btn-add */
+.btn-add {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 20px; 
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: #45a049; /* Changement de couleur au survol */
+}
+
+
+
+
+.t-search {
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  line-height: initial;
+}
+
+.t-search form input {
+  background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0;
+  border: medium none;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 12px;
+  padding: 12px 30px 12px 20px;
+  width: 297px;
+  line-height: initial;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.t-search form input::placeholder {
+  color: #fff;
+}
+
+.t-search form button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  color: #fff;
+  line-height: initial;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.t-search form {
+  display: inline-block;
+  position: relative;
+}
+
+.responsive-header .t-search {
+  float: left;
+  width: 100%;
+  margin-left: 0;
+}
+
+.responsive-header .t-search form {
+  float: left;
+  width: 100%;
+}
+.responsive-header .t-search form input {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  width: 100%;
+  padding-left: 20px;
+  background: #262626;
+  color: #fff;
+}
+
+.responsive-header .t-search form button {
+  right: 25px;
+}
+.main-page.gray .main-content .sub-bar .t-search input {
+  background: #fff none repeat scroll 0 0;
+  color: #333;
+}
+
 
 .search-bar-tablecell input {
   border: none;
@@ -1472,11 +1575,11 @@ input[type="submit"] {
 }
 
 .homepage-bg-2 {
-  background-image: url(../img/hero-bg-2.jpg);
+  background-image: url(../img/back2.jpg);
 }
 
 .homepage-bg-3 {
-  background-image: url(../img/hero-bg-3.jpg);
+  background-image: url(../img/back3.jpg);
 }
 
 .homepage-slider {
@@ -1614,7 +1717,7 @@ div.owl-controls, .owl-controls div {
 }
 
 .latest-news-bg {
-  height: 200px;
+  height: 250px;
   background-size: cover;
   background-position: center;
   border-radius: 10px;
@@ -2066,7 +2169,7 @@ a.video-play-btn {
 }
 
 .abt-bg {
-  background-image: url(../img/abt.jpg);
+  background-image: url(../img/artvue2.PNG);
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -2178,7 +2281,7 @@ a.video-play-btn {
 }
 
 .team-bg-2 {
-  background-image: url(../img/team/Nourhen.jpg);
+  background-image: url(../img/team/takwa.jpg);
 }
 
 .team-bg-3 {
@@ -2188,10 +2291,15 @@ a.video-play-btn {
 .team-bg-4 {
   background-image: url(../img/team/Nourhen.jpg);
 }
+.team-bg-5 {
+  background-image: url(../img/team/Nourhen.jpg);
+}
+.team-bg-6 {
+  background-image: url(../img/team/oumeyma.jpg);
+}
 
 .team-bg {
-  height: 350px;
-  width: 300px;
+  height: 400px;
   background-size: cover;
   background-position: center;
   border-radius: 5px;
@@ -2401,13 +2509,16 @@ ul.social-link-team li a {
   background-color: #D3A0A5;
   color: #fff;
 }
+.product-filters ul li:hover > a {
+  color: #D5989E;
+}
 
 .single-product-item {
   margin-bottom: 30px;
 }
 
 .product-image {
-  padding: 30px;
+  padding: 20px;
   padding-bottom: 0;
 }
 
@@ -2775,3 +2886,8 @@ table.order-details tbody td {
   vertical-align: middle;
   width: 100%;
 }
+
+
+
+
+

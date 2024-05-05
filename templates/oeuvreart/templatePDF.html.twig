@@ -1,0 +1,41 @@
+<h2 style="text-align: center;">Liste des œuvres d'art</h2>
+<p style="text-align: right;">Date d'impression : {{ "now"|date('Y-m-d H:i:s') }}</p>
+
+<table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid #ddd; padding: 8px;">Id</th>
+           
+            <th style="border: 1px solid #ddd; padding: 8px;">Titre</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Catégorie</th>
+            <th style="border: 1px solid #ddd; padding: 8px; width: 250px;">Description</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Prix</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Status</th>
+            <th style="border: 1px solid #ddd; padding: 8px;">Date d'ajout</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if oeuvrearts is not empty %}
+            {% for oeuvreart in oeuvrearts %}
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;" class="sr">{{ oeuvreart.idoeuvreart }}</td>
+                    
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ oeuvreart.titre }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ oeuvreart.idCategorie.nomcategorie }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ oeuvreart.description }}</td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <span class="progres">{{ oeuvreart.prixvente }} DT</span>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                        <span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
+                    </td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" style="border: 1px solid #ddd; padding: 8px;">Aucun enregistrement trouvé</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>

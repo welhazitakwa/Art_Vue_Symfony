@@ -1,0 +1,74 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Calendrier des concours
+{% endblock %}
+
+
+
+{% block body %}
+   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Explorez les Concours à Venir</p>
+						<h1>Calendrier </h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- latest news -->
+	<div class="latest-news pt-150 pb-150">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">
+						<h3>
+							<span class="orange-text">Découvrez </span>
+							les Concours du Mois !</h3>
+						<p>Explorez notre calendrier interactif pour ne manquer aucun concours passionnant ce mois-ci. Des prix incroyables vous attendent !.</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="calendar"></div>
+		</div>
+		<div class="row">
+				<div class="col-lg-12 text-center">
+					<a href="{{ path('app_concoursclient_index') }}" class="boxed-btn">Voir details</a>
+				</div>
+			</div>
+	</div>
+
+	
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/fullcalendar.min.js"></script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var events = {{ events|raw }};
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: events,
+            eventColor: '#D5989E', // Changer la couleur des événements en rouge
+            eventTextColor: 'white', // Changer la couleur du texte des événements en blanc
+            
+            eventClick: function(info) {
+                // Rediriger vers la page de vote des œuvres pour le concours sélectionné
+                window.location.href = "{{ path('app_concours_oeuvres', {id: 'CONCOUR_ID'}) }}".replace('CONCOUR_ID', info.event.id);
+            }
+        });
+
+        calendar.render();
+    });
+</script>
+
+
+{% endblock %}

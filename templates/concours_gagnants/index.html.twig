@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Concours Gagnants
+{% endblock %}
+{% block css %}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<title>Wooble Html5 Admin panel</title>
+	<link rel="icon" type="{{ asset('TemplateAdmin/image/png') }}" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+	<link
+	rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+	<!-- calander -->
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+
+
+	<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/event-calendar/eventCalendar.css') }}">
+
+	<link rel="icon" type="{{ asset('TemplateAdmin/image/png') }}" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+	<style>
+
+
+
+.button-29 {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-29:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-29:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+	.btn-container {
+    display: flex;
+}
+
+
+
+.btn-container form {
+    margin-right: 30px; /* Espacement horizontal entre les formulaires */
+}
+
+
+
+		.concours-container {
+			margin: 1rem;
+		}
+
+		.concours-section {
+			border: 1px solid #ccc;
+			padding: 1rem;
+			border-radius: 8px;
+			background-color: #f9f9f9;
+			margin-bottom: 2rem;
+		}
+
+		.oeuvres-row {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.oeuvre-item {
+			flex: 1;
+			text-align: center;
+		}
+
+		.oeuvre-image {
+			width: 200px; /* Taille fixe pour les images */
+			height: 200px; /* Taille fixe pour les images */
+			object-fit: cover; /* Garder le rapport de l'image tout en remplissant l'espace */
+			border-radius: 8px;
+			border: 1px solid #ccc;
+		}
+	</style>
+{% endblock %}
+{% block js %}
+
+
+	<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+	<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+	<!-- scripts -->
+	<script src="{{ asset('TemplateAdmin/js/event-calendar/jquery.eventCalendar.min.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+	<div class="panel-body">
+		<div class="content-area">
+			<h1>Concours Gagnants</h1>
+
+			{% for concoursData in gagnants %}
+
+				<div class="mega-menu demo">
+					<h1>Concours : {{ concoursData.concours.titre }}</h1></br></br>
+					<p>Date de début :
+						{{ concoursData.concours.dateDebut|date('d/m/Y') }}</p>
+					<p>Date de fin :
+						{{ concoursData.concours.dateFin|date('d/m/Y') }}</p></br>
+
+					<h3>Top 3 des œuvres gagnantes :</h3></br></br>
+
+					<div class="oeuvres-row">
+						{% for oeuvreData in concoursData.oeuvres %}
+							<div class="oeuvre-item">
+								<h4>{{ oeuvreData.oeuvre.titre }}</h4>
+								{% if oeuvreData.oeuvre.image %}
+									<img class="oeuvre-image" src="{{ asset('oeuvre/' ~ oeuvreData.oeuvre.image) }}" alt="{{ oeuvreData.oeuvre.titre }}">
+								{% endif %}
+								<p>Artiste :
+									{{ oeuvreData.oeuvre.idArtiste.nom }}</p>
+
+								<p>Nombre de votes :
+									{{ oeuvreData.votes }}</p>
+
+
+							</div>
+						{% endfor %}
+
+
+					</div></br></br>
+					<div class="btn-container">
+    {# Formulaire pour envoyer un email au premier gagnant #}
+    {% if concoursData.oeuvres|length > 0 %}
+        <form action="{{ path('app_concours_gagnants_envoyer_email', { 'concoursId': concoursData.concours.id }) }}" method="POST">
+            <button type="submit" class="button-29 ">Envoyer un email au premier gagnant</button>
+        </form>
+    {% endif %}
+    {% if concoursData.oeuvres|length > 0 %}
+        <form action="{{ path('app_concours_gagnants_envoyer_sms', { 'concoursId': concoursData.concours.id }) }}" method="POST">
+            <button type="submit" class="button-29 ">Envoyer un SMS au premier gagnant</button>
+        </form>
+    {% endif %}
+    {% if concoursData.oeuvres|length > 0 %}
+        <form action="{{ path('app_concours_gagnants_generer_pdf', {'concoursId': concoursData.concours.id, 'artisteId': concoursData.oeuvres[0].oeuvre.idArtiste.id}) }}" method="GET">
+            <button type="submit" class="button-29 ">Générer PDF pour le gagnant</button>
+        </form>
+    {% endif %}
+</div>
+
+
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

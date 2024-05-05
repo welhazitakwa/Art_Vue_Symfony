@@ -1,11 +1,9 @@
+{% extends 'baseClient.html.twig' %}
 
-	{% extends 'baseClient.html.twig' %}
-
-{% block title %}Details oeuvres{% endblock %}
-
+{% block title %}Galerie Show index
+{% endblock %}
 
 {% block body %}
-
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
@@ -31,75 +29,80 @@
 					</div>
 				</div>
 				<div class="col-md-7">
-					<div class="single-product-content">
-                    
-                    </br></br>
-						<h3>{{ oeuvreart.titre }}</h3>
-						<p class="single-product-pricing"> {{ oeuvreart.prixvente }} DT</p>
-						<p>{{ oeuvreart.description }}</p>
-						<div class="single-product-form">
-						<form action="{{ path('app_panier_add_oeuvre', {'oeuvreId': oeuvreart.idoeuvreart}) }}" method="post">
+					<div class="single-product-content"></br>
+				</br>
+				<h3>{{ oeuvreart.titre }}</h3>
+				<p class="single-product-pricing">
+					{{ oeuvreart.prixvente }}
+					DT</p>
+				<p>{{ oeuvreart.description }}</p>
+				<div class="single-product-form">
+			<form action="{{ path('app_panier_add_oeuvre', {'oeuvreId': oeuvreart.idoeuvreart}) }}" method="post">
     <input type="number" name="quantite" placeholder="0" value="1" min="1"> <!-- Ajout de min="1" pour s'assurer que la valeur minimale est 1 -->
     <button type="submit" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
 </form>
+						<strong>Catégorie:
+						</strong>
+						{{ oeuvreart.idCategorie.nomcategorie }}</p>
+				</div>
+				<h4>Informations d'artiste</h4>
+				<div class="col-sm-10">
 
-							<p><strong>Catégorie: </strong>{{ oeuvreart.idCategorie.nomcategorie }}</p>
-						</div>
-						<div id="alert-container"></div>
-
-						<h4>Share:</h4>
-						<ul class="product-share">
-							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href=""><i class="fab fa-twitter"></i></a></li>
-							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
-						</ul>
-					</div>
+					<p onclick="toggleQRCode({{ oeuvreart.idoeuvreart }})" style="color: red; cursor: pointer;">CLIQUER ICI</p>
+					<img id="qrCode{{ oeuvreart.idoeuvreart }}" src="{{ path('oeuvre_qr_code', { 'id': oeuvreart.idoeuvreart }) }}" style="display: none;">
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end single product -->
-
-	<!-- more products -->
-	<div class="more-products mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Autre</span> {{ oeuvreart.idCategorie.nomcategorie }}</h3>
-						<p>Explorez d'avantage de merveilles artistiques de la même catégorie, où l'imagination rencontre l'expression à travers une diversité d'œuvres extraordinaires</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- autre de meme catégorie -->
-
-        <div class="row">
-             {% for oeuvreart in similarOeuvres %}
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-                                <img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}">
-                            </a>
-                        </div>
-                        <h3>{{ oeuvreart.titre }}</h3>
-                        <p class="product-price"><span>Prix</span> {{ oeuvreart.prixvente }} DT</p>
-                        <a href="{{ path('app_oeuvreart_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-       
-    
-<!-- end autre de meme catégorie -->
+</div></div><!-- end single product --><!-- more products --><div class="more-products mb-150">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2 text-center">
+			<div class="section-title">
+				<h3>
+					<span class="orange-text">Autre</span>
+					{{ oeuvreart.idCategorie.nomcategorie }}</h3>
+				<p>Explorez d'avantage de merveilles artistiques de la même catégorie, où l'imagination rencontre l'expression à travers une diversité d'œuvres extraordinaires</p>
 			</div>
 		</div>
 	</div>
-	<!-- end more products -->
- 
+
+
+	<div class="row">
+
+		{% for oeuvreart in similarOeuvres %}
+			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+
+				<div class="single-latest-news" style="height: 400px;">
+					<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
+						<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+					</a>
+
+					<div class="news-text-box">
+						<h3>
+							<a href="single-news.html">{{ oeuvreart.titre }}</a>
+						</h3>
+						<p class="blog-meta">
+							<span class="author">
+								<i class="fas fa-user"></i>
+								{{ oeuvreart.idArtiste.nom }}
+								{{ oeuvreart.idArtiste.prenom }}</span>
+							<span class="date">
+								<i class="fas fa-calendar"></i>
+								{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
+						</p>
+
+
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+
+	<!-- end autre de meme catégorie -->
+</div></div></div><!-- end more products -->
+
 	<script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('form').addEventListener('submit', function (event) {
@@ -128,7 +131,4 @@
         });
     });
 </script>
-
-
-
 {% endblock %}

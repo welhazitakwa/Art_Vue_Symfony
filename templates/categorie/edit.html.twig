@@ -28,6 +28,8 @@
 							<div class="logo"><img src="/TemplateAdmin/images/categorieImage.png" style="width: 1000px; height: 270px;" alt=""></div>
 							<h4>Modifier Catégorie</h4>
 							<br>
+							{{ form_start(form,{'attr': {'novalidate': 'novalidate'}}
+							) }}
 							<form method="post">
 								{{ form_start(form) }}
 								{{ form_row(form.nomcategorie, {'label': 'Nom du catégorie à modifier'}) }}

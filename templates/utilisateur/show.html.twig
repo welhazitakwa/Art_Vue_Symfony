@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur{% endblock %}
+{% block title %}Consulter Profile{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+    {# <h1>Utilisateur</h1>
 
     <table class="table">
         <tbody>
@@ -70,9 +70,103 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+    <a href="{{ path('listUtilisateur') }}">back to list</a>
 
     <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
+    {{ include('utilisateur/_delete_form.html.twig') }} #}
+      <div class="panel-body">
+                            
+              <div class="content-area">
+                <div class="sub-bar">
+                  <div class="sub-title">
+                    <h4>Dashboard:</h4>
+                    <span>Consulter profile</span>
+                  </div>
+                  <ul class="bread-crumb">
+                    <li><a href="{{path('app_home')}}" title="">Home</a></li>
+                    <li>Dashbord</li>
+                  </ul>
+                </div>
+                <div class="profile">
+                  <div class="row merged">
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                      <div class="profile-bg"> <img src="{{ asset('TemplateAdmin/images/0.png') }}" alt="">
+                        <div class="admin-meta"> <img src="{{ asset('oeuvre/' ~ utilisateur.image) }}" alt="Image" style="width: 150px; height: 150px">
+                        
+                          <h5 >{{ utilisateur.nom }} <br/> {{ utilisateur.prenom }}</h5> </div>
+                      </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                      <div class="row">
+                        
+                        <div class="col-md-6 col-sm-6">
+                          <ul class="profile-socials">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                          </ul>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="sub-area">
+                            <ul>
+                              <li><a href="#" title=""><i class="fa fa-phone"></i> {{ utilisateur.numTel }} </a></li>
+                              <li><a href="#" title=""><i class="fa fa-envelope-o"></i>{{ utilisateur.email   }} </a></li>
+                              <li><a href="#" title=""><i class="fa ti-location-pin"></i> {{ utilisateur.adresse }} </a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="about">
+						  <div class="row">
+							<div class="col-md-6">
+							   <div class="widget-peding">
+                        <ul class="feeds">
+                          <li class="green"> <span class="date">Genre</span>
+                            <h5> {{ utilisateur.genre }} </h5>
+                          </li>
+                          <li class="green"> <span class="date">Date de Naissance</span>
+                            <h5> {{ utilisateur.dateNaissance | date('d-M-Y') }} , &nbsp;
+                            {% if utilisateur.dateNaissance is not null %}
+                                {% set aujourdhui = date('now') %}
+                                {% set age = aujourdhui.diff(utilisateur.dateNaissance).y %}
+                                {{ age }} ans
+                                {% else %} Non disponible {% endif %}</h5>
+                          </li>
+                          <li class="blue"> <span class="date">CIN</span>
+                            <h5>{{ utilisateur.cin }} </h5>
+                          </li>
+                          
+                        </ul>
+                      </div>
+						</div> 
+							<div class="col-md-6">
+							   <div class="widget-peding">
+                        <ul class="feeds">
+                          
+                          <li class="yellow"> <span class="date"> Membre Depuis </span>
+                            <h5> {{utilisateur.dateInscription | date('d-M-Y') }}  </h5>
+                          </li>
+                          <li class="red"> <span class="date">Login</span>
+                            <h5>{{  utilisateur.login }}</h5>
+                          </li>
+                          
+                        </ul>
+                      </div>
+						</div> 
+							</div>
+							
+               
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
+                
+              </div>
+              
+            </div>
+            
 {% endblock %}

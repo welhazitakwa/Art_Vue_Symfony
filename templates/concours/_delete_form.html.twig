@@ -1,5 +1,7 @@
 
 <form method="post" action="{{ path('app_concours_delete', {'id': concour.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ concour.id) }}">
-    <button class="btn">Supprimer</button>
+    <button type="submit" class="btn">
+        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 20px; height: 20px;">
+    </button>
 </form>

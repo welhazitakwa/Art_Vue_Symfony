@@ -1,56 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta
-		name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+{% extends 'baseClient.html.twig' %}
 
-		<!-- title -->
-		<title>Shop</title>
+{% block title %}Galerie index
+{% endblock %}
 
-		<!-- favicon -->
-		<link
-		rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png ') }}">
-		<!-- google font -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-		<link
-		href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-		<!-- fontawesome -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css ') }}">
-		<!-- bootstrap -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
-		<!-- owl carousel -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
-		<!-- magnific popup -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
-		<!-- animate css -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
-		<!-- mean menu css -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
-		<!-- main style -->
-		<link
-		rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
-		<!-- responsive -->
-		<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
-
-	</head>
-	<body>
-
-		<!--PreLoader-->
-		<div class="loader">
-			<div class="loader-inner">
-				<div class="circle"></div>
+{% block body %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Vibrant et Inspirant</p>
+						<h1>Galerie</h1>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!--PreLoader Ends-->
+<!--PreLoader Ends-->
 
 		<!-- header -->
 		<div class="top-header-area" id="sticker">
@@ -153,86 +119,87 @@
 							</nav>
 							<a class="mobile-show search-bar-icon" href="#">
 								<i class="fas fa-search"></i>
+
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- products -->
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="product-filters">
+						<ul>
+							<a href="{{ path('app_galerie') }}">
+								<li class="active">Tous</li>
 							</a>
-							<div class="mobile-menu"></div>
-							<!-- menu end -->
-						</div>
+							{% for categorie in categories %}
+								<a href="{{ path('app_galerie_by_categorieAff', {'idcategorie': categorie.idcategorie}) }}">
+									<li>{{ categorie.nomcategorie }}</li>
+								</a>
+							{% endfor %}
+						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- end header -->
 
-		<!-- search area -->
-		<div class="search-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<span class="close-btn">
-							<i class="fas fa-window-close"></i>
-						</span>
-						<div class="search-bar">
-							<div class="search-bar-tablecell">
-								<h3>Search For:</h3>
-								<input type="text" placeholder="Keywords">
-								<button type="submit">Search
+			<div class="row mb-4">
+				<div class="col-md-12">
+					<form action="{{ path('app_galerie') }}" method="GET">
+						<div class="input-group" style="margin-bottom: 20px;">
+							<input type="text" placeholder="Rechercher un artiste..." name="search" id="search" style="border: none; padding: 10px; width: 20%; background-color: transparent; border-bottom: 1px solid #A77B7F; text-align: center; font-size: 12px; font-weight: 400; color: #D3A0A5;">
+							<div class="input-group-append">
+								<button type="submit" style="border: none;
+																																																																																																														  background-color: #D3A0A5;
+																																																																																																														  padding: 5px 30px;
+																																																																																																														  cursor: pointer;
+																																																																																																														  display: inline-block;
+																																																																																																														  border-radius: 50px;
+																																																																																																														  font-weight: 400;">
 									<i class="fas fa-search"></i>
-								</button>
+									Rechercher</button>
 							</div>
 						</div>
-					</div>
+
+					</form>
 				</div>
 			</div>
-		</div>
-		<!-- end search arewa -->
 
-		<!-- breadcrumb-section -->
-		<div class="breadcrumb-section breadcrumb-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 offset-lg-2 text-center">
-						<div class="breadcrumb-text">
-							<p>Vibrant et Inspirant</p>
-							<h1>Galerie</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end breadcrumb section -->
 
-		<!-- products -->
-		<div class="product-section mt-150 mb-150">
-			<div class="container">
-
-				<div class="row">
+			<div class="row product-lists">
+				{% if oeuvrearts|length == 0 %}
 					<div class="col-md-12">
-						<div class="product-filters">
-							<ul>
-								<li class="active" data-filter="*">Tous</li>
-								{% for categorie in categories %}
-									<li data-filter=".{{ categorie.nomcategorie|lower }}">{{ categorie.nomcategorie }}</li>
-								{% endfor %}
-							</ul>
-						</div>
+						<p>Aucune œuvre d'art trouvée pour cette recherche.</p>
 					</div>
-				</div>
-
-
-				<div class="row product-lists">
+				{% else %}
 					{% for oeuvreart in oeuvrearts %}
-						<div class="col-lg-3 col-md-6 text-center">
-							<div class="single-product-item">
-								<div
-									class="product-image">
-									<!-- Ajout du bouton "Like" -->
-									<button class="like-btn" data-id="{{ oeuvreart.idoeuvreart }}">
-										<i class="far fa-heart"></i>
-									</button>
-									<!-- Affichage du nombre de likes -->
-									<span class="like-count">20 Likes</span>
-									<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
-										<img src="{{ asset('oeuvre/' ~ oeuvreart.image) }}" alt="{{ oeuvreart.titre }}" style="width: 150px; height: 200px">
+						<div class="col-lg-4 col-md-5">
+							<div class="single-latest-news" style="height: 500px;">
+								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+								<div class="news-text-box">
+
+									
+									<h3>
+										<a href="">{{ oeuvreart.titre }}</a>
+									</h3>
+									<p class="blog-meta">
+										<span class="author">
+											<i class="fas fa-user"></i>
+											{{ oeuvreart.idArtiste.nom }}
+											{{ oeuvreart.idArtiste.prenom }}
+										</span>
+										<span class="date">
+											<i class="fas fa-calendar"></i>
+											{{ oeuvreart.dateAjout|date('Y-m-d') }}
+										</span>
+									</p>
+									<p class="excerpt">
+										{{ oeuvreart.description|slice(0, 70) ~ '...' }}
+									</p>
+								
+									<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">Savoir plus
+										<i class="fas fa-angle-right"></i>
 									</a>
 								</div>
 								<h5>{{ oeuvreart.titre }}</h5>
@@ -245,150 +212,16 @@
 									<i class="fas fa-shopping-cart"></i>
 									Ajouter au panier
 								</a>
+
 							</div>
 						</div>
 					{% endfor %}
-				</div>
 
-
-				<div class="row">
-					<div class="col-lg-12 text-center">
-						<div class="pagination-wrap">
-							<ul>
-								<li><a href="#">Prev</a></li>
-								<li><a href="#">1</a></li>
-								<li><a class="active" href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">Next</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				{% endif %}
 			</div>
+
+
 		</div>
-		<!-- end products -->
-
-		<!-- logo carousel -->
-		<div class="logo-carousel-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="logo-carousel-inner">
-							<div class="single-logo-item">
-								<img src="{{ asset('TemplateClient/assets/img/company-logos/1.png') }}" alt="">
-							</div>
-							<div class="single-logo-item">
-								<img src="{{ asset('TemplateClient/assets/img/company-logos/2.png') }}" alt="">
-							</div>
-							<div class="single-logo-item">
-								<img src="{{ asset('TemplateClient/assets/img/company-logos/3.png') }}" alt="">
-							</div>
-							<div class="single-logo-item">
-								<img src="{{ asset('TemplateClient/assets/img/company-logos/4.png') }}" alt="">
-							</div>
-							<div class="single-logo-item">
-								<img src="{{ asset('TemplateClient/assets/img/company-logos/5.png') }}" alt="">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end logo carousel -->
-
-		<!-- footer -->
-		<div class="footer-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-box about-widget">
-							<h2 class="widget-title">About us</h2>
-							<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-box get-in-touch">
-							<h2 class="widget-title">Get in Touch</h2>
-							<ul>
-								<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-								<li>support@fruitkha.com</li>
-								<li>+00 111 222 3333</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-box pages">
-							<h2 class="widget-title">Pages</h2>
-							<ul>
-								<li><a href="index.html">Home</a></li>
-								<li><a href="about.html">About</a></li>
-								<li><a href="services.html">Shop</a></li>
-								<li><a href="news.html">News</a></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-box subscribe">
-							<h2 class="widget-title">Subscribe</h2>
-							<p>Subscribe to our mailing list to get the latest updates.</p>
-							<form action="index.html">
-								<input type="email" placeholder="Email">
-								<button type="submit">
-									<i class="fas fa-paper-plane"></i>
-								</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end footer -->
-
-		<!-- copyright -->
-		<div class="copyright">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<p>Copyrights &copy; 2019 -
-							<a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
-					</div>
-					<div class="col-lg-6 text-right col-md-12">
-						<div class="social-icons">
-							<ul>
-								<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-								<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- end copyright -->
-
-		<!-- jquery -->
-		<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
-		<!-- bootstrap -->
-		<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-		<!-- count down -->
-		<script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
-		<!-- isotope -->
-		<script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
-		<!-- waypoints -->
-		<script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
-		<!-- owl carousel -->
-		<script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
-		<!-- magnific popup -->
-		<script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
-		<!-- mean menu -->
-		<script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
-		<!-- sticker js -->
-		<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
-		<!-- main js -->
-		<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
-
-	</body>
-</html>
+	</div>
+	<!-- end products -->
+{% endblock %}

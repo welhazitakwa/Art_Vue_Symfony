@@ -1,35 +1,92 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseClient.html.twig' %}
 
-{% block title %}Vote index{% endblock %}
+{% block css %}
+	<style>
+		.product-image img {
+			width: 300px; /* Définir la largeur souhaitée */
+			height: 300px; /* Définir la hauteur souhaitée */
+			object-fit: cover; /* Pour conserver les proportions et remplir l'espace sans déformer l'image */
+		}
+	</style>
+	<link
+	rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link
+	href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
+	<!-- bootstrap -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
+	<!-- owl carousel -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
+	<!-- magnific popup -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
+	<!-- animate css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
+	<!-- mean menu css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
+	<!-- main style -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+{% endblock %}
+
+{% block title %}Vote index
+{% endblock %}
 
 {% block body %}
-    <h1>Vote index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Note</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for vote in votes %}
-            <tr>
-                <td>{{ vote.id }}</td>
-                <td>{{ vote.note }}</td>
-                <td>
-                    <a href="{{ path('app_vote_show', {'id': vote.id}) }}">show</a>
-                    <a href="{{ path('app_vote_edit', {'id': vote.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<h1>Mes Votes</h1>
 
-    <a href="{{ path('app_vote_new') }}">Create new</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+
+				{% if votes is empty %}
+					<p>Aucune œuvre n'a été votée pour le moment.</p>
+				{% else %}
+
+					{% for vote in votes %}
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="single-product-item">
+								<div class="product-image">
+
+									<img src="{{ asset('oeuvre/' ~ vote.getOeuvre().getImage()) }}" alt="Image de l'oeuvre">
+									<br>
+									<strong>Oeuvre:</strong>
+									{{ vote.getOeuvre().getTitre() }}<br>
+									<strong>Note:</strong>
+									{{ vote.getNote() }}<br>
+									<strong>Concours:</strong>
+									{{ vote.getConcours().getTitre() }}<br>
+								</div><br><br>
+								{{ include('vote/_delete_form.html.twig') }} 
+                                     <a href="{{ path('app_vote_edit', {'id': vote.getId()}) }}" class="read-more-btn">Modifier</a>
+
+							</div>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

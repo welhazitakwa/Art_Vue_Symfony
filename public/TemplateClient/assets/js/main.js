@@ -86,17 +86,37 @@
         }
 
         // projects filters isotop
-        $(".product-filters li").on('click', function () {
-            
-            $(".product-filters li").removeClass("active");
-            $(this).addClass("active");
-
-            var selector = $(this).attr('data-filter');
-
-            $(".product-lists").isotope({
-                filter: selector,
+        document.addEventListener("DOMContentLoaded", function() {
+            const filters = document.querySelectorAll(".product-filters ul li");
+    
+            filters.forEach(function(filter) {
+                filter.addEventListener("click", function() {
+                    const category = this.dataset.filter;
+    
+                    // Afficher toutes les œuvres d'art si "Tous" est sélectionné
+                    if (category === "*") {
+                        document.querySelectorAll(".product-item").forEach(function(item) {
+                            item.style.display = "block";
+                        });
+                    } else {
+                        // Sinon, masquer toutes les œuvres d'art
+                        document.querySelectorAll(".product-item").forEach(function(item) {
+                            item.style.display = "none";
+                        });
+    
+                        // Afficher les œuvres d'art de la catégorie sélectionnée
+                        document.querySelectorAll(category).forEach(function(item) {
+                            item.style.display = "block";
+                        });
+                    }
+    
+                    // Mettre à jour la classe active du filtre de catégorie
+                    filters.forEach(function(filter) {
+                        filter.classList.remove("active");
+                    });
+                    this.classList.add("active");
+                });
             });
-            
         });
         
         // isotop inner

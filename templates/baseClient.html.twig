@@ -1,36 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- title -->
-	<title> {% block title %} ArtVue {% endblock %} </title>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta
+		name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
-	<!-- favicon -->
-	{% block css%}
-<link rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
-<!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-<!-- fontawesome -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
-<!-- bootstrap -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
-<!-- owl carousel -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
-<!-- magnific popup -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
-<!-- animate css -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
-<!-- mean menu css -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
-<!-- main style -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
-<!-- responsive -->
-<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+		<!-- title -->
+		<title>
+			{% block title %}
+				ArtVue
+			{% endblock %}
+		</title>
+
+		<!-- favicon -->
+		{% block css%}
+		{# links to template admin #}
+		<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
+    <!-- calander -->
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+		{# links to template admin #}
+			<link
+			rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
+			<!-- google font -->
+			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+			<link
+			href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+			<!-- fontawesome -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
+			<!-- bootstrap -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
+			<!-- owl carousel -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
+			<!-- magnific popup -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
+			<!-- animate css -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
+			<!-- mean menu css -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
+			<!-- main style -->
+			<link
+			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
+			<!-- responsive -->
+			<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
 <!-- css panier -->
  <style>
         .product-image {
@@ -38,587 +73,862 @@
             object-fit: cover; /* Pour ajuster la taille de l'image tout en préservant les proportions */
         }
     </style>
-{% endblock %}
+		{% endblock %}
 
-</head>
-<body>
-	
-	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
-	<!-- header -->
-	<div class="top-header-area" id="sticker">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 col-sm-12 text-center">
-					<div class="main-menu-wrap">
-						<!-- logo -->
-						<div class="site-logo">
-							<a href="index.html">
-								<img src="{{ asset('TemplateClient/assets/img/artView.png') }}" alt="">
+	</head>
+	<body>
 
+		<!--PreLoader-->
+		<div class="loader">
+			<div class="loader-inner">
+				<div class="circle"></div>
+			</div>
+		</div>
+		<!--PreLoader Ends-->
+
+		<!-- header -->
+		<div class="top-header-area" id="sticker">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-sm-12 text-center">
+						<div
+							class="main-menu-wrap">
+							<!-- logo -->
+							<div class="site-logo">
+								<a href="index.html">
+									<img style="object-fit: cover; width: 60px; height: 60px;" src="{{ asset('TemplateClient/assets/img/artView.png') }}" alt="">
+
+								</a>
+							</div>
+							<!-- logo -->
+
+							<!-- menu start -->
+							<nav class="main-menu">
+								<ul>
+									<li class="current-list-item">
+										<a href="{{ path('app_home_client') }}">Home  </a>
+									
+									</li>
+									<li>
+										<a href="{{ path('app_about') }}">A props de nous</a>
+									</li>
+									<li>
+										
+												<a href="{{ path('app_galerie') }}">Galerie   </a>
+											
+									</li>
+                  	<li ><a href="{{ path('app_concoursclient_index') }}">Concours</a>
+									<ul class="sub-menu">
+										<li><a href="{{ path('app_concoursclient_index') }}">Liste Des Concours</a></li>
+										<li><a href="{{ path('app_vote_index') }}">Consulter Mes Votes</a></li>
+										<li><a href="{{ path('concours_calendar') }}">Calendrier Des Concours</a></li>
+									</ul>
+								</li>
+                <li><a href="{{ path('panier_afficher_commandes')}}">Commandes</a></li>
+
+									<li>
+										<a href="#">Pages</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="404.html">404 page</a>
+											</li>
+											<li>
+												<a href="about.html">About</a>
+											</li>
+											<li>
+												<a href="cart.html">Cart</a>
+											</li>
+											<li>
+												<a href="checkout.html">Check Out</a>
+											</li>
+											<li>
+												<a href="contact.html">Contact</a>
+											</li>
+											<li>
+												<a href="news.html">News</a>
+											</li>
+											<li>
+												<a href="shop.html">Shop</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="news.html">News</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="news.html">News</a>
+											</li>
+											<li>
+												<a href="single-news.html">Single News</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="contact.html">Contact</a>
+									</li>
+									<li>
+										<a href="shop.html">Shop</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="shop.html">Shop</a>
+											</li>
+											<li>
+												<a href="checkout.html">Check Out</a>
+											</li>
+											<li>
+												<a href="single-product.html">Single Product</a>
+											</li>
+											<li>
+												<a href="cart.html">Cart</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<div class="header-icons">
+<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}">
+<i class="fas fa-shopping-cart"></i></a>
+											</a>
+											{# <li>
+												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
+												</a> 											
+											</li> #}
+											
+										<a href="#">
+										<div class="admin">
+           <div class="admin-avatar">
+            <img src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 40px; height: 40px">
+              <i class="online"></i> </div>
+           </div>
+										
+										
+										
+										
+										
+										</a>
+										<ul class="sub-menu">
+											<li> 
+											
+											<center><b style="color:#d5989e;font-size:15px">
+											{{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }} :
+												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> {% if app.session.get('user_profil') == 0 %}
+                                              Admin
+                                              {% elseif app.session.get('user_profil') == 1 %} 
+                                              Artiste
+                                              {% else %}
+                                              Client
+                                              {% endif %} 
+												</a></b>	 </center>										
+											</li>
+											<li>
+												<a class="mobile-hide" href="{{ path('editprofileclient') }}"> <i class="fas fa-eye"></i> &nbsp; Consulter profile
+												</a> 											
+											</li>
+											<li>
+												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > <i class="fas fa-user-edit"></i> &nbsp; Modifier profile </a>
+											</li>
+											<li>
+												<a href="{{path('app_qr_codes')}}" > <i class="fas fa-qrcode"></i> &nbsp; QR CODE </a>
+											</li>
+											<li>
+												<a href="{{path('login_user')}}" > <i class="fas fa-sign-out-alt"></i>&nbsp;  Déconnexion </a>
+											</li>
+										</ul>
+									
+
+											{# <a class="mobile-hide search-bar-icon" href="#">
+												<i class="fas fa-user"></i>
+											</a> #}
+											{# user takwaaaa #}
+											
+										</div>
+									</li>
+								</ul>
+							</nav>
+							<a class="mobile-show search-bar-icon" href="#">
+								<i class="fas fa-search"></i>
 							</a>
+							<div class="mobile-menu"></div>
+							<!-- menu end -->
 						</div>
-						<!-- logo -->
 
-						<!-- menu start -->
-						<nav class="main-menu">
-							<ul>
-								<li class="current-list-item"><a href="{{ path('app_home_client')}}">Home</a>
-									<ul class="sub-menu">
-										<li><a href="{{ path('app_home_client')}}">Static Home</a></li>
-										<li><a href="{{ path('app_home_client')}}">Slider Home</a></li>
-									</ul>
-								</li>
-								<li><a href="{{ path('app_about') }}">About</a></li>
-								<li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
-									</ul>
-								</li>
-								<li><a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
-									</ul>
-								</li>
-								<li><a href="contact.html">Contact</a></li>
-								<li><a href="shop.html">Shop</a>
-									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
-									</ul>
-								</li>
-								<li><a href="{{ path('panier_afficher_commandes')}}">Commandes</a></li>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end header -->
 
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<!-- search area -->
+		<div class="search-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<span class="close-btn">
+							<i class="fas fa-window-close"></i>
+						</span>
+						<div class="search-bar">
+							<div class="search-bar-tablecell">
+								<h3>Search For:  {{ app.session.get('userConnected').nom}}   </h3>
+								<input type="text" placeholder="Keywords">
+								<button type="submit">Search
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end search area -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		{% block body %}
+
+			<!-- Continue à modifier -->
+
+
+			<!-- home page slider -->
+
+				<div
+				class="homepage-slider"> <!-- single home slider -->
+				<div class="single-homepage-slider homepage-bg-1">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
+								<div class="hero-text">
+									<div class="hero-text-tablecell">
+										<p class="subtitle">ArtVue Galerie</p>
+										<h1>Votre Fenêtre sur l'Art en Ligne !</h1>
+										<div class="hero-btns">
+											<a href="{{ path('app_galerie') }}" class="boxed-btn">Collection d'art</a>
+											<a href="contact.html" class="bordered-btn">Contact Us</a>
+										</div>
 									</div>
-								</li>
-							</ul>
-						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-						<div class="mobile-menu"></div>
-						<!-- menu end -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end header -->
-	
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search area -->
-    {% block body %} 
-
-	<!-- Continue à modifier -->
-
-
-	<!-- home page slider -->
-	
-	<div class="homepage-slider">
-		<!-- single home slider -->
-		<div class="single-homepage-slider homepage-bg-1">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
-						<div class="hero-text">
-							<div class="hero-text-tablecell">
-								<p class="subtitle">ArtVue Galerie</p>
-								<h1>Votre Fenêtre sur l'Art en Ligne !</h1>
-								<div class="hero-btns">
-									<a href="{{ path('app_galerie') }}" class="boxed-btn">Collection d'art</a>
-									<a href="contact.html" class="bordered-btn">Contact Us</a>
+				<!-- single home slider -->
+				<div class="single-homepage-slider homepage-bg-2">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1 text-center">
+								<div class="hero-text">
+									<div class="hero-text-tablecell">
+										<p class="subtitle">Des Œuvres d'Art uniques</p>
+										<h1>Une Touche Naturelle dans votre Décoration</h1>
+										<div class="hero-btns">
+											<a href="{{ path('app_galerie') }}" class="boxed-btn">Galerie</a>
+											<a href="contact.html" class="bordered-btn">Contact Us</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- single home slider -->
+				<div class="single-homepage-slider homepage-bg-3">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-10 offset-lg-1 text-right">
+								<div class="hero-text">
+									<div class="hero-text-tablecell">
+										<p class="subtitle">Profitez de nos</p>
+										<h1>
+											Offres Exceptionnelles!</h1>
+										<div class="hero-btns">
+											<a href="{{ path('app_galerie') }}" class="boxed-btn">Galerie</a>
+											<a href="contact.html" class="bordered-btn">Contact Us</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- single home slider -->
-		<div class="single-homepage-slider homepage-bg-2">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 offset-lg-1 text-center">
-						<div class="hero-text">
-							<div class="hero-text-tablecell">
-								<p class="subtitle">Fresh Everyday</p>
-								<h1>100% Organic Collection</h1>
-								<div class="hero-btns">
-									<a href="shop.html" class="boxed-btn">Visit Shop</a>
-									<a href="contact.html" class="bordered-btn">Contact Us</a>
+
+			<!-- end home page slider -->
+
+			<!-- features list section -->
+			<div class="list-section pt-80 pb-80">
+				<div class="container">
+
+					<div class="row">
+						<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+							<div class="list-box d-flex align-items-center">
+								<div class="list-icon">
+									<i class="fas fa-shipping-fast"></i>
+								</div>
+								<div class="content">
+									<h3>Livraison Gratuite</h3>
+									<p>Expédition Gratuite pour toute commande de plus de 150 DT</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+							<div class="list-box d-flex align-items-center">
+								<div class="list-icon">
+									<i class="fas fa-phone-volume"></i>
+								</div>
+								<div class="content">
+									<h3>Support 24/7</h3>
+									<p>Besoin d'Aide? Notre Équipe est Disponible 24h/24 pour vous Assister</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="list-box d-flex justify-content-start align-items-center">
+								<div class="list-icon">
+									<i class="fas fa-sync"></i>
+								</div>
+								<div class="content">
+									<h3>Remboursement</h3>
+									<p>Remboursement Garanti sous 3 jours!</p>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
-		</div>
-		<!-- single home slider -->
-		<div class="single-homepage-slider homepage-bg-3">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-10 offset-lg-1 text-right">
-						<div class="hero-text">
-							<div class="hero-text-tablecell">
-								<p class="subtitle">Mega Sale Going On!</p>
-								<h1>Get December Discount</h1>
-								<div class="hero-btns">
-									<a href="shop.html" class="boxed-btn">Visit Shop</a>
-									<a href="contact.html" class="bordered-btn">Contact Us</a>
+			<!-- end features list section -->
+
+			<!-- product section -->
+			<div class="product-section mt-150 mb-150">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 text-center">
+							<div class="section-title">
+								<h3>
+									<span class="orange-text">Derniers</span>
+									Ajouts</h3>
+								<p>Découvrez les dernières œuvres ajoutées aujourd'hui et plongez dans un monde d'émotions et de créativité, où chaque création raconte une histoire unique.</p>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="row">
+
+						{% for oeuvreart in lastThreeAddedArtworks %}
+							<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+
+								<div class="single-latest-news" style="height: 500px;">
+
+									<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+
+									<div class="news-text-box">
+										<h3>
+											<a href="single-news.html">{{ oeuvreart.titre }}</a>
+										</h3>
+										<p class="blog-meta">
+											<span class="author">
+												<i class="fas fa-user"></i>
+												{{ oeuvreart.idArtiste.nom }}
+												{{ oeuvreart.idArtiste.prenom }}</span>
+											<span class="date">
+												<i class="fas fa-calendar"></i>
+												{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
+										</p>
+										<p class="excerpt">
+											{{ oeuvreart.description|slice(0, 70) ~ '...' }}
+										</p>
+
+										<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ">Voir Plus
+											<i class="fas fa-angle-right"></i>
+										</a>
+
+
+									</div>
 								</div>
 							</div>
-						</div>
+
+						{% endfor %}
+						
 					</div>
-				</div>
+					<div class="row">
+			<div class="col-lg-12 text-center">
+				<a href="{{ path('app_galerie') }}" class="boxed-btn">Voir Plus</a>
 			</div>
 		</div>
-	</div>
-	
-	<!-- end home page slider -->
 
-	<!-- features list section -->
-	<div class="list-section pt-80 pb-80">
-		<div class="container">
 
-			<div class="row">
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-shipping-fast"></i>
-						</div>
-						<div class="content">
-							<h3>Free Shipping</h3>
-							<p>When order over $75</p>
-						</div>
-					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-					<div class="list-box d-flex align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-phone-volume"></i>
-						</div>
-						<div class="content">
-							<h3>24/7 Support</h3>
-							<p>Get support all day</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="list-box d-flex justify-content-start align-items-center">
-						<div class="list-icon">
-							<i class="fas fa-sync"></i>
-						</div>
-						<div class="content">
-							<h3>Refund</h3>
-							<p>Get refund within 3 days!</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<!-- end features list section -->
-
-	<!-- product section -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> Products</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{{ asset('TemplateClient/assets/img/products/product-img-1.jpg') }}" alt=""></a>
-
-						</div>
-						<h3>Strawberry</h3>
-						<p class="product-price"><span>Per Kg</span> 85$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{{ asset('TemplateClient/assets/img/products/product-img-2.jpg') }}" alt=""></a>
-
-						</div>
-						<h3>Berry</h3>
-						<p class="product-price"><span>Per Kg</span> 70$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="{{ asset('TemplateClient/assets/img/products/product-img-3.jpg') }}" alt=""></a>
-
-						</div>
-						<h3>Lemon</h3>
-						<p class="product-price"><span>Per Kg</span> 35$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end product section -->
-
-	<!-- cart banner section -->
-	<section class="cart-banner pt-100 pb-100">
-    	<div class="container">
-        	<div class="row clearfix">
-            	<!--Image Column-->
-            	<div class="image-column col-lg-6">
-                	<div class="image">
-                    	<div class="price-box">
-                        	<div class="inner-price">
-                                <span class="price">
-                                    <strong>30%</strong> <br> off per kg
-                                </span>
-                            </div>
-                        </div>
-                    	<img src="{{ asset('TemplateClient/assets/img/a.jpg') }}" alt="">
-
-                    </div>
-                </div>
-                <!--Content Column-->
-                <div class="content-column col-lg-6">
-					<h3><span class="orange-text">Deal</span> of the month</h3>
-                    <h4>Hikan Strwaberry</h4>
-                    <div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
-                    <!--Countdown Timer-->
-                    <div class="time-counter"><div class="time-countdown clearfix" data-countdown="2020/2/01"><div class="counter-column"><div class="inner"><span class="count">00</span>Days</div></div> <div class="counter-column"><div class="inner"><span class="count">00</span>Hours</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Mins</div></div>  <div class="counter-column"><div class="inner"><span class="count">00</span>Secs</div></div></div></div>
-                	<a href="cart.html" class="cart-btn mt-3"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end cart banner section -->
-
-	<!-- testimonail-section -->
-	<div class="testimonail-section mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 offset-lg-1 text-center">
-					<div class="testimonial-sliders">
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="{{ asset('TemplateClient/assets/img/avaters/avatar1.png') }}" alt="">
-
-							</div>
-							<div class="client-meta">
-								<h3>Saira Hakim <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="{{ asset('TemplateClient/assets/img/avaters/avatar2.png') }}" alt="">
-
-							</div>
-							<div class="client-meta">
-								<h3>David Niph <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
-						<div class="single-testimonial-slider">
-							<div class="client-avater">
-								<img src="{{ asset('TemplateClient/assets/img/avaters/avatar3.png') }}" alt="">
-
-							</div>
-							<div class="client-meta">
-								<h3>Jacob Sikim <span>Local shop owner</span></h3>
-								<p class="testimonial-body">
-									" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
-								</p>
-								<div class="last-icon">
-									<i class="fas fa-quote-right"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end testimonail-section -->
-	
-	<!-- advertisement section -->
-	<div class="abt-section mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-bg">
-						<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube"><i class="fas fa-play"></i></a>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-text">
-						<p class="top-sub">Since Year 1999</p>
-						<h2>We are <span class="orange-text">Fruitkha</span></h2>
-						<p>Etiam vulputate ut augue vel sodales. In sollicitudin neque et massa porttitor vestibulum ac vel nisi. Vestibulum placerat eget dolor sit amet posuere. In ut dolor aliquet, aliquet sapien sed, interdum velit. Nam eu molestie lorem.</p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente facilis illo repellat veritatis minus, et labore minima mollitia qui ducimus.</p>
-						<a href="about.html" class="boxed-btn mt-4">know more</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end advertisement section -->
-	
-	<!-- shop banner -->
-	<section class="shop-banner">
-    	<div class="container">
-        	<h3>December sale is on! <br> with big <span class="orange-text">Discount...</span></h3>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>50% <span>off</span></div>
-            <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
-        </div>
-    </section>
-	<!-- end shop banner -->
-
-	<!-- latest news -->
-	<div class="latest-news pt-150 pb-150">
-		<div class="container">
-
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">	
-						<h3><span class="orange-text">Our</span> News</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-1"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">You will vainly look for fruit on it in autumn.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-2"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">A man's worth has its season, like tomato.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-latest-news">
-						<a href="single-news.html"><div class="latest-news-bg news-bg-3"></div></a>
-						<div class="news-text-box">
-							<h3><a href="single-news.html">Good thoughts bear good fresh juicy fruit.</a></h3>
-							<p class="blog-meta">
-								<span class="author"><i class="fas fa-user"></i> Admin</span>
-								<span class="date"><i class="fas fa-calendar"></i> 27 December, 2019</span>
-							</p>
-							<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
-							<a href="single-news.html" class="read-more-btn">read more <i class="fas fa-angle-right"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<a href="news.html" class="boxed-btn">More News</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end latest news -->
-
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-    <div class="single-logo-item">
-        <img src="{{ asset('TemplateClient/assets/img/company-logos/1.png') }}" alt="">
-    </div>
-    <div class="single-logo-item">
-        <img src="{{ asset('TemplateClient/assets/img/company-logos/2.png') }}" alt="">
-    </div>
-    <div class="single-logo-item">
-        <img src="{{ asset('TemplateClient/assets/img/company-logos/3.png') }}" alt="">
-    </div>
-    <div class="single-logo-item">
-        <img src="{{ asset('TemplateClient/assets/img/company-logos/4.png') }}" alt="">
-    </div>
-    <div class="single-logo-item">
-        <img src="{{ asset('TemplateClient/assets/img/company-logos/5.png') }}" alt="">
-    </div>
+			</body>
+		</body>
+	</html>
 </div>
+<!-- end product section -->
 
+<!-- cart banner section -->
+<section class="cart-banner pt-100 pb-100">
+	<div class="container">
+		<div
+			class="row clearfix">
+			<!--Image Column-->
+			<div class="image-column col-lg-6">
+				<div class="image">
+					<div class="price-box">
+						<div class="inner-price">
+							<span class="price">
+								<strong>30%</strong>
+								<br>
+								off per kg
+							</span>
+						</div>
+					</div>
+					<img src="{{ asset('TemplateClient/assets/img/a.jpg') }}" alt="">
+
+				</div>
+			</div>
+			<!--Content Column-->
+			<div class="content-column col-lg-6">
+				<h3>
+					<span class="orange-text">Deal</span>
+					of the month</h3>
+				<h4>Hikan Strwaberry</h4>
+				<div class="text">Quisquam minus maiores repudiandae nobis, minima saepe id, fugit ullam similique! Beatae, minima quisquam molestias facere ea. Perspiciatis unde omnis iste natus error sit voluptatem accusant</div>
+				<!--Countdown Timer-->
+				<div class="time-counter">
+					<div class="time-countdown clearfix" data-countdown="2020/2/01">
+						<div class="counter-column">
+							<div class="inner">
+								<span class="count">00</span>Days</div>
+						</div>
+						<div class="counter-column">
+							<div class="inner">
+								<span class="count">00</span>Hours</div>
+						</div>
+						<div class="counter-column">
+							<div class="inner">
+								<span class="count">00</span>Mins</div>
+						</div>
+						<div class="counter-column">
+							<div class="inner">
+								<span class="count">00</span>Secs</div>
+						</div>
+					</div>
+				</div>
+				<a href="cart.html" class="cart-btn mt-3">
+					<i class="fas fa-shopping-cart"></i>
+					Add to Cart</a>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- end cart banner section -->
+
+<!-- testimonail-section -->
+<div class="testimonail-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10 offset-lg-1 text-center">
+				<div class="testimonial-sliders">
+					<div class="single-testimonial-slider">
+						<div class="client-avater">
+							<img src="{{ asset('TemplateClient/assets/img/avaters/avatar1.png') }}" alt="">
+
+						</div>
+						<div class="client-meta">
+							<h3>Saira Hakim
+								<span>Local shop owner</span>
+							</h3>
+							<p class="testimonial-body">
+								" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+							</p>
+							<div class="last-icon">
+								<i class="fas fa-quote-right"></i>
+							</div>
+						</div>
+					</div>
+					<div class="single-testimonial-slider">
+						<div class="client-avater">
+							<img src="{{ asset('TemplateClient/assets/img/avaters/avatar2.png') }}" alt="">
+
+						</div>
+						<div class="client-meta">
+							<h3>David Niph
+								<span>Local shop owner</span>
+							</h3>
+							<p class="testimonial-body">
+								" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+							</p>
+							<div class="last-icon">
+								<i class="fas fa-quote-right"></i>
+							</div>
+						</div>
+					</div>
+					<div class="single-testimonial-slider">
+						<div class="client-avater">
+							<img src="{{ asset('TemplateClient/assets/img/avaters/avatar3.png') }}" alt="">
+
+						</div>
+						<div class="client-meta">
+							<h3>Jacob Sikim
+								<span>Local shop owner</span>
+							</h3>
+							<p class="testimonial-body">
+								" Sed ut perspiciatis unde omnis iste natus error veritatis et  quasi architecto beatae vitae dict eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium "
+							</p>
+							<div class="last-icon">
+								<i class="fas fa-quote-right"></i>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end logo carousel -->
+</div>
+<!-- end testimonail-section -->
 
-	<!-- end Continue à modifier -->
-
-    {% endblock %}
-
-
-
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
-					</div>
+<!-- advertisement section -->
+<div class="abt-section mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 col-md-12">
+				<div class="abt-bg">
+					<a href="https://www.youtube.com/watch?v=DBLlFWYcIGQ" class="video-play-btn popup-youtube">
+						<i class="fas fa-play"></i>
+					</a>
 				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>34/8, East Hukupara, Gifirtok, Sadan.</li>
-							<li>support@fruitkha.com</li>
-							<li>+00 111 222 3333</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="services.html">Shop</a></li>
-							<li><a href="news.html">News</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
+			</div>
+			<div class="col-lg-6 col-md-12">
+				<div class="abt-text">
+					<p class="top-sub">Depuis l'année 2024</p>
+					<h2>Nous sommes
+						<span class="orange-text">ArtVue</span>
+					</h2>
+					<p>Chez ArVue, notre passion est de donner vie à l'art. Nous croyons que chaque œuvre d'art a le pouvoir de raconter une histoire unique, d'éveiller des émotions profondes et de susciter la réflexion. Notre mission est de créer une plateforme où les artistes peuvent partager leur vision avec le monde et où les amateurs d'art peuvent découvrir de nouvelles inspirations.</p>
+					<p>Notre galerie en ligne offre une sélection diversifiée d'œuvres d'art contemporain, allant de la peinture à la sculpture en passant par la photographie et bien plus encore.</p>
+					<a href="{{ path('app_about') }}" class="boxed-btn mt-4">savoir plus</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end footer -->
-	
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
+</div>
+<!-- end advertisement section -->
+
+<!-- shop banner -->
+<section class="shop-banner">
+	<div class="container">
+		<h3>December sale is on!
+			<br>
+			with big
+			<span class="orange-text">Discount...</span>
+		</h3>
+		<div class="sale-percent">
+			<span>Sale!
+				<br>
+				Upto</span>50%
+			<span>off</span>
+		</div>
+		<a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
+	</div>
+</section>
+<!-- end shop banner -->
+
+<!-- latest news -->
+<div class="latest-news pt-150 pb-150">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">
+					<h3>
+						<span class="orange-text">Our</span>
+						News</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
 				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="single-latest-news">
+					<a href="single-news.html">
+						<div class="latest-news-bg news-bg-1"></div>
+					</a>
+					<div class="news-text-box">
+						<h3>
+							<a href="single-news.html">You will vainly look for fruit on it in autumn.</a>
+						</h3>
+						<p class="blog-meta">
+							<span class="author">
+								<i class="fas fa-user"></i>
+								Admin</span>
+							<span class="date">
+								<i class="fas fa-calendar"></i>
+								27 December, 2019</span>
+						</p>
+						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
+						<a href="single-news.html" class="read-more-btn">read more
+							<i class="fas fa-angle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="single-latest-news">
+					<a href="single-news.html">
+						<div class="latest-news-bg news-bg-2"></div>
+					</a>
+					<div class="news-text-box">
+						<h3>
+							<a href="single-news.html">A man's worth has its season, like tomato.</a>
+						</h3>
+						<p class="blog-meta">
+							<span class="author">
+								<i class="fas fa-user"></i>
+								Admin</span>
+							<span class="date">
+								<i class="fas fa-calendar"></i>
+								27 December, 2019</span>
+						</p>
+						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
+						<a href="single-news.html" class="read-more-btn">read more
+							<i class="fas fa-angle-right"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+				<div class="single-latest-news">
+					<a href="single-news.html">
+						<div class="latest-news-bg news-bg-3"></div>
+					</a>
+					<div class="news-text-box">
+						<h3>
+							<a href="single-news.html">Good thoughts bear good fresh juicy fruit.</a>
+						</h3>
+						<p class="blog-meta">
+							<span class="author">
+								<i class="fas fa-user"></i>
+								Admin</span>
+							<span class="date">
+								<i class="fas fa-calendar"></i>
+								27 December, 2019</span>
+						</p>
+						<p class="excerpt">Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.</p>
+						<a href="single-news.html" class="read-more-btn">read more
+							<i class="fas fa-angle-right"></i>
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<a href="news.html" class="boxed-btn">More News</a>
+			</div>
+		</div>
 	</div>
-	<!-- end copyright -->
-	
-	<!-- jquery -->
+</div>{% endblock %}<!-- end latest news --><!-- logo carousel --><div class="logo-carousel-section">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="logo-carousel-inner">
+				<div class="single-logo-item">
+					<img src="{{ asset('TemplateClient/assets/img/company-logos/11.png') }}" alt="">
+				</div>
+				<div class="single-logo-item">
+					<img src="{{ asset('TemplateClient/assets/img/company-logos/22.png ') }}" alt="">
+				</div>
+				<div class="single-logo-item">
+					<img src="{{ asset('TemplateClient/assets/img/company-logos/3.png') }}" alt="">
+				</div>
+				<div class="single-logo-item">
+					<img src="{{ asset('TemplateClient/assets/img/company-logos/4.png ') }}" alt="">
+				</div>
+				<div class="single-logo-item">
+					<img src="{{ asset('TemplateClient/assets/img/company-logos/5.png') }}" alt="">
+				</div>
+			</div>
+		</div>
+	</div>
+</div></div><!-- end logo carousel --><!-- end Continue à modifier --><!-- footer -->
+<div class="footer-area"> <div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-md-6">
+			<div class="footer-box about-widget">
+				<h2 class="widget-title">A props de nous</h2>
+				<p>Découvrez notre sélection d'œuvres d'art exceptionnelles sur notre plateforme en ligne, où vous pourrez explorer, apprécier et acquérir des pièces uniques pour enrichir votre collection.</p>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6">
+			<div class="footer-box get-in-touch">
+				<h2 class="widget-title">Contact</h2>
+				<ul>
+					<li>Cité Ghazela , Esprit école superieur privé</li>
+					<li>ArtVue@gmail.com</li>
+					<li>+216 22 333 444</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6">
+			<div class="footer-box pages">
+				<h2 class="widget-title">Pages</h2>
+				<ul>
+					<li><a href="index.html">Home   </a></li>
+					<li><a href="about.html">About</a></li>
+					<li><a href="services.html">Shop</a></li>
+					<li><a href="news.html">News</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-6">
+			<div class="footer-box subscribe">
+				<h2 class="widget-title">Subscribe</h2>
+				<p>Subscribe to our mailing list to get the latest updates.</p>
+				<form action="index.html">
+					<input type="email" placeholder="Email">
+					<button type="submit">
+						<i class="fas fa-paper-plane"></i>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div></div><!-- end footer --><!-- copyright --><div class="copyright">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 col-md-12">
+			<p>Copyrights &copy; 2019 -
+				<a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
+		</div>
+		<div class="col-lg-6 text-right col-md-12">
+			<div class="social-icons">
+				<ul>
+					<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+					<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+					<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
+					<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+					<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+</div></div>
+<!-- end copyright -->
+<!-- jquery -->
 <script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
-<!-- bootstrap -->
-<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-<!-- count down -->
-<script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
-<!-- isotope -->
-<script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
-<!-- waypoints -->
-<script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
-<!-- owl carousel -->
-<script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
-<!-- magnific popup -->
-<script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
-<!-- mean menu -->
-<script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
-<!-- sticker js -->
-<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
-<!-- main js -->
-<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+<!-- bootstrap --><script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+<!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+<!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+<!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+<!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+<!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+<!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+<script>
+    // Fonction pour basculer entre like et dislike
+    function toggleLike(icon, idOeuvreArt) {
+    // Vérifier si l'icône est déjà remplie ou vide
+    if (icon.classList.contains('far')) {
+        // Icône vide, changer en icône remplie et augmenter le nombre de likes
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = 'red';
 
+        // Appeler la méthode like du contrôleur Symfony via AJAX
+        fetch('/like/' + idOeuvreArt, {
+            method: 'POST', // Utiliser la méthode POST pour envoyer des données
+            headers: {
+                'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+            },
+            body: JSON.stringify({ idOeuvreArt: idOeuvreArt }), // Convertir l'objet en chaîne JSON
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Afficher la réponse du serveur dans la console
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite:', error);
+        });
 
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) + 1;
+    } else {
+        // Icône remplie, changer en icône vide et diminuer le nombre de likes
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = 'black'; // Couleur par défaut pour une icône vide
+
+        // Supprimer le like (optionnel)
+
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) - 1;
+    }
+}
+
+</script>
+<!-- QRCODE -->
+		<script>
+			function toggleQRCode(idoeuvreart) {
+				var qrCodeImg = document.getElementById('qrCode' + idoeuvreart);
+				if (qrCodeImg.style.display === 'none') {
+					qrCodeImg.style.display = 'block';
+				} else {
+					qrCodeImg.style.display = 'none';
+				}
+			}
+		</script>
 </body>
 </html>
+
+</div></div><!-- end copyright -->
+<!-- jquery -->
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>

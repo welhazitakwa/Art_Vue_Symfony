@@ -1,13 +1,39 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseClient.html.twig' %}
 
-{% block title %}Edit Vote{% endblock %}
+{% block title %}Modifier le vote{% endblock %}
 
 {% block body %}
-    <h1>Edit Vote</h1>
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <h1>Modifier le vote</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    {{ include('vote/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_vote_index') }}">back to list</a>
-
-    {{ include('vote/_delete_form.html.twig') }}
+<div class="list-section pt-80 pb-80">
+    <div class="container">
+        <div class="row justify-content-center"> {# Centrer le contenu #}
+            <div class="col-md-8"> {# Taille de la colonne #}
+                <h2>Vote :</h2>
+                <div class="d-flex align-items-end mb-4"> {# Utiliser flexbox pour aligner les éléments au bas #}
+                    <div class="mr-4"> {# Marge à droite pour séparer l'image des champs de formulaire #}
+                        <img src="{{ asset('oeuvre/' ~ vote.oeuvre.getImage) }}" alt="Image de l'oeuvre" style="width: 500px; height: 500px;">
+                    </div>
+                    <div>
+                        {{ form_start(form, {'action': path('app_vote_edit', {'id': vote.id}), 'method': 'POST'}) }}
+                        {# Vos champs de formulaire ici #}
+                        {{ form_row(form.note) }}
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

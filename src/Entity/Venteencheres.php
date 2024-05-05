@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +69,83 @@ class Venteencheres
      * })
      */
     private $idUtilisateur;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getDatedebut(): ?\DateTimeInterface
+    {
+        return $this->datedebut;
+    }
+
+    public function setDatedebut(\DateTimeInterface $datedebut): static
+    {
+        $this->datedebut = $datedebut;
+
+        return $this;
+    }
+
+    public function getDatefin(): ?\DateTimeInterface
+    {
+        return $this->datefin;
+    }
+
+    public function setDatefin(\DateTimeInterface $datefin): static
+    {
+        $this->datefin = $datefin;
+
+        return $this;
+    }
+
+    public function getPrixdepart(): ?float
+    {
+        return $this->prixdepart;
+    }
+
+    public function setPrixdepart(float $prixdepart): static
+    {
+        $this->prixdepart = $prixdepart;
+
+        return $this;
+    }
+
+    public function getStatue(): ?string
+    {
+        return $this->statue;
+    }
+
+    public function setStatue(string $statue): static
+    {
+        $this->statue = $statue;
+
+        return $this;
+    }
+
+    public function getIdExposition(): ?Exposition
+    {
+        return $this->idExposition;
+    }
+
+    public function setIdExposition(?Exposition $idExposition): static
+    {
+        $this->idExposition = $idExposition;
+
+        return $this;
+    }
+
+    public function getIdUtilisateur(): ?Utilisateur
+    {
+        return $this->idUtilisateur;
+    }
+
+    public function setIdUtilisateur(?Utilisateur $idUtilisateur): static
+    {
+        $this->idUtilisateur = $idUtilisateur;
+
+        return $this;
+    }
 
 
 }
