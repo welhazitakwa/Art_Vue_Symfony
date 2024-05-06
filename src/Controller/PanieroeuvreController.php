@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Oeuvreart;
 use App\Entity\Panier;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\Utilisateur;
 #[Route('/panieroeuvre')]
 class PanieroeuvreController extends AbstractController
 {
@@ -23,10 +25,10 @@ class PanieroeuvreController extends AbstractController
             'panieroeuvres' => $panierRepository->findAll(),
         ]);
     }
-    private const PANIER_ID = 43; // Identifiant statique du panier
     #[Route('/add/{oeuvreId}', name: 'app_panier_add_oeuvre')]
-    public function addToPanier(int $oeuvreId, Request $request, EntityManagerInterface $entityManager): Response
+    public function addToPanier(int $oeuvreId, Request $request, EntityManagerInterface $entityManager,SessionInterface $session): Response
     {
+        
         $quantite = max(1, (int)$request->request->get('quantite', 1));
     
         // Récupérer l'œuvre à partir de l'ID
@@ -36,14 +38,27 @@ class PanieroeuvreController extends AbstractController
             throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
         }
     
-        // Récupérer le panier correspondant à l'identifiant statique ou créer un nouveau panier
-        $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
-    
-        if (!$panier) {
-            $panier = new Panier();
-            $entityManager->persist($panier);
-            $entityManager->flush();
+      
+    // Récupérer l'utilisateur actuel à partir de la session
+    $userId = $session->get('user_id');
+
+    // Récupérer le panier de l'utilisateur actuel
+    $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+
+    // Si l'utilisateur n'a pas encore de panier, vous pouvez créer un nouveau panier ici
+    if (!$panier) {
+        // Recherchez l'utilisateur à partir de son ID
+        $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
         }
+
+        $panier = new Panier();
+        $panier->setClient($user); // Assurez-vous que la relation client dans Panier est correctement configurée
+        $entityManager->persist($panier);
+        $entityManager->flush();
+    }
     
         // Vérifier si l'œuvre est déjà présente dans le panier
         $panieroeuvre = $entityManager->getRepository(Panieroeuvre::class)->findOneBy([
@@ -70,10 +85,13 @@ class PanieroeuvreController extends AbstractController
     }
 
     #[Route('/afficher', name: 'app_panieroeuvre_afficher', methods: ['GET'])]
-    public function afficherPanier(PanierRepository $panierRepository): Response
-    {
-        // Récupérer le panier correspondant à l'identifiant statique
-        $panier = $this->getDoctrine()->getRepository(Panier::class)->find(self::PANIER_ID);
+    public function afficherPanier(PanierRepository $panierRepository,EntityManagerInterface $entityManager,SessionInterface $session): Response
+    {  // Récupérer l'utilisateur actuel à partir de la session
+        $userId = $session->get('user_id');
+    
+        // Récupérer le panier de l'utilisateur actuel
+        $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+    
         
         if (!$panier) {
             throw $this->createNotFoundException('Le panier n\'existe pas.');
@@ -93,7 +111,7 @@ class PanieroeuvreController extends AbstractController
     }
    
 #[Route('/supprimer/{oeuvreId}', name: 'app_panier_supprimer_oeuvre')]
-public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityManager): Response
+public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityManager,SessionInterface $session): Response
 {
     // Récupérer l'œuvre à partir de l'ID
     $oeuvre = $entityManager->getRepository(Oeuvreart::class)->find($oeuvreId);
@@ -101,9 +119,12 @@ public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityMa
     if (!$oeuvre) {
         throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
     }
+  // Récupérer l'utilisateur actuel à partir de la session
+  $userId = $session->get('user_id');
 
-    // Récupérer le panier correspondant à l'identifiant statique
-    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+  // Récupérer le panier de l'utilisateur actuel
+  $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+
     
     if (!$panier) {
         throw $this->createNotFoundException('Le panier n\'existe pas.');
@@ -128,7 +149,7 @@ public function removeFromPanier(int $oeuvreId, EntityManagerInterface $entityMa
 }
 
 #[Route('/modifier/{oeuvreId}', name: 'app_panier_modifier_quantite')]
-public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerInterface $entityManager): Response
+public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
     $quantite = max(1, (int)$request->request->get('quantite', 1));
 
@@ -138,9 +159,12 @@ public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerI
     if (!$oeuvre) {
         throw $this->createNotFoundException('L\'oeuvre n\'existe pas.');
     }
+  // Récupérer l'utilisateur actuel à partir de la session
+  $userId = $session->get('user_id');
 
-    // Récupérer le panier correspondant à l'identifiant statique
-    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+  // Récupérer le panier de l'utilisateur actuel
+  $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+
 
     if (!$panier) {
         throw $this->createNotFoundException('Le panier n\'existe pas.');
@@ -166,10 +190,14 @@ public function modifierQuantite(int $oeuvreId, Request $request, EntityManagerI
 
 //tri
 #[Route('/trier/{tri}', name: 'app_panieroeuvre_trier')]
-public function trierPanier(string $tri, EntityManagerInterface $entityManager): Response
+public function trierPanier(string $tri, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
-    // Récupérer le panier correspondant à l'identifiant statique
-    $panier = $entityManager->getRepository(Panier::class)->find(self::PANIER_ID);
+      // Récupérer l'utilisateur actuel à partir de la session
+      $userId = $session->get('user_id');
+
+      // Récupérer le panier de l'utilisateur actuel
+      $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+  
     
     if (!$panier) {
         throw $this->createNotFoundException('Le panier n\'existe pas.');

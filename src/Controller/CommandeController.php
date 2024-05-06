@@ -19,7 +19,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Twilio\Rest\Client;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use App\Entity\Utilisateur;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -84,7 +85,8 @@ class CommandeController extends AbstractController
     if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->flush();
 
-       
+        $client = $commande->getPanier()->getClient();
+
 
         // Si l'état de la commande est "Terminée", créer une livraison
         if ($commande->getEtat() === 'Terminée') {
@@ -99,7 +101,7 @@ class CommandeController extends AbstractController
 $twilioSid = "AC470844d0266cf005c021823127fd8530";
 $twilioToken = "706c7dd7eb86174b9b3cc072da6365ca";
 $twilioPhoneNumber = "+13343397109";
-$phoneNumber = '+21625721357'; // Remplacez par le numéro de téléphone réel de votre base de données
+$phoneNumber = $client->getNumtel(); // Récupérer le numéro de téléphone du client
 try {
     $client = new Client($twilioSid, $twilioToken);
     $client->messages->create(
@@ -115,12 +117,11 @@ try {
     $this->addFlash('error', 'Erreur lors de l\'envoi du SMS : ' . $errorMessage);
 }
 //mail
-// Adresse e-mail statique à laquelle envoyer les confirmations de commande
-$recipientEmail = 'oumeyma.benkram@esprit.tn';
+$recipientEmail = $client->getEmail(); // Récupérer l'e-mail du client
 
   // Créer l'e-mail à envoyer
   $email = (new Email())
-  ->from('oumeyma.benkram@esprit.tn') // Adresse de l'expéditeur
+  ->from('artvuecontact@gmail.com') // Adresse de l'expéditeur
   ->to($recipientEmail) // Adresse du client
   ->subject('Fidélité!')
   ->text("Votre commande est terminée. La livraison est en cours");
@@ -159,13 +160,15 @@ try {
     //affichage client
   
 #[Route('/panier/afficher', name: 'panier_afficher_commandes')]
-public function listerCommandesPanier(Request $request,EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
+public function listerCommandesPanier(Request $request,EntityManagerInterface $entityManager, PaginatorInterface $paginator, SessionInterface $session): Response
 {
-    $panierId = 43; // Remplacez 43 par l'ID du panier que vous souhaitez afficher
-    
-    // Récupérer le panier à partir de l'ID
-    $panier = $entityManager->getRepository(Panier::class)->find($panierId);
-    
+
+      // Récupérer l'utilisateur actuel à partir de la session
+      $userId = $session->get('user_id');
+
+      // Récupérer le panier de l'utilisateur actuel
+      $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);    
+   
     // Vérifier si le panier existe
     if (!$panier) {
         throw $this->createNotFoundException('Le panier demandé n\'existe pas.');
