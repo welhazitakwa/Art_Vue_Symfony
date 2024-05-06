@@ -14,6 +14,7 @@ use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use Doctrine\Common\Collections\Criteria;
 use App\Repository\PanieroeuvreRepository;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -98,12 +99,15 @@ class PanierController extends AbstractController
 //commander panier
   
 #[Route('/panier/commander', name: 'commander_panier')]
-public function commanderPanier(EntityManagerInterface $entityManager, Request $request): Response
+public function commanderPanier(EntityManagerInterface $entityManager, Request $request, SessionInterface $session): Response
 {
-    $panierId = 43; // Exemple : Récupérer l'ID du panier à partir de la session ou d'une autre méthode
     
-    // Récupérer le panier à partir de l'ID
-    $panier = $this->getDoctrine()->getRepository(Panier::class)->find($panierId);
+      // Récupérer l'utilisateur actuel à partir de la session
+      $userId = $session->get('user_id');
+
+      // Récupérer le panier de l'utilisateur actuel
+      $panier = $entityManager->getRepository(Panier::class)->findOneBy(['client' => $userId]);
+  
 
     // Calculer le montant total de la commande
     $montantTotal = 0;
