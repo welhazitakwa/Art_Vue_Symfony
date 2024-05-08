@@ -1,0 +1,11 @@
+{% extends 'baseArtiste.html.twig' %}
+
+{% block title %}New Venteencheres{% endblock %}
+
+{% block body %}
+    <h1>Create new Venteencheres</h1>
+
+    {{ include('venteencheres/_form.html.twig') }}
+
+    <a href="{{ path('app_venteencheres_index') }}">back to list</a>
+{% endblock %}

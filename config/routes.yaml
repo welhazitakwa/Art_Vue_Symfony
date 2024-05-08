@@ -1,4 +1,10 @@
 index:
   path: /
   controller: App\Controller\UtilisateurController::login
-  
+
+app_venteencheres_search:
+    path: '/venteencheres/search'
+    controller: 'App\Controller\VenteencheresController::search'
+    methods: ['GET']
+
+

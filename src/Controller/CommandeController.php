@@ -16,11 +16,13 @@ use App\Entity\Livraison;
 use App\Entity\Panier;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Knp\Component\Pager\PaginatorInterface;
-use Twilio\Rest\Client;
+//use Twilio\Rest\Client;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Utilisateur;
+use Psr\Log\LoggerInterface; 
+
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -97,41 +99,22 @@ class CommandeController extends AbstractController
             $livraison->setTotal($commande->getMontant() + 10); // Total = Montant de la commande + frais de livraison
             $entityManager->persist($livraison);
             $entityManager->flush();
- //sms
-$twilioSid = "AC470844d0266cf005c021823127fd8530";
-$twilioToken = "706c7dd7eb86174b9b3cc072da6365ca";
-$twilioPhoneNumber = "+13343397109";
-$phoneNumber = $client->getNumtel(); // Récupérer le numéro de téléphone du client
-try {
-    $client = new Client($twilioSid, $twilioToken);
-    $client->messages->create(
-        $phoneNumber,
-        [
-            'from' => $twilioPhoneNumber,
-            'body' => 'Votre commande est terminée. La livraison est en cours.'
-        ]
-    );
-} catch (\Exception $e) {
-    // Gérer l'exception ici
-    $errorMessage = $e->getMessage();
-    $this->addFlash('error', 'Erreur lors de l\'envoi du SMS : ' . $errorMessage);
-}
-//mail
-$recipientEmail = $client->getEmail(); // Récupérer l'e-mail du client
+            //mail
+//$recipientEmail = $client->getEmail(); // Récupérer l'e-mail du client
 
   // Créer l'e-mail à envoyer
   $email = (new Email())
   ->from('artvuecontact@gmail.com') // Adresse de l'expéditeur
-  ->to($recipientEmail) // Adresse du client
+  ->to($client->getEmail()) // Adresse du client
   ->subject('Fidélité!')
   ->text("Votre commande est terminée. La livraison est en cours");
 
 // Envoyer l'e-mail et gérer les exceptions
-try {
     $mailer->send($email);
-  } catch (\Exception $e) {
-  return new Response("Erreur lors de l'envoi de l'e-mail : " . $e->getMessage(), 500);
-}
+  
+
+
+
 }
  
 
