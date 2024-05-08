@@ -15,6 +15,8 @@ use App\Entity\Utilisateur;
 use Doctrine\Common\Collections\Criteria;
 use App\Repository\PanieroeuvreRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Twilio\Rest\Client;
+use Psr\Log\LoggerInterface; 
 
 #[Route('/panier')]
 class PanierController extends AbstractController
@@ -99,7 +101,7 @@ class PanierController extends AbstractController
 //commander panier
   
 #[Route('/panier/commander', name: 'commander_panier')]
-public function commanderPanier(EntityManagerInterface $entityManager, Request $request, SessionInterface $session): Response
+public function commanderPanier(EntityManagerInterface $entityManager, Request $request, SessionInterface $session,LoggerInterface $logger ): Response
 {
     
       // Récupérer l'utilisateur actuel à partir de la session
@@ -145,6 +147,28 @@ public function commanderPanier(EntityManagerInterface $entityManager, Request $
             $entityManager->remove($panieroeuvre);
         }
         $entityManager->flush();
+ //sms
+
+ // Ajoutez +216 et supprimez le zéro initial
+ $numtel = '+216' . ltrim($client->getNumtel(), '0'); 
+
+ $logger->info("Numéro de téléphone formaté : " . $numtel);
+
+ // Configuration de Twilio (ou autre service SMS)
+ $twilioSid =  "AC470844d0266cf005c021823127fd8530";
+ $twilioAuthToken = "706c7dd7eb86174b9b3cc072da6365ca";
+ $twilioFromNumber = "+13343397109";
+
+ $client = new Client($twilioSid, $twilioAuthToken);
+
+  
+     $client->messages->create(
+         $numtel, // Numéro de téléphone formaté avec le code de pays
+         [
+             'from' => $twilioFromNumber,
+             'body' => "Félicitations,Votre commande est passé avec succès et elle est en cours de traitement."
+         ]
+     );
 
         // Rediriger l'utilisateur vers une page de confirmation de commande réussie
         return $this->redirectToRoute('app_panieroeuvre_afficher');

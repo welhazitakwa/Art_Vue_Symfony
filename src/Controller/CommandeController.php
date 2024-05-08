@@ -16,7 +16,7 @@ use App\Entity\Livraison;
 use App\Entity\Panier;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Knp\Component\Pager\PaginatorInterface;
-use Twilio\Rest\Client;
+//use Twilio\Rest\Client;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -73,7 +73,7 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerInterface $mailer,LoggerInterface $logger ): Response
+    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $form = $this->createFormBuilder($commande)
         ->add('etat', ChoiceType::class, [
@@ -99,36 +99,7 @@ class CommandeController extends AbstractController
             $livraison->setTotal($commande->getMontant() + 10); // Total = Montant de la commande + frais de livraison
             $entityManager->persist($livraison);
             $entityManager->flush();
- //sms
-
- // Ajoutez +216 et supprimez le zéro initial
- $numtel = '+216' . ltrim($client->getNumtel(), '0'); 
-
- $logger->info("Numéro de téléphone formaté : " . $numtel);
-
- // Configuration de Twilio (ou autre service SMS)
- $twilioSid =  "AC470844d0266cf005c021823127fd8530";
- $twilioAuthToken = "706c7dd7eb86174b9b3cc072da6365ca";
- $twilioFromNumber = "+13343397109";
-
- $client = new Client($twilioSid, $twilioAuthToken);
-
- try {
-     $client->messages->create(
-         $numtel, // Numéro de téléphone formaté avec le code de pays
-         [
-             'from' => $twilioFromNumber,
-             'body' => "Félicitations,Votre commande est passé avec succès et elle est en cours de livraison."
-         ]
-     );
-     $logger->info("SMS envoyé à : " . $numtel);
- } catch (\Exception $e) {
-     $logger->error("Erreur lors de l'envoi du SMS : " . $e->getMessage());
-     return new Response("Erreur lors de l'envoi du SMS : " . $e->getMessage(), 500);
- }
-
-
-//mail
+            //mail
 //$recipientEmail = $client->getEmail(); // Récupérer l'e-mail du client
 
   // Créer l'e-mail à envoyer
@@ -139,14 +110,11 @@ class CommandeController extends AbstractController
   ->text("Votre commande est terminée. La livraison est en cours");
 
 // Envoyer l'e-mail et gérer les exceptions
-try {
     $mailer->send($email);
-    $logger->info("E-mail envoyé à : " . $client->getEmail());
-    return new Response("E-mail envoyé avec succès.", 200);
-  } catch (\Exception $e) {
-    $logger->error("Erreur lors de l'envoi de l'e-mail : " . $e->getMessage());
-    return new Response("Erreur lors de l'envoi de l'e-mail : " . $e->getMessage(), 500);
-  }
+  
+
+
+
 }
  
 
