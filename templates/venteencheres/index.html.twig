@@ -1,0 +1,36 @@
+{% extends 'baseArtiste.html.twig' %}
+
+{% block title %}Venteencheres index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mb-5">Liste des ventes aux enchères</h1>
+
+
+
+        <!-- Conteneur pour afficher les résultats -->
+
+        <div class="row">
+            {% for venteenchere in venteencheres %}
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">ID: {{ venteenchere.id }}</h5>
+                            <p class="card-text">Date de début: {{ venteenchere.datedebut|date('d/m/Y H:i') }}</p>
+                            <p class="card-text">Date de fin: {{ venteenchere.datefin|date('d/m/Y H:i') }}</p>
+                            <p class="card-text">Prix de départ: {{ venteenchere.prixdepart }} DT</p>
+                            <p class="card-text">Statut: {% if venteenchere.statue %}En cours{% else %}Terminée{% endif %}</p>
+                            <a href="{{ path('app_venteencheres_show', {'id': venteenchere.id}) }}" class="btn btn-primary">Voir</a>
+                            <a href="{{ path('app_venteencheres_edit', {'id': venteenchere.id}) }}" class="btn btn-success">Modifier</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_venteencheres_new') }}" class="btn btn-primary">Créer une nouvelle vente aux enchères</a>
+        </div>
+    </div>
+
+{% endblock %}
