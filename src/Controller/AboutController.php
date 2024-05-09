@@ -15,4 +15,12 @@ class AboutController extends AbstractController
             'controller_name' => 'AboutController',
         ]);
     }
+
+    #[Route('/aboutArtiste', name: 'app_aboutArtiste')]
+    public function index2(): Response
+    {
+        return $this->render('about/aboutArtiste.html.twig', [
+            'controller_name' => 'AboutController',
+        ]);
+    }
 }

@@ -60,6 +60,7 @@ class GalerieController extends AbstractController
     }
 
 
+
     
     //---------QR CODE--------------------
     #[Route('/oeuvre/qr-code/{id}', name: 'oeuvre_qr_code')]
