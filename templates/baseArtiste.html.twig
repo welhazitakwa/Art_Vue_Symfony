@@ -143,7 +143,7 @@
 												<a href="contact.html">Contact</a>
 											</li>
 											<li>
-												<a href="news.html">News</a>
+												<a href="news.html">Exposition</a>
 											</li>
 											<li>
 												<a href="shop.html">Shop</a>
@@ -151,16 +151,13 @@
 										</ul>
 									</li>
 									<li>
-										<a href="news.html">News</a>
-										<ul class="sub-menu">
-											<li>
-												<a href="news.html">News</a>
-											</li>
-											<li>
-												<a href="single-news.html">Single News</a>
-											</li>
-										</ul>
-									</li>
+    <a href="#">Exposition</a>
+    <ul class="sub-menu">
+        <li><a href="{{ path('app_venteencheres_index') }}">Vente aux enchères</a></li>
+        <li><a href="{{ path('app_offreenchere_index') }}">Offre en enchère</a></li>
+    </ul>
+</li>
+
 									<li>
 										<a href="contact.html">Contact</a>
 									</li>
@@ -260,7 +257,9 @@
 			</div>
 		</div>
 		<!-- end search area -->
+		<img src="{{ asset('TemplateClient/assets/img/galerie1.jpeg')}}" alt="Description de l'image">
 		{% block body %}
+
 
 			<!-- Continue à modifier -->
 

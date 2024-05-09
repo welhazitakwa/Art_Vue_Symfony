@@ -2,56 +2,30 @@
 
 namespace App\Entity;
 
+use App\Repository\OffreenchereRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Offreenchere
- *
- * @ORM\Table(name="offreenchere", indexes={@ORM\Index(name="fk_VenteEnchere", columns={"id_VenteEnchere"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: OffreenchereRepository::class)]
 class Offreenchere
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="montant", type="float", precision=10, scale=0, nullable=false)
-     */
-    private $montant;
+    #[ORM\Column(type: 'float')]
+    private float $montant;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date", nullable=false)
-     */
-    private $date;
+    #[ORM\Column(type: 'date')]
+    private \DateTimeInterface $date;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="id_utilisateur", type="integer", nullable=true)
-     */
-    private $idUtilisateur;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $idUtilisateur;
 
-    /**
-     * @var \Venteencheres
-     *
-     * @ORM\ManyToOne(targetEntity="Venteencheres")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_VenteEnchere", referencedColumnName="id")
-     * })
-     */
-    private $idVenteenchere;
+    #[ORM\ManyToOne(targetEntity: Venteencheres::class)]
+    #[ORM\JoinColumn(name: 'id_VenteEnchere', referencedColumnName: 'id')]
+    private ?Venteencheres $idVenteenchere;
 
     public function getId(): ?int
     {
@@ -63,7 +37,7 @@ class Offreenchere
         return $this->montant;
     }
 
-    public function setMontant(float $montant): static
+    public function setMontant(float $montant): self
     {
         $this->montant = $montant;
 
@@ -75,7 +49,7 @@ class Offreenchere
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
 
@@ -87,7 +61,7 @@ class Offreenchere
         return $this->idUtilisateur;
     }
 
-    public function setIdUtilisateur(?int $idUtilisateur): static
+    public function setIdUtilisateur(?int $idUtilisateur): self
     {
         $this->idUtilisateur = $idUtilisateur;
 
@@ -99,12 +73,10 @@ class Offreenchere
         return $this->idVenteenchere;
     }
 
-    public function setIdVenteenchere(?Venteencheres $idVenteenchere): static
+    public function setIdVenteenchere(?Venteencheres $idVenteenchere): self
     {
         $this->idVenteenchere = $idVenteenchere;
 
         return $this;
     }
-
-
 }

@@ -1,0 +1,13 @@
+{% extends 'baseArtiste.html.twig' %}
+
+{% block title %}Edit Venteencheres{% endblock %}
+
+{% block body %}
+    <h1>Edit Venteencheres</h1>
+
+    {{ include('venteencheres/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_venteencheres_index') }}">back to list</a>
+
+    {{ include('venteencheres/_delete_form.html.twig') }}
+{% endblock %}

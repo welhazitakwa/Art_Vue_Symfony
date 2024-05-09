@@ -1,0 +1,13 @@
+{% extends 'baseArtiste.html.twig' %}
+
+{% block title %}Edit Offreenchere{% endblock %}
+
+{% block body %}
+    <h1>Edit Offreenchere</h1>
+
+    {{ include('offreenchere/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_offreenchere_index') }}">back to list</a>
+
+    {{ include('offreenchere/_delete_form.html.twig') }}
+{% endblock %}
