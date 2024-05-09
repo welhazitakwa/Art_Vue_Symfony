@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\Utilisateur;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 #[Route('/venteencheres')]
@@ -34,22 +32,10 @@ class VenteencheresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_venteencheres_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,SessionInterface $session): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $venteenchere = new Venteencheres();
-       // Get the ID of the currently logged-in user from the session
-       $userId = $session->get('user_id');
-        
-       // Fetch the Utilisateur entity from the database
-       $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($userId);
-
-       // Set the Utilisateur entity to the Venteencheres entity
-       $venteenchere->setIdUtilisateur($utilisateur);
-
-       $form = $this->createForm(VenteencheresType::class, $venteenchere);
-
-  
+        $form = $this->createForm(VenteencheresType::class, $venteenchere);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -66,33 +52,16 @@ class VenteencheresController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_venteencheres_show', methods: ['GET'])]
-    public function show(int $id, EntityManagerInterface $entityManager): Response
+    public function show(Venteencheres $venteenchere): Response
     {
-        // Fetch the Venteencheres entity from the database
-        $venteenchere = $entityManager->getRepository(Venteencheres::class)->find($id);
-
-        if (!$venteenchere) {
-            throw $this->createNotFoundException('Venteencheres not found');
-        }
-
         return $this->render('venteencheres/show.html.twig', [
             'venteenchere' => $venteenchere,
         ]);
     }
-    #[Route('/{id}/edit', name: 'app_venteencheres_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, int $id, EntityManagerInterface $entityManager, SessionInterface $session): Response
-    {
-        $userId = $session->get('user_id');
-        
-        // Fetch the Utilisateur entity from the database
-        $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($userId);
 
-        // Fetch the Venteencheres entity from the database
-        $venteenchere = $entityManager->getRepository(Venteencheres::class)->find($id);
-        
-        // Set the Utilisateur entity to the Venteencheres entity
-        $venteenchere->setIdUtilisateur($utilisateur);
-        
+    #[Route('/{id}/edit', name: 'app_venteencheres_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Venteencheres $venteenchere, EntityManagerInterface $entityManager): Response
+    {
         $form = $this->createForm(VenteencheresType::class, $venteenchere);
         $form->handleRequest($request);
 
@@ -107,18 +76,13 @@ class VenteencheresController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/{id}', name: 'app_venteencheres_delete', methods: ['POST'])]
-    public function delete(Request $request, int $id, EntityManagerInterface $entityManager): Response
-    {
-        // Fetch the Venteencheres entity from the database
-        $venteenchere = $entityManager->getRepository(Venteencheres::class)->find($id);
 
-        // Check if the CSRF token is valid
-        if ($this->isCsrfTokenValid('delete'.$id, $request->request->get('_token'))) {
-            if ($venteenchere) {
-                $entityManager->remove($venteenchere);
-                $entityManager->flush();
-            }
+    #[Route('/{id}', name: 'app_venteencheres_delete', methods: ['POST'])]
+    public function delete(Request $request, Venteencheres $venteenchere, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$venteenchere->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($venteenchere);
+            $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_venteencheres_index', [], Response::HTTP_SEE_OTHER);

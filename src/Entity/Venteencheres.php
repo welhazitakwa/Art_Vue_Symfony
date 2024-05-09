@@ -112,6 +112,4 @@ class Venteencheres
 
         return $this;
     }
-    
- 
 }

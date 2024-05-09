@@ -7,7 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\Utilisateur;
+
 class VenteencheresType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -20,8 +20,11 @@ class VenteencheresType extends AbstractType
             ->add('idExposition', EntityType::class, [
                 'class' => 'App\Entity\Exposition', // Entité cible
                 'choice_label' => 'nom', // Propriété de l'entité à afficher dans le champ
+            ])
+            ->add('idUtilisateur', EntityType::class, [
+                'class' => 'App\Entity\Utilisateur', // Entité cible
+                'choice_label' => 'id', // Propriété de l'entité à afficher dans le champ
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -31,5 +34,3 @@ class VenteencheresType extends AbstractType
         ]);
     }
 }
-
-
