@@ -51,7 +51,7 @@ class OeuvreartController extends AbstractController
     }
 
         #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, BadWordDetector $badWordDetector, EntityManagerInterface $entityManager , ): Response
+    public function new(Request $request, BadWordDetector $badWordDetector, EntityManagerInterface $entityManager): Response
 {
     
     $oeuvreart = new Oeuvreart();

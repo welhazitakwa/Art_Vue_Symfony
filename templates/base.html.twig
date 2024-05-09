@@ -1,368 +1,451 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+	lang="en">
 
 
-<!-- Mirrored from wpkixx.com/html/wooble/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:41:09 GMT -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title> {% block title %} ArtVue {% endblock %} </title>
+	<!-- Mirrored from wpkixx.com/html/wooble/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:41:09 GMT -->
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content=""/>
+		<meta name="keywords" content=""/>
+		<title>
+			{% block title %}
+				ArtVue
+			{% endblock %}
+		</title>
 
-    {% block css%}
+		{% block css%}
 
-    <!--Css Nourhen zedetou  -->
-    <style>
-	.table tr,
-	.table th,
-	.table td {
-		background-color: transparent;
-	}
-
-	
-
-	
-
-	#form-container {
-    flex: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 50px;
-    border: 0px solid #ccc;
-    border-radius: 10px;
-
-}
-
-     .admin-form-button {
-        background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #dbc2ad 0%, #e09f74 100%) repeat scroll 0 0;
-        border: medium none;
-        color: #fff;
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 25px;
-        margin-top: 20px;
-        padding: 13px 0;
-        text-transform: uppercase;
-        width: 25%; 
-        transition: all 0.2s linear 0s;
-        border-radius: 30px;
-        margin: auto;
-        display: block;
-    }
-
-    .admin-form-button:hover {
-        background: #333;
-    }
-</style>
-
-<!--Css Nourhen youfa  -->
+			<!--Css Nourhen zedetou  -->
+			<style>
+				.table tr,
+				.table th,
+				.table td {
+					background-color: transparent;
+				}
 
 
-    <link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
-    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
-    <!-- calander -->
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
-    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+				#form-container {
+					flex: 1;
+					margin-left: 10px;
+					margin-right: 10px;
+					margin-top: 50px;
+					border: 0 solid #ccc;
+					border-radius: 10px;
+
+				}
+
+				.admin-form-button {
+					background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #dbc2ad 0%, #e09f74 100%) repeat scroll 0 0;
+					border: medium none;
+					color: #fff;
+					font-size: 12px;
+					font-weight: 600;
+					margin: auto;
+					padding: 13px 0;
+					padding: 13px 0;
+					width: 25%;
+					transition: all 0.2s linear 0s;
+					border-radius: 30px;
+					display: block;
+				}
+
+				.admin-form-button:hover {
+					background: #333;
+				}
+			</style>
+
+			<!--Css Nourhen youfa  -->
 
 
-     <!-- css mariem -->
-  
-<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+			<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+			{# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
+			<!-- calander -->
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}"> <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
+			<link
+			rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
 
-<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/event-calendar/eventCalendar.css') }}">
+
+			<!-- css mariem -->
+
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/event-calendar/eventCalendar.css') }}">
 
 
+		{% endblock %}
+
+	</head>
+	<body>
+		<!-- Start Page Loading -->
+		<div id="loader-wrapper">
+			<div id="loader"></div>
+			<div class="loader-section section-left"></div>
+			<div class="loader-section section-right"></div>
+		</div>
+		<div class="panel-layout">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="main-page">
+							<header>
+								<div class="side-menus">
+									<div class="side-header">
+										<div class="logo">
+											<a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}"></a>
+										</div>
+										<nav class="slide-menu">
+											<span>Navigation
+												<i class="ti-layout"></i>
+											</span>
+											<ul class="parent-menu">
+												<li>
+													<a href="{{path('app_home')}}" title="#">
+														<i class="fa fa-dashboard"></i>
+														<span>Dashboard</span>
+													</a>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-image"></i>
+														<span>Galerie</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="{{ path('app_categorie_index') }}" title="">Catégories</a>
+														</li>
+														<li>
+															<a href="{{ path('chart_oeuvre_par_categorie') }}">Statistique Catégorie</a>
+														</li>
+														<li>
+															<a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a>
+														</li>
+														<li>
+															<a href="{{ path('chart_prix_vente') }}">Statistique Oeuvre d'art</a>
+														</li>
+													</ul>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-shopping-cart"></i>
+														<span>Commerce</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="{{ path('app_commande_index') }}" title="">Commandes</a>
+														</li>
+														<li>
+															<a href="{{ path('app_panier_index') }}">Paniers</a>
+														</li>
+														<li>
+															<a href="{{ path('app_livraison_index') }}">Livraisons</a>
+														</li>
+
+													</ul>
+												</li>
 
 
-    {% endblock %}
+												<li>
+													<a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title="">
+														<i class="fa fa-users"></i>
+														<span>Utilisateurs</span>
+													</a>
+												</li>
 
-</head>
-<body>
-    <!-- Start Page Loading -->
-    <div id="loader-wrapper">
-        <div id="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <div class="panel-layout">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="main-page">
-                        <header>
-                            <div class="side-menus">
-                                <div class="side-header">
-									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
-                                    <nav class="slide-menu">
-                                        <span>Navigation           <i class="ti-layout"></i></span>
-                                        <ul class="parent-menu">
-                                            <li> <a href="{{path('app_home')}}" title="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a> </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
-                                                <ul class="mega">
-                                                    <li><a href="{{ path('app_categorie_index') }}" title="">Catégories</a></li>
-                                                    <li><a href="{{ path('chart_oeuvre_par_categorie') }}">Statistique Catégorie</a></li>
-                                                    <li><a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a></li>
-                                                    <li><a href="{{ path('chart_prix_vente') }}">Statistique Oeuvre d'art</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>Commerce</span></a>
-                                                <ul class="mega">
-                                                 <li><a href="{{ path('app_commande_index') }}" title="">Commandes</a></li>
-                                                    <li><a href="{{ path('app_panier_index') }}">Paniers</a></li>
-                                                 <li><a href="{{ path('app_livraison_index') }}">Livraisons</a></li>
 
-                                                </ul>
-                                            </li>
-                                            
+												<li class="menu-item-has-children">
+													<a title="#">
+														<i class="fa fa-bookmark-o"></i>
+														<span>Evennement et Calendrier</span>
+													</a>
+													<ul>
+														<li><ahref="{{ path('app_calendar_index') }}">calendar</a></li>
+														<li><ahref="{{ path('app_evenement_index') }}">event calendar</a></li>
+													</ul>
+												</li>
 
-											
-                                          
-                     <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
+												<li>
+													<a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title="">
+														<i class="fa fa-users"></i>
+														<span>Utilisateurs</span>
+													</a>
+												</li>
 
-											
-											
-                                            
 
-                                            
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-star"></i>
+														<span>Concours</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="{{ path('app_concours_index') }}">Liste concours</a>
+														</li>
+														<li>
+															<a href="{{ path('app_concours_new') }}">Form concours</a>
+														</li>
+														<li>
+															<a href="{{ path('app_concours_gagnants') }}">Classifications des concours</a>
+														</li>
+														<li>
+															<a>Statistiques</a>
+														</li>
 
-<li class="menu-item-has-children">
-                                            <a title="#">
-                                                <i class="fa fa-bookmark-o"></i><span>Evennement et Calendrier</span>
-                                            </a>
-                                            <ul>
-                                                <li><a href="{{ path('app_calendar_index') }}">calendar</a></li>
-                                                <li><a href="{{ path('app_evenement_index') }}">event calendar</a></li>
-                                            </ul>
-                                        </li>
+													</ul>
+												</li>
 
-                                                            <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
-           
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</header>
+							<!-- side header -->
+							<div class="topbar">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-lg-2">
+											<div class="logo">
+												<a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+											</div>
+										</div>
+										<div class="col-lg-9">
+											<ul class="notify-area">
+												<li>
+													<div class="nav-icon3">
+														<span></span>
+														<span></span>
+														<span></span>
+														<span></span>
+													</div>
+													<i class="fa fa-navicon nav-icon3"></i>
+												</li>
+											</ul>
+											<div class="t-search">
+												<form method="post">
+													<input type="text" placeholder="Entrer votre mot-clé ">
+													<button type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</form>
+											</div>
+											<ul
+												class="seting-area">{# <li class="langages">
+													                                                <a href="#" title="">Eng</a>
+													                                                <ul class="drop language">
+													                                                    <li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
+													                                                    <li><a href="#">Rus</a></li>
+													                                                    <li><a href="#">Jap</a></li>
+													                                                    <li><a href="#">Arb</a></li>
+													                                                </ul>
+													                                            </li> #}
+											</ul>
+										</div>
+										<div class="col-lg-1">
+											<div class="user-head">
+												<div class="admin">
+													<div class="admin-avatar">
+														<img src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 50px; height: 50px">
+														<i class="online"></i>
+													</div>
+												</div>
+												<div class="drop setting">
+													<span class="drop-head">{{ app.session.get('userConnected').nom}}
+														{{ app.session.get('userConnected').prenom }}
+														<i>
+															{% if app.session.get('user_profil') == 0 %}
+																Admin
+															{% elseif app.session.get('user_profil') == 1 %}
+																Artiste
+															{% else %}
+																Client
+															{% endif %}
+														</i>
+													</span>
+													<ul class="drop-meta">
+														<li>
+															<a href="{{path('app_utilisateur_edit',{'id': app.session.get('user_id') })}}" title="">
+																<i class="fa fa-eyedropper"></i>Modifier Profile</a>
+														</li>
+														<li>
+															<a href="{{path('app_utilisateur_show',{'id': app.session.get('user_id') })}}" title="">
+																<i class="fa fa-eye"></i>Consulter Profile</a>
+														</li>
+														<li>
+															<a href="{{path('app_qr_codes')}}" title="">
+																<i class="fa fa-qrcode"></i>QR CODE</a>
+														</li>
+													</ul>
+													<span class="drop-bottom">
+														<a href="{{path('login_user')}}" title="">
+															<i class="fa fa-sign-out"></i>Déconnecter</a>
+													</span>
 
-                                                <li class="menu-item-has-children"> <a title=""><i class="fa fa-star"></i><span>Concours</span></a>
-                                            <ul class="mega">
-                                                <li><a href="{{ path('app_concours_index') }}">Liste concours</a></li>
-                                                <li><a href="{{ path('app_concours_new') }}">Form concours</a></li>
-                                                   <li><a href="{{ path('app_concours_gagnants') }}">Classifications des concours</a></li>
-                                                      <li><a>Statistiques</a></li>
-                                            
-                                            </ul>
-                                        </li>
-                                            
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                        </header>
-                        <!-- side header -->
-                        <div class="topbar">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <div class="logo"><a href="index.html" title=""><img src="images/logo.png" alt=""></a></div>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <ul class="notify-area">
-                                            <li>
-                                                <div class="nav-icon3"> <span></span> <span></span> <span></span> <span></span> </div>
-                                                <i class="fa fa-navicon nav-icon3"></i>
-                                            </li>
-                                        </ul>
-                                        <div class="t-search">
-                                            <form method="post">
-                                                <input type="text" placeholder="Entrer votre mot-clé ">
-                                                <button type="submit"><i class="fa fa-search"></i></button>
-                                            </form>
-                                        </div>
-                                        <ul class="seting-area">
-                                            {# <li class="langages">
-                                                <a href="#" title="">Eng</a>
-                                                <ul class="drop language">
-                                                    <li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
-                                                    <li><a href="#">Rus</a></li>
-                                                    <li><a href="#">Jap</a></li>
-                                                    <li><a href="#">Arb</a></li>
-                                                </ul>
-                                            </li> #}
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <div class="user-head">
-                                            <div class="admin">
-                                                <div class="admin-avatar">
-                                                <img src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 50px; height: 50px">
-                                                 <i class="online"></i> </div>
-                                            </div>
-                                            <div class="drop setting"> <span class="drop-head">{{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }}
-                                            <i>{% if app.session.get('user_profil') == 0 %}
-                                              Admin
-                                              {% elseif app.session.get('user_profil') == 1 %} 
-                                              Artiste
-                                              {% else %}
-                                              Client
-                                              {% endif %} </i></span>
-                                                <ul class="drop-meta">
-                                                            <li> <a href="{{path('app_utilisateur_edit',{'id': app.session.get('user_id') })}}"  title="">
-                                                                <i class="fa fa-eyedropper"></i>Modifier Profile</a> </li>
-                                                                <li> <a href="{{path('app_utilisateur_show',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-eye"></i>Consulter Profile</a> </li>
-                                                                <li> <a href="{{path('app_qr_codes')}}" title=""><i class="fa fa-qrcode"></i>QR CODE</a> </li>
-                                                </ul>
-                                                            <span class="drop-bottom"><a  href="{{path('login_user')}}"  title="">
-                                                            <i class="fa fa-sign-out"></i>Déconnecter</a></span> 
-                                                
-                                                 </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="main-content">
-                            <div class="responsive-header">
-                                <div class="logo-area">
-                                    <ul class="notify-area">
-                                        <li>
-                                            <div class="nav-icon3"> <span></span> <span></span> <span></span> <span></span> </div>
-                                        </li>
-                                        
-                                    </ul>
-									
-                                    <div class="user-head">
-                                            <div class="admin">
-                                                <div class="admin-avatar">
-                                                <img src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
-                                                 <i class="online"></i> </div>
-                                            </div>
-                                            <div class="drop setting"> <span class="drop-head">stifen Doe 
-                                            <i>30 days trial </i></span>
-                                                <ul class="drop-meta">
-                                                            <li> <a href="{{path('app_utilisateur_edit',{'id': 12 })}}"  title="">
-                                                                <i class="fa fa-eyedropper"></i>Modifier Profile</a> </li>
-                                                                <li> <a href="{{path('app_utilisateur_show',{'id': 12 })}}" title=""><i class="fa fa-eye"></i>Consulter Profile</a> </li>
-                                                </ul>
-                                                            <span class="drop-bottom"><a  href="{{path('login_user')}}"  title="">
-                                                            <i class="fa fa-sign-out"></i>Déconnecter</a></span> 
-                                                
-                                                 </div>
-                                        </div>
-									<ul class="seting-area">
-									{# <li class="langages">
-										<a title="" href="#">Eng</a>
-										<ul class="drop language">
-											<li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
-											<li><a href="#">Rus</a></li>
-											<li><a href="#">Jap</a></li>
-											<li><a href="#">Arb</a></li>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="main-content">
+								<div class="responsive-header">
+									<div class="logo-area">
+										<ul class="notify-area">
+											<li>
+												<div class="nav-icon3">
+													<span></span>
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</li>
+
 										</ul>
-									</li> #}
-								</ul>
-                                </div>
-                                <div class="t-search">
-                                    <form method="post">
-                                        <input type="text" placeholder="entrer votre mot-clé">
-                                        <button type="submit"><i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- responsive header -->
-                            {% block body %}
-                            <div class="panel-body">
-                                <div class="content-area">
-                                    <div class="sub-bar">
-                                        <div class="sub-title">
-                                            <h4>Dashboard:</h4>
-                                                                                  </div>
-                                        <ul class="bread-crumb">
-                                            <li><a href="#" title="">Home</a></li>
-                                            <li>Dashbord</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    
-									
-                                    
-                                   
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-12">
-                                            
-                                            <!-- user list -->
-                                        </div>
-										<div class="col-lg-8">
-                                        <div class="row merged">
-                                            <div class="col-lg-7 col-sm-8">
-                                                <div class="widget">
-                                                    <div class="clndr-wdgt">
-                                                        <div class="clndr">
-                                                            <div class="clndr"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-										</div>	
-                                    </div>
-									
-									
-									
-                                    
-                                   
-                                </div>
-                                <div class="bottombar"> 
-									<span>© 2019. Dewwater. All Rights Reserved.</span>
-                                </div>
-                                <!-- bottombar -->
-                            </div>
-                            {% endblock %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>	
-   {% block js %}
+
+										<div class="user-head">
+											<div class="admin">
+												<div class="admin-avatar">
+													<img src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
+													<i class="online"></i>
+												</div>
+											</div>
+											<div class="drop setting">
+												<span class="drop-head">stifen Doe
+													<i>30 days trial
+													</i>
+												</span>
+												<ul class="drop-meta">
+													<li>
+														<a href="{{path('app_utilisateur_edit',{'id': 12 })}}" title="">
+															<i class="fa fa-eyedropper"></i>Modifier Profile</a>
+													</li>
+													<li>
+														<a href="{{path('app_utilisateur_show',{'id': 12 })}}" title="">
+															<i class="fa fa-eye"></i>Consulter Profile</a>
+													</li>
+												</ul>
+												<span class="drop-bottom">
+													<a href="{{path('login_user')}}" title="">
+														<i class="fa fa-sign-out"></i>Déconnecter</a>
+												</span>
+
+											</div>
+										</div>
+										<ul
+											class="seting-area">{# <li class="langages">
+																						<a title="" href="#">Eng</a>
+																						<ul class="drop language">
+																							<li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
+																							<li><a href="#">Rus</a></li>
+																							<li><a href="#">Jap</a></li>
+																							<li><a href="#">Arb</a></li>
+																						</ul>
+																					</li> #}
+										</ul>
+									</div>
+									<div class="t-search">
+										<form method="post">
+											<input type="text" placeholder="entrer votre mot-clé">
+											<button type="submit">
+												<i class="fa fa-search"></i>
+											</button>
+										</form>
+									</div>
+								</div>
+								<!-- responsive header -->
+								{% block body %}
+									<div class="panel-body">
+										<div class="content-area">
+											<div class="sub-bar">
+												<div class="sub-title">
+													<h4>Dashboard:</h4>
+												</div>
+												<ul class="bread-crumb">
+													<li>
+														<a href="#" title="">Home</a>
+													</li>
+													<li>Dashbord</li>
+												</ul>
+											</div>
 
 
-    <script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
-    <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/calander.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/sparkline.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/nice-select.js') }}"></script>
-    <!-- calander -->
-    <script src="{{ asset('TemplateAdmin/js/calander-int.js') }}"></script>
-    <!-- calander -->
-    <script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
-    <!-- scripts -->
-    <script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/jvectormap.js') }}"></script>
+											<div class="row">
+												<div
+													class="col-lg-4 col-sm-12"><!-- user list -->
+												</div>
+												<div class="col-lg-8">
+													<div class="row merged">
+														<div class="col-lg-7 col-sm-8">
+															<div class="widget">
+																<div class="clndr-wdgt">
+																	<div class="clndr">
+																		<div class="clndr"></div>
+																	</div>
+																</div>
+															</div>
+														</div>
 
-    <script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
-    <script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
-   
+													</div>
+												</div>
+											</div>
 
 
-    {% endblock %}<!-- jvactor map -->
+										</div>
+										<div class="bottombar">
+											<span>© 2019. Dewwater. All Rights Reserved.</span>
+										</div>
+										<!-- bottombar -->
+									</div>
+								{% endblock %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% block js %}
 
-</body>
+
+			<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+			<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/jquery-ui.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/calander.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/sparkline.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/nice-select.js') }}"></script>
+			<!-- calander -->
+			<script src="{{ asset('TemplateAdmin/js/calander-int.js') }}"></script>
+			<!-- calander -->
+			<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+			<!-- scripts -->
+			<script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/jvectormap.js') }}"></script>
+
+			<script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+			<script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
 
 
-<!-- Mirrored from wpkixx.com/html/wooble/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:41:25 GMT -->
+		{% endblock %}
+		<!-- jvactor map -->
+
+	</body>
+
+
+	<!-- Mirrored from wpkixx.com/html/wooble/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:41:25 GMT -->
 </html>
