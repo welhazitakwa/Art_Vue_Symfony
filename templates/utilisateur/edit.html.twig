@@ -29,10 +29,20 @@
                       <div class="col-md-6 col-sm-6 field">
                         <label>Nom   </label>
                    {{ form_widget(form.nom) }}
+                      {% if form_errors(form.nom) is not empty %}
+                        <div class="alert alert-danger" >
+                           {{ form_errors(form.nom) }}
+                           </div>
+                        {% endif %} 
                       </div>
                       <div class="col-md-6 col-sm-6 field">
                         <label>Prenom   </label>
                    {{ form_widget(form.prenom) }}
+                      {% if form_errors(form.prenom) is not empty %}
+                        <div class="alert alert-danger" >
+                           {{ form_errors(form.prenom) }}
+                           </div>
+                        {% endif %} 
                       </div>
                       <div class="col-md-6 col-sm-6 field">
                         <label>Genre   </label>
@@ -45,8 +55,8 @@
                       </div>
 
                       <div class="col-md-12 col-sm-12 field"> 
-							            <span class="upload-image">upload image</span>
-						              <label class="fileContainer"> <span>upload</span>
+							            <span class="upload-image">upload image </span>
+						              <label class="fileContainer"> <span>upload </span>
                           {{ form_widget(form.image, {'attr': {'style': 'width:950px'}}) }}
 
 						              </label>
@@ -54,7 +64,12 @@
 
                       <div class="col-md-6 col-sm-12 field">
                         <label>CIN   </label>
-                            {{ form_widget(form.cin) }}     
+                            {{ form_widget(form.cin) }}  
+                        {% if form_errors(form.cin) is not empty %}
+                        <div class="alert alert-danger" >
+                           {{ form_errors(form.cin) }}
+                           </div>
+                        {% endif %}   
                       </div>
                       <div class="col-md-6 col-sm-12 field">
                         <label>Adresse  </label>
@@ -63,10 +78,20 @@
                       <div class="col-md-6 col-sm-12 field">
                         <label>Email   </label>
                         {{ form_widget(form.email) }}
+                        {% if form_errors(form.email) is not empty %}
+                        <div class="alert alert-danger" >
+                           {{ form_errors(form.email) }}
+                           </div>
+                        {% endif %}
                       </div>
                       <div class="col-md-6 col-sm-12 field">
                         <label>Numéro de Téléphone  </label>
                         {{ form_widget(form.numtel) }}
+                        {% if form_errors(form.numtel) is not empty %}
+                        <div class="alert alert-danger" >
+                           {{ form_errors(form.numtel) }}
+                           </div>
+                        {% endif %}
                       </div>
 						
                      

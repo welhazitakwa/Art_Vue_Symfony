@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<title>Web Admin panel</title>
+<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+ <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+ <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+ <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+</head>
+
+
+
+<body>
+<!-- Start Page Loading -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+      <div class="loader-section section-left"></div>
+      <div class="loader-section section-right"></div>
+    </div>
+<div class="panel-layout">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="maintenance-page">
+          <div class="fixed-bg" style="background-image:url(images/resources/mantinance-bg.png); background-repeat: no-repeat;"></div>
+          <div class="maintence-info"> <span>Cher {{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }} </span>
+            <h1 style="margin-top:30px;">Vous êtes bloqué </h1>
+            <p>Nous vous informons que votre compte a été temporairement bloqué en raison d'une violation présumée de nos conditions d'utilisation. Veuillez prendre contact avec notre service d'assistance pour résoudre ce problème.</p>
+            <i>merci de contacter 
+            <a style="color:#d5989e;" href="mailto:artvuecontact@gmail.com?subject=Réclamation de Blockage ">artvuecontact@gmail.com</a> ou de
+            <a  href="{{path('login_user')}}"   style="color:#d5989e;"> Reconnecter </a>
+             </u>
+              <img src="{{ asset('TemplateAdmin/images/resources/mantinance-avatar.png') }}" alt=""> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+
+ <script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+
+    <script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+    <script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+
+</body>
+
+</html>

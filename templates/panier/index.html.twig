@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier index{% endblock %}
+
+{% block body %}
+<div class="panel-body">
+		<div class="content-area">
+
+	<div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des paniers </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="{{ path('app_home') }}" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Commerce</li>
+											<li>Paniers</li>
+                                        </ul>
+                                    </div>
+<div class="widget">
+		<div class="widget-title no-margin">
+			<h4>Panier</h4>
+			<ul class="widget-controls">
+				
+				<li title="Ajouter un nouveau Panier" class="refresh-content">
+					<a href="{{ path('app_panier_new') }}"><img src="/TemplateAdmin/images/plus.png" style="width: 25px; height: 25px;" alt="Ajouter Panier">
+						Ajouter Panier</a>
+				</li>
+			</ul>
+			
+		</div>
+
+	<div class="main-table">
+			<table class="table table-hover table-responsive">
+				<thead>
+					<tr>
+						<th>Id du Panier</th>
+						<th>Date de creation</th>
+						<th>Client</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+</div>
+
+<tbody>{% for panier in paniers %}
+
+					<tr>
+						<td>
+							<span c"sr"lass=>{{ panier.id }}</span>
+						</td>
+					 <td>{{ panier.dateajout ? panier.dateajout|date('Y-m-d') : '' }}</td>
+                     <td>{{ panier.client.id }} </td>
+						<td>
+							<div class="prj-team">
+								<ul>
+                                    <li>
+                                                        <a href="{{ path('app_panier_show', {'id': panier.id}) }}" class="edit-btn">
+                                                            <img src="/TemplateAdmin/images/trouve.png" alt="Trouver" style="width: 20px; height: 20px;">
+                                                        </a>
+                                                    </li>
+								
+								
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">vide</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+            </table>
+
+</div> 
+        </div>
+
+
+
+    
+{% endblock %}

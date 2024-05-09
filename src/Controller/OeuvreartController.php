@@ -4,14 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Oeuvreart;
 use App\Entity\Categorie;
+use App\Form\EditOeuvreType;
 use App\Form\OeuvreartType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use App\Service\BadWordDetector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Utilisateur;
 use App\Repository\OeuvreartRepository;
+use Dompdf\Dompdf;
+use Knp\Snappy\Pdf;
+use Twilio\Rest\Client;
 
 #[Route('/oeuvreart')]
 class OeuvreartController extends AbstractController
@@ -44,7 +51,7 @@ class OeuvreartController extends AbstractController
     }
 
         #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, BadWordDetector $badWordDetector, EntityManagerInterface $entityManager , ): Response
 {
     
     $oeuvreart = new Oeuvreart();
@@ -56,8 +63,44 @@ class OeuvreartController extends AbstractController
             $fileName = uniqid().'.'.$file->guessExtension();
             $file->move($this->getParameter('images_directorys'), $fileName);
             $oeuvreart->setImage($fileName);
+
+            // Vérification des mots interdits dans le titre
+            $titreText = $oeuvreart->getTitre();
+            $apiResponseTitre = $badWordDetector->callBadWordApi($titreText);
+            if ($apiResponseTitre && isset($apiResponseTitre['censored_content'])) {
+                $oeuvreart->setTitre($apiResponseTitre['censored_content']);
+            } else {
+                $oeuvreart->setTitre($titreText);
+            }
+    
+            // Vérification des mots interdits dans la description
+            $descriptionText = $oeuvreart->getDescription();
+            $apiResponseDescription = $badWordDetector->callBadWordApi($descriptionText);
+            if ($apiResponseDescription && isset($apiResponseDescription['censored_content'])) {
+                $oeuvreart->setDescription($apiResponseDescription['censored_content']);
+            } else {
+                $oeuvreart->setDescription($descriptionText);
+            }
         $entityManager->persist($oeuvreart);
         $entityManager->flush();
+
+         // Envoi du SMS
+            $account_sid = $_ENV['TWILIO_ACCOUNT_SID'];
+            $auth_token = $_ENV['TWILIO_AUTH_TOKEN'];
+            $twilio_number = $_ENV['TWILIO_PHONE_NUMBER'];
+            $client = new Client($account_sid, $auth_token);
+    
+        
+            $recipient_phone_number = '+21692404237';  
+    
+            $client->messages->create(
+                $recipient_phone_number,
+                [
+                    'from' => $twilio_number,
+                    'body' => 'Une nouvelle oeuvre a été ajoutée : " ' . $oeuvreart->getTitre() . '" Venez la découvrir sur ArtVue !',
+                ]
+            );
+
 
         // Redirection vers la page d'index des œuvres d'art
         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
@@ -81,35 +124,7 @@ class OeuvreartController extends AbstractController
     }
 
 
-//     #[Route('/new', name: 'app_oeuvreart_new', methods: ['GET', 'POST'])]
-// public function new(Request $request, EntityManagerInterface $entityManager): Response
-// {
-    
-//     $oeuvreart = new Oeuvreart();
-//     $userId = 14;
-//     $user = $entityManager->getRepository(Utilisateur::class)->find($userId);
-//     $oeuvreart->setIdArtiste($user);
-//     $form = $this->createForm(OeuvreartType::class, $oeuvreart);
-//     $form->handleRequest($request);
 
-//     if ($form->isSubmitted() && $form->isValid()) {
-//         $file = $form->get('image')->getData();
-//             $fileName = uniqid().'.'.$file->guessExtension();
-//             $file->move($this->getParameter('images_directorys'), $fileName);
-//             $oeuvreart->setImage($fileName);
-//         $entityManager->persist($oeuvreart);
-//         $entityManager->flush();
-
-//         // Redirection vers la page d'index des œuvres d'art
-//         return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
-//     }
-
-//     // Affichage du formulaire
-//     return $this->renderForm('oeuvreart/new.html.twig', [
-//         'oeuvreart' => $oeuvreart,
-//         'form' => $form,
-//     ]);
-// }
 
 
     
@@ -124,25 +139,24 @@ class OeuvreartController extends AbstractController
     #[Route('/{idoeuvreart}/edit', name: 'app_oeuvreart_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(OeuvreartType::class, $oeuvreart, [
+        $form = $this->createForm(EditOeuvreType::class, $oeuvreart, [
             'attr' => ['enctype' => 'multipart/form-data'],
         ]);
     
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+            // Vérifie si un fichier d'image est téléchargé
             $file = $form->get('image')->getData();
-            // Vérifier si une nouvelle image a été téléchargée
-            if ($file) {
+            if ($file instanceof UploadedFile) {
+                // Génère un nom de fichier unique
                 $fileName = uniqid().'.'.$file->guessExtension();
+                // Déplace le fichier vers le répertoire souhaité
                 $file->move($this->getParameter('images_directorys'), $fileName);
+                // Met à jour le nom du fichier dans l'entité
                 $oeuvreart->setImage($fileName);
             }
-            // Si aucune nouvelle image n'a été téléchargée, conserver l'image existante
-            else {
-                $oeuvreart->setImage($oeuvreart->getImage());
-            }
-            $oeuvreart->setDateajout(new \DateTime());
+    
             $entityManager->flush();
     
             return $this->redirectToRoute('app_oeuvreart_index', [], Response::HTTP_SEE_OTHER);
@@ -153,6 +167,7 @@ class OeuvreartController extends AbstractController
             'form' => $form,
         ]);
     }
+   
     
 
     #[Route('/{idoeuvreart}', name: 'app_oeuvreart_delete', methods: ['POST'])]
@@ -213,6 +228,25 @@ public function bestCategory(): Response
     // Retourner le nom de la meilleure catégorie
     return new Response($bestCategory->getNomcategorie());
 }
+
+
+// #[Route('/chart/prix-vente', name: 'chart_prix_vente')]
+// public function prixVenteChart(): Response
+// {
+//     $entityManager = $this->getDoctrine()->getManager();
+//     $repository = $entityManager->getRepository(Oeuvreart::class);
+//     $prixVenteData = $repository->getPrixVenteData();
+
+//     return $this->render('oeuvreart/stat.html.twig', ['prixVenteData' => $prixVenteData]);
+// }
+
+
+
+
+
+
+
+
 
     
     

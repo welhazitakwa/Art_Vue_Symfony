@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Panieroeuvre{% endblock %}
+
+{% block body %}
+    <h1>Create new Panieroeuvre</h1>
+
+    {{ include('panieroeuvre/_form.html.twig') }}
+
+    <a href="{{ path('app_panieroeuvre_index') }}">back to list</a>
+{% endblock %}

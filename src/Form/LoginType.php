@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class LoginType extends AbstractType
 {
@@ -14,9 +16,18 @@ class LoginType extends AbstractType
     {
         $builder
             
-            ->add('login')
-            ->add('mdp',PasswordType::class)
-        ;
+            ->add('login' , TextType::class, [
+                'required' => false,
+            ])
+            ->add('mdp',PasswordType::class, [
+                'required' => false,
+            ])
+            ->add('captcha', CaptchaType::class, array(
+                'width' => 200,
+                'height' => 60,
+                'length' => 5,
+                'required' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

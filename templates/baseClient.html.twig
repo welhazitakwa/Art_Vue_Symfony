@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,26 @@
 
 		<!-- favicon -->
 		{% block css%}
+		{# links to template admin #}
+		<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+    {# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
+    <!-- calander -->
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+		{# links to template admin #}
 			<link
 			rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
 			<!-- google font -->
@@ -45,7 +66,13 @@
 			rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
 			<!-- responsive -->
 			<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
-
+<!-- css panier -->
+ <style>
+        .product-image {
+            height: 200px; /* Ajustez cette valeur en fonction de vos besoins */
+            object-fit: cover; /* Pour ajuster la taille de l'image tout en préservant les proportions */
+        }
+    </style>
 		{% endblock %}
 
 	</head>
@@ -86,16 +113,19 @@
 										<a href="{{ path('app_about') }}">A props de nous</a>
 									</li>
 									<li>
-										<a href="#">Oeuvre d'art</a>
-										<ul class="sub-menu">
-											<li>
+										
 												<a href="{{ path('app_galerie') }}">Galerie   </a>
-											</li>
-											<li>
-												<a href="{{ path('app_galerieOeuvre_artiste') }}">Mes Oeuvres d'art</a>
-											</li>
-										</ul>
+											
 									</li>
+                  	<li ><a href="{{ path('app_concoursclient_index') }}">Concours</a>
+									<ul class="sub-menu">
+										<li><a href="{{ path('app_concoursclient_index') }}">Liste Des Concours</a></li>
+										<li><a href="{{ path('app_vote_index') }}">Consulter Mes Votes</a></li>
+										<li><a href="{{ path('concours_calendar') }}">Calendrier Des Concours</a></li>
+									</ul>
+								</li>
+                <li><a href="{{ path('panier_afficher_commandes')}}">Commandes</a></li>
+
 									<li>
 										<a href="#">Pages</a>
 										<ul class="sub-menu">
@@ -155,12 +185,61 @@
 									</li>
 									<li>
 										<div class="header-icons">
-											<a class="shopping-cart" href="cart.html">
-												<i class="fas fa-shopping-cart"></i>
+<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}">
+<i class="fas fa-shopping-cart"></i></a>
 											</a>
-											<a class="mobile-hide search-bar-icon" href="#">
-												<i class="fas fa-search"></i>
-											</a>
+											{# <li>
+												<a class="mobile-hide search-bar-icon" href="#"> Consulter profile
+												</a> 											
+											</li> #}
+											
+										<a href="#">
+										<div class="admin">
+           <div class="admin-avatar">
+            <img src="{{ asset('oeuvre/' ~ app.session.get('userConnected').image) }}" alt="Image" style="width: 40px; height: 40px">
+              <i class="online"></i> </div>
+           </div>
+										
+										
+										
+										
+										
+										</a>
+										<ul class="sub-menu">
+											<li> 
+											
+											<center><b style="color:#d5989e;font-size:15px">
+											{{ app.session.get('userConnected').nom}} {{ app.session.get('userConnected').prenom }} :
+												<a class="mobile-hide"  style="color:#d5989e;font-size:15px"> {% if app.session.get('user_profil') == 0 %}
+                                              Admin
+                                              {% elseif app.session.get('user_profil') == 1 %} 
+                                              Artiste
+                                              {% else %}
+                                              Client
+                                              {% endif %} 
+												</a></b>	 </center>										
+											</li>
+											<li>
+												<a class="mobile-hide" href="{{ path('editprofileclient') }}"> <i class="fas fa-eye"></i> &nbsp; Consulter profile
+												</a> 											
+											</li>
+											<li>
+												<a href="{{path('editFormClient',{'id': app.session.get('user_id') })}}" > <i class="fas fa-user-edit"></i> &nbsp; Modifier profile </a>
+											</li>
+											<li>
+												<a href="{{path('app_qr_codes')}}" > <i class="fas fa-qrcode"></i> &nbsp; QR CODE </a>
+											</li>
+											<li>
+												<a href="{{path('login_user')}}" > <i class="fas fa-sign-out-alt"></i>&nbsp;  Déconnexion </a>
+											</li>
+										</ul>
+									
+
+											{# <a class="mobile-hide search-bar-icon" href="#">
+												<i class="fas fa-user"></i>
+											</a> #}
+											{# user takwaaaa #}
+											
 										</div>
 									</li>
 								</ul>
@@ -171,11 +250,32 @@
 							<div class="mobile-menu"></div>
 							<!-- menu end -->
 						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 		<!-- end header -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		<!-- search area -->
 		<div class="search-area">
@@ -187,7 +287,7 @@
 						</span>
 						<div class="search-bar">
 							<div class="search-bar-tablecell">
-								<h3>Search For:</h3>
+								<h3>Search For:  {{ app.session.get('userConnected').nom}}   </h3>
 								<input type="text" placeholder="Keywords">
 								<button type="submit">Search
 									<i class="fas fa-search"></i>
@@ -199,6 +299,32 @@
 			</div>
 		</div>
 		<!-- end search area -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		{% block body %}
 
 			<!-- Continue à modifier -->
@@ -729,4 +855,80 @@
 			</div>
 		</div>
 	</div>
-</div></div><!-- end copyright --><!-- jquery --><script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script><!-- bootstrap --><script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>
+
+</div></div>
+<!-- end copyright -->
+<!-- jquery -->
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap --><script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+<!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+<!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+<!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+<!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+<!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+<!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+<!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+<script>
+    // Fonction pour basculer entre like et dislike
+    function toggleLike(icon, idOeuvreArt) {
+    // Vérifier si l'icône est déjà remplie ou vide
+    if (icon.classList.contains('far')) {
+        // Icône vide, changer en icône remplie et augmenter le nombre de likes
+        icon.classList.remove('far');
+        icon.classList.add('fas');
+        icon.style.color = 'red';
+
+        // Appeler la méthode like du contrôleur Symfony via AJAX
+        fetch('/like/' + idOeuvreArt, {
+            method: 'POST', // Utiliser la méthode POST pour envoyer des données
+            headers: {
+                'Content-Type': 'application/json', // Indiquer le type de contenu JSON
+            },
+            body: JSON.stringify({ idOeuvreArt: idOeuvreArt }), // Convertir l'objet en chaîne JSON
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Afficher la réponse du serveur dans la console
+        })
+        .catch(error => {
+            console.error('Une erreur s\'est produite:', error);
+        });
+
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) + 1;
+    } else {
+        // Icône remplie, changer en icône vide et diminuer le nombre de likes
+        icon.classList.remove('fas');
+        icon.classList.add('far');
+        icon.style.color = 'black'; // Couleur par défaut pour une icône vide
+
+        // Supprimer le like (optionnel)
+
+        // Mettre à jour le nombre de likes
+        var likeCount = document.getElementById('likeCount');
+        likeCount.innerText = parseInt(likeCount.innerText) - 1;
+    }
+}
+
+</script>
+<!-- QRCODE -->
+		<script>
+			function toggleQRCode(idoeuvreart) {
+				var qrCodeImg = document.getElementById('qrCode' + idoeuvreart);
+				if (qrCodeImg.style.display === 'none') {
+					qrCodeImg.style.display = 'block';
+				} else {
+					qrCodeImg.style.display = 'none';
+				}
+			}
+		</script>
+</body>
+</html>
+
+</div></div><!-- end copyright -->
+<!-- jquery -->
+<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+<!-- bootstrap -->
+<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script><!-- count down --><script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script><!-- isotope --><script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script><!-- waypoints --><script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script><!-- owl carousel --><script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script><!-- magnific popup --><script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script><!-- mean menu --><script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script><!-- sticker js --><script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script><!-- main js --><script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script></body></html>

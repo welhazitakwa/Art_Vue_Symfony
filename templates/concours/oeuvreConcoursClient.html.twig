@@ -1,0 +1,277 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Concours Client
+{% endblock %}
+
+
+{% block css %}
+
+	<style>
+
+	.button-81 {
+  background-color: #DFB9C2;
+  border: 0 solid #e2e8f0;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  color: #0d172a;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: 1rem 1.6rem;
+  text-align: center;
+  text-decoration: none #0d172a solid;
+  text-decoration-thickness: auto;
+  transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-81:hover {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .button-81 {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+  }
+}
+		.product-image img {
+			width: 300px; /* Définir la largeur souhaitée */
+			height: 300px; /* Définir la hauteur souhaitée */
+			object-fit: cover; /* Pour conserver les proportions et remplir l'espace sans déformer l'image */
+		}
+
+
+		.single-product-item {
+			text-align: center; /* Centrer le texte */
+
+
+		}
+		.stars {
+			position: absolute; /* Position absolue pour les étoiles */
+			bottom: 150px; /* Ajustement de la position verticale */
+			left: 0; /* Centrer horizontalement */
+			right: 0; /* Centrer horizontalement */
+			margin: auto; /* Centrer horizontalement */
+			width: fit-content; /* Ajustement de la largeur en fonction du contenu */
+		}
+
+
+		.stars input {
+			display: none;
+		}
+		.stars label {
+			float: right;
+			font-size: 40px;
+			color: lightgrey;
+			margin: 0 5px;
+			text-shadow: 1px 1px #bbb;
+			cursor: pointer;
+		}
+		.stars label:before {
+			content: '★';
+		}
+		.stars input:checked ~ label {
+			color: gold;
+			text-shadow: 1px 1px #c60;
+		}
+		.stars:not(:checked) > label:hover,
+		.stars:not(:checked) > label:hover ~ label {
+			color: gold;
+		}
+		.stars .result:before {
+			position: absolute;
+			content: "";
+			bottom: -10px;
+			font-size: 16px;
+			color: gold;
+			display: none;
+		}
+		.stars input:checked ~ .result:before {
+			display: block;
+		}
+		.center {
+			position: center;
+
+		}
+		.button-wrapper {
+			margin-top: 140px; /* Espacement entre les étoiles et le bouton */
+		}
+	</style>
+
+	<link
+	rel="shortcut icon" type="image/png" href="{{ asset('TemplateClient/assets/img/favicon.png') }}">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link
+	href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/all.min.css') }}">
+	<!-- bootstrap -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/bootstrap/css/bootstrap.min.css') }}">
+	<!-- owl carousel -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/owl.carousel.css') }}">
+	<!-- magnific popup -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/magnific-popup.css') }}">
+	<!-- animate css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/animate.css') }}">
+	<!-- mean menu css -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/meanmenu.min.css') }}">
+	<!-- main style -->
+	<link
+	rel="stylesheet" href="{{ asset('TemplateClient/assets/css/main.css') }}">
+	<!-- responsive -->
+	<link rel="stylesheet" href="{{ asset('TemplateClient/assets/css/responsive.css') }}">
+
+{% endblock %}
+
+
+{% block js %}
+
+
+	<script>
+		// Fonction pour gérer le survol des étoiles
+document.addEventListener('DOMContentLoaded', function () { // Trouver tous les ensembles d'étoiles
+var starSets = document.querySelectorAll('.stars');
+
+// Pour chaque ensemble d'étoiles
+starSets.forEach(function (stars) {
+var labels = stars.querySelectorAll('label');
+var inputs = stars.querySelectorAll('input');
+
+// Gérer le survol des étoiles
+labels.forEach(function (label, index) {
+label.addEventListener('mouseover', function () { // Mettre en surbrillance toutes les étoiles jusqu'à celle survolée
+for (var i = 0; i <= index; i++) {
+labels[i].style.color = 'gold';
+}
+});
+
+// Réinitialiser les couleurs au retrait du survol
+label.addEventListener('mouseout', function () { // Ne conserver en surbrillance que les étoiles cochées
+labels.forEach(function (l, j) {
+l.style.color = inputs[j].checked ? 'gold' : 'lightgrey';
+});
+});
+
+// Gérer la sélection de l'étoile
+label.addEventListener('click', function () { // Marquer la sélection de l'étoile
+inputs[index].checked = true;
+
+// Mettre à jour la couleur des étoiles
+labels.forEach(function (l, j) {
+l.style.color = j <= index ? 'gold' : 'lightgrey';
+});
+});
+});
+});
+});
+	</script>
+	<script>
+		// Fonction JavaScript pour afficher la fenêtre pop-up
+function showPopup(message) {
+var popup = document.getElementById("popup");
+var popupMessage = document.getElementById("popup-message");
+popupMessage.innerHTML = message;
+popup.style.display = "block";
+}
+
+// Fonction JavaScript pour fermer la fenêtre pop-up
+function closePopup() {
+var popup = document.getElementById("popup");
+popup.style.display = "none";
+}
+	</script>
+
+	<script src="{{ asset('TemplateClient/assets/js/jquery-1.11.3.min.js') }}"></script>
+	<!-- bootstrap -->
+	<script src="{{ asset('TemplateClient/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+	<!-- count down -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.countdown.js') }}"></script>
+	<!-- isotope -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.isotope-3.0.6.min.js') }}"></script>
+	<!-- waypoints -->
+	<script src="{{ asset('TemplateClient/assets/js/waypoints.js') }}"></script>
+	<!-- owl carousel -->
+	<script src="{{ asset('TemplateClient/assets/js/owl.carousel.min.js') }}"></script>
+	<!-- magnific popup -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.magnific-popup.min.js') }}"></script>
+	<!-- mean menu -->
+	<script src="{{ asset('TemplateClient/assets/js/jquery.meanmenu.min.js') }}"></script>
+	<!-- sticker js -->
+	<script src="{{ asset('TemplateClient/assets/js/sticker.js') }}"></script>
+	<!-- main js -->
+	<script src="{{ asset('TemplateClient/assets/js/main.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Welcome to our art competition!</p>
+						<h1>Œuvres du Concours "{{ concours.titre }}"</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="product-section mt-150 mb-150">
+		<div class="container">
+			{% if oeuvres is empty %}
+				<p>Aucune œuvre n'est associée à ce concours pour le moment.</p>
+			{% else %}
+				<div class="row">
+					{% for oeuvre in oeuvres %}
+						<div class="col-lg-4 col-md-6 text-center">
+							<div class="single-product-item">
+								<div class="product-image">
+									<img src="{{ asset('oeuvre/' ~ oeuvre.image) }}" alt="{{ oeuvre.titre }}">
+
+									<h3>{{ oeuvre.titre }}</h3>
+									<form action="{{ path('app_vote_new') }}" method="POST">
+										<input type="hidden" name="concoursId" value="{{ concours.id }}">
+										<input type="hidden" name="oeuvreId" value="{{ oeuvre.idoeuvreart }}">
+										<div class="center">
+											<div class="stars">
+												{% for i in range(5, 1, -1) %}
+													<input type="radio" id="star-{{ oeuvre.idoeuvreart }}-{{ i }}" name="note" value="{{ i }}">
+													<label for="star-{{ oeuvre.idoeuvreart }}-{{ i }}"></label>
+												{% endfor %}
+											</div>
+										</div>
+										<div
+											class="button-wrapper">
+											
+										
+											<button type="submit" class="button-81" role="button">Confirmer</button>
+										</div>
+									</form>
+								</div>
+
+
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

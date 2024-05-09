@@ -3,50 +3,70 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
+use App\Repository\OeuvreartRepository;
 
-/**
- * Likes
- *
- * @ORM\Table(name="likes", indexes={@ORM\Index(name="idUtilisateur", columns={"idUtilisateur"}), @ORM\Index(name="idOeuvreArt", columns={"idOeuvreArt"})})
- * @ORM\Entity
- */
+#[ORM\Table(name: "likes", indexes: [
+    new ORM\Index(name: "idUtilisateur", columns: ["idUtilisateur"]),
+    new ORM\Index(name: "idOeuvreArt", columns: ["idOeuvreArt"]),
+])]
+
+#[ORM\Entity(repositoryClass: "App\Repository\LikesRepository")]
 class Likes
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="idLike", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idlike;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
+    #[ORM\Column(name: "idLike", type: "integer", nullable: false)]
+    private ?int $idlike;
 
-    /**
-     * @var bool|null
-     *
-     * @ORM\Column(name="estLike", type="boolean", nullable=true)
-     */
-    private $estlike;
+    #[ORM\Column(name: "estLike", type: "boolean", nullable: true)]
+    private ?bool $estlike;
 
-    /**
-     * @var \Oeuvreart
-     *
-     * @ORM\ManyToOne(targetEntity="Oeuvreart")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idOeuvreArt", referencedColumnName="idOeuvreArt")
-     * })
-     */
-    private $idoeuvreart;
+    #[ORM\ManyToOne(targetEntity: Oeuvreart::class)]
+    #[ORM\JoinColumn(name: "idOeuvreArt", referencedColumnName: "idoeuvreart")]
+    private ?Oeuvreart $idoeuvreart;
 
-    /**
-     * @var \Utilisateur
-     *
-     * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="id")
-     * })
-     */
-    private $idutilisateur;
+    #[ORM\ManyToOne(targetEntity: Utilisateur::class)]
+    #[ORM\JoinColumn(name: "idUtilisateur", referencedColumnName: "id")]
+    private ?Utilisateur $idutilisateur;
+
+    public function getIdlike(): ?int
+    {
+        return $this->idlike;
+    }
+
+    public function getEstlike(): ?bool
+    {
+        return $this->estlike;
+    }
+
+    public function setEstlike(bool $estlike): static
+    {
+        $this->estlike = $estlike;
+        return $this;
+    }
+
+    public function getIdoeuvreart(): ?Oeuvreart
+    {
+        return $this->idoeuvreart;
+    }
+
+    public function setIdoeuvreart(?Oeuvreart $idoeuvreart): static
+    {
+        $this->idoeuvreart = $idoeuvreart;
+        return $this;
+    }
 
 
+    public function getIdutilisateur(): ?Utilisateur
+    {
+        return $this->idutilisateur;
+    }
+
+
+    public function setIdutilisateur(?Utilisateur $idutilisateur): static
+    {
+        $this->idutilisateur = $idutilisateur;
+        return $this;
+    }
 }

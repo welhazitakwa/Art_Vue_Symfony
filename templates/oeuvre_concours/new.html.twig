@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New OeuvreConcours{% endblock %}
+
+{% block body %}
+    <h1>Create new OeuvreConcours</h1>
+
+    {{ include('oeuvre_concours/_form.html.twig') }}
+
+    <a href="{{ path('app_oeuvre_concours_index') }}">back to list</a>
+{% endblock %}

@@ -776,11 +776,112 @@ a.mobile-show {
   display: none;
 }
 
+
+
 .search-area .search-bar div.search-bar-tablecell {
   display: table-cell;
   vertical-align: middle;
   height: auto;
 }
+
+/* Styles CSS pour le bouton d'ajout avec la classe btn-add */
+.btn-add {
+  background-color: #4CAF50; 
+  color: white;
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 20px; 
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  background-color: #45a049; /* Changement de couleur au survol */
+}
+
+
+
+
+.t-search {
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  line-height: initial;
+}
+
+.t-search form input {
+  background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0;
+  border: medium none;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 12px;
+  padding: 12px 30px 12px 20px;
+  width: 297px;
+  line-height: initial;
+  -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.t-search form input::placeholder {
+  color: #fff;
+}
+
+.t-search form button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  color: #fff;
+  line-height: initial;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.t-search form {
+  display: inline-block;
+  position: relative;
+}
+
+.responsive-header .t-search {
+  float: left;
+  width: 100%;
+  margin-left: 0;
+}
+
+.responsive-header .t-search form {
+  float: left;
+  width: 100%;
+}
+.responsive-header .t-search form input {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  width: 100%;
+  padding-left: 20px;
+  background: #262626;
+  color: #fff;
+}
+
+.responsive-header .t-search form button {
+  right: 25px;
+}
+.main-page.gray .main-content .sub-bar .t-search input {
+  background: #fff none repeat scroll 0 0;
+  color: #333;
+}
+
 
 .search-bar-tablecell input {
   border: none;

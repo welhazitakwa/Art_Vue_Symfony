@@ -1,0 +1,85 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body %}
+
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <p>Vos commandes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+ 
+    <!-- commandes -->
+    <div id="commandes" class="container mt-4">
+        <div class="row">
+            {# Ajouter un formulaire de filtrage par état #}
+            <div class="col-md-6 offset-md-3 mb-4">
+                <form action="{{ path('panier_afficher_commandes') }}" method="get">
+                    <select name="etat" class="form-select">
+                        <option value="">Toutes</option>
+                        <option value="envoyé">Envoyées</option>
+                        <option value="Terminée">Terminées</option>
+                    </select>
+                    <button type="submit" class="btn btn-info btn-lg">Filtrer</button>
+                </form>
+            </div>
+            {% if commandes is empty %}
+                <div class="col-md-12">
+                    <p class="text-center">Vous n'avez passé aucune commande jusqu'à maintenant.</p>
+                </div>
+            {% else %}
+                {% for commande in commandes %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Commande #{{ commande.id }}</h5>
+                                <p class="card-text">Montant: {{ commande.montant }} DT</p>
+                                <p class="card-text">Date de Commande: {{ commande.date|date('Y-m-d') }}</p>
+                                <p class="card-text">État: {{ commande.etat }}</p>
+                                {% if commande.etat == 'envoyé' %}
+                                    <button onclick="supprimerCommande({{ commande.id }})" class="btn btn-danger btn-sm">Supprimer</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+    <!-- end commandes -->
+{{ knp_pagination_render(commandes) }}
+
+    <script>
+        function supprimerCommande(commandeId) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette commande?")) {
+                // Envoyer une requête AJAX pour supprimer la commande
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{{ path('supprimer_commande') }}", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // La commande a été supprimée avec succès, actualiser la page ou mettre à jour l'affichage
+                        window.location.reload(); // Actualiser la page après la suppression
+                    }
+                };
+                var data = JSON.stringify({ commandeId: commandeId });
+                xhr.send(data);
+            }
+        }
+
+		
+</script>
+
+
+
+{% endblock %}

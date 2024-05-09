@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande index{% endblock %}
+
+{% block body %}
+
+<div class="panel-body">
+		<div class="content-area">
+
+	<div class="sub-bar">
+                                        <div class="sub-title">
+                                            <h4>Dashboard:</h4>
+                                            <span> gestion des commandes </span>
+                                        </div>
+                                        <ul class="bread-crumb">
+                                            <li><a href="{{ path('app_home') }}" title=""><i class="fa fa-home"></i></a></li>
+                                            <li>Commerce</li>
+											<li>commandes</li>
+                                        </ul>
+                                    </div>
+
+
+	<div class="main-table">
+	<!--_________AJAX SEARCH__________ -->
+        <div class="d-flex"  >
+            <!--_______________________________________-->
+           
+            <div class="col-md-4 mx-auto">
+                <div class="input-group">
+                    <input class="form-control border-end-1 border rounded-pill" type="search" value="" id="example-search-input" style="bottom: 10px;padding-right: 12px;">
+                    <span class="input-group-append">
+                        <button class="btn btn-outline-secondary border-bottom-1 border rounded-pill ms-n5 border border-primary" type="button" id="searchButton"style="left: 60px;">
+Chercher                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--__________-->
+			<table class="table table-hover table-responsive">
+				<thead>
+					<tr>
+						<th>Id </th>
+						<th>Date</th>
+						<th>Etat</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+</div>
+
+<tbody>
+{% for commande in commandes %}
+
+					<tr class="event-row">
+						<td>
+							<span c"sr"lass=>{{ commande.id }}</span>
+						</td>
+					 <td>{{ commande.date ? commande.date|date('Y-m-d') : '' }}</td>
+                     <td>{{ commande.etat }} </td>
+						<td>
+							<div class="prj-team">
+								<ul>
+                                    <li>
+                                                        <a href="{{ path('app_commande_show', {'id': commande.id}) }}" class="edit-btn">
+                                                            <img src="/TemplateAdmin/images/trouve.png" alt="Trouver" style="width: 20px; height: 20px;">
+                                                        </a>
+                                                    </li>
+													 {% if commande.etat != 'Terminée' %}
+                                                    <li>
+													
+										<a href="{{ path('app_commande_edit', {'id': commande.id}) }}" class="edit-btn">
+											<img src="/TemplateAdmin/images/editer.png" alt="Modifier" style="width: 20px; height: 20px;">
+										</a>
+										
+									</li>
+									{% else %}
+								<li>
+										{{ include('commande/_delete_form.html.twig') }}
+									</li>
+								{% endif %}
+								</ul>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">vide</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+            <div>
+              
+               </div>
+            </table>
+             {{ knp_pagination_render(commandes) }}
+
+</div> 
+
+        </div>
+     
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script>
+                $(document).ready(function () {
+                    $('#searchButton').click(function () {
+                        var searchQuery = $('#example-search-input').val().toLowerCase();
+                        var noEventsRow = $('#noEventsRow');
+            
+                
+                        $('.event-row').each(function () {
+                            var eventRowText = $(this).text().toLowerCase();
+            
+                        
+                            $(this).toggle(eventRowText.includes(searchQuery));
+                        });
+            
+                    
+                        noEventsRow.toggle($('.event-row:visible').length === 0);
+                    });
+                });
+        </script>
+
+
+    
+{% endblock %}

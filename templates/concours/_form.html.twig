@@ -1,0 +1,78 @@
+
+
+
+
+<div class="widget-title no-margin">
+			<h4>Formulaire d'ajout d'oeuvre d'art</h4>
+        </div>
+		<div >
+			      {{ form_start(form) }}
+				<div class="card-body">
+				
+					<table class="table">
+						<tbody>
+
+						
+
+
+							<tr>
+								<th>{{ form_label(form.titre) }}</th>
+								<td>{{ form_widget(form.titre, ) }}</td>
+								<td>
+									{% if form_errors(form.titre)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.titre) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							<tr>
+								<th>{{ form_label(form.dateDebut) }}</th>
+								<td>{{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.dateDebut)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.dateDebut) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+                            <tr>
+								<th>{{ form_label(form.dateFin )}}</th>
+								<td>{{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.dateFin)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.dateFin) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							<tr>
+								<th>{{ form_label(form.description) }}</th>
+								<td>{{ form_widget(form.description) }}</td>
+								<td>
+									{% if form_errors(form.description)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.description) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+							
+
+							<tr>
+								<th>{{ form_label(form.oeuvres) }}</th>
+								<td>{{ form_widget(form.oeuvres) }}</td>
+								<td>
+									{% if form_errors(form.oeuvres)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.oeuvres) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+ 
+
+						</tbody>
+					</table>
+                    
+<button type="submit" class="admin-form-button">{{ button_label|default('Confirmer') }}</button
+					
+				</div>
+			
+			{{ form_end(form) }}
+		</div>

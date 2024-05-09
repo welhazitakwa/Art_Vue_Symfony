@@ -43,10 +43,7 @@ class OeuvreartType extends AbstractType
             
             ->add('prixvente')
             
-            ->add('dateajout', DateType::class, [
-                'widget' => 'single_text',
-                'data' => (new \DateTime())->setTime(0, 0, 0), 
-            ])
+            
             ->add('idCategorie', EntityType::class, [
                 'label' => 'Catégorie',
                 'class' => Categorie::class,

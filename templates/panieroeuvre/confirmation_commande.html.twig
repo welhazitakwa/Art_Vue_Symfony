@@ -1,0 +1,78 @@
+{% extends 'baseClient.html.twig' %}
+
+{% block title %}Confirmation de Commande{% endblock %}
+
+{% block body %}
+    <!-- breadcrumb-section -->
+    <div class="breadcrumb-section breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Confirmation de Commande</h2>
+                        <p>Vérifiez les détails de votre commande avant de la confirmer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end breadcrumb section -->
+
+    <!-- Affichez le formulaire de confirmation -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form method="post" action="{{ path('commander_panier') }}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Récapitulatif de la commande</h3>
+                            {% for panieroeuvre in panier.getPanieroeuvres() %}
+                                <div class="media mb-3">
+                                    <img src="{{ asset('oeuvre/' ~ panieroeuvre.idOeuvre.image) }}" class="mr-3 img-fluid" alt="..." style="max-height: 150px;">
+                                    <div class="media-body">
+                                        <h5 class="mt-0">{{ panieroeuvre.idOeuvre.getTitre() }}</h5>
+                                        <p>Quantité: {{ panieroeuvre.quantite }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Montant total</h3>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="montantTotal" name="montantTotal" value="{{ montantTotal }}" readOnly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-body">
+                            <h3 class="card-title">Vos coordonnées</h3>
+                            <div class="form-group">
+                            <h6>Nom</h6>
+                            <input type="text" class="form-control" id="nom" name="nom" value="{{ nom }}" readOnly>
+                            <h6>Prenom</h6>
+                            <input type="text" class="form-control" id="prenom" name="prenom" value="{{ prenom }}" readOnly>
+                            <h6>Adresse</h6>
+ <input type="text" class="form-control" id="adresse" name="adresse" value="{{ adresse }}" required pattern="[a-zA-Z\s]*">
+                                <small class="form-text text-muted">Seules les lettres sont autorisés dans l'adresse.</small>
+                            </div>
+                        </div>
+                    </div>
+                  
+
+                    <!-- Ajoutez un bouton de confirmation -->
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
+                        <a href="{{ path('app_home_client') }}" class="btn btn-secondary">Annuler</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  
+{% endblock %}

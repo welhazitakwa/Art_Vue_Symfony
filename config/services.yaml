@@ -8,6 +8,7 @@ parameters:
 
 
 services:
+
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -24,3 +25,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    Knp\Snappy\Pdf:
+        arguments:
+          $binary: '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"'
+          $options:
+           orientation: "Landscape"

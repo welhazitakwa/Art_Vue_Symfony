@@ -14,5 +14,6 @@ class OeuvreShowController extends AbstractController
         return $this->render('oeuvre_show/index.html.twig', [
             'controller_name' => 'OeuvreShowController',
         ]);
+     
     }
 }

@@ -16,31 +16,112 @@
 				</div>
 			</div>
 		</div>
+<!--PreLoader Ends-->
+
+		<!-- header -->
+		<div class="top-header-area" id="sticker">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-sm-12 text-center">
+						<div
+							class="main-menu-wrap">
+							<!-- logo -->
+							<div class="site-logo">
+								<a href="index.html">
+									<img src="{{ asset('TemplateClient/assets/img/logo.png') }}" alt="">
+								</a>
+							</div>
+							<!-- logo -->
+
+							<!-- menu start -->
+							<nav class="main-menu">
+								<ul>
+									<li class="current-list-item"><a href="{{ path('app_home_client')}}">Home</a>
+									<ul class="sub-menu">
+										<li><a href="{{ path('app_home_client')}}">Static Home</a></li>
+										<li><a href="{{ path('app_home_client')}}">Slider Home</a></li>
+									</ul>
+								</li>
+									<li>
+										<a href="about.html">About</a>
+									</li>
+									<li>
+										<a href="#">Pages</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="404.html">404 page</a>
+											</li>
+											<li>
+												<a href="about.html">About</a>
+											</li>
+											<li>
+												<a href="cart.html">Cart</a>
+											</li>
+											<li>
+												<a href="checkout.html">Check Out</a>
+											</li>
+											<li>
+												<a href="contact.html">Contact</a>
+											</li>
+											<li>
+												<a href="news.html">News</a>
+											</li>
+											<li>
+												<a href="shop.html">Shop</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="news.html">News</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="news.html">News</a>
+											</li>
+											<li>
+												<a href="single-news.html">Single News</a>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<a href="contact.html">Contact</a>
+									</li>
+									<li>
+										<a href="shop.html">Shop</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="shop.html">Shop</a>
+											</li>
+											<li>
+												<a href="checkout.html">Check Out</a>
+											</li>
+											<li>
+												<a href="single-product.html">Single Product</a>
+											</li>
+											<li>
+												<a href="cart.html">Cart</a>
+											</li>
+										</ul>
+				
+									</li>
+																	<li><a href="{{ path('panier_afficher_commandes')}}">Commandes</a></li>
+
+									<li>
+										<div class="header-icons">
+											<a class="shopping-cart" href="{{ path('app_panieroeuvre_afficher')}}">
+												<i class="fas fa-shopping-cart"></i>
+											</a>
+											<a class="mobile-hide search-bar-icon" href="#">
+												<i class="fas fa-search"></i>
+											</a>
+										</div>
+									</li>
+								</ul>
+							</nav>
+							<a class="mobile-show search-bar-icon" href="#">
+								<i class="fas fa-search"></i>
+
 	</div>
 	<!-- end breadcrumb section -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	<!-- products -->
 	<div class="product-section mt-150 mb-150">
@@ -63,65 +144,84 @@
 				</div>
 			</div>
 
-
-			<div class="row product-lists">
-				{% for oeuvreart in oeuvrearts %}
-					
-            <div class="col-lg-4 col-md-5">
-						<div class="single-latest-news" style="height: 500px;">
-							
-								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
-						
-							<div class="news-text-box">
-								<h3>
-									<a href="">{{ oeuvreart.titre }}</a>
-								</h3>
-								<p class="blog-meta">
-									<span class="author">
-										<i class="fas fa-user"></i>
-										{{ oeuvreart.idArtiste.nom }}
-										{{ oeuvreart.idArtiste.prenom }}</span>
-									<span class="date">
-										<i class="fas fa-calendar"></i>
-										{{ oeuvreart.dateAjout|date('Y-m-d') }}</span>
-								</p>
-								<p class="excerpt">
-									{{ oeuvreart.description|slice(0, 70) ~ '...' }}
-								</p>
-								<a href="#" class="read-more-btn ml-2">
-													<i class="fas fa-shopping-cart"></i>
-													Ajouter au panier
-												</a>
-
-								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">Savoir plus
-									<i class="fas fa-angle-right"></i>
-								</a> 
-								
-								
+			<div class="row mb-4">
+				<div class="col-md-12">
+					<form action="{{ path('app_galerie') }}" method="GET">
+						<div class="input-group" style="margin-bottom: 20px;">
+							<input type="text" placeholder="Rechercher un artiste..." name="search" id="search" style="border: none; padding: 10px; width: 20%; background-color: transparent; border-bottom: 1px solid #A77B7F; text-align: center; font-size: 12px; font-weight: 400; color: #D3A0A5;">
+							<div class="input-group-append">
+								<button type="submit" style="border: none;
+																																																																																																														  background-color: #D3A0A5;
+																																																																																																														  padding: 5px 30px;
+																																																																																																														  cursor: pointer;
+																																																																																																														  display: inline-block;
+																																																																																																														  border-radius: 50px;
+																																																																																																														  font-weight: 400;">
+									<i class="fas fa-search"></i>
+									Rechercher</button>
 							</div>
 						</div>
-					</div>
 
-
-				{% endfor %}
-			</div>
-
-
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
+					</form>
 				</div>
 			</div>
+
+
+			<div class="row product-lists">
+				{% if oeuvrearts|length == 0 %}
+					<div class="col-md-12">
+						<p>Aucune œuvre d'art trouvée pour cette recherche.</p>
+					</div>
+				{% else %}
+					{% for oeuvreart in oeuvrearts %}
+						<div class="col-lg-4 col-md-5">
+							<div class="single-latest-news" style="height: 500px;">
+								<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
+								<div class="news-text-box">
+
+									
+									<h3>
+										<a href="">{{ oeuvreart.titre }}</a>
+									</h3>
+									<p class="blog-meta">
+										<span class="author">
+											<i class="fas fa-user"></i>
+											{{ oeuvreart.idArtiste.nom }}
+											{{ oeuvreart.idArtiste.prenom }}
+										</span>
+										<span class="date">
+											<i class="fas fa-calendar"></i>
+											{{ oeuvreart.dateAjout|date('Y-m-d') }}
+										</span>
+									</p>
+									<p class="excerpt">
+										{{ oeuvreart.description|slice(0, 70) ~ '...' }}
+									</p>
+								
+									<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="read-more-btn ml-5">Savoir plus
+										<i class="fas fa-angle-right"></i>
+									</a>
+								</div>
+								<h5>{{ oeuvreart.titre }}</h5>
+								<p class="product-price">
+									{{ oeuvreart.prixvente }}DT
+								</p>
+
+
+								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}" class="cart-btn">
+									<i class="fas fa-shopping-cart"></i>
+									Ajouter au panier
+								</a>
+
+							</div>
+						</div>
+					{% endfor %}
+
+				{% endif %}
+			</div>
+
+
 		</div>
 	</div>
 	<!-- end products -->
-
 {% endblock %}

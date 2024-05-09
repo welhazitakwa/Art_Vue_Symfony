@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Panier{% endblock %}
+
+{% block body %}
+
+	<div class="panel-body">
+		<div class="content-area">
+
+	        <div class="sub-bar">
+                  <div class="sub-title">
+                         <h4> Panier :</h4>
+                         <span> Creer Panier </span>
+                    </div>
+                         <ul class="bread-crumb">
+                             <li><a href="{{ path('app_home') }}" title=""><i class="fa fa-home"></i></a></li>
+                             <li>Commerce </li>
+							<li>Panier</li>
+							<li>Creer Panier</li>
+                         </ul>
+             </div>
+             {# <div class="info-section">
+                                        
+                                        
+                                        
+                                    </div> #}
+         <div class="widget">
+	    <div class="widget-title no-margin">
+			<h4>Formulaire de creation du panier </h4>
+        </div>
+        <div> 
+        			{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        </div>
+<div class="card-body">
+					<table class="table">
+						<tbody>
+	<tr>
+								<th>{{ form_label(form.dateajout) }}</th>
+								<td>{{ form_widget(form.dateajout, {'attr': {'class': 'form-control', 'id': 'form_dateajout'}}) }}</td>
+								<td>
+									{% if form_errors(form.dateajout)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.dateajout) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<th>{{ form_label(form.client) }}</th>
+								<td>{{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}</td>
+								<td>
+									{% if form_errors(form.client)|length > 0 %}
+										<div class="alert alert-danger">{{ form_errors(form.client) }}</div>
+									{% endif %}
+								</td>
+							</tr>
+
+
+						
+
+				
+
+						</tbody>
+					</table>
+					<button type="submit" class="admin-form-button">Ajouter</button>
+	
+
+
+        </div>
+
+
+
+			{{ form_end(form) }}
+
+
+
+
+    </div>
+         </div>
+{% endblock %}

@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html
+	lang="en">
+
+
+	<!-- Mirrored from wpkixx.com/html/wooble/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 21 Jan 2022 11:41:09 GMT -->
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content=""/>
+		<meta name="keywords" content=""/>
+		<title>
+			{% block title %}
+				ArtVue
+			{% endblock %}
+		</title>
+
+		{% block css%}
+
+			<!--Css Nourhen zedetou  -->
+			<style>
+				.table tr,
+				.table th,
+				.table td {
+					background-color: transparent;
+				}
+
+
+				#form-container {
+					flex: 1;
+					margin-left: 10px;
+					margin-right: 10px;
+					margin-top: 50px;
+					border: 0 solid #ccc;
+					border-radius: 10px;
+
+				}
+
+				.admin-form-button {
+					background: rgba(0, 0, 0, 0) linear-gradient(-135deg, #dbc2ad 0%, #e09f74 100%) repeat scroll 0 0;
+					border: medium none;
+					color: #fff;
+					font-size: 12px;
+					font-weight: 600;
+					margin: auto;
+					padding: 13px 0;
+					padding: 13px 0;
+					width: 25%;
+					transition: all 0.2s linear 0s;
+					border-radius: 30px;
+					display: block;
+				}
+
+				.admin-form-button:hover {
+					background: #333;
+				}
+			</style>
+
+			<!--Css Nourhen youfa  -->
+
+
+			<link rel="icon" type="image/png" href="{{ asset('TemplateAdmin/images/fav.png') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/font-awesome.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/themify-icons.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/line-icons.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/animate.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/owl.carousel.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/perfect-scrollbar.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/jquery.datepicker.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}">
+			{# <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css') }}"> #}
+			<!-- calander -->
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/style.css') }}"> <link rel="stylesheet" href="{{ asset('TemplateAdmin/css/color.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/responsive.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/nice-select.css') }}">
+			<link rel="stylesheet" href="{{ asset('TemplateAdmin/css/flatweather.css') }}">
+
+
+		{% endblock %}
+
+	</head>
+	<body>
+		<!-- Start Page Loading -->
+		<div id="loader-wrapper">
+			<div id="loader"></div>
+			<div class="loader-section section-left"></div>
+			<div class="loader-section section-right"></div>
+		</div>
+		<div class="panel-layout">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="main-page">
+							<header>
+								<div class="side-menus">
+									<div class="side-header">
+										<div class="logo">
+											<a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}"></a>
+										</div>
+										<nav class="slide-menu">
+											<span>Navigation
+												<i class="ti-layout"></i>
+											</span>
+											<ul class="parent-menu">
+												<li>
+													<a href="{{path('app_home')}}" title="#">
+														<i class="fa fa-dashboard"></i>
+														<span>Dashboard</span>
+													</a>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-image"></i>
+														<span>Galerie</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="{{ path('app_categorie_index') }}" title="">Catégories</a>
+														</li>
+														<li>
+															<a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a>
+														</li>
+													</ul>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-shopping-cart"></i>
+														<span>WooCommercee</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="product.html" title="">product</a>
+														</li>
+														<li>
+															<a href="product-detail.html">product-detail</a>
+														</li>
+														<li>
+															<a href="product-order.html">product-order</a>
+														</li>
+														<li>
+															<a href="product-add.html">add product</a>
+														</li>
+														<li>
+															<a href="product-cart.html">product cart</a>
+														</li>
+													</ul>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="#">
+														<i class="fa fa-bookmark-o"></i>
+														<span>UI Elements</span>
+													</a>
+													<ul>
+														<li><a href="accordion-n-tabs.html">accordions & tabs</a></li>
+														<li><a href="elements.html">elements</a></li>
+														<li><a href="invoices.html">invoices</a></li>
+														<li><a href="tabels.html">tabels styles</a></li>
+														<li><a href="typography.html">typography</a></li>
+														<li><a href="megamenu.html">mega menu styles</a></li>
+														<li><a href="socials-btns.html">social buttons</a></li>
+														<li><a href="testimonials.html">testimonials styles</a></li>
+														<li><a href="calendar.html">event calendar</a></li>
+													</ul>
+												</li>
+												<li>
+													<a href="inbox.html" title="">
+														<i class="fa fa-inbox"></i>
+														<span>inbox</span>
+														<ins>5</ins>
+													</a>
+												</li>
+												<li>
+													<a href="charts.html" title="">
+														<i class="fa fa-bar-chart"></i>
+														<span>charts</span>
+													</a>
+												</li>
+												<li>
+													<a href="" title="">
+														<i class="fa fa-users"></i>
+														<span>Utilisateurs</span>
+													</a>
+												</li>
+
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-flag"></i>
+														<span>Icons</span>
+													</a>
+													<ul>
+														<li><a href="icons.html">Font Awesome</a></li>
+														<li><a href="icons2.html">Themify Icons</a></li>
+													</ul>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-inbox"></i>
+														<span>Pages</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="profile.html">profile</a>
+														</li>
+														<li>
+															<a href="edit-profile.html">edit profile</a>
+														</li>
+														<li>
+															<a href="login.html">login</a>
+														</li>
+														<li>
+															<a href="register.html">register</a>
+														</li>
+														<li>
+															<a href="forgot-pass.html">forgot password</a>
+														</li>
+													</ul>
+												</li>
+												<li class="menu-item-has-children">
+													<a title="">
+														<i class="fa fa-external-link"></i>
+														<span>extras</span>
+													</a>
+													<ul class="mega">
+														<li>
+															<a href="404.html">404 error page</a>
+														</li>
+														<li>
+															<a href="505.html">505 error page</a>
+														</li>
+														<li>
+															<a href="maintenance.html">maintenance</a>
+														</li>
+														<li>
+															<a href="coming-soon.html">coming soon
+															</a>
+														</li>
+
+													</ul>
+												</li>
+											</ul>
+										</nav>
+									</div>
+								</div>
+							</header>
+							<!-- side header -->
+							<div class="topbar">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-lg-2">
+											<div class="logo">
+												<a href="index.html" title=""><img src="images/logo.png" alt=""></a>
+											</div>
+										</div>
+										<div class="col-lg-9">
+											<ul class="notify-area">
+												<li>
+													<div class="nav-icon3">
+														<span></span>
+														<span></span>
+														<span></span>
+														<span></span>
+													</div>
+													<i class="fa fa-navicon nav-icon3"></i>
+												</li>
+											</ul>
+											<div class="t-search">
+												<form method="post">
+													<input type="text" placeholder="Entrer votre mot-clé ">
+													<button type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</form>
+											</div>
+											<ul
+												class="seting-area">{# <li class="langages">
+													                                                <a href="#" title="">Eng</a>
+													                                                <ul class="drop language">
+													                                                    <li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
+													                                                    <li><a href="#">Rus</a></li>
+													                                                    <li><a href="#">Jap</a></li>
+													                                                    <li><a href="#">Arb</a></li>
+													                                                </ul>
+													                                            </li> #}
+											</ul>
+										</div>
+										<div class="col-lg-1">
+											<div class="user-head">
+												<div class="admin">
+													<div class="admin-avatar">
+														<img src="" alt="Image" style="width: 50px; height: 50px">
+														<i class="online"></i>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="main-content">
+								<div class="responsive-header">
+									<div class="logo-area">
+										<ul class="notify-area">
+											<li>
+												<div class="nav-icon3">
+													<span></span>
+													<span></span>
+													<span></span>
+													<span></span>
+												</div>
+											</li>
+
+										</ul>
+
+										<div class="user-head">
+											<div class="admin">
+												<div class="admin-avatar">
+													<img src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" alt="">
+													<i class="online"></i>
+												</div>
+											</div>
+											<div class="drop setting">
+												<span class="drop-head">stifen Doe
+													<i>30 days trial
+													</i>
+												</span>
+												<ul class="drop-meta">
+													<li>
+														<a href="{{path('app_utilisateur_edit',{'id': 12 })}}" title="">
+															<i class="fa fa-eyedropper"></i>Modifier Profile</a>
+													</li>
+													<li>
+														<a href="{{path('app_utilisateur_show',{'id': 12 })}}" title="">
+															<i class="fa fa-eye"></i>Consulter Profile</a>
+													</li>
+												</ul>
+												<span class="drop-bottom">
+													<a href="{{path('login_user')}}" title="">
+														<i class="fa fa-sign-out"></i>Déconnecter</a>
+												</span>
+
+											</div>
+										</div>
+										<ul
+											class="seting-area">{# <li class="langages">
+																						<a title="" href="#">Eng</a>
+																						<ul class="drop language">
+																							<li class="lang-selected"><a href="#"><i class="fa fa-check"></i> Eng</a></li>
+																							<li><a href="#">Rus</a></li>
+																							<li><a href="#">Jap</a></li>
+																							<li><a href="#">Arb</a></li>
+																						</ul>
+																					</li> #}
+										</ul>
+									</div>
+									<div class="t-search">
+										<form method="post">
+											<input type="text" placeholder="entrer votre mot-clé">
+											<button type="submit">
+												<i class="fa fa-search"></i>
+											</button>
+										</form>
+									</div>
+								</div>
+								<!-- responsive header -->
+
+	<div class="panel-body">
+		<div class="content-area">
+
+			<div class="sub-bar">
+				<div class="sub-title">
+					<h4>Oeuvre d'art:</h4>
+					<span>Gestion des oeuvre d'art</span>
+				</div>
+				<ul class="bread-crumb">
+					<li>
+						<a href="{{ path('app_home') }}" title="">
+							<i class="fa fa-home"></i>
+						</a>
+					</li>
+					<li>Galerie</li>
+					<li>Oeuvre d'art</li>
+					<li>Statistique</li>
+				</ul>
+			</div>
+			<div class="info-section">
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+						<div class="info-meta">
+							<span>Nombre des catégories</span>
+							<h4>5</h4>
+
+						</div>
+						<div class="spark">
+							<div class="sparkline_line"></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/image.png') }}" alt="" width="50" height="50">
+						<div class="info-meta">
+							<span>Nombre des Oeuvre d'art</span>
+							<h4>10</h4>
+
+						</div>
+						<div class="spark">
+							<div class="sparkline_three"></div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-widget style2">
+					<div class="b-meta">
+						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
+						<div class="info-meta">
+							<span>La meilleur catégorie</span>
+							<h4 style="font-size: 25px;">Photographie</h4>
+
+						</div>
+						<div class="spark">
+							<div class="sparkline22"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="widget">
+    <div class="widget-title">
+        <h4>Répartition des œuvres d'art par prix de vente</h4>
+        <ul class="widget-controls"></ul>
+    </div>
+    <div class="widget-peding" style="text-align: center;">
+        <div class="revenue-chart line" style="display: inline-block; width: 70%;">
+            <canvas id="bar-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+		</body>
+		<script src="{{ asset('TemplateAdmin/js/jquery.js') }}"></script>
+				<script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@10') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/jquery-ui.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/bootstrap.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/owl.carousel.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/chart.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/echart.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/jquery.sparkline.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/calander.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/sparkline.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/nice-select.js') }}"></script>
+				<!-- calander -->
+				<script src="{{ asset('TemplateAdmin/js/calander-int.js') }}"></script>
+				<!-- calander -->
+				<script src="{{ asset('TemplateAdmin/js/custom.js') }}"></script>
+				<!-- scripts -->
+				<script src="{{ asset('TemplateAdmin/js/custom2.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/jvectormap.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/flatweather.min.js') }}"></script>
+				<script src="{{ asset('TemplateAdmin/js/html5lightbox.js') }}"></script>
+				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+				<script>
+					// Créer un tableau de valeurs de prix à partir des données récupérées
+var values = [];
+var labels = [];
+
+// Récupérer les prix min et max
+var minPrice = Number.MAX_SAFE_INTEGER;
+var maxPrice = Number.MIN_SAFE_INTEGER;{% for data in prixVenteData %}
+var price = {{ data.price }};
+minPrice = Math.min(minPrice, price);
+maxPrice = Math.max(maxPrice, price);{% endfor %}
+
+// Déterminer le nombre d'intervalles
+var numIntervals = 5;
+var intervalSize = (maxPrice - minPrice) / numIntervals;
+
+// Initialiser les compteurs d'intervalles
+var intervalCounters = new Array(numIntervals).fill(0);
+
+// Compter le nombre d'éléments dans chaque intervalle
+{% for data in prixVenteData %}
+var price = {{ data.price }};
+var intervalIndex = Math.floor((price - minPrice) / intervalSize);
+intervalCounters[intervalIndex]++;{% endfor %}
+
+// Générer les étiquettes pour chaque intervalle
+for (var i = 0; i < numIntervals; i++) {
+var startInterval = minPrice + (i * intervalSize);
+var endInterval = minPrice + ((i + 1) * intervalSize);
+labels.push('De ' + startInterval.toFixed(2) + ' à ' + endInterval.toFixed(2));
+values.push(intervalCounters[i]);
+}
+
+// Données du graphique en barres
+var data = {
+labels: labels,
+datasets: [
+{
+label: 'Nombre d\'œuvres d\'art',
+data: values,
+backgroundColor: 'rgba(54, 162, 235, 0.2)',
+borderColor: 'rgba(54, 162, 235, 1)',
+borderWidth: 1
+}
+]
+};
+
+// Options du graphique en barres
+var options = {
+title: {
+display: true,
+text: 'Répartition des prix de vente par intervalle'
+},
+scales: {
+yAxes: [
+{
+ticks: {
+beginAtZero: true
+}
+}
+]
+}
+};
+
+// Création du graphique en barres
+var ctx = document.getElementById('bar-chart').getContext('2d');
+var pieChart = new Chart(ctx, {
+type: 'bar',
+data: data,
+options: options
+});
+				</script>
+
+</html>

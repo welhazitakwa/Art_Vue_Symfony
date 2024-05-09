@@ -1,0 +1,50 @@
+
+</form>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<form id="deleteForm{{ commande.id }}" method="post" action="{{ path('app_commande_delete', {'id': commande.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commande.id) }}">
+    <a href="#" onclick="confirmDelete('{{ commande.id }}');">
+        <img src="/TemplateAdmin/images/supprimer.png" alt="Supprimer" style="width: 20px; height: 20px;">
+    </a>
+</form>
+
+<script>
+    function confirmDelete(commandeId) {
+        Swal.fire({
+            title: 'Êtes-vous sûr(e) ?',
+            text: "Voulez-vous vraiment supprimer cette commande ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Oui, supprimer !',
+            cancelButtonText: 'Annuler',
+            customClass: {
+                popup: 'custom-popup-class',
+                confirmButton: 'custom-confirm-button-class',
+                cancelButton: 'custom-cancel-button-class'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm' + commandeId).submit();
+            }
+        });
+    }
+</script>
+<style>
+    /* CSS personnalisé pour ajuster la taille de la boîte de dialogue */
+    .custom-popup-class {
+        width: 600px; /* Ajustez la largeur selon vos besoins */
+        font-size: 14px; /* Ajustez la taille de la police selon vos besoins */
+    }
+
+    /* CSS personnalisé pour ajuster le bouton de confirmation */
+    .custom-confirm-button-class {
+        font-size: 14px; /* Ajustez la taille de la police selon vos besoins */
+    }
+
+    /* CSS personnalisé pour ajuster le bouton d'annulation */
+    .custom-cancel-button-class {
+        font-size: 14px; /* Ajustez la taille de la police selon vos besoins */
+    }
+</style>
