@@ -127,6 +127,7 @@
                                                 </ul>
                                             </li>
                                             
+
 											
                                           
                      <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
@@ -134,6 +135,22 @@
 											
 											
                                             
+
+                                            
+
+<li class="menu-item-has-children">
+                                            <a title="#">
+                                                <i class="fa fa-bookmark-o"></i><span>Evennement et Calendrier</span>
+                                            </a>
+                                            <ul>
+                                                <li><a href="{{ path('app_calendar_index') }}">calendar</a></li>
+                                                <li><a href="{{ path('app_evenement_index') }}">event calendar</a></li>
+                                            </ul>
+                                        </li>
+
+                                                            <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
+           
+
                                                 <li class="menu-item-has-children"> <a title=""><i class="fa fa-star"></i><span>Concours</span></a>
                                             <ul class="mega">
                                                 <li><a href="{{ path('app_concours_index') }}">Liste concours</a></li>
