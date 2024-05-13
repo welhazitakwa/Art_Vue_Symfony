@@ -3,8 +3,21 @@
 {% block title %}Offreenchere{% endblock %}
 
 {% block body %}
-    <h1>Offreenchere</h1>
-
+<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Vibrant et Inspirant</p>
+						<h1>Offres</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+<div style="margin:100px;">
     <table class="table">
         <tbody>
             <tr>
@@ -31,4 +44,5 @@
     <a href="{{ path('app_offreenchere_edit', {'id': offreenchere.id}) }}">edit</a>
 
     {{ include('offreenchere/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
