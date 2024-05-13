@@ -79,9 +79,7 @@
 					{% for oeuvreart in oeuvrearts %}
 						<div class="col-lg-4 col-md-5">
 							<div class="single-latest-news" style="height: 370px;">
-								<a href="{{ path('app_galerie_show', {'idoeuvreart': oeuvreart.idoeuvreart}) }}">
 									<div class="latest-news-bg" style="background-image: url('{{ asset('oeuvre/' ~ oeuvreart.image) }}');"></div>
-								</a>
 								<div class="news-text-box">
 									<h3>
 										<a href="">{{ oeuvreart.titre }}</a>

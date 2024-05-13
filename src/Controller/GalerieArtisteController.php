@@ -44,6 +44,8 @@ class GalerieArtisteController extends AbstractController
 #[Route('/artiste/{idoeuvreart}', name: 'app_oeuvreart_deleteArtiste', methods: ['POST'])]
 public function delete(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
 {
+    $oeuvreart=$entityManager->getRepository(Oeuvreart::class)->find($request->attributes->get('idoeuvreart'));
+
     if ($this->isCsrfTokenValid('delete'.$oeuvreart->getIdoeuvreart(), $request->request->get('_token'))) {
         $entityManager->remove($oeuvreart);
         $entityManager->flush();
@@ -149,6 +151,8 @@ public function delete(Request $request, Oeuvreart $oeuvreart, EntityManagerInte
 #[Route('/{idoeuvreart}/editOeuvre', name: 'app_oeuvreart_editArtiste', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
+        $oeuvreart=$entityManager->getRepository(Oeuvreart::class)->find($request->attributes->get('idoeuvreart'));
+
         $form = $this->createForm(EditOeuvreArtisteType::class, $oeuvreart, [
             'attr' => ['enctype' => 'multipart/form-data'],
         ]);
