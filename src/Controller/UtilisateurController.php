@@ -32,8 +32,8 @@ use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\Label\Font\NotoSans;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-
-
+use App\Controller\PanierController;
+use App\Entity\Panier;
 #[Route('/utilisateur')]
 class UtilisateurController extends AbstractController
 {
@@ -308,6 +308,11 @@ public function verifySendedCode(Request $request){
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $panier = new Panier(); // Appel du constructeur pour initialiser la date d'ajout
+            $panier->setDateajout(new \DateTime());
+            $panier->setClient($utilisateur);
+            $entityManager->persist($panier);
 
             $defaultImagePath = $this->getParameter('kernel.project_dir').'/public/oeuvre/userimg.png';
              $uploadsDirectory = $this->getParameter('images_directorys');
