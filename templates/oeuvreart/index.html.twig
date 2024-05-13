@@ -94,7 +94,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="main-page">
-                        <header>
+                          <header>
                             <div class="side-menus">
                                 <div class="side-header">
 									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
@@ -105,67 +105,40 @@
                                             <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
                                                 <ul class="mega">
                                                     <li><a href="{{ path('app_categorie_index') }}" title="">Catégories</a></li>
+                                                    <li><a href="{{ path('chart_oeuvre_par_categorie') }}">Statistique Catégorie</a></li>
                                                     <li><a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a></li>
-                                                    <li><a href="{{ path('chart_prix_vente') }}">Statistique</a></li>
+                                                    <li><a href="{{ path('chart_prix_vente') }}">Statistique Oeuvre d'art</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>WooCommercee</span></a>
+                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>Commerce</span></a>
                                                 <ul class="mega">
-                                                    <li><a href="product.html" title="">product</a></li>
-                                                    <li><a href="product-detail.html">product-detail</a></li>
-                                                    <li><a href="product-order.html">product-order</a></li>
-                                                    <li><a href="product-add.html">add product</a></li>
-                                                    <li><a href="product-cart.html">product cart</a></li>
+                                                 <li><a href="{{ path('app_commande_index') }}" title="">Commandes</a></li>
+                                                    <li><a href="{{ path('app_panier_index') }}">Paniers</a></li>
+                                                 <li><a href="{{ path('app_livraison_index') }}">Livraisons</a></li>
+
                                                 </ul>
                                             </li>
-                                            <li class="menu-item-has-children"> <a title="#"><i class="fa fa-bookmark-o"></i><span>UI Elements</span></a>
-                                                <ul>
-                                                    <li><a href="accordion-n-tabs.html">accordions & tabs</a></li>
-                                                    <li><a href="elements.html">elements</a></li>
-                                                    <li><a href="invoices.html">invoices</a></li>
-                                                    <li><a href="tabels.html">tabels styles</a></li>
-                                                    <li><a href="typography.html">typography</a></li>
-                                                    <li><a href="megamenu.html">mega menu styles</a></li>
-                                                    <li><a href="socials-btns.html">social buttons</a></li>
-                                                    <li><a href="testimonials.html">testimonials styles</a></li>
-													<li><a href="calendar.html">event calendar</a></li>
-                                                </ul>
-                                            </li>
-											<li><a href="inbox.html" title=""><i class="fa fa-inbox"></i><span>inbox</span><ins>5</ins></a></li>
-                                            <li><a href="charts.html" title=""><i class="fa fa-bar-chart"></i><span>charts</span></a></li>
+                                           
                                                             <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
 
-											<li class="menu-item-has-children"> 
-												<a title=""><i class="fa fa-flag"></i><span>Icons</span></a>
-                                                <ul>
-                                                    <li><a href="icons.html">Font Awesome</a></li>
-                                                    <li><a href="icons2.html">Themify Icons</a></li>
-                                                </ul>
-                                            </li>
-											<li class="menu-item-has-children"> <a title=""><i class="fa fa-inbox"></i><span>Pages</span></a>
-                                                <ul class="mega">
-                                                    <li><a href="profile.html">profile</a></li>
-                                                    <li><a href="edit-profile.html">edit profile</a></li>
-                                                    <li><a href="login.html">login</a></li>
-                                                    <li><a href="register.html">register</a></li>
-                                                    <li><a href="forgot-pass.html">forgot password</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-external-link"></i><span>extras</span></a>
-                                                <ul class="mega">
-                                                    <li><a href="404.html">404 error page</a></li>
-                                                    <li><a href="505.html">505 error page</a></li>
-                                                    <li><a href="maintenance.html">maintenance</a></li>
-                                                    <li><a href="coming-soon.html">coming soon </a></li>
-                                                    
-                                                </ul>
-                                            </li>
+											
+										
+                                          
+                                                <li class="menu-item-has-children"> <a title=""><i class="fa fa-star"></i><span>Concours</span></a>
+                                            <ul class="mega">
+                                                <li><a href="{{ path('app_concours_index') }}">Liste concours</a></li>
+                                                <li><a href="{{ path('app_concours_new') }}">Form concours</a></li>
+                                                   <li><a href="{{ path('app_concours_gagnants') }}">Classifications des concours</a></li>
+                                                      <li><a>Statistiques</a></li>
+                                            
+                                            </ul>
+                                        </li>
+                                            
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
-                        </header>
-                        <!-- side header -->
+                        </header>   <!-- side header -->
                         <div class="topbar">
                             <div class="container-fluid">
                                 <div class="row">
@@ -377,7 +350,6 @@
 								<th style="width: 250px;">Description</th>
 								<!-- Définir la largeur de la colonne de description -->
 								<th>Prix</th>
-								<th>Status</th>
 								<th>Date d'ajout</th>
 
 								<th>Actions</th>
@@ -400,9 +372,7 @@
 											<span class="progres">{{ oeuvreart.prixvente }}
 												DT</span>
 										</td>
-										<td>
-											<span style="font-weight: bold; color: green;">{{ oeuvreart.status }}</span>
-										</td>
+										
 										<td>{{ oeuvreart.dateajout ? oeuvreart.dateajout|date('Y-m-d') : '' }}</td>
 
 										<td>

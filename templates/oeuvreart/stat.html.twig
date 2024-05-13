@@ -92,157 +92,51 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="main-page">
-							<header>
-								<div class="side-menus">
-									<div class="side-header">
-										<div class="logo">
-											<a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}"></a>
-										</div>
-										<nav class="slide-menu">
-											<span>Navigation
-												<i class="ti-layout"></i>
-											</span>
-											<ul class="parent-menu">
-												<li>
-													<a href="{{path('app_home')}}" title="#">
-														<i class="fa fa-dashboard"></i>
-														<span>Dashboard</span>
-													</a>
-												</li>
-												<li class="menu-item-has-children">
-													<a title="">
-														<i class="fa fa-image"></i>
-														<span>Galerie</span>
-													</a>
-													<ul class="mega">
-														<li>
-															<a href="{{ path('app_categorie_index') }}" title="">Catégories</a>
-														</li>
-														<li>
-															<a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a>
-														</li>
-													</ul>
-												</li>
-												<li class="menu-item-has-children">
-													<a title="">
-														<i class="fa fa-shopping-cart"></i>
-														<span>WooCommercee</span>
-													</a>
-													<ul class="mega">
-														<li>
-															<a href="product.html" title="">product</a>
-														</li>
-														<li>
-															<a href="product-detail.html">product-detail</a>
-														</li>
-														<li>
-															<a href="product-order.html">product-order</a>
-														</li>
-														<li>
-															<a href="product-add.html">add product</a>
-														</li>
-														<li>
-															<a href="product-cart.html">product cart</a>
-														</li>
-													</ul>
-												</li>
-												<li class="menu-item-has-children">
-													<a title="#">
-														<i class="fa fa-bookmark-o"></i>
-														<span>UI Elements</span>
-													</a>
-													<ul>
-														<li><a href="accordion-n-tabs.html">accordions & tabs</a></li>
-														<li><a href="elements.html">elements</a></li>
-														<li><a href="invoices.html">invoices</a></li>
-														<li><a href="tabels.html">tabels styles</a></li>
-														<li><a href="typography.html">typography</a></li>
-														<li><a href="megamenu.html">mega menu styles</a></li>
-														<li><a href="socials-btns.html">social buttons</a></li>
-														<li><a href="testimonials.html">testimonials styles</a></li>
-														<li><a href="calendar.html">event calendar</a></li>
-													</ul>
-												</li>
-												<li>
-													<a href="inbox.html" title="">
-														<i class="fa fa-inbox"></i>
-														<span>inbox</span>
-														<ins>5</ins>
-													</a>
-												</li>
-												<li>
-													<a href="charts.html" title="">
-														<i class="fa fa-bar-chart"></i>
-														<span>charts</span>
-													</a>
-												</li>
-												<li>
-													<a href="" title="">
-														<i class="fa fa-users"></i>
-														<span>Utilisateurs</span>
-													</a>
-												</li>
+							 <header>
+                            <div class="side-menus">
+                                <div class="side-header">
+									<div class="logo"><a title="" href="index.html"><img alt="" src="{{ asset('TemplateAdmin/images/resources/admin.png') }}" ></a></div>
+                                    <nav class="slide-menu">
+                                        <span>Navigation           <i class="ti-layout"></i></span>
+                                        <ul class="parent-menu">
+                                            <li> <a href="{{path('app_home')}}" title="#"><i class="fa fa-dashboard"></i><span>Dashboard</span></a> </li>
+                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-image"></i><span>Galerie</span></a>
+                                                <ul class="mega">
+                                                    <li><a href="{{ path('app_categorie_index') }}" title="">Catégories</a></li>
+                                                    <li><a href="{{ path('chart_oeuvre_par_categorie') }}">Statistique Catégorie</a></li>
+                                                    <li><a href="{{ path('app_oeuvreart_index') }}">Oeuvre d'art</a></li>
+                                                    <li><a href="{{ path('chart_prix_vente') }}">Statistique Oeuvre d'art</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="menu-item-has-children"> <a title=""><i class="fa fa-shopping-cart"></i><span>Commerce</span></a>
+                                                <ul class="mega">
+                                                 <li><a href="{{ path('app_commande_index') }}" title="">Commandes</a></li>
+                                                    <li><a href="{{ path('app_panier_index') }}">Paniers</a></li>
+                                                 <li><a href="{{ path('app_livraison_index') }}">Livraisons</a></li>
 
-												<li class="menu-item-has-children">
-													<a title="">
-														<i class="fa fa-flag"></i>
-														<span>Icons</span>
-													</a>
-													<ul>
-														<li><a href="icons.html">Font Awesome</a></li>
-														<li><a href="icons2.html">Themify Icons</a></li>
-													</ul>
-												</li>
-												<li class="menu-item-has-children">
-													<a title="">
-														<i class="fa fa-inbox"></i>
-														<span>Pages</span>
-													</a>
-													<ul class="mega">
-														<li>
-															<a href="profile.html">profile</a>
-														</li>
-														<li>
-															<a href="edit-profile.html">edit profile</a>
-														</li>
-														<li>
-															<a href="login.html">login</a>
-														</li>
-														<li>
-															<a href="register.html">register</a>
-														</li>
-														<li>
-															<a href="forgot-pass.html">forgot password</a>
-														</li>
-													</ul>
-												</li>
-												<li class="menu-item-has-children">
-													<a title="">
-														<i class="fa fa-external-link"></i>
-														<span>extras</span>
-													</a>
-													<ul class="mega">
-														<li>
-															<a href="404.html">404 error page</a>
-														</li>
-														<li>
-															<a href="505.html">505 error page</a>
-														</li>
-														<li>
-															<a href="maintenance.html">maintenance</a>
-														</li>
-														<li>
-															<a href="coming-soon.html">coming soon
-															</a>
-														</li>
+                                                </ul>
+                                            </li>
+                                           
+                                                            <li> <a href="{{path('listUtilisateur',{'id': app.session.get('user_id') })}}" title=""><i class="fa fa-users"></i><span>Utilisateurs</span></a> </li>
 
-													</ul>
-												</li>
-											</ul>
-										</nav>
-									</div>
-								</div>
-							</header>
+											
+										
+                                          
+                                                <li class="menu-item-has-children"> <a title=""><i class="fa fa-star"></i><span>Concours</span></a>
+                                            <ul class="mega">
+                                                <li><a href="{{ path('app_concours_index') }}">Liste concours</a></li>
+                                                <li><a href="{{ path('app_concours_new') }}">Form concours</a></li>
+                                                   <li><a href="{{ path('app_concours_gagnants') }}">Classifications des concours</a></li>
+                                                      <li><a>Statistiques</a></li>
+                                            
+                                            </ul>
+                                        </li>
+                                            
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </header>
 							<!-- side header -->
 							<div class="topbar">
 								<div class="container-fluid">
@@ -384,47 +278,7 @@
 					<li>Statistique</li>
 				</ul>
 			</div>
-			<div class="info-section">
-				<div class="panel-widget style2">
-					<div class="b-meta">
-						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
-						<div class="info-meta">
-							<span>Nombre des catégories</span>
-							<h4>5</h4>
-
-						</div>
-						<div class="spark">
-							<div class="sparkline_line"></div>
-						</div>
-					</div>
-				</div>
-				<div class="panel-widget style2">
-					<div class="b-meta">
-						<img src="{{ asset('TemplateAdmin/images/image.png') }}" alt="" width="50" height="50">
-						<div class="info-meta">
-							<span>Nombre des Oeuvre d'art</span>
-							<h4>10</h4>
-
-						</div>
-						<div class="spark">
-							<div class="sparkline_three"></div>
-						</div>
-					</div>
-				</div>
-				<div class="panel-widget style2">
-					<div class="b-meta">
-						<img src="{{ asset('TemplateAdmin/images/categorie.png') }}" alt="" width="40" height="40">
-						<div class="info-meta">
-							<span>La meilleur catégorie</span>
-							<h4 style="font-size: 25px;">Photographie</h4>
-
-						</div>
-						<div class="spark">
-							<div class="sparkline22"></div>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 
 			<div class="widget">
