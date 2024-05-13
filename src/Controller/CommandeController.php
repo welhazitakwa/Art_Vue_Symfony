@@ -22,7 +22,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Utilisateur;
 use Psr\Log\LoggerInterface; 
-
+use App\Controller\attributes;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
@@ -65,16 +65,26 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_commande_show', methods: ['GET'])]
-    public function show(Commande $commande): Response
-    {
+    public function show(Commande $commande,EntityManagerInterface $entityManager,Request $request): Response
+    {           
+
+          $cmd=$entityManager->getRepository(Commande::class)->find($request->attributes->get('id'));
+        $pan=$cmd->getPanier();
         return $this->render('commande/show.html.twig', [
-            'commande' => $commande,
+            'commande' => $cmd,
+            'pan' => $pan,
+
+
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
+
+        $commande=$entityManager->getRepository(Commande::class)->find($request->attributes->get('id'));
+        $pan=$commande->getPanier();       
+
         $form = $this->createFormBuilder($commande)
         ->add('etat', ChoiceType::class, [
             'choices' => [
@@ -176,7 +186,7 @@ public function listerCommandesPanier(Request $request,EntityManagerInterface $e
     $commandes = $paginator->paginate(
         $commandes,
         $request->query->getInt('page', 1),
-        4,
+        6,
     );
     return $this->render('commande/listeCommandeClient.html.twig', [
         'commandes' => $commandes,

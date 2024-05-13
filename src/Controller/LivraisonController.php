@@ -50,8 +50,9 @@ class LivraisonController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_livraison_show', methods: ['GET'])]
-    public function show(Livraison $livraison): Response
+    public function show(Livraison $livraison,EntityManagerInterface $entityManager,Request $request): Response
     {
+        $livraison=$entityManager->getRepository(Livraison::class)->find($request->attributes->get('id'));
         return $this->render('livraison/show.html.twig', [
             'livraison' => $livraison,
         ]);
