@@ -132,7 +132,7 @@ a.view-more:hover,
 .owl-prev:hover:before,
 .owl-next:hover:before
 {
-	background: rgba(0, 0, 0, 0) linear-gradient(to right, #667eea 0%, #764ba2 100%) repeat scroll 0 0;
+	background: rgba(0, 0, 0, 0) linear-gradient(to right, #caa88b 0%, #caa88b 100%) repeat scroll 0 0;
 }
 
 
