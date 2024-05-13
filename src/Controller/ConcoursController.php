@@ -153,6 +153,7 @@ class ConcoursController extends AbstractController
 #[Route('/{id}', name: 'app_concours_delete', methods: ['POST'])]
 public function delete(Request $request, Concours $concour, EntityManagerInterface $entityManager): Response
 {
+    
     if ($this->isCsrfTokenValid('delete'.$concour->getId(), $request->request->get('_token'))) {
         // Supprimer les relations avec les oeuvres
         foreach ($concour->getOeuvres() as $oeuvre) {

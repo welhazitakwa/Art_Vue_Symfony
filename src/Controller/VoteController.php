@@ -237,6 +237,8 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
     #[Route('/{id}', name: 'app_vote_delete', methods: ['POST'])]
     public function delete(Request $request, Vote $vote, EntityManagerInterface $entityManager): Response
     {
+        $vote=$entityManager->getRepository(Vote::class)->find($request->attributes->get('id'));
+
         if ($this->isCsrfTokenValid('delete'.$vote->getId(), $request->request->get('_token'))) {
             $entityManager->remove($vote);
             $entityManager->flush();
@@ -248,6 +250,8 @@ public function new(Request $request, EntityManagerInterface $entityManager, Ses
     #[Route('/{id}/edit', name: 'app_vote_edit', methods: ['GET', 'POST'])]
 public function edit(Request $request, Vote $vote, EntityManagerInterface $entityManager): Response
 {
+    $vote=$entityManager->getRepository(Vote::class)->find($request->attributes->get('id'));
+
     $form = $this->createForm(VoteType::class, $vote);
     $form->handleRequest($request);
 
