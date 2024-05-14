@@ -101,8 +101,9 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{idcategorie}', name: 'app_categorie_show', methods: ['GET'])]
-    public function show(Categorie $categorie): Response
+    public function show(Categorie $categorie,EntityManagerInterface $entityManager,Request $request): Response
     {
+        $categorie=$entityManager->getRepository(Categorie::class)->find($request->attributes->get('idcategorie'));
         return $this->render('categorie/show.html.twig', [
             'categorie' => $categorie,
         ]);
@@ -111,6 +112,8 @@ class CategorieController extends AbstractController
     #[Route('/{idcategorie}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Categorie $categorie, EntityManagerInterface $entityManager): Response
     {
+        $categorie=$entityManager->getRepository(Categorie::class)->find($request->attributes->get('idcategorie'));
+
         $form = $this->createForm(CategorieType::class, $categorie);
         $form->handleRequest($request);
 
@@ -127,8 +130,10 @@ class CategorieController extends AbstractController
     }
 
     #[Route('/{idcategorie}', name: 'app_categorie_delete', methods: ['POST'])]
-    public function delete( Categorie $categorie, EntityManagerInterface $entityManager): Response
+    public function delete( Categorie $categorie, EntityManagerInterface $entityManager,Request $request): Response
     {
+        $categorie=$entityManager->getRepository(Categorie::class)->find($request->attributes->get('idcategorie'));
+
         $entityManager->remove($categorie);
         $entityManager->flush();
         $entityManager->flush();

@@ -129,8 +129,10 @@ class OeuvreartController extends AbstractController
 
     
     #[Route('/{idoeuvreart}', name: 'app_oeuvreart_show', methods: ['GET'])]
-    public function show(Oeuvreart $oeuvreart): Response
+    public function show(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
+        $oeuvreart=$entityManager->getRepository(Oeuvreart::class)->find($request->attributes->get('idoeuvreart'));
+
         return $this->render('oeuvreart/show.html.twig', [
             'oeuvreart' => $oeuvreart,
         ]);
@@ -139,6 +141,8 @@ class OeuvreartController extends AbstractController
     #[Route('/{idoeuvreart}/edit', name: 'app_oeuvreart_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
+        $oeuvreart=$entityManager->getRepository(Oeuvreart::class)->find($request->attributes->get('idoeuvreart'));
+
         $form = $this->createForm(EditOeuvreType::class, $oeuvreart, [
             'attr' => ['enctype' => 'multipart/form-data'],
         ]);
@@ -173,6 +177,8 @@ class OeuvreartController extends AbstractController
     #[Route('/{idoeuvreart}', name: 'app_oeuvreart_delete', methods: ['POST'])]
     public function delete(Request $request, Oeuvreart $oeuvreart, EntityManagerInterface $entityManager): Response
     {
+        $oeuvreart=$entityManager->getRepository(Oeuvreart::class)->find($request->attributes->get('idoeuvreart'));
+
         if ($this->isCsrfTokenValid('delete'.$oeuvreart->getIdoeuvreart(), $request->request->get('_token'))) {
             $entityManager->remove($oeuvreart);
             $entityManager->flush();
